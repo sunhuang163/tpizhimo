@@ -1,6 +1,6 @@
 <?php
 if (!defined('THINK_PATH')) exit();
 
-class AlldexAction extends Action {
+class BaseAction extends AllAction {
 
 }
