@@ -18,7 +18,8 @@ $cnf =  array(
     'APP_GROUP_LIST'     => 'Home,Admin',	 
     'DEFAULT_GROUP'      => 'Home',	   
 	'SITE_NAME'          => 'izhimo 免费小说站',	 
-    'DOMAIN_NAME'        => 'http://www.izhimo.com/',	 
+    'DOMAIN_NAME'        => 'http://www.izhimo.com/',
+	'U_HASH_KEY'        => 'UHFfd7329@~883',
 );
 
 return array_merge( $cnf , $dbcnf );
