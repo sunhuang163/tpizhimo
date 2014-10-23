@@ -20,6 +20,7 @@ $cnf =  array(
 	'SITE_NAME'          => 'izhimo 免费小说站',	 
     'DOMAIN_NAME'        => 'http://www.izhimo.com/',
 	'U_HASH_KEY'        => 'UHFfd7329@~883',
+	'U_AUTH_KEY'        => 'izhimoCC',
 );
 
 return array_merge( $cnf , $dbcnf );
