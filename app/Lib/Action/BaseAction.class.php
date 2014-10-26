@@ -5,8 +5,8 @@ class BaseAction extends AllAction {
     protected $m_u = array();
 	protected $m_isLogin = false;
 
-     public function __construct(){
-	  parent::__construct();
+   public function _initialize(){
+	  parent::_initialize();
 	  session_start();
       header('Cache-control:private,must-revalidate');
 	  $this->_uload();

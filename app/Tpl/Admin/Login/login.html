@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网站内容管理系统</title>
+<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/style.css" />
+<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="login">
+		<div class="login_form" method="POST">
+		   <form action="{:U('Admin/Login/check')}" method="POST">
+			<div class="form_info">
+				<div class="field">
+					<label>用户名：</label>
+					<input type="text" class="text" size="20">
+				</div>
+				<div class="field">
+					<label>密　码：</label>
+					<input type="password" class="text" size="20">
+				</div>
+				<div class="field">
+					<label>验证码：</label>
+					<input type="text" class="text" size="10">
+                    <cite class="yzm">3986</cite>
+				</div>
+				<div class="field">
+					<label></label>
+					<button class="button" style="margin-left:50px;_margin-left:48px" onclick="javascript:window.location='index.html'"></button>
+				</div>
+			</div>
+		 </form>
+		</div>
+	</div>
+</body>
+</html>

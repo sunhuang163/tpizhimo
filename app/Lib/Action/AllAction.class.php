@@ -3,22 +3,15 @@ if (!defined('THINK_PATH')) exit();
 
 class AllAction extends Action {
 	protected $m_web = array();//global website information
+	protected $m_fpath = '/static/';
+	protected $m_apath = '/public/';
 
-    public function  __construct(){
-	  parent::__construct();
-      //load project basic information
-	}
-
-    //Log function
-    protected function ulog( $uid , $name , $type = 'NF' ,$msg = 'Nothing'){
-     $MLog = M('log');
-     $Ldata = array();
-
-	 $Ldata['uid'] = $uid;
-	 $Ldata['uname'] = $name;
-	 /* ... more data add here*/
-	 $Ldata['ctime'] = time();
-
-	 return $MLog->data( $Ldata )->add();
+   public function _initialize(){
+	   //header("Content-Type:text/html; charset=utf-8");
+	   //load webinfo
+	   $this->assign('STATIC_PATH', $this->m_fpath);
+	   $this->assign('ADMIN_PATH' , $this->m_apath);
    }
 }
+
+?>
