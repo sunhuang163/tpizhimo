@@ -29,7 +29,7 @@ class LoginAction extends AllAction {
    public function login(){
 	 $this->display('login');
    }
-   
+
   public function saverify(){
      $width = '80';
      $height = '30';
@@ -58,8 +58,8 @@ class LoginAction extends AllAction {
    $x = ($width - $textbox[4]) / 2;
    $y = ($height - $textbox[5]) / 2;
    imagettftext($image, $font_size, 0, $x, $y, $text_color, $set_font, $code) or die('Error in imagettftext function');
-   Header("Content-type: image/jpeg");  
-   Imagejpeg($image);                    //生成png格式  
+   Header("Content-type: image/jpeg");
+   Imagejpeg($image);                    //生成png格式
    Imagedestroy($image);
    $_SESSION['vcode'] = $code;
    }
@@ -95,7 +95,7 @@ class LoginAction extends AllAction {
 	 $this->assign('jumpUrl',U('/Admin/Login/login'));
 	 $this->error("用户不存在,请确定用户名输入是否正确");
 	}
-	$psw = md6( $salt.$dsa['psw']);
+	$psw = md6( $dU['salt'].$dsa['psw']);
 	if( $dU['psw'] != $psw){
 	   salog(-1,$dsa['name'],'LOGIN','后台登录密码错误');
 	   $this->assign('jumpUrl',U('/Admin/Login/login'));

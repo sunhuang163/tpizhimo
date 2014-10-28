@@ -5,6 +5,10 @@ class IndexAction extends BackAction {
 	   $this->display();
 	}
 
+	public function right(){
+		 $this->display();
+	}
+
 	public function sysinfo(){}
 }
 ?>
