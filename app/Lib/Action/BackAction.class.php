@@ -56,19 +56,5 @@ class BackAction extends AllAction {
 		  return FALSE;
 	}
 
-      //Log function
-    protected function ulog( $uid , $name , $type = 'NF' ,$msg = 'Nothing'){
-     $MLog = M('syslog');
-     $Ldata = array();
-
-	 $Ldata['said'] = $uid;
-	 $Ldata['name'] = $name;
-	 $Ldata['ctime'] = time();
-	 $Ldata['ctype'] = $type;
-	 $Ldata['msg'] = $msg;
-	 $Ldata['ip'] = ip2long( get_client_ip() );
- 
-	 return $MLog->data( $Ldata )->add();
-   }
 }
 ?>

@@ -2,7 +2,7 @@
 class IndexAction extends BackAction {
     //main page
 	public function index(){
-		echo 'Admin main page';
+	   $this->display();
 	}
 
 	public function sysinfo(){}

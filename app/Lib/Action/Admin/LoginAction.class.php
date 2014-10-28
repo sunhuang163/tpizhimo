@@ -27,12 +27,87 @@ class LoginAction extends AllAction {
    }
 
    public function login(){
-     //HTTP get
-	 //HTTP POST
 	 $this->display('login');
+   }
+   
+  public function saverify(){
+     $width = '80';
+     $height = '30';
+    $characters = 5;
+
+    $set_font = APP_PATH.'font/2.ttf';
+
+    $code = $this->_vcode($characters);
+   /* font size will be 55% of the image height */
+    $font_size = $height * 0.55;
+    $image = @imagecreate($width, $height) or die('Cannot initialize new GD image stream');
+    /* set the colors */
+    $background_color = imagecolorallocate($image, 255, 255, 255);
+    $text_color = imagecolorallocate($image, 41, 85, 68);
+    $noise_color = imagecolorallocate($image, 122, 192, 66);
+    /* generate random dots in background */
+    for ($i = 0; $i < ($width * $height) / 3; $i++) {
+    imagefilledellipse($image, mt_rand(0, $width), mt_rand(0, $height), 1, 1, $noise_color);
+    }
+   /* generate random lines in background */
+   for ($i = 0; $i < ($width * $height) / 150; $i++) {
+   imageline($image, mt_rand(0, $width), mt_rand(0, $height), mt_rand(0, $width), mt_rand(0, $height), $noise_color);
+   }
+   /* create textbox and add text */
+   $textbox = imagettfbbox($font_size, 0, $set_font, $code) or die('Error in imagettfbbox function');
+   $x = ($width - $textbox[4]) / 2;
+   $y = ($height - $textbox[5]) / 2;
+   imagettftext($image, $font_size, 0, $x, $y, $text_color, $set_font, $code) or die('Error in imagettftext function');
+   Header("Content-type: image/jpeg");  
+   Imagejpeg($image);                    //生成png格式  
+   Imagedestroy($image);
+   $_SESSION['vcode'] = $code;
+   }
+
+ protected function _vcode($characters = 4){
+     $possible = '123456789abcdfghjkmnpqrstvwxyz';
+     $code = '';
+     $i = 0;
+    while ($i < $characters) {
+     $code .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+     $i++;
+    }
+    return $code;
    }
 
    public function check(){
+	$M_sa = M('sysuser');
+	$dsa = array();
+	$dsa['name'] = isset( $_POST['uname']) ?  trim( $_POST['uname']) : '';
+	$dsa['psw'] = isset( $_POST['psw']) ? trim( $_POST['psw']) : '';
+	$dsa['vcode'] = isset( $_POST['vcode']) ? trim( $_POST['vcode']) : '';
+	$vcode = $_SESSION['vcode'];
+	if( !$dsa['vcode'] || $dsa['vcode']!=$vcode){
+	 salog(-1,'','LOGIN','后台登录验证码输入错误');
+	 $this->assign('jumpUrl',U('/Admin/Login/index'));
+	 $this->error("验证码错误，请重新登录");
+	}
+	$wheres = array();
+	$wheres['name'] = array('eq', $dsa['name']);
+	$dU = $M_sa->where( $wheres )->find();
+    if( !$dU){
+	 salog(-1,'','LOGIN','后台登录用户名输入错误');
+	 $this->assign('jumpUrl',U('/Admin/Login/login'));
+	 $this->error("用户不存在,请确定用户名输入是否正确");
+	}
+	$psw = md6( $salt.$dsa['psw']);
+	if( $dU['psw'] != $psw){
+	   salog(-1,$dsa['name'],'LOGIN','后台登录密码错误');
+	   $this->assign('jumpUrl',U('/Admin/Login/login'));
+	    $this->error("密码错误，请重新登录");
+	}
+     salog($dU['said'], $dsa['name'] ,'LOGIN','登录成功');
+	 $this->a_u['uid'] = $dU['said'];
+	 $uinfo = authcode($dU,"ENCODE");
+	 $_SESSION['vcode'] = NULL;
+	 $_SESSION['_nvau'] = $uinfo;
+	 $this->assign('jumpUrl',U('/Admin/Index/index'));
+	 $this->success("登录成功，正在跳转到首页");
    }
 
    public function logout(){

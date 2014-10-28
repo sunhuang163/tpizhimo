@@ -60,6 +60,9 @@ body{
 	padding:6px;
 	background:url(../images/field_text_bg.jpg) repeat-x left center;
 }
+
+.field input,img{vertical-align:middle;}
+
 .field .button{
 	background:url(../images/login_button.jpg) no-repeat left center;
 	border:none;

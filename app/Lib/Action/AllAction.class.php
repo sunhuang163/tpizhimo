@@ -11,6 +11,8 @@ class AllAction extends Action {
 	   //load webinfo
 	   $this->assign('STATIC_PATH', $this->m_fpath);
 	   $this->assign('ADMIN_PATH' , $this->m_apath);
+	   $this->assign('waitSecond',5);
+	   $this->assign('website_name','i织墨文学爱好者站');
    }
 }
 
