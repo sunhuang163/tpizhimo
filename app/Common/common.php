@@ -114,10 +114,10 @@ function ff_pinyin($str,$ishead=0,$isclose=1){
 }
 
 function ff_letter_first($s0){
-	$firstchar_ord=ord(strtoupper($s0{0})); 
-	if (($firstchar_ord>=65 and $firstchar_ord<=91)or($firstchar_ord>=48 and $firstchar_ord<=57)) return $s0{0}; 
-	$s=iconv("UTF-8","gb2312", $s0); 
-	$asc=ord($s{0})*256+ord($s{1})-65536; 
+	$firstchar_ord=ord(strtoupper($s0{0}));
+	if (($firstchar_ord>=65 and $firstchar_ord<=91)or($firstchar_ord>=48 and $firstchar_ord<=57)) return $s0{0};
+	$s=iconv("UTF-8","gb2312", $s0);
+	$asc=ord($s{0})*256+ord($s{1})-65536;
 	if($asc>=-20319 and $asc<=-20284)return "A";
 	if($asc>=-20283 and $asc<=-19776)return "B";
 	if($asc>=-19775 and $asc<=-19219)return "C";
@@ -153,16 +153,16 @@ function ff_letter_first($s0){
 		curl_setopt ($ch, CURLOPT_URL, $url);
 		curl_setopt ($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
 		if($referer){
 			curl_setopt ($ch, CURLOPT_REFERER, $referer);
-		}		
+		}
 		$content = curl_exec($ch);
 		curl_close($ch);
 		if($content){
 			return $content;
-		}		
+		}
 	}
 	$ctx = stream_context_create(array('http'=>array('timeout'=>$timeout)));
 	$content = @file_get_contents($url, 0, $ctx);
@@ -175,9 +175,9 @@ function ff_letter_first($s0){
 
 
 /*------ Encrpt --------*/
- function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
+function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 	$ckey_length = 4;
-	$key = md5($key != '' ? $key :  C('U_HASH_KEY'));
+	$key = md5($key != '' ? $key :  C('U_HASH_KEY') );
 	$keya = md5(substr($key, 0, 16));
 	$keyb = md5(substr($key, 16, 16));
 	$keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
@@ -220,8 +220,7 @@ function ff_letter_first($s0){
 		}
 	} else {
 		return $keyc.str_replace('=', '', base64_encode($result));
-	}
-}
+	}}
 
 function remove_xss($val) {
    $val = preg_replace('/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '', $val);
@@ -263,6 +262,20 @@ function remove_xss($val) {
    return $val;
 }
 
+function getip(){
+   if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
+       $ip = getenv("HTTP_CLIENT_IP");
+   else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
+       $ip = getenv("HTTP_X_FORWARDED_FOR");
+   else if (getenv("REMOTE_ADDR") && strcasecmp(getenv("REMOTE_ADDR"), "unknown"))
+       $ip = getenv("REMOTE_ADDR");
+   else if (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], "unknown"))
+       $ip = $_SERVER['REMOTE_ADDR'];
+   else
+       $ip = "unknown";
+   return($ip);
+}
+
 function h($text, $tags = null){
 	$text	=	trim($text);
 	$text	=	preg_replace('/<!--?.*-->/','',$text);
@@ -298,7 +311,7 @@ function h($text, $tags = null){
 	$text	=	str_replace('<','&lt;',$text);
 	$text	=	str_replace('>','&gt;',$text);
 	$text	=	str_replace('"','&quot;',$text);
- 
+
 	$text	=	str_replace('[','<',$text);
 	$text	=	str_replace(']','>',$text);
 	$text	=	str_replace('|','"',$text);
@@ -318,7 +331,7 @@ function h($text, $tags = null){
 	 $Ldata['ctype'] = $type;
 	 $Ldata['msg'] = $msg;
 	 $Ldata['ip'] = ip2long( get_client_ip() );
- 
+
 	 return $MLog->data( $Ldata )->add();
    }
 ?>

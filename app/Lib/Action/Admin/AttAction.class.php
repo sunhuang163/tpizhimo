@@ -1,8 +1,8 @@
 <?php
-/*--管理员操作--*/
-class AdminAction extends BackAction {
+class AttAction extends BackAction {
     //main page
 	public function index(){
+		echo 'Att action';
 	   $this->display();
 	}
 

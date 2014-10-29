@@ -8,18 +8,22 @@ class LoginAction extends AllAction {
 	  session_start();
       header('Cache-control:private,must-revalidate');
 	  $uinfo = isset( $_SESSION['_nvau'] ) ? $_SESSION['_nvau'] : null;
-	  $this->a_u = authcode( $uinfo , 'DECODE');
+	  $strau = authcode( $uinfo , 'DECODE');
+	  $this->a_u = unserialize( $strau );
 	  $login = FALSE;
 	  if (!$_SESSION['AdminLogin']) {
 			header("Content-Type:text/html; charset=utf-8");
 			echo('请从后台管理入口登录。');
 			exit();
 		}
+	 if( 'logout' != strtolower( ACTION_NAME ))
+	{
 	  if( $this->a_u && isset( $this->a_u['uid']) &&   $this->a_u['uid'])
 	  {
 		  header("Content-Type:text/html; charset=utf-8");
-		 redirect(U('Admin/index'), 5, '已经登录，正在跳转到后台...');
+		 redirect(U('/Admin/Index/index'), 5, '已经登录，正在跳转到后台...');
 	  }
+	 }
 	}
 
    public function index(){
@@ -102,11 +106,20 @@ class LoginAction extends AllAction {
 	    $this->error("密码错误，请重新登录");
 	}
      salog($dU['said'], $dsa['name'] ,'LOGIN','登录成功');
-	 $this->a_u['uid'] = $dU['said'];
-	 $uinfo = authcode($dU,"ENCODE");
+	 $dU['uid'] = $dU['said'];
+	 $srdu = serialize( $dU );
+	 $uinfo = authcode($srdu,"ENCODE");
 	 $_SESSION['vcode'] = NULL;
-	 $_SESSION['_nvau'] = $uinfo;
-	 $this->assign('jumpUrl',U('/Admin/Index/index'));
+	 $_SESSION['_nvau'] = $uinfo ;
+	 $wheres = array();
+	 $Unow = array();
+	 $Unow['ctime'] = time();
+	 $Unow['mtime'] = time();
+	 $Unow['utime'] = time();
+	 $Unow['ip'] = ip2long(getip());
+	 $wheres['said'] = array('eq',$dU['said']);
+	 $M_sa->data( $Unow )->where( $wheres )->save();
+	 $this->assign('jumpUrl',U('/Admin/Index/Index'));
 	 $this->success("登录成功，正在跳转到首页");
    }
 

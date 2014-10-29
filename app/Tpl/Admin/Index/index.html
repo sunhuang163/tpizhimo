@@ -53,7 +53,7 @@
 			</ul>
 	</div>
 	<div class="top_member">
-	欢迎您，Admin | <a href="#">帐号管理</a> | <a href="#">消息(2)</a>
+	欢迎您，{$au.name} | <a href="{:U('/Admin/Admin/setting')}" target="main">帐号管理</a> | <a href="#">消息(2)</a>
 	</div>
 </div>
 <div class="side_switch" id="side_switch">
@@ -62,7 +62,7 @@
 </div>
 <div class="left">
 	<div class="member_info">
-	<a class="system_a" href="">系统设置</a><a href="" class="system_log">注销</a><a href="" class="system_logout">退出</a></div>
+	<a class="system_a" href="">系统设置</a><a href="{:U('/Admin/Login/logout')}" class="system_log">注销</a></div>
 	<div class="left_title">常用功能</div>
 	<ul class="side">
 		<li><a href="main.html" target="main" class="selected">小说管理</a></li>

@@ -6,21 +6,23 @@ class BackAction extends AllAction {
 	   parent::_initialize();
 	  session_start();
       header('Cache-control:private,must-revalidate');
-	  $this->auload( TRUE );
+	  $this->auload( );
 	  if( !isset($this->a_u['uid']) || !$this->a_u['uid']){
 		 $_SESSION['AdminLogin'] = 1;
 		 header("Content-Type:text/html; charset=utf-8");
-	    redirect(U('/admin/login','','','',TRUE), 5, '未登录，正在跳转到登录页面...');
+	    redirect(U('/admin/login/index','','','',TRUE), 5, '未登录，正在跳转到登录页面...');
 	  }
+	  $this->assign('au',$this->a_u);
 	}
 
      protected function  auload( $force = FALSE){
-      $uinfo = array();
-      $uinfo = isset( $_SESSION['_nvau']) ? $_SESSION['_nvau'] : NULL;//session('_nvau');
+      $uinfo = '';
+      $uinfo = isset( $_SESSION['_nvau']) ? $_SESSION['_nvau'] : '';//session('_nvau');
 	    if( count($uinfo) )
          {
-		   $uinfo = authcode( $uinfo , "DECODE");
-		    $this->a_u = $uinfo;
+		   $uinfos = authcode( $uinfo , "DECODE");
+		   $arruinfo = unserialize( $uinfos );
+		    $this->a_u = $arruinfo;
 		   if( $force ){
 		    $this->aupdate($this->a_u['uid']);
 	 	  }//force
@@ -37,9 +39,10 @@ class BackAction extends AllAction {
 	 if( $dU )
 	 {
 	  $uinfo = '';
-	  $uinfo = authcode( $dU , 'ENCODE');
+	  $dU['uid'] = $uid;
+	  $srdu = serialize( $dU );
+	  $uinfo = authcode( $srdu , 'ENCODE');
 	  $this->a_u = $dU;
-	  $this->a_u['uid'] = $uid;
 	  $_SESSION['_nvau'] = $uinfo;
 	  return TRUE;
 	 }

@@ -11,12 +11,12 @@
 	<div class="body">
 		<div class="top_subnav">CMS内容管理平台 ＞ 首页</div>
 		<div class="title">
-			<div class="title_info">Admin 早上好，欢迎使用后台管理系统<label>(admin@uimaker.com)</label> <a href="#">帐号设置</a>
+			<div class="title_info">{$au.name}，欢迎进入后台<label>({$au.email})</label> <a href="{:U('/Admin/Admin/setting')}" >帐号设置</a>
 			</div>
 		</div>
 		<div class="quick">
 			<div class="login_info">
-				您上次登录的时间是：2011-12-27 18:53 (不是您登录的？<a href="#">请点这里</a>)
+				您上次登录的时间是：{$au.utime|date='Y-m-d H:i:s',###} (不是您登录的？<a href="{:U('/Admin/Admin/logindex')}">请点这里</a>)
 			</div>
 			<p class="line">
 			</p>
