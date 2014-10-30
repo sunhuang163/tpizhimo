@@ -4,6 +4,7 @@ if (!defined('THINK_PATH')) exit();
 class BaseAction extends AllAction {
     protected $m_u = array();
 	protected $m_isLogin = false;
+	protected $a_psize = 15;
 
    public function _initialize(){
 	  parent::_initialize();
