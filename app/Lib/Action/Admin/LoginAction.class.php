@@ -7,7 +7,7 @@ class LoginAction extends AllAction {
 	   parent::_initialize();
 	  session_start();
       header('Cache-control:private,must-revalidate');
-	  $uinfo = isset( $_SESSION['_nvau'] ) ? $_SESSION['_nvau'] : null;
+	  $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : null;
 	  $strau = authcode( $uinfo , 'DECODE');
 	  $this->a_u = unserialize( $strau );
 	  $login = FALSE;
@@ -110,7 +110,7 @@ class LoginAction extends AllAction {
 	 $srdu = serialize( $dU );
 	 $uinfo = authcode($srdu,"ENCODE");
 	 $_SESSION['vcode'] = NULL;
-	 $_SESSION['_nvau'] = $uinfo ;
+	 $_SESSION[C('U_AUTH_KEY')] = $uinfo;
 	 $wheres = array();
 	 $Unow = array();
 	 $Unow['ctime'] = time();
@@ -124,10 +124,12 @@ class LoginAction extends AllAction {
    }
 
    public function logout(){
-      if (isset($_SESSION['_nvau'])) {
+
+      if ( $_SESSION[C('U_AUTH_KEY')] ) {
 			unset($_SESSION);
 			session_destroy();
         }
+		$_SESSION[C('U_AUTH_KEY')] = null;
 		header("Content-Type:text/html; charset=utf-8");
 		echo ('您已经退出网站管理后台，如需操作请重新登录！');
 		exit();

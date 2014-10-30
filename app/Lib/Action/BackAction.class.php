@@ -17,7 +17,7 @@ class BackAction extends AllAction {
 
      protected function  auload( $force = FALSE){
       $uinfo = '';
-      $uinfo = isset( $_SESSION['_nvau']) ? $_SESSION['_nvau'] : '';//session('_nvau');
+      $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';//session('_nvau');
 	    if( count($uinfo) )
          {
 		   $uinfos = authcode( $uinfo , "DECODE");
@@ -43,7 +43,7 @@ class BackAction extends AllAction {
 	  $srdu = serialize( $dU );
 	  $uinfo = authcode( $srdu , 'ENCODE');
 	  $this->a_u = $dU;
-	  $_SESSION['_nvau'] = $uinfo;
+	  $_SESSION[C('U_AUTH_KEY')]=$uinfo;
 	  return TRUE;
 	 }
 	 else
