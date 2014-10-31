@@ -144,7 +144,8 @@ function ff_letter_first($s0){
 	return 0;//null
 }
 
-function pagestr( $pnow , $pall , $url ,$psize = 15 $em = 3){
+function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
+{
  //上一页、当前、下一页
   $p = 1;
   $pstr = '<ul>';
@@ -155,18 +156,16 @@ function pagestr( $pnow , $pall , $url ,$psize = 15 $em = 3){
   $pstrnow = '';
   $pstrpre = '';
   $pstrnext = '';
-  if( $pnow == 1 )
+  if( 1 == $pnow )
 	  $pstrpre = '';
   else
-  {
-    $strpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'" class="pg_index" ><<上一页</a></li>';
-  }
-  if( $cnext == 0){
+    $pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'" class="pg_index" ><<上一页</a></li>';
+
+  if( 0 == $cnext)
     $pstrnext = '';
-  }
-  else{
+  else
      $strpre = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" class="pg_next" ><下一页>></a></li>';
-  }
+
  if( $cpre > 3){
  }
  else{
