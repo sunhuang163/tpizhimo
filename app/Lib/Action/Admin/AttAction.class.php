@@ -6,5 +6,12 @@ class AttAction extends BackAction {
 	   $this->display();
 	}
 
+	//upload file
+    public function  upload(){
+	}
+
+    //do upload file
+	public function doupload(){
+	}
 }
 ?>
