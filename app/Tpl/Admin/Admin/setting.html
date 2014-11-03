@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>系统配置</title>
+<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/admin_style.css" />
+<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
+<script src="{$ADMIN_PATH}js/iframe.js"></script>
+</head>
+<body class="right_body">
+	<div class="body">
+		<div class="top_subnav">内容管理平台 ＞ 系统设置</div>
+		<p class="line" style="margin-top:0;">
+		</p>        
+         <div class="frm">
+		 <form >
+		  <h1>系统设置<span>上传配置、标题SEO</span></h1>
+		    <p>
+			 <label><span>首页SEO标题:</span></label><input type="text" name="seotitle" alt="site SEO title" class="w500">
+		   </p>
+		    <p>
+			 <label><span>首页SEO关键词:</span></label><input type="text" name="seokey" alt="site SEO keyword" class="w500">
+		   </p>
+		    <p>
+			 <label><span>首页描述:</span></label>
+			 <textarea name="seodesc" class="w500">
+			 </textarea>
+		   </p>
+		    <p>
+			 <label><span>是否上传FTP:</span></label>
+			  <select name="isFTP" class="w110">
+			    <option value="1">是</option>
+				<option value="0">否</option>
+			  </select>
+		   </p>
+		   <p>
+			 <label><span>版权：</span></label>
+		      <input type="text" name="copyright" alt="site copyright" class="w500">
+			 </textarea>
+		   </p>
+		    <p>
+			 <label><span>联系方式：</span></label>
+		      <input type="text" name="contact" alt="site copyright" class="w500">
+			 </textarea>
+		   </p>
+		    <p>
+			 <label><span>radio:</span></label><input type="radio" name="sex" alt="novel tags" value="1">男
+			   &nbsp;&nbsp;<input type="radio" name="sex" alt="novel tags" value="2">女
+		   </p>
+		   <p>
+		     <label><span>&nbsp;</span></label><input type="button" value="提交" class="button">
+		   </p>
+		 </form>
+		 </div>
+	</div>
+</body>
+</html>

@@ -7,8 +7,16 @@ class AdminAction extends BackAction {
 	}
 
 	public function setting(){
-		echo "account setting";
+	  if( $this->isPost())
+	  {
+		
+	  }
+	  else
+	  {
+		  $this->display();
+	  }
 	}
+
 
     //日志列表
 	public function  logindex(){
