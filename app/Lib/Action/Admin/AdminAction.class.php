@@ -20,21 +20,27 @@ class AdminAction extends BackAction {
 	  $wheres = array();
 	  $limits ='';
 	  $Ldata = NULL;
-	  $Mlog = M('syslog');
+	  $Dlog  = D('Syslog');
 	  $wheres['said'] = array('eq',$this->a_u['uid']);
-      $call = $Mlog->where( $wheres )->count("*");
+      $call = $Dlog->where( $wheres )->count("*");
       $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
 	  if( $p > $pall )
 		  $p = $pall;
 	  $limits = ($p-1)*$this->a_psize;
 	  $limits.=','.$this->a_psize;
-	  $Ldata = $Mlog->where( $wheres )->order('ctime DESC')->limit( $limits )->select();
+	  $Ldata = $Dlog->where( $wheres )->order('ctime DESC')->limit( $limits )->select();
 	  $url = U('/Admin/Admin/logindex',array('p'=>'{!page!}'));
       $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
+
+	  $list = array();
+      foreach( $Ldata as $_v){
+		  $_v['logtype'] = $Dlog->logtype( $_v['ctype']);
+		  $list[] = $_v;
+	  }
 	  $this->assign('call' ,$call );
 	  $this->assign('pnow' , $p);
-	  $this->assign('loglist', $Ldata );
+	  $this->assign('loglist', $list );
 	  $this->assign('pagestr', $pagestr );
       $this->display();
 	}
