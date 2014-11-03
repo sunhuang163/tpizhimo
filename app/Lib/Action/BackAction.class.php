@@ -1,6 +1,7 @@
 <?php
 class BackAction extends AllAction {
     protected $a_u = array();
+	protected $a_psize = 15;
 
      public function _initialize(){
 	   parent::_initialize();

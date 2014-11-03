@@ -146,13 +146,13 @@ function ff_letter_first($s0){
 
 function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 {
- //上一页、当前、下一页
   $p = 1;
   $pstr = '<ul>';
   if( $pnow > $pall )
 	  $pnow = $pall;
   $cpre = $pnow -1;
   $cnext = $pall - $pnow;
+
   $pstrnow = '';
   $pstrpre = '';
   $pstrnext = '';
@@ -161,14 +161,42 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
   else
     $pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'" class="pg_index" ><<上一页</a></li>';
 
-  if( 0 == $cnext)
+  if( 0 == $cnext )
     $pstrnext = '';
   else
-     $strpre = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" class="pg_next" ><下一页>></a></li>';
+     $pstrnext = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" class="pg_next" >下一页>></a></li>';
 
- if( $cpre > 3){
+  if( $cpre > $em){
+	 $page =1;
+	 for( $page =1 ;$page < $em;$page++){
+	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 }
+	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
+	 $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow-1,$url).'"  >'.($pnow-1).'</a></li>';
+     $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow,$url).'" class="pg_selected" >'.$pnow.'</a></li>';
+  }
+  else{
+	for( $page =1 ;$page < $pnow;$page++){
+	   $pstrnow .= $strpre = '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 }
+	 $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow,$url).'" class="pg_selected" >'.$pnow.'</a></li>';
+  }
+
+ if( $cnext > $em )
+ {
+    $page =1 + $pnow;
+	 for( ;($page < $pnow+$em);$page++){
+	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 }
+	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
+	  $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pall,$url).'" class="pg_next" >'.$pall.'</a></li>';
  }
- else{
+ else
+ {
+    $page =1 + $pnow;
+	 for( ;($page <= $pall);$page++){
+	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 }
  }
   $pstr.= $pstrpre.$pstrnow.$pstrnext.'</ul>';
  return $pstr;

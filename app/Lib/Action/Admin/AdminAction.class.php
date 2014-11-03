@@ -27,11 +27,15 @@ class AdminAction extends BackAction {
 	  if( $p > $pall )
 		  $p = $pall;
 	  $limits = ($p-1)*$this->a_psize;
-	  $limits.=','.($p*$this->a_psize);
-	  $Ldata = $Mlog->where( $wheres )->limit( $limits )->select();
+	  $limits.=','.$this->a_psize;
+	  $Ldata = $Mlog->where( $wheres )->order('ctime DESC')->limit( $limits )->select();
 	  $url = U('/Admin/Admin/logindex',array('p'=>'{!page!}'));
-      $pagestr = pagestr( $p , $pall , $url , $this->a_psize);
+      $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
+	  $this->assign('call' ,$call );
+	  $this->assign('pnow' , $p);
+	  $this->assign('loglist', $Ldata );
+	  $this->assign('pagestr', $pagestr );
       $this->display();
 	}
 

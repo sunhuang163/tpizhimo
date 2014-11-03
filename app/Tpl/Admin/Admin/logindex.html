@@ -33,32 +33,27 @@
         <div class="tablelist">
 		<table class="table">
 			<tr>
-				<th>编号</th><th>用户名</th><th>用户ID</th><th>时间</th><th>消息内容</th><th>IP地址</th><th>类别</th><th>操作</th>
+				<th>用户名</th><th>用户ID</th><th>时间</th><th>消息内容</th><th>IP地址</th><th>类别</th><th>操作</th>
 			</tr>
-
-			<tr>
-				<td>01</td><td>admin</td><td>四川成都</td><td>2012-01-02 11:30</td><td>
+			<volist name="loglist" id="nv">
+			 <tr>
+				<td>{$nv.name}</td>
+				<td>{$nv.said}</td>
+				<td>{$nv.ctime|date='Y-m-d H:i:s',###}</td>
+				<td>{$nv.msg}</td>
+				<td>{$nv.ip|long2ip}</td>
+				<td>{$nv.ctype}</td>
+				<td>
 				 <a class="button" href="#">删除</a> 
-				 <a href="#"  class="button">修改</a> 
-				</td><td>192.168.0.1</td><td>tanufo@126.com</td><td></td>
+				</td>
+
 			</tr>
+			</volist>
 		</table>
         </div>
 		<div class="page">
-			<ul>
-			<li><a href="#" class="pg_index">首页</a></li>
-			<li><a href="#" class="pg_selected">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#" class="pg_next">下一页</a></li>
-			<li><a href="#" class="pg_last">尾页</a></li>
-		</ul>
-			<p>共有 265 条数据，当前第 1 页</p>
+			 {$pagestr}
+			<p>共有 {$call} 条数据，当前第 {$pnow} 页</p>
 
 		</div>
 	</div>
