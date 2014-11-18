@@ -1,42 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>网站内容管理系统</title>
-<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/style.css" />
-<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
-</head>
-<body>
-	<div class="login">
-		<div class="login_form" method="POST">
-		   <form action="{:U('Admin/Login/check')}" method="POST">
-			<div class="form_info">
-				<div class="field">
-					<label>用户名：</label>
-					<input type="text" class="text" name="uname" size="20">
-				</div>
-				<div class="field">
-					<label>密　码：</label>
-					<input type="password" class="text" name ="psw" size="20">
-				</div>
-				<script language="JavaScript">
+<include file="Public:header"/>
+		<title>系统用户登录入口</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{$ADMIN_PATH}css/bootstrap.min.css" rel="stylesheet">
+		<link href="{$ADMIN_PATH}css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="{$ADMIN_PATH}css/site.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="login-page" class="container">
+			<h1>后台登录</h1>
+			<form id="login-form" class="well" action="{:U('Admin/Login/check')}" method="POST">
+			<input type="text" class="span2" name="uname" placeholder="用户登录名" /><br />
+			<input type="password" class="span2"   name="psw" placeholder="用户密码" /><br />
+		   <label>
+			  <input type="text" class="span2"  name="vcode" placeholder="验证码" />
+			   <img src="{:U('Admin/Login/saverify')}" id="verifyImg" onclick="fleshVerify()" title="点击图片刷新验证码">
+		    </label> 
+			<label class="checkbox"> <input type="checkbox" /> 记住我 </label>
+			<button type="submit" class="btn btn-primary">登录</button>
+			<button type="submit" class="btn">忘记密码</button>
+		</form>	
+		</div>
+		<script type="text/javascript" >
                      function fleshVerify(){ 
                      var time = new Date().getTime();
                       document.getElementById('verifyImg').src= "{:U('Admin/Login/saverify')}"+"?"+time;
                          }
-                     </script>
-				<div class="field">
-					<label>验证码：</label>
-					<input type="text" class="text"  name="vcode" size="6">
-					   <img src="{:U('Admin/Login/saverify')}" id="verifyImg" onclick="fleshVerify()" title="点击图片刷新验证码">
-				</div>
-				<div class="field">
-					<label></label>
-					<button class="button" style="margin-left:50px;_margin-left:48px" onclick="javascript:window.location='index.html'"></button>
-				</div>
-			</div>
-		 </form>
-		</div>
-	</div>
-</body>
+		</script>
+	  <!--  <script src="{$ADMIN_PATH}js/jquery.min.js"></script>
+	   <script src="{$ADMIN_PATH}js/bootstrap.min.js"></script>
+		<script src="{$ADMIN_PATH}js/site.js"></script>  -->
+	</body>
 </html>

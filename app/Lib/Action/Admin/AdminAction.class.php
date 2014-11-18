@@ -13,7 +13,13 @@ class AdminAction extends BackAction {
 	  }
 	  else
 	  {
-		  $this->display();
+		$Mwebinfo = M('webinfo');
+		$rsweb = $Mwebinfo->limit(1)->find();
+		$dweb = array();
+		$dweb= $rsweb;
+		$dweb['extdata'] =  $rsweb['extdata'] ? unserialize( $rsweb['extdata']) : NULL;
+		$this->assign('Dweb', $dweb);
+		$this->display();
 	  }
 	}
 

@@ -29,12 +29,7 @@ $cnf =  array(
 	'U_HASH_KEY'        => 'U&8f',
 	'U_AUTH_KEY'        => '_nvau',
 	'U_UPLOAD_DIR'     =>'skdata',
-	'U_UPLOAD_DIRPATH' =>'Y/m/',
-	'FTP_UPLOAD_HOST' =>'',
-	'FTP_UPLOAD_PORT' =>'',
-	'FTP_UPLOAD_USER' =>'',
-	'FTP_UPLOAD_PASS' =>'',
-	'FTP_UPLOAD_DIR' => ''
+	'U_UPLOAD_DIRPATH' =>'Y/m/'
 );
 
 return array_merge( $cnf , $dbcnf );
