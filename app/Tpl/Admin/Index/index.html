@@ -1,83 +1,201 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>网站内容管理系统</title>
-<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/admin_style.css" />
-<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/skins/tpphp.css" />
-<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
-<script src="{$ADMIN_PATH}js/main.js"></script>
-<script src="{$ADMIN_PATH}js/artDialog.js"></script>
-</head>
-<body style="overflow:hidden;">
-<div class="top">
-	<div class="top_about">	
-		<a href="#" class="help1" id="btn2" onclick="openMsgWindow()">使用帮助</a>
-		<a href="#" class="help2">关于</a>
-	</div>
-	<div class="admin_logo">
-		<img src="{$ADMIN_PATH}images/admin_logo.jpg">
-	</div>
-	<script>
-      function openMsgWindow() {
-	   art.dialog({
-		  id:'msgDialog',
-		  title: '提示信息',
-		  lock:false,
-		  fixed:true,
-		  width:300,
-		  height:100,
-		  ok: function(){
-			this.title('成功提示！').content('操作成功！').time(2);
-			return false;
-		   },
-		 cancel: function(){
-			
-			return true;
-		 },
-		content: "<div style='line-height:25px'>您有新的站内信<Br><a href=\"http://www.baidu.com\">点此阅读</a></div>"
-	});
-}
-</script>
-
-	<div class="top_nav">
-			<ul id="top_nav">
-				<li><a href="{:U('Admin/index/right')}" class="selected" >后台首页</a></li>
-				<li><a href="http://www.cai.com/cms/table.html">小说管理</a></li>
-				<li><a href="http://www.cai.com/cms/tadd.html">采集管理</a></li>
-				<li><a href="http://www.cai.com/cms/main.html">会员管理</a></li>
-				<li><a href="#">评论管理</a></li>
-				<li><a href="#">附件管理</a></li>
-				<li><a href="#">数据库维护</a></li>
-				<li><a href="{:U('/Admin/Admin/Setting')}">系统设置</a></li>
-			</ul>
-	</div>
-	<div class="top_member">
-	欢迎您，{$au.name} | <a href="{:U('/Admin/Admin/setting')}" target="main">帐号管理</a> | <a href="#">消息(2)</a>
-	</div>
-</div>
-<div class="side_switch" id="side_switch">
-</div>
-<div class="side_switchl" id="side_switchl">
-</div>
-<div class="left">
-	<div class="member_info">
-	<a class="system_a" href="">系统设置</a><a href="{:U('/Admin/Login/logout')}" class="system_log">注销</a></div>
-	<div class="left_title">常用功能</div>
-	<ul class="side">
-		<li><a href="main.html" target="main" class="selected">小说管理</a></li>
-		<li><a href="table.html" target="main" >评论管理</a></li>
-		<li><a href="#">添加小说</a></li>
-		<li><a href="#">附件管理</a></li>
-		<li><a href="#">采集设置</a></li>
-		<li><a href="#">数据统计</a></li>
-	</ul>
-	<ul class="side catsub">
-				<li class="side_about"><a href="#">版权声明</a></li>
-	</ul>
-</div>
-<div class="right">
-<IFRAME style="OVERFLOW: visible" id="main" name="main" src="{:U('Admin/index/right')}" frameBorder=0 width="100%" scrolling="yes" height="100%"></IFRAME>
-</div>
-</body>
-</html>
+<include file="Public:header" />
+	 <title>网站管理后台</title>
+     <include file="Public:header_css" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span9">
+					<h5>
+						欢迎登录，上次登录{$au.utime|date='Y-m-d H:i:s',###}&nbsp;&nbsp;IP:{$au.ip|long2ip}
+					</h5>
+					<div class="well summary">
+						<ul>
+							<li>
+								<a href="#"><span class="count">3</span> 小说</a>
+							</li>
+							<li>
+								<a href="#"><span class="count">27</span> 评论</a>
+							</li>
+							<li>
+								<a href="#"><span class="count">7</span> 标签</a>
+							</li>
+							<li class="last">
+								<a href="#"><span class="count">5</span> 附件</a>
+							</li>
+						</ul>
+					</div>
+					<h2>
+						最近更新小说
+					</h2>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>
+									Project
+								</th>
+								<th>
+									Client
+								</th>
+								<th>
+									Type
+								</th>
+								<th>
+									Date
+								</th>
+								<th>
+									View
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Nike.com Redesign
+								</td>
+								<td>
+									Monsters Inc
+								</td>
+								<td>
+									New Task
+								</td>
+								<td>
+									4 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Nike.com Redesign
+								</td>
+								<td>
+									Monsters Inc
+								</td>
+								<td>
+									New Message
+								</td>
+								<td>
+									5 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Nike.com Redesign
+								</td>
+								<td>
+									Monsters Inc
+								</td>
+								<td>
+									New Project
+								</td>
+								<td>
+									5 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Twitter Server Consulting
+								</td>
+								<td>
+									Bad Robot
+								</td>
+								<td>
+									New Task
+								</td>
+								<td>
+									6 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Childrens Book Illustration
+								</td>
+								<td>
+									Evil Genius
+								</td>
+								<td>
+									New Message
+								</td>
+								<td>
+									9 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Twitter Server Consulting
+								</td>
+								<td>
+									Bad Robot
+								</td>
+								<td>
+									New Task
+								</td>
+								<td>
+									16 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Twitter Server Consulting
+								</td>
+								<td>
+									Bad Robot
+								</td>
+								<td>
+									New Project
+								</td>
+								<td>
+									16 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Twitter Server Proposal
+								</td>
+								<td>
+									Bad Robot
+								</td>
+								<td>
+									Completed Project
+								</td>
+								<td>
+									20 days ago
+								</td>
+								<td>
+									<a href="#" class="view-link">View</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<ul class="pager">
+						<li class="next">
+							<a href="activity.htm">More &rarr;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer_js" />
+<include file="Public:footer" />

@@ -9,7 +9,7 @@ class AdminAction extends BackAction {
 	public function setting(){
 	  if( $this->isPost())
 	  {
-		
+
 	  }
 	  else
 	  {
@@ -66,6 +66,11 @@ class AdminAction extends BackAction {
 
     //日志条件查找
 	public function logsearch(){
+	}
+
+    //用户管理
+	public function users(){
+	 $this->display();
 	}
 }
 ?>

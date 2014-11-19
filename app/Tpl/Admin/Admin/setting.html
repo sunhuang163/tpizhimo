@@ -1,91 +1,77 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>系统配置</title>
-<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/admin_style.css" />
-<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
-<script src="{$ADMIN_PATH}js/iframe.js"></script>
-</head>
-<body class="right_body">
-	<div class="body">
-		<div class="top_subnav">内容管理平台 ＞ 系统设置</div>
-		<p class="line" style="margin-top:0;">
-		</p>        
-         <div class="frm">
-		 <form >
-		  <h1>系统设置<span>上传配置、标题SEO</span></h1>
-		    <p>
-			 <label><span>首页SEO标题:</span></label><input type="text" name="seotitle" alt="site SEO title" class="w500">
-		   </p>
-		    <p>
-			 <label><span>首页SEO关键词:</span></label><input type="text" name="seokey" alt="site SEO keyword" class="w500">
-		   </p>
-		    <p>
-			 <label><span>首页描述:</span></label>
-			 <textarea name="seodesc" class="w500">
-			 </textarea>
-		   </p>
-		    <p>
-			 <label><span>是否上传FTP:</span></label>
-			  <select name="isFTP" id="isFTP" class="w110">
-			    <option value="0">否</option>
-				<option value="1">是</option>
-			  </select>
-			  <br>
-			   <div id="ftp" style="display:none">
-			     <p>
-			       <label><span>FTP地址:</span></label>
-                    <input tye="text" name="ftp[host]" alt="FTP 地址" class="w110">
-				 </p>
-				  <p>
-			       <label><span>FTP端口:</span></label>
-                    <input tye="text" name="ftp[port]" alt="FTP 端口" class="w110">
-				 </p>
-				  <p>
-			       <label><span>FTP用户名:</span></label>
-                    <input tye="text" name="ftp[user]" alt="FTP用户名" class="w110">
-				 </p>
-                  <p>
-			       <label><span>FTP密码:</span></label>
-                    <input tye="text" name="ftp[pass]" alt="FTP 登录密码" class="w110">
-				 </p>
-				  <p>
-			       <label><span>FTP上传目录:</span></label>
-                    <input tye="text" name="ftp[dir]" alt="FTP 上传目录" class="w110">
-				 </p>
-			   </div>
-			  </br>
-		   </p>
-		   <p>
-			 <label><span>版权：</span></label>
-		      <input type="text" name="copyright" alt="site copyright" class="w500">
-			 </textarea>
-		   </p>
-		    <p>
-			 <label><span>联系方式：</span></label>
-		      <input type="text" name="contact" alt="site copyright" class="w500">
-			 </textarea>
-		   </p>
-		    <p>
-			 <label><span>radio:</span></label><input type="radio" name="sex" alt="novel tags" value="1">男
-			   &nbsp;&nbsp;<input type="radio" name="sex" alt="novel tags" value="2">女
-		   </p>
-		   <p>
-		     <label><span>&nbsp;</span></label><input type="button" value="提交" class="button">
-		   </p>
-		 </form>
-		 </div>
-	</div>
-<script type="text/javascript" >
- $(function(){
-   $('#isFTP').change( function(){
-     if( parseInt($(this).children('option:selected').val() ))
-	   $('#ftp').show();
-	 else
-	 $('#ftp').hide();
-   });
- });
-</script>
-</body>
-</html>
+<include file="Public:header" />
+	 <title>系统设置</title>
+     <include file="Public:header_css" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span9">
+				  <form id="edit-profile" class="form-horizontal">
+						<fieldset>
+							<legend>系统配置详细信息</legend>
+							<div class="control-group">
+								<label class="control-label"  for="seotitle">SEO标题</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" id="setotitle" name="seotitle" value="" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seokey">SEO关键词</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="seokey" id="seokey" value="" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="seodesc">SEO描述</label>
+								<div class="controls">
+									<textarea  class="input-xlarge" name="seodesc" id="seodesc" rows="4"></textarea>
+								</div>
+							</div>
+                            <div class="control-group">
+								<label class="control-label" for="contact">联系方式</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="contact" id="contact" value="" />
+								</div>
+							</div>
+							 <div class="control-group">
+								<label class="control-label" for="copyright">版权</label>
+								<div class="controls">
+									<textarea  class="input-xlarge" name="copyright" id="copyright" rows="4"></textarea>
+							  </div>
+							</div>
+							<!-- extdata start-->
+							   <div class="control-group">
+								<label class="control-label" for="extdata">
+						          <div class="btn-group">
+                                   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    其它配置<span class="caret"></span>
+                                    </button>
+                                      <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">原数据</a></li>
+                                        <li><a href="#">FTP配置</a></li>
+                                        <li><a href="#">采集配置</a></li>
+                                       </ul>
+                                     </div>
+								</label>
+								<div class="controls">
+								    <p id="pextdata">
+									<textarea  class="input-xlarge" name="extdata" id="extdata" rows="4"></textarea>
+									</p>
+                                    <p id="pftp">
+									  FTP 配置
+									</p>
+							  </div>
+							</div>
+						   <!-- //extdata end -->
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">Save</button> <button class="btn">Cancel</button>
+							</div>
+						</fieldset>
+					</form> 
+				</div>
+			</div>
+		</div>
+<include file="Public:footer_js" />
+<include file="Public:footer" />

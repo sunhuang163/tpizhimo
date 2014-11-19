@@ -1,61 +1,49 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>日志管理</title>
-<link rel="stylesheet" type="text/css" href="{$ADMIN_PATH}css/admin_style.css" />
-<script src="{$ADMIN_PATH}js/jquery.min.js"></script>
-<script src="{$ADMIN_PATH}js/iframe.js"></script>
-</head>
-<body class="right_body">
-	<div class="body">
-		<div class="top_subnav">内容管理平台 ＞ 首页</div>
-		<p class="line" style="margin-top:0;">
-		</p>
-		<form action="{:U('/Admin/Admin/logsearch')}" method="POST" >
-		<div class="filed fl">
-			<label>关键词：</label>
-			<input type="text" class="text" size="20">
+<include file="Public:header" />
+	 <title>用户登录日志</title>
+     <include file="Public:header_css" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span9">
+					<h3>
+						登录日志
+					</h3>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th> 用户名 </th>
+								<th> 时间 </th>
+								<th>内容</th>
+								<th> IP地址 </th>
+								<th> 消息类别 </th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="loglist" id="vo">
+							<tr id="tr{$vo.id}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.id}"></label></td>
+							    <td>{$vo.name}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.msg}</td>
+								<td>{$vo.ip|long2ip}</td>
+								<td>{$vo.logtype}</td>
+								<td > 
+								   <a href="#"><i class="icon-remove"></i></a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="filed fl">
-			<label>栏目：</label>
-			<input type="text" class="text" size="20">
-			<select name="category" id="category" style="display:none">
-				<option value="1">分类栏目</option>
-				<option value="2">所有分类</option>
-			</select>
-		</div>
-		<div class="filed fl">
-			<button class="button"></button>
-		</div>
-		</form>
-        
-        <div class="tablelist">
-		<table class="table">
-			<tr>
-				<th>用户名</th><th>用户ID</th><th>时间</th><th>消息内容</th><th>IP地址</th><th>类别</th><th>操作</th>
-			</tr>
-			<volist name="loglist" id="nv">
-			 <tr>
-				<td>{$nv.name}</td>
-				<td>{$nv.said}</td>
-				<td>{$nv.ctime|date='Y-m-d H:i:s',###}</td>
-				<td>{$nv.msg}</td>
-				<td>{$nv.ip|long2ip}</td>
-				<td>{$nv.logtype}</td>
-				<td>
-				 <a class="button" href="#">删除</a> 
-				</td>
-
-			</tr>
-			</volist>
-		</table>
-        </div>
-		<div class="page">
-			 {$pagestr}
-			<p>共有 {$call} 条数据，当前第 {$pnow} 页</p>
-
-		</div>
-	</div>
-</body>
-</html>
+<include file="Public:footer_js.html" />
+<include file="Public:footer" />

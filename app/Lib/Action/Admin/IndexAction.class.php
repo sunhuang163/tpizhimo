@@ -4,11 +4,5 @@ class IndexAction extends BackAction {
 	public function index(){
 	   $this->display();
 	}
-
-	public function right(){
-		 $this->display();
-	}
-
-	public function sysinfo(){}
-}
+ }
 ?>

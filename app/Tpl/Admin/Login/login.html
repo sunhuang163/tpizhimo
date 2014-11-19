@@ -1,9 +1,7 @@
 <include file="Public:header"/>
 		<title>系统用户登录入口</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="{$ADMIN_PATH}css/bootstrap.min.css" rel="stylesheet">
-		<link href="{$ADMIN_PATH}css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="{$ADMIN_PATH}css/site.css" rel="stylesheet">
+		<include file="Public:header_css" />
 	</head>
 	<body>
 		<div id="login-page" class="container">
@@ -26,8 +24,5 @@
                       document.getElementById('verifyImg').src= "{:U('Admin/Login/saverify')}"+"?"+time;
                          }
 		</script>
-	  <!--  <script src="{$ADMIN_PATH}js/jquery.min.js"></script>
-	   <script src="{$ADMIN_PATH}js/bootstrap.min.js"></script>
-		<script src="{$ADMIN_PATH}js/site.js"></script>  -->
 	</body>
 </html>

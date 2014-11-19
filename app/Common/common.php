@@ -157,14 +157,14 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
   $pstrpre = '';
   $pstrnext = '';
   if( 1 == $pnow )
-	  $pstrpre = '';
+	  $pstrpre = '<li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>';
   else
-    $pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'" class="pg_index" ><<上一页</a></li>';
+    $pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'"  >&laquo;</a></li>';
 
   if( 0 == $cnext )
-    $pstrnext = '';
+    $pstrnext = '<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>';
   else
-     $pstrnext = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" class="pg_next" >下一页>></a></li>';
+     $pstrnext = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" >&raquo;</a></li>';
 
   if( $cpre > $em){
 	 $page =1;
@@ -173,13 +173,13 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 	 }
 	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
 	 $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow-1,$url).'"  >'.($pnow-1).'</a></li>';
-     $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow,$url).'" class="pg_selected" >'.$pnow.'</a></li>';
+     $pstrnow .= '<li class="active"><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
   }
   else{
 	for( $page =1 ;$page < $pnow;$page++){
 	   $pstrnow .= $strpre = '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
 	 }
-	 $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow,$url).'" class="pg_selected" >'.$pnow.'</a></li>';
+	 $pstrnow .= '<li class="active" ><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
   }
 
  if( $cnext > $em )
@@ -189,7 +189,7 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
 	 }
 	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
-	  $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pall,$url).'" class="pg_next" >'.$pall.'</a></li>';
+	  $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pall,$url).'" >'.$pall.'</a></li>';
  }
  else
  {
