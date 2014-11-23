@@ -4,38 +4,38 @@
 				 <li class="nav-header">
 					 izhimo
 				  </li>
-				  <li class="active">
-					 <a href="{:U('/Admin/Index')}"><i class="icon-white icon-home"></i> 首页</a>
+				  <li  <if condition="$aumodle eq 'index'"> class="active" </if>>
+					 <a href="{:U('/Admin/Index')}"><i class="<if condition="$aumodle eq 'index'"> icon-white </if> icon-home"></i> 首页</a>
 				  </li>
-				  <li>
-					 <a href="{:U('/Admin/Novel')}"><i class="icon-folder-open"></i>小说管理</a>
+				  <li <if condition="$aumodle eq 'novel'"> class="active"  </if> >
+					 <a href="{:U('/Admin/Novel')}"><i class=" <if condition="$aumodle eq 'Novel'"> icon-white </if> icon-folder-open"></i>小说管理</a>
 				  </li>
-				  <li>
-					 <a href="{:U('/Admin/Caiji')}"><i class="icon-check"></i>采集管理</a>
+				  <li  <if condition="$aumodle eq 'caiji'"> class="active"  </if>>
+					 <a href="{:U('/Admin/Caiji')}"><i class=" <if condition="$aumodle eq 'Novel'">  icon-white </if>icon-check"></i>采集管理</a>
 				  </li>
-				  <li>
-				    <a href="{:U('/Admin/Cm')}"><i class="icon-envelope"></i>评论管理</a>
+				  <li  <if condition="$aumodle eq 'cm'"> class="active"  </if>>
+				    <a href="{:U('/Admin/Cm')}"><i class=" <if condition="$aumodle eq 'Novel'"> icon-white </if> icon-envelope"></i>评论管理</a>
 				   </li>
-				   <li>
-					 <a href="{:U('/Admin/Att')}"><i class="icon-file"></i>附件管理</a>
+				   <li  <if condition="$aumodle eq 'att'"> class="active"  </if>>
+					 <a href="{:U('/Admin/Att')}"><i class=" <if condition="$aumodle eq 'Novel'"> icon-white </if>icon-file"></i>附件管理</a>
 				   </li>
-				   <li>
-					 <a href="{:U('/Admin/User')}"><i class="icon-user" ></i>用户管理</a>
+				   <li  <if condition="$aumodle eq 'user'"> class="active"  </if>>
+					 <a href="{:U('/Admin/User')}"><i class=" <if condition="$aumodle eq 'Novel'">  icon-white </if>icon-user" ></i>用户管理</a>
 				   </li>
-				   <li>
-					 <a href="{:U('/Admin/Db')}"><i class="icon-list-alt"></i> 数据库维护</a>
+				   <li  <if condition="$aumodle eq 'db'"> class="active"  </if>>
+					 <a href="{:U('/Admin/Db')}"><i class=" <if condition="$aumodle eq 'Novel'"> icon-white </if> icon-list-alt"></i> 数据库维护</a>
 				   </li>
 				   <li class="nav-header">
 					 后台系统
 				   </li>
-				   <li>
-					 <a href="{:U('Admin/Admin/users')}"><i class="icon-th-list"></i>后台帐号</a>
+				   <li  <if condition="($aumodle eq 'admin') AND ($auaction eq 'users')"> class="active"  </if>>
+					 <a href="{:U('Admin/Admin/users')}"><i class="<if condition="($aumodle eq 'admin') AND ($auaction eq 'users')">  icon-white  </if> icon-th-list"></i>后台帐号</a>
 				   </li>
-				   <li>
-					 <a href="{:U('Admin/Admin/setting')}"><i class="icon-cog"></i>系统设置</a>
+				   <li <if condition="($aumodle eq 'admin') AND ($auaction eq 'setting')"> class="active"  </if>>
+					 <a href="{:U('Admin/Admin/setting')}"><i class="<if condition="($aumodle eq 'admin') AND ($auaction eq 'setting')"> icon-white  </if> icon-cog"></i>系统设置</a>
 				   </li>
-				   <li>
-					 <a href="{:U('Admin/Admin/logindex')}"><i class="icon-calendar"></i>操作日志</a>
+				   <li <if condition="($aumodle eq 'admin') AND ($auaction eq 'logindex')"> class="active"  </if>>
+					 <a href="{:U('Admin/Admin/logindex')}"><i class="<if condition="($aumodle eq 'admin') AND ($auaction eq 'users')"> icon-white  </if> icon-calendar"></i>操作日志</a>
 				   </li>
 					<li class="divider"></li>
 				    <li>

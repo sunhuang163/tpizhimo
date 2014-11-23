@@ -14,6 +14,8 @@ class BackAction extends AllAction {
 	    redirect(U('/admin/login/index','','','',TRUE), 5, '未登录，正在跳转到登录页面...');
 	  }
 	  $this->assign('au',$this->a_u);
+	  $this->assign('auaction', strtolower(ACTION_NAME));
+	  $this->assign('aumodle', strtolower(MODULE_NAME));
 	}
 
      protected function  auload( $force = FALSE){

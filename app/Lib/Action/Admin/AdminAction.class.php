@@ -9,11 +9,21 @@ class AdminAction extends BackAction {
 	public function setting(){
 	  if( $this->isPost())
 	  {
-
+        $DWeb = D('Webinfo');
+        $rs = $DWeb->create();
+		if( !$rs ){
+		 $this->error( $DWeb->getError());
+		}
+		else{
+		 if( isset( $_POST['id']) ) $DWeb->save();  //save id not work
+		  else
+			  $DWeb->add();
+         $this->success("网站配置信息更新成功");
+		}
 	  }
 	  else
 	  {
-		$Mwebinfo = M('webinfo');
+		$Mwebinfo = M('Webinfo');
 		$rsweb = $Mwebinfo->limit(1)->find();
 		$dweb = array();
 		$dweb= $rsweb;

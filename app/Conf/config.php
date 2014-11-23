@@ -32,7 +32,7 @@ $cnf =  array(
     'DOMAIN_NAME'        => 'http://www.izhimo.com/',
 	'U_HASH_KEY'        => 'U&8f',
 	'U_AUTH_KEY'        => '_nvau',
-	'U_UPLOAD_DIR'     =>'skdata',
+	'U_UPLOAD_DIR'     =>'skdata/',
 	'U_UPLOAD_DIRPATH' =>'Y/m/'
 );
 
