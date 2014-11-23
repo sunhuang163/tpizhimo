@@ -18,6 +18,7 @@ class AdminAction extends BackAction {
 		 if( isset( $_POST['id']) ) $DWeb->save();  //save id not work
 		  else
 			  $DWeb->add();
+		 $this->assign('jumpUrl',U('/Admin/Admin/setting'));
          $this->success("网站配置信息更新成功");
 		}
 	  }
