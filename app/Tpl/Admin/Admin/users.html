@@ -8,7 +8,7 @@
 	    <include file="Public:top_nav" />
 			<div class="row">
 			   <include file="Public:left_menu" />
-				<div class="span9">
+				<div class="span10">
 					<h3>
 						后台用户列表
 						<small>
@@ -118,6 +118,9 @@
 		 </div>
 <script type="text/javascript">
  $(function(){
+        $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
 	 $('.u_edit').click(function(){
 		 var _id = $(this).attr('rel');
 		 var _url = "{:U('/Admin/Admin/users_edit')}";

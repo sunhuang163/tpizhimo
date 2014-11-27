@@ -8,8 +8,7 @@
 						   <input type="text" class="input-xlarge"  readonly value="{$du.name}"  />
 					     </div>
 					   </div>
-			    <if  condition="($au['uid'] eq 1) OR ( $du['said'] ==$au['uid'])">
-				<else/>
+			    <if  condition="($du['said'] ==$au['uid'] AND $au['uid']!=1)  OR ($du['said'] == $au['uid'] AND $au['uid'] ==1)">
 				   <div class="control-group">
 						 <label class="control-label" for="psw">旧密码</label>
 						 <div class="controls">

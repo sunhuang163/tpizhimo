@@ -1,15 +1,19 @@
 <include file="Public:header" />
 	 <title>用户登录日志</title>
      <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
 	</head>
 	<body>
 		<div class="container">
 	    <include file="Public:top_nav" />
 			<div class="row">
 			   <include file="Public:left_menu" />
-				<div class="span9">
+				<div class="span10">
 					<h3>
 						登录日志
+						<small> 
+						  <a href="javascript:void(0);" class="btn btn-primary btn-small btn_delete">批量删除</a>
+						</small>
 					</h3>
 					<table class="table table-bordered table-striped">
 						<thead>
@@ -33,17 +37,68 @@
 								<td>{$vo.ip|long2ip}</td>
 								<td>{$vo.logtype}</td>
 								<td > 
-								   <a href="#"><i class="icon-remove"></i></a> 
+								   <a href="javascript:void(0);"class="a_delete" rel="{$vo.id}" title="删除该条记录"><i class="icon-remove"></i></a> 
 								 </td>
 							</tr>
 					       </volist>  
 						</tbody>
 					</table>
 					 <div class="pagination">
-						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					  {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
 					</div>
 				</div>
 			</div>
 		</div>
-<include file="Public:footer_js" />
+<script type="text/javascript">
+function del( arr ){
+   $.ajax({
+				 type: "POST",
+                 url: "{:U('/Admin/Admin/log_del')}" ,
+				 data:{ids:arr},
+                 dataType: "json",
+                 success: function(data){ 
+					 if( data.rcode )
+					 {  
+					   location.reload();
+					 }
+					 else{
+					  alert( data.msg );
+					 }
+			      },
+				 error:function( data ){
+					 alert('加载用户信息失败');
+				 }
+			  });
+}
+$(function(){
+   $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+   
+   $('.btn_delete').click(function(){
+      var _arr = new Array();
+	  $("input[name='ids']").each(function(){
+	     if( $(this).attr('checked')){
+		  _arr.push($(this).val() );
+		 }
+	  });
+	 if( _arr.length > 0){
+	   if( confirm("删除选中记录")){
+	     del( _arr );
+	   }
+	 }
+   });
+  
+  $('.a_delete').click(function(){
+    var _ids = new Array();
+	_ids.push( $(this).attr('rel'));
+     if( confirm("删除选中记录")){
+	     del( _ids );
+	   }
+  });
+
+});
+
+
+</script>
 <include file="Public:footer" />

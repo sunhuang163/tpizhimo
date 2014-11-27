@@ -29,11 +29,14 @@ $cnf =  array(
     'APP_GROUP_LIST'     => 'Home,Admin',
     'DEFAULT_GROUP'      => 'Home',
 	'SITE_NAME'          => 'izhimo 免费小说站',
-    'DOMAIN_NAME'        => 'http://www.izhimo.com/',
+	'SITE_URL'           => 'http://www.izhimo.com/',
+    'DOMAIN_NAME'        => 'i织墨小说站',
 	'U_HASH_KEY'        => 'U&8f',
 	'U_AUTH_KEY'        => '_nvau',
 	'U_UPLOAD_DIR'     =>'skdata/',
-	'U_UPLOAD_DIRPATH' =>'Y/m/'
+	'U_UPLOAD_DIRPATH' =>'Y/m/',
+	'IMG_WATER'        => 1, //图片水印
+	'IMG_WATER_PIC'   => 'public/water.png'
 );
 
 return array_merge( $cnf , $dbcnf );

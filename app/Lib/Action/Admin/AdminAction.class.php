@@ -71,13 +71,29 @@ class AdminAction extends BackAction {
 	}
 
     //日志删除
-	public  function logdel(){
-	 exit('del log ');
+	public  function log_del(){
+	  $ids = isset( $_POST['ids']) ? (array)$_POST['ids'] : NULL;
+	  $res = array('rcode' => 0,'msg'=>'服务器忙，请稍后再试!');
+	  $wheres = array();
+	  if( !$ids ){
+	   $res['msg'] = '参数错误';
+	  }
+	  else
+	  {
+	   $Mlog = M('syslog');
+       $wheres['id'] = array('in',$ids);
+	   if( $Mlog->where( $wheres)->delete() ){
+	     $res['rcode'] =1;
+		 $res['msg'] = '删除成功';
+	   }
+	   else{
+	    $res['msg'] = '删除失败';
+	   }
+	  }
+	  echo json_encode( $res  );
+	  exit();
 	}
 
-    //日志条件查找
-	public function logsearch(){
-	}
 
     //用户管理
 	public function users()

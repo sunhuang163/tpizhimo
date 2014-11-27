@@ -207,7 +207,7 @@ id title ntxt ctime etime
 ÏµÍ³¸½¼þ: ih_att
 id name ext size atype ctime
 create table ih_att(id int not null primary key auto_increment,
-                    name varchar(50),
+                    name varchar(100),
 		    ext varchar(10),
 		    size int,
 		    atype varchar(10),

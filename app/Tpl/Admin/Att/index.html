@@ -1,0 +1,72 @@
+<include file="Public:header" />
+	 <title>网站附件管理</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+					<h3>
+						附件列表
+						<small>
+						  <a class="toggle-link" href="#new-file"><i class="icon-plus"></i>上传文件</a>
+				       	<form id="new-file" enctype="multipart/form-data" class="form-horizontal hidden" action="{:U('/Admin/Att/upload')}" method="POST">
+						  <fieldset>
+					           	<div class="control-group">
+								<label class="control-label" for="upfile">文件:</label>
+								<div class="controls">
+									<input class="input-file" name="upfile" id="upfile" type="file" />
+								</div>
+							</div>
+							 <div class="form-actions">
+							 	<button type="submit" class="btn btn-primary">上传</button>
+							  </div>
+						    </fieldset>
+					    </form>
+						</small>
+					</h3>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th>文件名</th>
+								<th>后缀</th>
+								<th>大小</th>
+								<th>上传时间</th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="attlist" id="vo">
+							<tr id="tr{$vo.said}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.id}"></label></td>
+							    <td>{$vo.name}</td>
+								<td>{$vo.ext}</td>
+								<td>{$vo.size}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td > 
+								   <a href="javascript:void(0);"  class="u_edit" rel="{$vo.said}"   title="查看">
+								     <i class="icon-share"></i>
+								   </a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>	 
+			   </div>
+		 </div>
+<script type="text/javascript">
+ $(function(){
+        $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+ });
+</script>
+<include file="Public:footer" />
