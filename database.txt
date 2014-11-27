@@ -12,6 +12,7 @@ mu4ju3MB5u
 			 name varchar(30),
 			 ctime int,utime int,
 			 mtime int,
+			 state tinyint(1),
 			 ip int )  ENGINE=MyISAM  DEFAULT CHARSET=utf8;
  
 2¡¢²Ù×÷ÀúÊ· ih_syslog

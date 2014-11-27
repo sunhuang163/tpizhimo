@@ -20,7 +20,7 @@ class BackAction extends AllAction {
 
      protected function  auload( $force = FALSE){
       $uinfo = '';
-      $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';//session('_nvau');
+      $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';
 	    if( count($uinfo) )
          {
 		   $uinfos = authcode( $uinfo , "DECODE");

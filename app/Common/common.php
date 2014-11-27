@@ -382,6 +382,14 @@ function h($text, $tags = null){
      $MLog = M('syslog');
      $Ldata = array();
 
+    $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';
+    if( count($uinfo) )
+     {
+		  $uinfos = authcode( $uinfo , "DECODE");
+	      $arruinfo = unserialize( $uinfos );
+		  $uid = isset( $arruinfo['uid'] ) ? $arruinfo['uid'] : $uid;
+		  $name = isset( $arruinfo['name'] ) ? $arruinfo['name'] : $name;
+     }
 	 $Ldata['said'] = $uid;
 	 $Ldata['name'] = $name;
 	 $Ldata['ctime'] = time();

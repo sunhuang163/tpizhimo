@@ -31,6 +31,14 @@ class LoginAction extends AllAction {
    }
 
    public function login(){
+	  $remember = cookie('remenber');
+	  $name = '';
+	  if( $remember ){
+	     $loginstr =  authcode($remember , "DECODE");
+		 $arrlogin = unserialize( $loginstr );
+		 $name = isset( $arrlogin['name']) ? $arrlogin['name'] : '';
+	  }
+	 $this->assign('uname',$name);
 	 $this->display('login');
    }
 
@@ -107,14 +115,24 @@ class LoginAction extends AllAction {
 	}
      salog($dU['said'], $dsa['name'] ,'LOGIN','登录成功');
 	 $dU['uid'] = $dU['said'];
+	 if( !$dU['state'] ){
+       header("Content-Type:text/html; charset=utf-8");
+			echo('该用户已经被禁止登录，请联系管理员！');
+			exit();
+	 }
+	 unset($dU['psw']);
+	 if( isset( $_POST['remember'])&& $_POST['remember']){
+	   $login= array('name'=>$dU['name'],'uid'=>$dU['said']);
+       $logstr = serialize( $login );
+	   $loginstr =  authcode($logstr , "ENCODE");
+	   cookie('remenber',$loginstr,60*60*24*5);
+	 }
 	 $srdu = serialize( $dU );
 	 $uinfo = authcode($srdu,"ENCODE");
 	 $_SESSION['vcode'] = NULL;
 	 $_SESSION[C('U_AUTH_KEY')] = $uinfo;
 	 $wheres = array();
 	 $Unow = array();
-	 $Unow['ctime'] = time();
-	 $Unow['mtime'] = time();
 	 $Unow['utime'] = time();
 	 $Unow['ip'] = ip2long(getip());
 	 $wheres['said'] = array('eq',$dU['said']);
@@ -124,7 +142,7 @@ class LoginAction extends AllAction {
    }
 
    public function logout(){
-
+      salog('','','LOGIN','退出登录');
       if ( $_SESSION[C('U_AUTH_KEY')] ) {
 			unset($_SESSION);
 			session_destroy();

@@ -12,6 +12,7 @@ class SyslogModel extends Model {
 	  $ctype = strtoupper( $type );
 	  $types  = array(
 		       'LOGIN' => '用户登录',
+		       'A_USER' => '用户管理',
 	           );
      return isset( $types[$ctype]) ? $types[$ctype] : '';
 	}
