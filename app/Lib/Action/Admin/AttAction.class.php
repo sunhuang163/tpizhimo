@@ -46,8 +46,6 @@ class AttAction extends BackAction {
 	}
    }
 
-    //do upload file
-	public function doupload(){
-	}
+
 }
 ?>

@@ -230,14 +230,6 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 }
 
 
- function down_load($url){
-		if (C('upload_http') && strpos($url,'://')>0) {
-			return $this->down_img($url);
-		}else{
-			return $url;
-		}
-	}
-
 function ff_upload( $fkey = 'upfile')
 {
   $Finfo = array(
