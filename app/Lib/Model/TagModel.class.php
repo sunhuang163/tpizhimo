@@ -19,5 +19,9 @@ class TagModel extends RelationModel {
        ),
 
 	);
+
+	public function  t_add($tags , $sep = "|"){
+
+	}
 }
 ?>

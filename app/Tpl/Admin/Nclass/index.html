@@ -1,0 +1,91 @@
+<include file="Public:header" />
+	 <title>小说分类管理</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+					<h3>
+						小说分类列表
+						<small>
+						  <a class="toggle-link" href="#new-file"><i class="icon-plus"></i>添加新的分类</a>
+				       	<form id="new-file" class="form-horizontal hidden" action="{:U('/Admin/Nclass/add')}" method="POST">
+						  <fieldset>
+							  <div class="control-group">
+								<label class="control-label" for="name">分类名</label>
+								 <div class="controls">
+									<input type="text" class="input-xlarge" id="name" name="name"/>
+								 </div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="ncdesc">简介</label>
+								<div class="controls">
+								   <textarea class="input-xlarge" id="ncdesc" name="ncdesc" rows="5">
+								   </textarea>
+								</div>
+							  </div>
+							   <div class="control-group">
+								<label class="control-label" for="logo">封面图片</label>
+								<div class="controls">
+									<input class="input-xlarge" id="logo" name="logo" type="text" />
+								</div>
+							  </div>
+							   <div class="control-group">
+								<label class="control-label" for="url">访问地址</label>
+								<div class="controls">
+									<input class="input-xlarge" id="url" name="url" type="text" />
+								</div>
+							  </div>
+							 <div class="form-actions">
+							 	<button type="submit" class="btn btn-primary">添加分类</button>
+							  </div>
+						    </fieldset>
+					    </form>
+						</small>
+					</h3>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>分类名称</th>
+								<th> 简介</th>
+								<th>访问地址</th>
+								<th> 封面图片 </th>
+								<th> 小说数量 </th>
+								<th> 资料更新</th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="ulist" id="vo">
+							<tr id="tr{$vo.said}">
+							    <td <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:green;"</if>>{$vo.name}</td>
+								<td>{$vo.email}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.ip|long2ip}</td>
+								<td>{$vo.mtime|date='Y-m-d H:i:s',###}</td>
+								<td > 
+								   <a href="javascript:void(0);"  class="u_edit" rel="{$vo.said}"   title="编辑用户信息">
+								     <i class="icon-edit"></i>
+								   </a> 
+								   <a href="javascript:void(0);" class="u_psw" rel="{$vo.said}" title="更改用户密码"><i class="icon-lock"></i></a> 
+								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.said}" data="{$vo.state}" 
+								   title="<if condition="$vo['state'] eq 0">授权用户登录<else/>禁止用户登录</if>">
+								   <i class="<if condition="$vo['state'] eq 0">icon-ok-sign<else/>icon-minus-sign</if>"></i>
+								   </a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			   </div>
+		 </div>
+<include file="Public:footer" />

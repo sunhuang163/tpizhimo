@@ -193,7 +193,9 @@ mu4ju3MB5u
                               name varchar(30) not null,
 			      ncdesc varchar(50),
 			      logo varchar(100),
-                              cn int default 0
+                              cn int default 0,
+			      state tinyint(1) default 1,
+			      url varchar(50),
 			      ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 系统公告: ih_sysnotice

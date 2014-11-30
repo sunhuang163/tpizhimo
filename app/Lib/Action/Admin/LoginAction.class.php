@@ -10,13 +10,15 @@ class LoginAction extends AllAction {
 	  $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : null;
 	  $strau = authcode( $uinfo , 'DECODE');
 	  $this->a_u = unserialize( $strau );
+	  $acname =  ACTION_NAME;
+	  $acname = strtolower( $acname );
 	  $login = FALSE;
 	  if (!$_SESSION['AdminLogin']) {
 			header("Content-Type:text/html; charset=utf-8");
 			echo('请从后台管理入口登录。');
 			exit();
 		}
-	 if( 'logout' != strtolower( ACTION_NAME ))
+	 if( 'logout' != $acname )
 	{
 	  if( $this->a_u && isset( $this->a_u['uid']) &&   $this->a_u['uid'])
 	  {
@@ -27,7 +29,7 @@ class LoginAction extends AllAction {
 	}
 
    public function index(){
-    $this->login();
+      $this->login();
    }
 
    public function login(){

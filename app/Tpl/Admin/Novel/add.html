@@ -1,0 +1,126 @@
+<include file="Public:header" />
+	 <title>添加小说</title>
+     <include file="Public:header_css" />
+	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+		  <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+			 <div class="span10">
+					<ul class="breadcrumb">
+						<li>
+					     <a href="help.htm">首页</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="#">小说管理</a> <span class="divider">/</span>
+						</li>
+						<li class="active">
+							添加新的小说
+						</li>
+					</ul>
+					<div class="row">
+						<div class="span7">
+						    <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/add')}">
+						   <fieldset>
+							<div class="control-group">
+								<label class="control-label"  for="name">小说名称</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" id="name" name="name"  />
+									&nbsp;&nbsp;显示:<input type="checkbox" id="nstate" value="0" checked="checked">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="author">作者</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="author" id="author"  />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="tags">标签</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="tags" id="tags"  />
+									<p class="help-block">标签用"|" 隔开</p>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="pic">图片</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="pic" id="pic"  />
+								</div>
+							</div>
+							 <div class="control-group">
+								<label class="control-label" for="url">小说地址</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="url" id="url"  />
+								</div>
+							</div>
+							 <div class="control-group">
+								<label class="control-label" for="newurl">新访问地址</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="newurl" id="newurl"  />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="ncid">分类</label>
+								<div class="controls">
+		                            <select name="ncid"  id="ncid"> 
+									  <option value="1">分类一</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="ndesc">简介</label>
+								<div class="controls">
+									<textarea    name="ndesc" id="ndesc" rows="4"  ></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="zimu">字母</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="zimu" id="zimu"  />
+								</div>
+							</div>
+                            <div class="control-group">
+								<label class="control-label" for="uptxt">更新信息</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="uptxt" id="uptxt"  />
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<textarea  class="input-xxlarge"  name="content" id="content" rows="6"></textarea>
+									{:W('Editor',array('id'=>'content'))}
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">添加</button>
+							</div>
+						</fieldset>
+					</form> 
+						</div>
+						<div class="span2">
+							<ul class="nav nav-list"  style="position:fixed;">
+								<li class="nav-header">小说</li>
+								<li>
+									<a href="#">章节管理</a>
+								</li>
+								<li>
+									<a href="#">内容管理</a>
+								</li>
+								<li>
+									<a href="#">评论管理</a>
+								</li>
+								<li class="nav-header">工具</li>
+								<li>
+									<a href="#">重新采集</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

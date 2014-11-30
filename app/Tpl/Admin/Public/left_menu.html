@@ -7,8 +7,11 @@
 				  <li  <if condition="$aumodle eq 'index'"> class="active" </if>>
 					 <a href="{:U('/Admin/Index')}"><i class="<if condition="$aumodle eq 'index'"> icon-white </if> icon-home"></i> 首页</a>
 				  </li>
+				  	  <li <if condition="$aumodle eq 'nclass'"> class="active"  </if> >
+					 <a href="{:U('/Admin/Nclass')}"><i class=" <if condition="$aumodle eq 'nclass'"> icon-white </if> icon-folder-open"></i>分类管理</a>
+				  </li>
 				  <li <if condition="$aumodle eq 'novel'"> class="active"  </if> >
-					 <a href="{:U('/Admin/Novel')}"><i class=" <if condition="$aumodle eq 'novel'"> icon-white </if> icon-folder-open"></i>小说管理</a>
+					 <a href="{:U('/Admin/Novel')}"><i class=" <if condition="$aumodle eq 'novel'"> icon-white </if> icon-barcode"></i>小说管理</a>
 				  </li>
 				  <li  <if condition="$aumodle eq 'caiji'"> class="active"  </if>>
 					 <a href="{:U('/Admin/Caiji')}"><i class=" <if condition="$aumodle eq 'caiji'">  icon-white </if>icon-check"></i>采集管理</a>

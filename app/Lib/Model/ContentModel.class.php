@@ -2,7 +2,7 @@
 /*
   banfg56
   2014-11-28
-  @@小说章节
+  @@小说章节具体内容
 */
 
 class ContentModel extends AdvModel {
