@@ -26,9 +26,10 @@ class NclassAction extends BackAction {
 	  $url = U('/Admin/Nclass/index',array('p'=>'{!page!}'));
       $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
+
 	  $this->assign('call' ,$call );
 	  $this->assign('pnow' , $p);
-	  $this->assign('loglist', $Ldata );
+	  $this->assign('clist', $Ldata );
 	  $this->assign('pagestr', $pagestr );
       $this->display();
 	}
@@ -51,7 +52,45 @@ class NclassAction extends BackAction {
 	  }
 	 }
 
-	 public function remove(){
+     //目录不是真正的删除，仅仅只是隐藏
+	 public function delete()
+	{
+	}
+
+	 //目录资料修改
+     public function edit()
+   {
+     $Mnclass = D("Nclass");
+	 $wheres = array();
+     if( $this->isPost() )
+	 {
+		  $res = $Mnclass->Create();
+		  if( $res ){
+		   $Mnclass->save();
+		   $this->assign('jumpUrl',U('/Admin/Nclass/index'));
+		   $this->success("资料保存成功");
+		  }
+		  else{
+		   $this->assign("jumpUrl","javascript:history.go(-1);");
+		   $this->error("小说分类信息保存失败");
+		  }
 	 }
+	 else
+	{
+     $id = isset( $_GET['id']) ? intval( $_GET['id']) : 0;
+     $wheres['ncid'] = array('eq',$id);
+	 $du = NULL;
+	 $du = $Mnclass->where( $wheres )->find();
+	 if( $du )
+	 {
+		  $this->assign('d',$du);
+		  $this->display();
+	 }
+	 else{
+	  $this->assign("jumpUrl" ,U('/Admin/Nclass/index'));
+	  $this->error("编辑的小说分类不存在");
+	 }
+	}
+   }
 }
 ?>
