@@ -1,0 +1,44 @@
+<script src="{$PATH}plugin/swfupload/swfupload.js"></script>
+<!-- <script src="{$PATH}plugin/swfupload/js/swfupload.queue.js"></script>
+<script src="{$PATH}plugin/swfupload/js/fileprogress.js"></script> -->
+<script src="{$PATH}plugin/swfupload/js/handlers.js"></script>
+<script type="text/javascript">
+  var swfu;
+
+        window.onload = function() {
+            var settings = {
+                flash_url : "{$PATH}plugin/swfupload/swfupload.swf",
+                upload_url: "{$UPLOAD_URL}",
+                post_params: {
+                    "admin_id": "{$aid}"
+                },
+                file_size_limit : "{$FILE_LIMIT}",
+                file_types : "{$FILE_TYPE}",
+				file_post_name:"{$FILE_NAME}",
+                file_types_description : "{$FILE_DESC}",
+                custom_settings : {
+				   "preview":"{$preview}",
+				   "target" : "{$target}",
+				   "error" : "{$error}"
+                },
+                debug: false,
+                button_image_url : "{$PATH}plugin/swfupload/images/xpbutton.jpg",
+                button_placeholder_id: "{$BTN_ID}",
+                button_width: {$BTN_W},
+                button_height: {$BTN_H},
+                button_text: '<span class="swfbtn" > 选择文件 </span>',
+                button_text_style: '.swfbtn {background-color:#FFFF00;font-size:12px;font-family:"微软雅黑"}',
+                button_text_top_padding: 3,
+                button_text_left_padding: 5,
+                button_cursor : SWFUpload.CURSOR.HAND,
+                
+				file_dialog_complete_handler : C_fileDialogComplete,
+                upload_start_handler : C_uploadStart,
+                upload_error_handler : C_uploadError,
+                upload_success_handler : C_uploadSuccess,
+                upload_complete_handler : C_uploadComplete,
+            };
+
+            swfu = new SWFUpload(settings);
+         };
+</script>

@@ -15,6 +15,8 @@ class NclassModel extends RelationModel {
 	);
 
 	protected $_auto=array(
+		 array('cn','0'),
+		 array('state','1'),
 	);
 
 	protected  function _before_insert(&$data,$options){
@@ -29,7 +31,9 @@ class NclassModel extends RelationModel {
 		 $url = $pinyin;
 		 if( $cnt )
              $url .=$pinyin;
+		   $pinyin = $url ;
 		 }//pinyin
+		 $data['url'] = $pinyin;
 	  }
 	}
 

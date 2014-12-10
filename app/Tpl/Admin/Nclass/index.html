@@ -1,6 +1,7 @@
 <include file="Public:header" />
 	 <title>小说分类管理</title>
      <include file="Public:header_css" />
+	<!--  <link href="{$ADMIN_PATH}plugin/swfupload/css/default.css" rel="stylesheet">  -->
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
@@ -31,7 +32,13 @@
 							   <div class="control-group">
 								<label class="control-label" for="logo">封面图片</label>
 								<div class="controls">
-									<input class="input-xlarge" id="logo" name="logo" type="text" />
+									<input class="input-xlarge" id="logo" name="logo" type="text" />&nbsp;&nbsp;
+									<span id="swfupload" class="btn"></span>
+									{:W('Upload',array('BTN_W'=>60,'target'=>'logo','error'=>'swferror','preview'=>'imgclass'))}
+									<br/>
+									<img src="{$ADMIN_PATH}nopic.gif" width="120px" height="60px" id="imgclass">
+									<br/>
+									<p id="swferror" class="alert alert-danger span3 hide"></p>
 								</div>
 							  </div>
 							   <div class="control-group">

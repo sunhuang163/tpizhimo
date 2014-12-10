@@ -79,7 +79,7 @@ function ff_pinyin($str,$ishead=0,$isclose=1){
 		return $str;
 	}
 	if(count($pinyins)==0){
-		$fp = fopen('pinyin.dat','r');
+		$fp = fopen(COMMON_PATH.'pinyin.dat','r');
 		while(!feof($fp)){
 			$line = trim(fgets($fp));
 			$pinyins[$line[0].$line[1]] = substr($line,3,strlen($line)-3);
@@ -289,7 +289,6 @@ function ff_upload( $fkey = 'upfile')
 	  $Finfo['name'] = $fname;
 	  $Finfo['type'] = $datt['atype'];
 	  $Finfo['size'] = $datt['size'];
-	  $Finfo['ss'] = __ROOT__.C('IMG_WATER_PIC');
 	  $Finfo['file_path'] = $updir.$fname;
 	  $Finfo['view_path'] = C('SITE_URL').$updir.$fname;
 	  $Finfo['msg'] = '文件上传成功';

@@ -33,7 +33,22 @@ class NclassAction extends BackAction {
       $this->display();
 	}
 
-	 public function add(){
+	 public function add()
+	 {
+        if( $this->isPost() )
+	   {
+		  $Mclass = D('Nclass');
+		  $res = $Mclass->create();
+		  if( $res ){
+		   $Mclass->add();
+		   $this->assign('jumpUrl',U('/Admin/Nclass/index'));
+		   $this->success("分类添加成功");
+		  }
+		  else{
+		   $this->assign("jumpUrl","javascript:history.go(-1);");
+		   $this->error( $Mclass->getError() );
+		  }
+	  }
 	 }
 
 	 public function remove(){

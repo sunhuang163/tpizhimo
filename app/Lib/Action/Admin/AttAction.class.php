@@ -32,6 +32,8 @@ class AttAction extends BackAction {
 	}
 
 
+
+   //form 表单上传图片
     public function  upload()
    {
      $f = ff_upload('upfile');
@@ -46,6 +48,27 @@ class AttAction extends BackAction {
 	}
    }
 
+   //swfupload 上传文件
+  public function swf()
+ {
+	  $admin_id = isset( $_POST['admin_id']) ? trim( $_POST['admin_id']): '';
+	  $aid = 0;
+	  $aid = authcode( $admin_id,"DECODE");
+	  $res = array('rcode' => 0,'msg' => '服务器忙，请稍后再试');
+     if( $aid != $this->a_u['uid'])
+	 {
+       $res['msg'] = "Permission Denied";
+	   echo json_encode( $res );
+	   exit();
+	 }
+	 else
+	{
+	  $f = array();
+	  $f = ff_upload('swffile');
+	  echo  json_encode( $f );
+	  exit();
+	}
+ }
 
 }
 ?>
