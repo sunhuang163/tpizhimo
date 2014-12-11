@@ -20,6 +20,7 @@ KindEditor.plugin('image', function(K) {
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		fillDescAfterUploadImage = K.undef(self.fillDescAfterUploadImage, false),
 		lang = self.lang(name + '.');
+	    var aid = K.undef(self.aid, '');
 
 	self.plugin.imageDialog = function(options) {
 		var imageUrl = options.imageUrl,
@@ -36,6 +37,7 @@ KindEditor.plugin('image', function(K) {
 		for(var k in extraParams){
 			hiddenElements.push('<input type="hidden" name="' + k + '" value="' + extraParams[k] + '" />');
 		}
+	    hiddenElements.push('<input type="hidden" name="admin_id" value="' + aid + '" />');
 		var html = [
 			'<div style="padding:20px;">',
 			//tabs
@@ -74,7 +76,7 @@ KindEditor.plugin('image', function(K) {
 			//local upload - start
 			'<div class="tab2" style="display:none;">',
 			'<iframe name="' + target + '" style="display:none;"></iframe>',
-			'<form class="ke-upload-area ke-form" method="post" enctype="multipart/form-data" target="' + target + '" action="' + K.addParam(uploadJson, 'dir=image') + '">',
+			'<form class="ke-upload-area ke-form" method="post" enctype="multipart/form-data" target="' + target + '" action="' + uploadJson  + '">',
 			//file
 			'<div class="ke-dialog-row">',
 			hiddenElements.join(''),
@@ -98,7 +100,6 @@ KindEditor.plugin('image', function(K) {
 			yesBtn : {
 				name : self.lang('yes'),
 				click : function(e) {
-					// Bugfix: http://code.google.com/p/kindeditor/issues/detail?id=319
 					if (dialog.isLoading) {
 						return;
 					}
@@ -190,23 +191,17 @@ KindEditor.plugin('image', function(K) {
 			width: 60,
 			afterUpload : function(data) {
 				dialog.hideLoading();
-				if (data.error === 0) {
-					var url = data.url;
+				if ( parseInt(data.rcode) > 0 ) {
+					var url = data.view_path;
 					if (formatUploadUrl) {
 						url = K.formatUrl(url, 'absolute');
 					}
-					if (self.afterUpload) {
-						self.afterUpload.call(self, url, data, name);
-					}
-					if (!fillDescAfterUploadImage) {
-						clickFn.call(self, url, data.title, data.width, data.height, data.border, data.align);
-					} else {
+					  K('.tab2', div).show();
 						K(".ke-dialog-row #remoteUrl", div).val(url);
 						K(".ke-tabs-li", div)[0].click();
 						K(".ke-refresh-btn", div).click();
-					}
 				} else {
-					alert(data.message);
+					alert(data.msg);
 				}
 			},
 			afterError : function(html) {
@@ -235,7 +230,7 @@ KindEditor.plugin('image', function(K) {
 					});
 				});
 			});
-		} else {
+		} else { 
 			viewServerBtn.hide();
 		}
 		var originalWidth = 0, originalHeight = 0;

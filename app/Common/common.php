@@ -274,19 +274,28 @@ function ff_upload( $fkey = 'upfile')
 	  $datt['ctime'] = time();
       $datt['atype'] = $MAtt->ftype( $datt['ext'] );
 	  $datt['size'] = filesize($reldir.$updir.$fname );
+	  $size = array('w'=>0,'h'=>0);
 	  //图片缩略图,水印
 	  if( 'img' == $datt['atype']){
+		  	  import('ORG.Util.Image');
 		  mkdirss($reldir.$updir.'thumb/',755);
-		  import('ORG.Util.Image');
+
 		  Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/'.$fname,'',200 ,150,true);
         if(  C('IMG_WATER') ){
-		   import('ORG.Util.Image');
 		   Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
 		 }
+		 $DImg = new Image( );
+         $_size = $DImg->getImageInfo( $reldir.$updir.$fname );
+		 $size['w'] = isset($_size['width']) ? $_size['width'] : 0;
+		 $size['h'] = isset( $_size['height']) ? $_size['height'] : 0;
 	  }
 	  $MAtt->data( $datt )->add();
 	  $Finfo['rcode'] = 1;
+	  $Finfo['width'] = $size['w'];
+	  $Finfo['height'] = $size['h'];
 	  $Finfo['name'] = $fname;
+	  $Finfo['border'] = 0;
+	  $Finfo['align'] = 'center';
 	  $Finfo['type'] = $datt['atype'];
 	  $Finfo['size'] = $datt['size'];
 	  $Finfo['file_path'] = $updir.$fname;

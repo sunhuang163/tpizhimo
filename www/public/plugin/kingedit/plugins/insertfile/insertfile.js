@@ -16,6 +16,8 @@ KindEditor.plugin('insertfile', function(K) {
 		extraParams = K.undef(self.extraFileUploadParams, {}),
 		filePostName = K.undef(self.filePostName, 'imgFile'),
 		lang = self.lang(name + '.');
+	   var aid = K.undef(self.aid, '');
+	    extraParams['admin_id']= aid ;
 	self.plugin.fileDialog = function(options) {
 		var fileUrl = K.undef(options.fileUrl, 'http://'),
 			fileTitle = K.undef(options.fileTitle, ''),
@@ -71,12 +73,12 @@ KindEditor.plugin('insertfile', function(K) {
 			var uploadbutton = K.uploadbutton({
 				button : K('.ke-upload-button', div)[0],
 				fieldName : filePostName,
-				url : K.addParam(uploadJson, 'dir=file'),
+				url : uploadJson ,
 				extraParams : extraParams,
 				afterUpload : function(data) {
 					dialog.hideLoading();
-					if (data.error === 0) {
-						var url = data.url;
+					if ( parseInt( data.rcode )  > 0) {
+						var url = data.view_path;
 						if (formatUploadUrl) {
 							url = K.formatUrl(url, 'absolute');
 						}
@@ -86,7 +88,7 @@ KindEditor.plugin('insertfile', function(K) {
 						}
 						alert(self.lang('uploadSuccess'));
 					} else {
-						alert(data.message);
+						alert(data.msg);
 					}
 				},
 				afterError : function(html) {

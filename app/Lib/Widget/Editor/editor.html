@@ -4,14 +4,14 @@ var editor;
 			KindEditor.ready(function(K) {
 				 editor = K.create('textarea[name="{$id}"]',
 				 {
-					allowFileManager : false,
-					 items:[ 'fullscreen', 'preview', 'source', '|', 'undo', 'redo', '|' , 'code', 'cut', 'copy', 'paste',
-        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
-        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-        'superscript', 'clearhtml', 'quickformat', 'selectall', '/',
-        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'insertfile', 'table', 'hr', 'baidumap', 'pagebreak',
-        'anchor', 'link', 'unlink', '|', 'about'] 
+					allowFileManager : {$allowFileManager},
+					 items:[{$items}] ,
+					 filterMode:{$filterMode},
+					 allowUpload:{$allowUpload},
+                     imageUploadJson:"{$imageUploadJson}",
+					 uploadJson:"{$uploadJson}",
+					 aid:"{$aid}",
+					 filePostName:"{$filePostName}",
 				}); 
 			  });
 </script>
