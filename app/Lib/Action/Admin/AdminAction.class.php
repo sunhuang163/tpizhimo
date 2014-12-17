@@ -34,7 +34,12 @@ class AdminAction extends BackAction {
 	  }
 	}
 
-
+     //清理缓存
+	public function clearcache(){
+	 //do crear the cache
+	 $this->assign("jumpUrl",U('/Admin/'));
+     $this->success("缓存清理成功");
+	}
     //日志列表
 	public function  logindex(){
       $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;

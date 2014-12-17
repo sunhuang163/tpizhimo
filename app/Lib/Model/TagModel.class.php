@@ -48,15 +48,17 @@ class TagModel extends RelationModel {
 		 $dtindex['nid'] = $nid;
 		 $Mtags->data( $dtindex )->add();
 		}
-		else{
+		else
+	   {
 		 $wheresti['nid'] = array('eq',$nid);
 		 $wheresti['tid'] = $dtag['tid'];
 		 $dindex = NULL;
 		 $dindex = $Mtags->where( $wheresti )->find();
-         if( !$dindex ){
-		  $dup = array();
-		  $wheres['tid'] = array('eq',$dtag['tid']);
-		  $dup['tc'] =array('exp','tc+1');
+         if( !$dindex )
+	    {
+		   $dup = array();
+		   $wheres['tid'] = array('eq',$dtag['tid']);
+		   $dup['tc'] =array('exp','tc+1');
 		   $dtindex = array();
 		   $dtindex['ctime'] = time();
 		   $dtindex['tid'] = $dtag['tid'];
@@ -64,8 +66,8 @@ class TagModel extends RelationModel {
 		   $Mtags->data( $dtindex )->add();
 		   $Mtag->data( $dup )->where( $wheres )->save();
 		 } //if !$dindex
-		}// else
-	  }// if
-	}
+	   }// else
+	 }// if
+	}//foreach
+ }
 }
-?>

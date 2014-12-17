@@ -60,7 +60,7 @@ class NovelModel extends RelationModel {
  protected function _after_update($data,$options)
 {
 
- }
+}
 
 }
 ?>

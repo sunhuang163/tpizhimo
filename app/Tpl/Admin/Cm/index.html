@@ -1,0 +1,103 @@
+<include file="Public:header" />
+	 <title>评论管理</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+					<h3>
+						评论管理
+					</h3>
+					<ul class="messages">
+						<li class="well">
+							<p class="message">
+								Ut fermentum tortor at enim blandit gravida et et odio. Quisque eu libero vitae nibh malesuada sagittis. Integer eget turpis velit. Maecenas auctor eleifend ante in dictum. Proin mattis dictum imperdiet. Nam sed leo ut massa volutpat pharetra eget vel nisi. Vestibulum vel nunc felis, in ultrices neque. Duis ut rutrum lectus. Vivamus ultricies aliquam est ac gravida. Nulla facilisis sem sed est sagittis sed auctor turpis mollis. Duis ultricies viverra dapibus. Nunc lectus quam, rutrum aliquet cursus vitae, gravida vel arcu.
+							</p>
+							<span class="meta">Written <em>2 weeks ago</em> by <em>Jill</em></span>
+						</li>
+						<li class="well">
+							<p class="message">
+								Donec id consequat odio. Etiam felis tellus, pretium tincidunt malesuada quis, vestibulum a leo. Cras tortor enim, elementum nec pretium non, vestibulum sit amet massa. Vivamus non velit quis purus luctus pretium et ut quam. Aenean eu urna nulla, quis iaculis nunc. Nam consectetur erat nec turpis dapibus ac sodales dolor pulvinar. Fusce eu consectetur risus. In ut erat sit amet nunc tempor mattis sit amet id diam.
+							</p>
+							<span class="meta">Written <em>1 week ago</em> by <em>John</em></span>
+						</li>
+						<li class="well">
+							<p class="message">
+								Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus enim nibh, congue nec tincidunt sed, luctus ullamcorper leo. Nunc ac mauris augue. Nam non nulla tellus, vitae volutpat nibh. Maecenas fringilla vestibulum neque vitae tristique. Ut fermentum accumsan dolor, ut tincidunt lacus dictum non. Proin non ultrices libero. Praesent hendrerit, dolor ut facilisis porta, lorem massa ullamcorper dolor, at dictum elit augue vel lorem. Pellentesque vitae elit quis erat congue gravida ac sed urna. Vivamus vitae purus lectus. Maecenas nec dui lorem. Mauris viverra, est et mattis malesuada, sapien lectus congue justo, eget ultricies lorem ante a nulla. In facilisis nisi in dolor ultricies id hendrerit tortor suscipit.
+							</p>
+							<span class="meta">Written <em>4 days ago</em> by <em>Jill</em></span>
+							<ul class="messages">
+								<li class="well">
+									<p class="message">
+										Nascetur ridiculus mus. Phasellus enim nibh, congue nec tincidunt sed, luctus ullamcorper leo. Nunc ac mauris augue. Nam non nulla tellus, vitae volutpat nibh. Maecenas fringilla vestibulum neque vitae tristique. Ut fermentum accumsan dolor, ut tincidunt lacus dictum non. Proin non ultrices libero. Praesent hendrerit, dolor ut facilisis porta, lorem massa ullamcorper dolor, at dictum elit augue vel lorem. Pellentesque vitae elit quis erat congue gravida ac sed urna. Vivamus vitae purus lectus. Maecenas nec dui lorem. Mauris viverra, est et mattis malesuada, sapien lectus congue justo, eget ultricies lorem ante a nulla.
+									</p>
+									<span class="meta">Written <em>2 days ago</em> by <em>Jill</em></span>
+									<ul class="messages">
+										<li class="well">
+											<p class="message">
+												Etiam felis tellus.
+											</p>
+											<span class="meta">Written <em>1 day ago</em> by <em>Jill</em></span>
+										</li>
+									</ul>
+								</li>
+								<li class="well">
+									<p class="message">
+										Sapien lectus congue justo, eget ultricies lorem ante a nulla.
+									</p>
+									<span class="meta">Written <em>1 day ago</em> by <em>Jill</em></span>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				   <if condition="$nlist neq null ">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th> 标题 </th>
+								<th> 作者 </th>
+								<th> 分类</th>
+								<th> 添加时间</th>
+								<th> 上次更新时间 </th>
+								<th> 字母</th>
+								<th> url</th>
+								<th>评论</th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="nlist" id="vo">
+							<tr id="tr{$vo.said}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.nid}"></label></td>
+								<td>{$vo.title}</td>
+								<td>{$vo.author}</td>
+								<td>{$vo.ncname}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.zimu}</td>
+								<td>{$vo.url}</td>
+								<td>{$vo.ncomm}</td>
+								<td>
+								   <span><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">详情</a></span>
+								   <span><a href="{:U('/Admin/Novel/chapters','nid='.$vo['nid'])}">章节</a></span>
+								   <span><a href="{:U('/Admin/Novel/contents','nid='.$vo['nid'])}">内容</a></span>
+								   <span><a href="#">删除</a></span>
+								</td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				   <else/>
+				   <p>内容为空</p>
+				   </if>
+				</div>
+		 </div>
+<include file="Public:footer" />

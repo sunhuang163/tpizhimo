@@ -9,43 +9,34 @@
 									<a href="{:U('/Admin/')}">后台首页</a>
 								</li>
 								<li>
-									<a href="#">账户设置</a>
-								</li>
-								<li>
-									<a href="help.htm">Help</a>
+									<a href="{:U('/Admin/Admin/clearcache')}">缓存清理</a>
 								</li>
 								<li class="dropdown">
-									<a href="help.htm" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<b class="caret"></b></a>
+									<a href="help.htm" class="dropdown-toggle" data-toggle="dropdown">生成选项<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="help.htm">Introduction Tour</a>
+											<a href="#">生成百度sitemap</a>
 										</li>
 										<li>
-											<a href="help.htm">Project Organisation</a>
-										</li>
-										<li>
-											<a href="help.htm">Task Assignment</a>
-										</li>
-										<li>
-											<a href="help.htm">Access Permissions</a>
+											<a href="#">生成谷歌sitemap</a>
 										</li>
 										<li class="divider">
 										</li>
 										<li class="nav-header">
-											Files
+											静态页面
 										</li>
 										<li>
-											<a href="help.htm">How to upload multiple files</a>
+											<a href="#">生成最近更新</a>
 										</li>
 										<li>
-											<a href="help.htm">Using file version</a>
+											<a href="#">生成列表页</a>
+										</li>
+										<li>
+											<a href="#">生成列内容页</a>
 										</li>
 									</ul>
 								</li>
 							</ul>
-							<form class="navbar-search pull-left" action="">
-								<input type="text" class="search-query span2" placeholder="Search" />
-							</form>
 							<ul class="nav pull-right">
 								<li>
 									<a href="#">{$au.name}</a>

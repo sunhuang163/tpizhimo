@@ -1,0 +1,57 @@
+<include file="Public:header" />
+	 <title>系统标签管理</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+					<h3>
+					  标签列表
+					</h3>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th> 标签</th>
+								<th> 文章数量 </th>
+								<th> 创建时间</th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="dlist" id="vo">
+							<tr id="tr{$vo.id}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.tid}"></label></td>
+							    <td>{$vo.name}</td>
+								<td>{$vo.tc}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td > 
+								   <a href="{:U('/Admin/Tag/tags','tid='.$vo['tid'])}"  title="查看该标签关联的文章">
+								    </i>关联文章
+								  </a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+					  {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			</div>
+		</div>
+<script type="text/javascript">
+$(function(){
+   $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+   
+});
+
+
+</script>
+<include file="Public:footer" />
