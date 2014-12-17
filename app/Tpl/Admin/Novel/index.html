@@ -19,35 +19,35 @@
 						<thead>
 							<tr>
 								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
-								<th> 用户名 </th>
-								<th> 邮箱 </th>
-								<th>注册时间</th>
-								<th> 上次登录 </th>
-								<th> IP地址 </th>
-								<th> 资料更新</th>
+								<th> 标题 </th>
+								<th> 作者 </th>
+								<th> 分类</th>
+								<th> 添加时间</th>
+								<th> 上次更新时间 </th>
+								<th> 字母</th>
+								<th> url</th>
+								<th>评论</th>
 								<th> 操作 </th>
 							</tr>
 						</thead>
 						<tbody>
-						   <volist name="ulist" id="vo">
+						   <volist name="nlist" id="vo">
 							<tr id="tr{$vo.said}">
-							    <td><label><input name="ids" type="checkbox" value="{$vo.said}"></label></td>
-							    <td <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:green;"</if>>{$vo.name}</td>
-								<td>{$vo.email}</td>
+							    <td><label><input name="ids" type="checkbox" value="{$vo.nid}"></label></td>
+								<td>{$vo.title}</td>
+								<td>{$vo.author}</td>
+								<td>{$vo.ncname}</td>
 								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
-								<td>{$vo.ip|long2ip}</td>
-								<td>{$vo.mtime|date='Y-m-d H:i:s',###}</td>
-								<td > 
-								   <a href="javascript:void(0);"  class="u_edit" rel="{$vo.said}"   title="编辑用户信息">
-								     <i class="icon-edit"></i>
-								   </a> 
-								   <a href="javascript:void(0);" class="u_psw" rel="{$vo.said}" title="更改用户密码"><i class="icon-lock"></i></a> 
-								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.said}" data="{$vo.state}" 
-								   title="<if condition="$vo['state'] eq 0">授权用户登录<else/>禁止用户登录</if>">
-								   <i class="<if condition="$vo['state'] eq 0">icon-ok-sign<else/>icon-minus-sign</if>"></i>
-								   </a> 
-								 </td>
+								<td>{$vo.zimu}</td>
+								<td>{$vo.url}</td>
+								<td>{$vo.ncomm}</td>
+								<td>
+								   <span><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">详情</a></span>
+								   <span><a href="#">章节</a></span>
+								   <span><a href="#">内容</a></span>
+								   <span><a href="#">删除</a></span>
+								</td>
 							</tr>
 					       </volist>  
 						</tbody>
@@ -73,98 +73,8 @@
                      </div><!-- /.modal-content -->
                   </div><!-- /.modal -->
 
-				  <div class="modal fade hide" id="dialog_psw" tabindex="-1" role="dialog"  aria-hidden="true">
-                       <div class="modal-dialog">
-                           <div class="modal-content">
-                            <div class="modal-header">
-                               <button type="button" class="close" 
-                                 data-dismiss="modal" aria-hidden="true">
-                                     &times;
-                               </button>
-                          <h4 class="modal-title" id="myModalLabel">
-                             修改用户密码
-                           </h4>
-                         </div>
-                         <div class="modal-body">  </div>
-                        </div>
-                     </div><!-- /.modal-content -->
-                  </div><!-- /.modal -->
-			   </div>
 		 </div>
 <script type="text/javascript">
- 
-	 $('.u_edit').click(function(){
-		 var _id = $(this).attr('rel');
-		 var _url = "{:U('/Admin/Admin/users_edit')}";
-		 _url += '?id='+_id;
-		 $.ajax({
-				 type: "GET",
-                 url: _url ,
-                 dataType: "json",
-                 success: function(data){ 
-					 if( data.rcode )
-					 {
-					    $('#dialog_uedit .modal-body').html( data.html );
-						$('#dialog_uedit').modal('show');
-					 }
-					 else{
-					  alert( data.msg );
-					 }
-			      },
-				 error:function( data ){
-					 alert('加载用户信息失败');
-				 }
-			  });
-	 }); 
-   $('.u_psw').click(function(){
-      var _id = $(this).attr('rel');
-		 var _url = "{:U('/Admin/Admin/users_psw')}";
-		 _url += '?id='+_id;
-		 $.ajax({
-				 type: "GET",
-                 url: _url ,
-                 dataType: "json",
-                 success: function(data){ 
-					 if( data.rcode )
-					 {
-					    $('#dialog_psw .modal-body').html( data.html );
-						$('#dialog_psw').modal('show');
-					 }
-					 else{
-					  alert( data.msg );
-					 }
-			      },
-				 error:function( data ){
-					 alert('加载用户信息失败');
-				 }
-			  });
 
-   });
-
-  $('.u_ban').click(function(){
-         var _id = $(this).attr('rel' );
-		 var _state = $(this).attr('data');
-		 $.ajax({
-				 type: "POST",
-                 url: "{:U('/Admin/Admin/users_ban')}" ,
-				 data:{id:_id,state:_state},
-                 dataType: "json",
-                 success: function(data){ 
-					 if( data.rcode )
-					 {
-					   location.reload();
-					 }
-					 else{
-					  alert( data.msg );
-					 }
-			      },
-				 error:function( data ){
-					 alert('ajax请求失败');
-				 }
-			  });
-  });
-	 $("#dialog_uedit").on("hidden", function() { $(this).removeData("modal"); }); 
-	  $("#dialog_psw").on("hidden", function() { $(this).removeData("modal"); }); 
- });
 </script>
 <include file="Public:footer" />

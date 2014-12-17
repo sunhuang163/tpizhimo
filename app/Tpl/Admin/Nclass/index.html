@@ -24,8 +24,7 @@
 							  <div class="control-group">
 								<label class="control-label" for="ncdesc">简介</label>
 								<div class="controls">
-								   <textarea class="input-xlarge" id="ncdesc" name="ncdesc" rows="5">
-								   </textarea>
+								   <textarea class="input-xlarge" id="ncdesc" name="ncdesc" rows="5"></textarea>
 								</div>
 							  </div>
 							   <div class="control-group">
@@ -75,12 +74,12 @@
 								</td>
 								<td>{$vo.cn}</td>
 								<td > 
-								   <a href="javascript:void(0);"  class="nc_edit" rel="{$vo.said}"   title="编辑分类">
+								   <a href="{:U('/Admin/Nclass/edit','id='.$vo['ncid'])}"   rel="{$vo.said}"   title="编辑分类">
 								     <i class="icon-edit"></i>
 								   </a> 
-								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.said}" data="{$vo.state}" 
+								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.ncid}" data="{$vo.state}" 
 								   title="<if condition="$vo['state'] eq 1">隐藏该目录<else/>显示该目录</if>">
-								   <i class="<if condition="$vo['state'] eq 0">icon-ok-sign<else/>icon-minus-sign</if>"></i>
+								   <i class="<if condition="$vo['state'] eq 1">icon-minus-sign<else/>icon-ok-sign</if>"></i>
 								   </a> 
 								 </td>
 							</tr>
@@ -93,31 +92,36 @@
 				</div>
 			   </div>
 		 </div>
+
 <script type="text/javascript">
  $(function(){
-	 $('.u_edit').click(function(){
-		 var _id = $(this).attr('rel');
-		 var _url = "{:U('/Admin/Admin/users_edit')}";
-		 _url += '?id='+_id;
-		 $.ajax({
-				 type: "GET",
-                 url: _url ,
-                 dataType: "json",
-                 success: function(data){ 
-					 if( data.rcode )
-					 {
-					    $('#dialog_uedit .modal-body').html( data.html );
-						$('#dialog_uedit').modal('show');
-					 }
-					 else{
-					  alert( data.msg );
-					 }
-			      },
-				 error:function( data ){
-					 alert('加载用户信息失败');
-				 }
-			  });
-	 });
-});
+	$('.u_ban').click(
+	 function(){
+	  var rel = $(this).attr('rel');
+	  var state = $(this).attr('data');
+	  $.ajax({
+	      type: "POST",
+          url: "{:U('/Admin/Nclass/ban')}" ,
+		  data:{ncid:rel,state:state},
+          dataType: "json",
+		  success:function(r)
+		  {
+			  if( undefined != r.rcode  && parseInt(r.rcode)>0)
+			  {
+                 location.reload();
+			  }
+			  else
+			  {
+			    alert( r.msg );
+				return;
+			  }
+		  },
+		  error:function(r){
+		   alert("Ajax 请求错误");
+		  }
+	  });
+	 }
+	);
+ });
 </script>
 <include file="Public:footer" />

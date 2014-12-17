@@ -1,0 +1,70 @@
+<include file="Public:header" />
+	 <title>添加小说</title>
+     <include file="Public:header_css" />
+	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+		  <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+			 <div class="span10">
+					<ul class="breadcrumb">
+						<li>
+					     <a href="{:U('/Admin/')}">首页</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="{:U('/Admin/Nclass/')}">小说分类</a> <span class="divider">/</span>
+						</li>
+						<li class="active">
+							分类编辑
+						</li>
+					</ul>
+					<div class="row">
+						<div class="span9">
+						    <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Nclass/edit')}">
+                            <input type="hidden" name="ncid" value="{$d.ncid}">
+						     <fieldset>
+							  <div class="control-group">
+								<label class="control-label" for="name">分类名</label>
+								 <div class="controls">
+									<input type="text"  value="{$d.name}" class="input-xlarge" id="name" name="name"/>
+								 </div>
+							  </div>
+							  <div class="control-group">
+								<label class="control-label" for="ncdesc">简介</label>
+								<div class="controls">
+								   <textarea class="input-xlarge" id="ncdesc" name="ncdesc" rows="5">{$d.ncdesc}</textarea>
+								</div>
+							  </div>
+							   <div class="control-group">
+								<label class="control-label" for="logo">封面图片</label>
+								<div class="controls">
+									<input class="input-xlarge" id="logo" name="logo"  value="{$d.logo}" type="text" />&nbsp;&nbsp;
+									<span id="swfupload" class="btn"></span>
+									{:W('Upload',array('BTN_W'=>60,'target'=>'logo','error'=>'swferror','preview'=>'imgclass'))}
+									<br/>
+									<img src="<present name="d['logo']"><php>echo C('SITE_URL')</php>{$d.logo}<else />{$ADMIN_PATH},nopic.gif
+									</present>" width="120px" height="60px" id="imgclass">
+									<br/>
+									<p id="swferror" class="alert alert-danger span3 hide"></p>
+								</div>
+							  </div>
+							   <div class="control-group">
+								<label class="control-label" for="url">访问地址</label>
+								<div class="controls">
+									<input class="input-xlarge" id="url" name="url" type="text"  value="{$d.url}"/>
+								</div>
+							  </div>
+							 <div class="form-actions">
+							 	<button type="submit" class="btn btn-primary">保存修改</button>
+							  </div>
+						    </fieldset>
+					   </form> 
+				      </div>
+				 </div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

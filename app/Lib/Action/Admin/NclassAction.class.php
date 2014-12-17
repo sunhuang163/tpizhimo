@@ -52,10 +52,28 @@ class NclassAction extends BackAction {
 	  }
 	 }
 
-     //目录不是真正的删除，仅仅只是隐藏
-	 public function delete()
-	{
-	}
+//目录的显示和隐藏
+  public function ban()
+{
+  $Mnclass = D("Nclass");
+  $ncid = isset( $_POST['ncid']) ? intval($_POST['ncid']):0;
+  $state = isset( $_POST['state'] ) ? intval( $_POST['state']) :0;
+  $res = array('rcode'=>0,'msg'=>'服务器忙，请稍后再试','data'=>NULL);
+  $wheres = array();
+  $wheres['ncid'] = array('eq', $ncid);
+  $d = array();
+  $d['state'] = 1==$state ? 0 : 1 ;
+  $res['rcode'] = $Mnclass->data( $d )->where( $wheres )->save();
+  if( $res['rcode'] ){
+	  $res['msg']='OK';
+	   $res['rcode'] = 1;
+	  }
+  else
+	  $res['msg'] = '状态更新失败';
+
+  echo json_encode( $res );
+  exit();
+}
 
 	 //目录资料修改
      public function edit()

@@ -1,0 +1,78 @@
+<include file="Public:header" />
+	 <title>小说章节信息</title>
+     <include file="Public:header_css" />
+	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+		  <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+			 <div class="span10">
+					<ul class="breadcrumb">
+						<li>
+					     <a href="{;U('/Admin/')}">首页</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="{:U('/Admin/Novel/')}">小说管理</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="{:U('/Admin/Novel/view','id='.$novel['nid'])}">{$novel.title|msubstr=0,10}</a> <span class="divider">/</span>
+						</li>
+						<li class="active">
+							章节
+						</li>
+					</ul>
+					<div class="row">
+						<div class="span7">
+						  <table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th> 名称 </th>
+								<th> 描述 </th>
+								<th> 排序</th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="dlist" id="vo">
+							<tr id="tr{$vo.cpid}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.cpid}"></label></td>
+							    <td>{$vo.title}</td>
+								<td>{$vo.cdesc}</td>
+								<td>{$vo.ord}</td>
+								<td > 
+								   <a href="javascript:void(0);"   rel="{$vo.cpid}" title="删除该条记录">
+								     <i class="icon-remove"></i>
+								   </a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					    </table>
+						</div>
+						<div class="span2">
+							<ul class="nav nav-list"  style="position:fixed;">
+								<li class="nav-header">小说</li>
+								<li >
+									<a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}" title="小说章节管理" >小说章节</a>
+								</li>
+								<li class="active">
+									<a href="{:U('/Admin/Novel/contents','nid='.$d['nid'])}" title="小说内容管理">内容管理</a>
+								</li>
+								<li>
+									<a href="{:U('/Admin/Novel/comments','nid='.$d['nid'])}" title="评论管理">评论管理</a>
+								</li>
+								<li class="nav-header">工具</li>
+								<li>
+									<a href="#">重新采集</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

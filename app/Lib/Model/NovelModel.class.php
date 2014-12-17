@@ -22,11 +22,34 @@ class NovelModel extends RelationModel {
 
    protected function  _before_insert(&$data,$options)
   {
-    //
+	$data['ctime'] = time();
+	$data['utime'] = time();
+
+   if( !$data['url'] ){
+    $url = ff_pinyin( $data['title']);
+	$wheres = array();
+	$wheres['url'] = array('eq',$url);
+	$Mnovel = M("Novel");
+	$cnt = 0;
+	$cnt = $Mnovel->where( $wheres )->count();
+    if( $cnt )
+		$url .= $cnt;
+	$data['url'] = $url;
+   }
+   if( !$data['zimu']){
+    $data['zimu'] = ff_letter_first( $data['title']);
+   }
   }
 
+  //分类文章增加,标签解析
   protected function _after_insert($data,$options)
  {
+    $tags = isset( $_POST['tags']) ? trim( $_POST['tags']) :'';
+    if( $tags )
+    {
+	 $Mtag = D("Tag");
+	 $Mtag->parse($tags , $data['nid']);
+	}
 
  }
 

@@ -1,6 +1,7 @@
 <include file="Public:header" />
-	 <title>添加小说</title>
+	 <title>小说信息修改</title>
      <include file="Public:header_css" />
+	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" />
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
@@ -21,53 +22,52 @@
 						</li>
 					</ul>
 					<div class="row">
-						<div class="span9">
-						 <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/add')}">
-						   <input type="hidden" name="ncomm" value="0">
+						<div class="span7">
+						 <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/view')}">
+						   <input type="hidden" name="nid" value="{$d.nid}">
 						   <fieldset>
 							<div class="control-group">
-								<label class="control-label"  for="name">名称</label>
+								<label class="control-label"  for="name">小说名称</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" id="title" name="title"  />
-									&nbsp;&nbsp;显示:<input type="checkbox" id="nstate" value="0" checked="checked">
+									<input type="text" class="input-xlarge" id="title" name="title" value="{$d.title}" />
+									&nbsp;&nbsp;显示:<input type="checkbox" id="nstate" value="0" <if condition="$vo['state'] eq 0"> checked="checked"</if>>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="author">作者</label>
 								<div class="controls">
-									<input type="text" class="input-large" name="author" id="author"  />
+									<input type="text" class="input-large" name="author" id="author" value="{$d.author}" />
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="tags">标签</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" name="tags" id="tags"  />
+									<input type="text" class="input-xlarge" name="tags" id="tags" 
+									value="{$tags}" />
 									<p class="help-block">标签用"|" 隔开</p>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="pic">图片</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" name="pic" id="pic"  />&nbsp;&nbsp;
+										<input type="text" class="input-xlarge" name="pic" id="pic" value="{$d.pic}" />&nbsp;&nbsp;
 									<span id="swfupload" class="btn"></span>
 									{:W('Upload',array('BTN_W'=>60,'target'=>'pic','preview'=>'imgclass'))}
 									<br/>
-									<img src="{$ADMIN_PATH}nopic.gif" width="120px" height="60px" id="imgclass">
+									<img src="<present name="d['pic']">{:C('SITE_URL')}{$d.pic}<else/>{$ADMIN_PATH}nopic.gif</present>" width="120px" height="60px" id="imgclass">
 									<br/>
 								</div>
 							</div>
 							 <div class="control-group">
 								<label class="control-label" for="url">小说地址</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" name="url" id="url"  />
-									<p class="help-block">如果为空，则为小说名称的拼音.</p>
+									<input type="text" class="input-xlarge" name="url" id="url" value="{$d.url}" />
 								</div>
 							</div>
 							 <div class="control-group">
 								<label class="control-label" for="newurl">新访问地址</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" name="newurl" id="newurl"  />
-									<p class="help-block">可以为空，为文章迁移做准备.</p>
+									<input type="text" class="input-xlarge" name="newurl" id="newurl"   value="{$d.newurl}"/>
 								</div>
 							</div>
 							<div class="control-group">
@@ -75,7 +75,7 @@
 								<div class="controls">
 		                            <select name="ncid"  id="ncid"> 
 									  <volist name="nclass" id="vo">
-									   <option value="{$vo.ncid}">{$vo.name}</option>
+									   <option value="{$vo.ncid}" <if condition="$d['ncid'] eq $vo['ncid']"> selected </if>>{$vo.name}</option>
 									  </volist>
 									</select>
 								</div>
@@ -83,26 +83,44 @@
 							<div class="control-group">
 								<label class="control-label" for="ndesc">简介</label>
 								<div class="controls">
-									<textarea  name="ndesc" id="ndesc" rows="4" style="width:430px;"></textarea>
+									<textarea    name="ndesc" id="ndesc" rows="4"  >{$d.ndesc}</textarea>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="zimu">字母</label>
 								<div class="controls">
-									<input type="text" class="input-large" name="zimu" id="zimu"  />
+									<input type="text" class="input-large" name="zimu" id="zimu"  value="{$d.zimu}"/>
 								</div>
 							</div>
                             <div class="control-group">
 								<label class="control-label" for="uptxt">更新信息</label>
 								<div class="controls">
-									<input type="text" class="input-xxlarge"  name="uptxt" id="uptxt"  />
+									<input type="text" class="input-xlarge" name="uptxt" id="uptxt"  value="{$d.uptxt}"/>
 								</div>
 							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">添加</button>
+								<button type="submit" class="btn btn-primary">保存</button>
 							</div>
 						</fieldset>
-					   </form> 
+					</form> 
+						</div>
+						<div class="span2">
+							<ul class="nav nav-list"  style="position:fixed;">
+								<li class="nav-header">小说</li>
+								<li>
+									<a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}" title="小说章节管理">章节管理</a>
+								</li>
+								<li>
+									<a href="{:U('/Admin/Novel/contents','nid='.$d['nid'])}" title="小说内容管理">内容管理</a>
+								</li>
+								<li>
+									<a href="{:U('/Admin/Novel/comments','nid='.$d['nid'])}" title="评论管理">评论管理</a>
+								</li>
+								<li class="nav-header">工具</li>
+								<li>
+									<a href="#">重新采集</a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
