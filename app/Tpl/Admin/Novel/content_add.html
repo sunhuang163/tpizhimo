@@ -1,0 +1,73 @@
+<include file="Public:header" />
+	 <title>添加新的内容</title>
+     <include file="Public:header_css" />
+	</head>
+	<body>
+		<div class="container">
+		  <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+			 <div class="span10">
+					<ul class="breadcrumb">
+						<li>
+					     <a href="{;U('/Admin/')}">首页</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="{:U('/Admin/Novel/')}">小说管理</a> <span class="divider">/</span>
+						</li>
+							<li>
+							<a href="{:U('/Admin/Novel/view','id='.$d['nid'])}">{$d.title|msubstr=0,10}</a> <span class="divider">/</span>
+						</li>
+							<li>
+							<a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}">章节管理</a> <span class="divider">/</span>
+						</li>
+						<li class="active">
+							添加新的小说
+						</li>
+					</ul>
+					<div class="row">
+						<div class="span10">
+						 <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/content_add')}">
+						      <input type="hidden" name="nid" />
+						   <fieldset>
+							<div class="control-group">
+								<label class="control-label"  for="title">标题</label>
+								<div class="controls">
+									<input type="text" class="input-xxlarge" id="title" name="title"  />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="ncid">文章分类</label>
+								<div class="controls">
+		                            <select name="ncid"  id="ncid"> 
+									  <volist name="nclass" id="vo">
+									   <option value="{$vo.ncid}">{$vo.name}</option>
+									  </volist>
+									</select>&nbsp;&nbsp;
+									<span class="" for="cpid">所属章节</span>
+									<select name="cpid"  id="cpid"> 
+									  <volist name="nclass" id="vo">
+									   <option value="{$vo.ncid}">{$vo.name}</option>
+									  </volist>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="content">内容</label>
+								<div class="controls">
+									<textarea  name="content" id="content" style="width:520px;height:320px;"></textarea>
+									{:W('Editor',array('id'=>'content'))}
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">添加</button>
+							</div>
+						</fieldset>
+					   </form> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ <include file="Public:footer_js" />
+<include file="Public:footer" />

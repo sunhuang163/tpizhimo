@@ -1,0 +1,26 @@
+<php>
+ $acname = strtolower( ACTION_NAME );
+ $mdname = strtolower( MODULE_NAME );
+
+</php>
+<div class="span2">
+	 <ul class="nav nav-list"  style="position:fixed;">
+		<li class="nav-header">小说</li>
+	   <li <if condition="$acname eq 'chapters'"> class="active" </if>>
+		 <a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}" title="小说章节管理">章节管理</a>
+	    </li>
+		<li <if condition="$acname eq 'contents'"> class="active" </if>>
+		  <a href="{:U('/Admin/Novel/contents','nid='.$d['nid'])}" title="小说内容管理">内容管理</a>
+        </li>
+	   <li <if condition="$acname eq 'comments'"> class="active" </if> >
+		 <a href="{:U('/Admin/Novel/comments','nid='.$d['nid'])}" title="评论管理">评论管理</a>
+	    </li>
+	   <li class="nav-header">快捷方式</li>
+	   <li <if condition="$acname eq 'content_add'"> class="active" </if>>
+	    <a href="{:U('/Admin/Novel/content_add','nid='.$d['nid'])}" >添加内容</a>
+	   </li>
+	   <li>
+	    <a href="#" >生成html</a>
+	   </li>
+    </ul>
+</div>

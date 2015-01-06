@@ -5,27 +5,32 @@
   @@小说章节
 */
 
-class NchapterModel extends RelationModel {
+class NchapterModel extends AdvModel {
 
-	//自动验证
 	protected $_validate=array(
-		  array('name','','帐号名称已经存在！',0,'unique',1),
-		  array('name','require','账户名称不能为空!',1),
-		  array('email','email','邮箱格式不正确',1),
-		  array('email','','该邮箱已经存在！',0,'unique',1),
-		  array('psw','require','密码不能为空',1,'',1),
+		  array('nid','require','章节所属的小说不能为空!',1),
+		  array('title','require','小说的章节名称不能为空',1,'',1),
 
 	);
-	//自动完成
+
 	protected $_auto=array(
-		array('ctime','time',1,'function'),
-		array('mtime','time',2,'function'), //用户资料更新时间
 	);
 
 
    protected function  _before_insert(&$data,$options)
   {
-     //
+     $Mchapter = M("Nchapter");
+	 $wheres = array();
+	 $wheres['nid'] = array('eq',$data['nid']);
+	 $cnt = $Mchapter->where( $wheres )->max("ord");
+	 if( !$cnt )
+		 $cnt = 1;
+	 else
+		 $cnt++;
+	 $data['ord'] = $cnt;
+  }
+
+  protected function _after_insert($data,$options){
   }
 
 }

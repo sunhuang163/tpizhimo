@@ -113,6 +113,7 @@ class NovelAction extends BackAction {
    }
   }
 
+    //小说的章节
    public function chapters()
    {
     $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
@@ -130,20 +131,42 @@ class NovelAction extends BackAction {
 	else
 	{
      $chaps = array();
-	 $chaps= $Mchapter->where( $wheres )->order('ord DESC')->select();
+	 $chaps= $Mchapter->where( $wheres )->order('ord ASC')->select();
+	 $this->assign('ref',U('/Admin/Novel/chapters',array('nid'=>$nid)));
 	 $this->assign('dlist' ,$chaps);
-	 $this->assign("novel" ,$dn);
+	 $this->assign("d" ,$dn);
 	 $this->display();
 	}
    }
 
    public function chapter_add()
    {
+	  $Mchapter = D("Nchapter");
+	if( $this->isPost() )
+	{
+       $ref = isset( $_POST['ref'] )  ? $_POST['ref'] : "javascript:history.go(-1);";
+	   $res = $Mchapter->create();
+	   if( !$res ){
+	    $this->assign("jumpUrl",$ref);
+		$this->error( $Mchapter->getError() );
+	   }
+	   else
+	  {
+         $Mchapter->add();
+		 $this->assign("jumpUrl",$ref);
+		 $this->success("小说章节添加成功");
+	  }
+	}
+	else
+	{
+     $this->error("请求错误");
+	}
    }
 
   public function chapter_edit()
-  {
-  }
+ {
+
+ }
 
   public function chapter_delete()
  {
@@ -151,11 +174,39 @@ class NovelAction extends BackAction {
 
    public function contents()
   {
+	 if( $this->isPost() ){
+	 }
+	 else
+	{
+     $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
+	$Mnovel = D("Novel");
+	$dn = NULL;
+	$wheres =array();
+	$wheres['nid'] = array('eq',$nid);
+	$dn = NULL;
+	$dn = $Mnovel->where( $wheres )->find();
+	if( !$dn ){
+	 $this->assign("jumpUrl","javascript:history.go(-1);");
+	 $this->error("查看的小说不存在");
+	}
+	else
+	{
+	 $this->assign('ref',U('/Admin/Novel/contents',array('nid'=>$nid)));
+	 $this->assign("d" ,$dn);
 	 $this->display();
+	}
+	 }
   }
 
   public function content_add()
  {
+   if( $this->isPost() ){
+
+   }
+   else
+  {
+    $this->display();
+  }
  }
 
   public function content_edit()

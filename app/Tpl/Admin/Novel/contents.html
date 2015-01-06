@@ -24,12 +24,12 @@
 							内容管理
 							&nbsp;&nbsp;
 							<span>
-							 <a class="toggle-link" href="#new-project"><i class="icon-plus"></i>添加内容</a>
+							 <a   href="{:U('/Admin/Novel/content_add')}"><i class="icon-plus"></i>添加内容</a>
 							</span>
 						</li>
 					</ul>
 					<div class="row">
-						<div class="span7">
+						<div class="span10">
 						  <table class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -56,24 +56,6 @@
 					       </volist>  
 						</tbody>
 					    </table>
-						</div>
-						<div class="span2">
-							<ul class="nav nav-list"  style="position:fixed;">
-								<li class="nav-header">小说</li>
-								<li >
-									<a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}" title="小说章节管理" >小说章节</a>
-								</li>
-								<li class="active">
-									<a href="{:U('/Admin/Novel/contents','nid='.$d['nid'])}" title="小说内容管理">内容管理</a>
-								</li>
-								<li>
-									<a href="{:U('/Admin/Novel/comments','nid='.$d['nid'])}" title="评论管理">评论管理</a>
-								</li>
-								<li class="nav-header">工具</li>
-								<li>
-									<a href="#">重新采集</a>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>

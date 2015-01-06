@@ -104,24 +104,7 @@
 						</fieldset>
 					</form> 
 						</div>
-						<div class="span2">
-							<ul class="nav nav-list"  style="position:fixed;">
-								<li class="nav-header">小说</li>
-								<li>
-									<a href="{:U('/Admin/Novel/chapters','nid='.$d['nid'])}" title="小说章节管理">章节管理</a>
-								</li>
-								<li>
-									<a href="{:U('/Admin/Novel/contents','nid='.$d['nid'])}" title="小说内容管理">内容管理</a>
-								</li>
-								<li>
-									<a href="{:U('/Admin/Novel/comments','nid='.$d['nid'])}" title="评论管理">评论管理</a>
-								</li>
-								<li class="nav-header">工具</li>
-								<li>
-									<a href="#">重新采集</a>
-								</li>
-							</ul>
-						</div>
+						<include file="Novel:right_float"/>
 					</div>
 				</div>
 			</div>
