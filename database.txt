@@ -169,7 +169,8 @@ mu4ju3MB5u
 		       ctime int,
 		       content text,
 		       ord int default 0,
-		       ncid int
+		       ncid int,
+                       nid int
 		       ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 12°¢±Í«© ih_tag
