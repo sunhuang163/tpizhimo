@@ -28,7 +28,7 @@
 					<div class="row">
 						<div class="span10">
 						 <form id="edit-profile" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/content_add')}">
-						      <input type="hidden" name="nid" />
+						      <input type="hidden" name="nid" value="{$d.nid}" />
 						   <fieldset>
 							<div class="control-group">
 								<label class="control-label"  for="title">标题</label>
@@ -41,13 +41,14 @@
 								<div class="controls">
 		                            <select name="ncid"  id="ncid"> 
 									  <volist name="nclass" id="vo">
-									   <option value="{$vo.ncid}">{$vo.name}</option>
+									   <option value="{$vo.ncid}" <if condition="$d['ncid'] eq $vo['ncid']">  selected </if>>{$vo.name}</option>
 									  </volist>
 									</select>&nbsp;&nbsp;
 									<span class="" for="cpid">所属章节</span>
 									<select name="cpid"  id="cpid"> 
-									  <volist name="nclass" id="vo">
-									   <option value="{$vo.ncid}">{$vo.name}</option>
+									   <option > --- 选择章节 ---- </option>
+									  <volist name="chapters" id="vo">
+									   <option value="{$vo.cpid}">{$vo.title}</option>
 									  </volist>
 									</select>
 								</div>

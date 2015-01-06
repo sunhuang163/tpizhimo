@@ -18,13 +18,13 @@
 							<a href="{:U('/Admin/Novel/')}">小说管理</a> <span class="divider">/</span>
 						</li>
 						<li>
-							<a href="{:U('/Admin/Novel/view','id='.$novel['nid'])}">{$novel.title|msubstr=0,10}</a> <span class="divider">/</span>
+							<a href="{:U('/Admin/Novel/view','id='.$d['nid'])}">{$d.title|msubstr=0,10}</a> <span class="divider">/</span>
 						</li>
 						<li class="active">
 							内容管理
 							&nbsp;&nbsp;
 							<span>
-							 <a   href="{:U('/Admin/Novel/content_add')}"><i class="icon-plus"></i>添加内容</a>
+							 <a   href="{:U('/Admin/Novel/content_add','nid='.$d['nid'])}"><i class="icon-plus"></i>添加内容</a>
 							</span>
 						</li>
 					</ul>
@@ -34,28 +34,31 @@
 						<thead>
 							<tr>
 								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
-								<th> 名称 </th>
-								<th> 描述 </th>
+								<th>标题</th>
+								<th>创建时间</th>
 								<th> 排序</th>
 								<th> 操作 </th>
 							</tr>
 						</thead>
 						<tbody>
-						   <volist name="dlist" id="vo">
+						   <volist name="list" id="vo">
 							<tr id="tr{$vo.cpid}">
 							    <td><label><input name="ids" type="checkbox" value="{$vo.cpid}"></label></td>
 							    <td>{$vo.title}</td>
-								<td>{$vo.cdesc}</td>
+								<td>{$vo.ctime|date="Y-m-d H:i:s",###}</td>
 								<td>{$vo.ord}</td>
 								<td > 
-								   <a href="javascript:void(0);"   rel="{$vo.cpid}" title="删除该条记录">
+								   <button rel="{$vo.ncntid}" title="删除该条记录">
 								     <i class="icon-remove"></i>
-								   </a> 
+								   </button> 
 								 </td>
 							</tr>
 					       </volist>  
 						</tbody>
 					    </table>
+						<div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					   </div>
 						</div>
 					</div>
 				</div>

@@ -174,38 +174,89 @@ class NovelAction extends BackAction {
 
    public function contents()
   {
-	 if( $this->isPost() ){
-	 }
-	 else
-	{
-     $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
+    $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
 	$Mnovel = D("Novel");
+	$Mcontent = D("Content");
 	$dn = NULL;
 	$wheres =array();
 	$wheres['nid'] = array('eq',$nid);
 	$dn = NULL;
 	$dn = $Mnovel->where( $wheres )->find();
+
 	if( !$dn ){
 	 $this->assign("jumpUrl","javascript:history.go(-1);");
 	 $this->error("查看的小说不存在");
 	}
 	else
 	{
-	 $this->assign('ref',U('/Admin/Novel/contents',array('nid'=>$nid)));
-	 $this->assign("d" ,$dn);
-	 $this->display();
+      $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+	  if( $p< 1)
+		  $p = 1;
+	  $call = 0;
+	  $pall = 1;
+	  $limits ='';
+	  $Ldata = NULL;
+      $call = $Mcontent->where( $wheres )->count("*");
+      $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
+	  if( $p > $pall )
+		  $p = $pall;
+	  $limits = ($p-1)*$this->a_psize;
+	  $limits.=','.$this->a_psize;
+	  $Ldata = $Mcontent->field("ncntid,cpid,nid,ncid,ord,title,ctime")->limit( $limits )->where( $wheres )->select();
+	  $url = U('/Admin/Nclass/index',array('p'=>'{!page!}','nid'=>$nid));
+      $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
+	  $this->assign("pagestr",$pagestr);
+	  $this->assign("call",$call);
+	  $this->assign("pnow",$p);
+	  $this->assign("list",$Ldata);
+	  $this->assign('ref',U('/Admin/Novel/contents',array('nid'=>$nid)));
+	  $this->assign("d" ,$dn);
+	  $this->display();
 	}
-	 }
   }
 
   public function content_add()
  {
-   if( $this->isPost() ){
-
+   if( $this->isPost() )
+  {
+    $Mcontent = D("Content");
+	$res = $Mcontent->create();
+	if( !$res ){
+	 $this->assign("jumpUrl","javascript:history.go(-1);");
+	 $this->error( $Mcontent->getError() );
+	}
+	else{
+	 $Mcontent->add();
+	 $nid = isset( $_POST['nid']) ? intval( $_POST['nid']) :0 ;
+	 $this->assign("jumpUrl",U('/Admin/Novel/contents',array('nid'=>$nid)));
+     $this->success("小说内容添加成功");
+	}
    }
    else
   {
-    $this->display();
+	$nid = isset( $_GET['nid']) ? intval( $_GET['nid']) : 0;
+	$wheres = array();
+	$Mnovel = D("Novel");
+	$du = NULL;
+	$wheres['nid'] = array('eq',$nid);
+	$du = $Mnovel->where( $wheres )->find();
+	if( !$du )
+	{
+	   $this->assign("jumpUrl","javascript:history.go(-1);");
+	   $this->error("添加的小说不存在!");
+	}
+	else{
+	 $Mchapter = D("Nchapter");
+	 $Mcid = D("Nclass");
+	 $chpaters = $nclass = NULL;
+	 $wherenc = array();
+	 $chapters = $Mchapter->field("cpid,nid,ncid,title")->where( $wheres )->order("ord ASC")->select();
+	 $nclass = $Mcid->field("ncid,name,state")->select();
+	 $this->assign("chapters",$chapters);
+	 $this->assign("nclass",$nclass);
+     $this->assign('d',$du);
+     $this->display();
+	}
   }
  }
 

@@ -9,23 +9,37 @@ class ContentModel extends AdvModel {
 
 	//自动验证
 	protected $_validate=array(
-		  array('name','','帐号名称已经存在！',0,'unique',1),
-		  array('name','require','账户名称不能为空!',1),
-		  array('email','email','邮箱格式不正确',1),
-		  array('email','','该邮箱已经存在！',0,'unique',1),
-		  array('psw','require','密码不能为空',1,'',1),
+		  array('title','require','小说标题不能为空!',1),
+		  array('content','require','小说内容不能为空',1),
 
 	);
 	//自动完成
 	protected $_auto=array(
+		array('content','hh_content',3,'callback'),
 		array('ctime','time',1,'function'),
-		array('mtime','time',2,'function'), //用户资料更新时间
 	);
 
 
+  protected function hh_content( $str )
+ {
+	//采集内容中外链的处理，特殊字符的处理
+	return remove_xss( $str );
+ }
+
    protected function  _before_insert(&$data,$options)
   {
-     //
+     $Mcnt = M("Content");
+	 $wheres = array();
+	 $wheres['nid'] = array('eq',$data['nid']);
+	 $cnt = $Mcnt->where( $wheres )->max("ord");
+	 if( !$cnt )
+		 $cnt = 1;
+	 else
+		 $cnt++;
+	 $data['ord'] = $cnt;
+  }
+
+  protected function _after_insert($data,$options){
   }
 
 }

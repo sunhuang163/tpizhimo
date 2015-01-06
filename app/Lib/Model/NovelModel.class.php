@@ -41,7 +41,7 @@ class NovelModel extends RelationModel {
    }
   }
 
-  //分类文章增加,标签解析
+  //分类文章增加,标签解析，分类计数增加,小说数据添加
   protected function _after_insert($data,$options)
  {
     $tags = isset( $_POST['tags']) ? trim( $_POST['tags']) :'';
@@ -50,6 +50,16 @@ class NovelModel extends RelationModel {
 	 $Mtag = D("Tag");
 	 $Mtag->parse($tags , $data['nid']);
 	}
+   $Mclass  = M("Nclass");
+   $wheres = array();
+   $wheres['ncid'] = array('eq',$data['ncid']);
+   $d = array();
+   $d['cn'] =array('exp','cn+1');
+   $Mclass->where( $wheres )->save( $d );
+   $Mndata = M("Ndata");
+   $nd  = array();
+   $nd['nid'] = $data['nid'];
+   $Mndata->data( $nd )->add();
 
  }
 
