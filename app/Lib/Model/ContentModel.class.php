@@ -39,8 +39,16 @@ class ContentModel extends AdvModel {
 	 $data['ord'] = $cnt;
   }
 
-  protected function _after_insert($data,$options){
-  }
+  protected function _after_insert($data,$options)
+ {
+   $Mnovel = M("Novel");
+   $dp = array();
+   $wheres = array();
+   $wheres['nid'] = array('eq',$data['nid']);
+   $dp['uptxt'] = "更新至:".$data['title'];
+   $dp['utime'] = time();
+   $Mnovel->where( $wheres )->save( $dp );
+ }
 
 }
 ?>
