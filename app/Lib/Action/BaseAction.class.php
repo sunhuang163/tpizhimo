@@ -4,16 +4,17 @@ if (!defined('THINK_PATH')) exit();
 class BaseAction extends AllAction {
     protected $m_u = array();
 	protected $m_isLogin = false;
+	protected $m_path = "/static/";
 
    public function _initialize(){
 	  parent::_initialize();
-	  session_start();
       header('Cache-control:private,must-revalidate');
 	  $this->_uload();
+	  $this->assign("ST_PATH",$this->m_path );
 	}
 
    protected function  _uload( $forece = FALSE){
-     $uinfo = session('_nvu');
+    /*  $uinfo = session('_nvu');
 	 if( $uinfo )
 	 {
 		 $uinfo = authcode( $uinfo , "DECODE");
@@ -22,7 +23,7 @@ class BaseAction extends AllAction {
 		 if( $forece ){
 		   $this->_update($this->m_u['uid']);
 		 }
-	 }
+	 } */
    }
 
    protected function _update( $uid ){
@@ -31,7 +32,8 @@ class BaseAction extends AllAction {
 	//update session
    }
 
-   public function isLogin(){
+   public function _Login()
+  {
 	  $this->m_isLogin =  isset( $this->m_u) && isset( $this->m_u['uid'] ) ? TRUE : FALSE;
 	  return $this->m_isLogin;
    }

@@ -1,0 +1,626 @@
+html{overflow-y: scroll; font:13px/1.6em "Microsoft YaHei",Arial,Helvetica,sans-serif;}
+body{background:#e7e7e7 url(../images/bg.jpg); line-height:165%; margin:0; padding:0; color:#666; font:13px/1.6em "Microsoft YaHei",Arial,sans-serif;}
+form,ul,ol,li,dl,dt,dd,form,img,p{margin:0; padding:0; border:none; list-style-type:none;}
+h1,h2,h3,h4,h5,h6{margin:0; padding:0; border:none; list-style-type:none; font-size:12px;}
+img{border:none;}
+
+a:link, a:visited{text-decoration:none;color:#444;}
+a:hover{color:#881600; text-decoration:underline;}
+select,button,input,textarea{font:12px/1.6em Arial, Helvetica, sans-serif;}
+table{empty-cells:show; border-collapse:collapse;}
+.c{clear:both; padding:0;margin:0;height:0; overflow:hidden;}
+s.market{font-style:italic; text-decoration:none; color:#aaa;} /* 删除线 */
+s{font-style: italic; text-decoration: none;}
+.left{float:left;}
+.right{float:right;}
+a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
+input.Wdate{width:95px; height:22px; line-height:22px; border:1px solid #ccc;}
+.loading{color:#f20; }/* 装载条 */
+ /*首页提示*/
+#TopWarn a{text-decoration:none;color:#f2f2f2;font-weight:bold;}
+#TopWarn{ color:#bdbfbd;width:950px;margin:0 auto;text-align:center;background-color:#507073;padding:5px 5px 5px 5px;display:none;}
+  /*信息页广告*/
+  .Ad{padding:10px 0 10px 15px; background:#f2f2f2;}
+#wrap{word-break:break-all; width:520px;}
+/*登陆样式*/
+.header ul ol p span.right iframe html body span a{margin:0px; padding:0px;}
+.header{width:960px; margin:0 auto; height:100px; background:url(../images/headerbg.jpg) repeat-x; overflow:hidden;}
+.header ul{width:960px; margin:0 auto;}
+.header ul ol{width:100%;}
+.header ul ol p{height:41px; margin:0; padding:0; line-height:41px; overflow:hidden;}
+.header ul ol p span{color:#999; height:30px; margin:0; padding:0;}
+.header ul ol p span a{margin:0 3px 0; padding:0;}
+.header ul ol dl{height:50px; line-height:50px;background:#746a51; overflow:hidden;}
+.header ul ol dl a:link, .header ul ol dl a:visited{text-decoration:none;color:#fff; font-size:18px; float:left; border-left:1px solid #88806b; width:80px;_width:79.9px; margin:0 0 0 -1px; text-align:center; overflow:hidden;}
+.header ul ol dl a:hover{background:#881600; color:#fff; text-decoration:none;}
+.header ul ol dl a.select:link, .header ul ol dl a.select:visited{width:85px; background:#507073 url(../images/headeract.jpg) no-repeat 0 0; color:#fff;}
+.header ul ol dl a.select:hover{background:#507073 url(../images/headeract.jpg) no-repeat 0 -50px; color:#fff;}
+
+.footer{width:960px; margin:10px auto 0 auto; background:#f2f2f2;}
+.footer ul{text-align:center; padding:10px 0;}
+	.footer ul a:link, .footer ul a:visited{text-decoration:none;color:#2b3134; padding:0 6px; font-weight:bold;}
+	.footer ul a:hover{color:#881600; text-decoration:underline;}
+.footer ol{text-align:center; padding:10px 0; background:#2b3134; color:#fff;}
+	.footer ol a:link, .footer ol a:visited{text-decoration:none; color:#fff;}
+	.footer ol a:hover{color:#881600; text-decoration:underline;}
+.footer p{text-align:center; padding:10px 0 0 0; color:#2b3134;}
+	.footer p a:link, .footer p a:visited{text-decoration:none;color:#2b3134;}
+	.footer p a:hover{color:#881600; text-decoration:underline;}
+.footer dl{text-align:center; padding:10px 0;}
+	.footer dl a:link, .footer dl a:visited{text-decoration:none;color:#2b3134; padding:0 6px;}
+	.footer dl a:hover{color:#881600; text-decoration:underline;}
+
+.webBody{width:960px; margin:0 auto;}
+.webMain{float:left; width:670px;}
+.webSidebar{float:right; width:280px; margin-top:-10px;}
+
+
+/* 热门小说 */
+.indexHot{float:left; width:225px;  background:#f2f2f2; overflow:hidden;}
+.indexHot h4{height:32px; line-height:32px; color:#2b3134; font-size:16px; overflow:hidden; padding-left:20px;}
+.indexHot ul{background:#2b3134;}
+.indexHot ul a:link, .indexHot ul a:visited{text-decoration:none; height:78px; color:#acacac; display:block; padding:10px; border-top:1px solid #505050; overflow:hidden;}
+.indexHot ul a:hover{color:#e9930a; text-decoration:none; background:#000;}
+.indexHot ul a img{float:left; margin:0 5px 0 0;}
+.indexHot ul a:link strong, .indexHot ul a:visited strong{display:block; font-size:16px; color:#fff;}
+.indexHot ul a:hover strong{color:#e9930a; text-decoration:underline;}
+.indexHot ul a:link span, .indexHot ul a:visited span{display:block; color:#acacac; font-size:13px;}
+.indexHot ul a:hover span{color:#cceaf8;}
+/*内容页，右半部分样式*/
+.indeHot{ width:280px; height:540px; background:#f2f2f2; overflow:hidden;}
+.indeHot h4{height:32px; line-height:32px; color:#2b3134; font-size:16px; overflow:hidden; background:url(../images/icon1.gif) no-repeat; padding:0 0 0 35px;}
+.indeHot ul{background:#f2f2f2;}
+.indeHot ul a:link, .indeHot ul a:visited{text-decoration:none; height:85px; color:#000; display:block; padding:10px; border-top:1px solid #e3e0e0; overflow:hidden;}
+.indeHot ul a:hover{color:#e9930a; text-decoration:none;}
+.indeHot ul a img{float:left; margin:0 5px 0 0;}
+.indeHot ul a:link strong, .indeHot ul a:visited strong{display:block; font-size:16px; color:#2b3134;}
+.indeHot ul a:hover strong{color:#e9930a; text-decoration:underline;}
+.indeHot ul a:link span, .indeHot ul a:visited span{display:block; color:#000; font-size:13px;}
+.indeHot ul a:hover span{color:#507073;}
+/* 推荐好看的小说 */
+.indexRecommend{float:right; width:435px;  background:#f2f2f2; overflow:hidden;}
+.indexRecommend h4{height:32px; line-height:32px; color:#2b3134; font-size:16px; overflow:hidden; padding:0 0 0 20px; border-bottom:4px solid #2b3134;}
+.indexRecommend ul{padding:10px;}
+.indexRecommend ul:hover{background:#e9e9e9;}
+.indexRecommend ul img.indexRecommendIMG{float:right;}
+.indexRecommend ul h1 a:link, .indexRecommend ul h1 a:visited{text-decoration:none; font-weight:normal; color:#881600; font-size:25px; display:block; text-align:center; margin:0 160px 5px 0; padding:10px 0;}
+.indexRecommend ul h1 a:hover{color:#e9930a; text-decoration:underline;}
+.indexRecommend ul dd{font-size:13px; color:#000;margin:0 0 5px 0; line-height:135%;}
+.indexRecommend ul p{color:#999;}
+.indexRecommend ul p a{margin:0 10px 0 0;}
+.indexRecommend ol{}
+.indexRecommend ol a:link,.indexRecommend ol a:visited{text-decoration:none; height:69px; color:#444; display:block; padding:10px; border-top:1px solid #e6e6e6; overflow:hidden;}
+.indexRecommend ol a:hover{color:#e9930a; text-decoration:none; background:#e9e9e9;}
+.indexRecommend ol a img{float:right; margin:0 0 0 5px;}
+.indexRecommend ol a:link strong,.indexRecommend ol a:visited strong{display:block; font-size:14px; color:#881600;}
+.indexRecommend ol a:hover strong{color:#e9930a; text-decoration:underline;}
+.indexRecommend ol a:link span,.indexRecommend ol a:visited span{display:block; font-size:13px; color:#000; line-height:135%;}
+.indexRecommend ol a:hover span{color:#881600;}
+
+
+/* -----  频道首页 ---*/
+/*推荐好看的*/
+.listpic{margin:0 auto;height:100%;background-color:#f2f2f2;display:block;}
+.listpic h4 {height:32px; line-height:32px; color:#2b3134; font-size:16px; overflow:hidden; padding:0 0 0 20px; border-bottom:4px solid #2b3134;}
+.lcolor { background-color:#f2f2f2; }
+.listpic dl {float:left;margin:5px;width:210px;display:block;overflow:hidden;}
+.listpic dl dt{height:90px;}
+.listpic dl dt h3{font-size:18px;color:#881600;margin-bottom:5px;}
+.listpic dl dt p{height:23px;}
+.listpic dl dt img{float:left;margin:0 5px 0 0;}
+.listpic dl dd{padding-top:5px;margin:0 5px 0 0;height:60px;text-indent: 2em;}
+
+
+
+/* 实时更新 新书入库 */
+.indexUpdataNewbook{margin:0px; padding:0px; margin:10px 0 0 0; background:#f2f2f2;}
+.indexUpdataNewbook h3{background:#507073; border-bottom:4px solid #2b3134;height:35px; line-height:35px; overflow:hidden;}
+.indexUpdataNewbook h3 span{float:left; width:50%; text-align:center; font-size:16px; color:#fff; height:35px; line-height:35px; cursor: pointer;}
+.indexUpdataNewbook h3 span.active{background:#2b3134;}
+.indexUpdataNewbook ul{}
+.indexUpdataNewbook ul ol{padding:10px; border-bottom:1px solid #e6e6e6;}
+.indexUpdataNewbook ul ol:hover{background:#e9e9e9;}
+.indexUpdataNewbook ul ol img.indexListIMG{float:right;}
+.indexUpdataNewbook ul ol h2{}
+.indexUpdataNewbook ul .tabcontent{font-size:13px;}
+.indexUpdataNewbook ul ol h2 span{font-weight:normal; color:#999; margin:0 10px;}
+.indexUpdataNewbook ul ol h2 a:link, .indexUpdataNewbook ul ol h2 a:visited{text-decoration:none;color:#881600; font-size:14px;}
+.indexUpdataNewbook ul ol h2 a:hover{color:#881600; text-decoration:underline;}
+.indexUpdataNewbook ul ol h2 a.indexliBookName{font-size:16px;}
+.indexUpdataNewbook ul ol dl{color:#000; margin:3px 0; font-size:13px;}
+.indexUpdataNewbook ul ol p span{margin:0 15px 0 0;}
+.indexUpdataNewbook ul ol p a{margin:0 5px 0 0;}
+.webSidebarBOX{margin:10px 0 10px 0; background:#f2f2f2; color:#fff;}
+.webSidebarBOX h4{margin:0px; padding:0px; height:32px; line-height:32px; color:#fff; font-size:16px; overflow:hidden; padding:0 0 0 15px; background:#263134;}
+/* 搜索  ul */
+.searchBox{background:#746a51; padding:10px; height:36px; overflow:hidden;width:260px;}
+.searchBox:hover{background:#881600;}
+.searchBox:hover button{background:#e9930a; color:#fff;}
+.searchBox input{float:left; height:36px; line-height:36px; border:0; width:134px; padding:0 4px; font-size:14px; background:#f2f2f2;}
+.searchBox button{float:left; height:36px; line-height:36px; border:0; background:#2b3134; font-size:16px; color:#999; width:50px; text-align:center; cursor: pointer;}
+.searchBox ul li:hover{background:#881600;}
+.searchBox select{float:left; border:0; font-size:12px;  color:#333;background:#f2f2f2;border:0;padding:0;margin-right:10px;}
+.listSearch{margin:0 0 10px 0;}/* 列表页 */
+.listSearch input{width:145px;}/* 列表页 */
+
+
+/* 总排行榜 总推荐榜 ul */
+.rankingBox{background:url(../images/numicon2.gif) no-repeat 5px; color:#cceaf8;}
+.rankingBox p{background:#fff; color:#a6a6a6; height:30px; line-height:30px; overflow:hidden;}
+.rankingBox p span{float:left; height:30px; line-height:30px;}
+.rankingBox p span.tl1{margin:0 30px 0 5px;}
+.rankingBox p span.tl2{}
+.rankingBox p span.tl3{float:right; margin:0 5px 0 0;}
+.rankingBox a:link, .rankingBox a:visited{background:url(../images/numicon2.gif) no-repeat 5px 30px; display:block; text-decoration:none;color:black; border-bottom:1px solid #e3e0e0; height:24px; line-height:24px; padding:0 5px 0 25px; overflow:hidden;}
+.rankingBox a:hover{color:#e9930a; text-decoration:underline; background:  url(../images/numicon2.gif) no-repeat 5px 30px; font-weight:bold;}
+.rankingBox a:link i, .rankingBox a:visited i{float:right; color:#999; font-style:normal;}
+.rankingBox a:hover i{color:#e9930a; text-decoration:none;}
+
+
+.ulitem{background:#f2f2f2 url(../images/numicon2.gif) no-repeat 5px; color:#cceaf8;}
+.ulitem p{background:#746a51; color:#a6a6a6; height:30px; line-height:30px; overflow:hidden;}
+.ulitem p span{float:left; height:30px; line-height:30px;}
+.ulitem p span.tl1{margin:0 30px 0 5px;}
+.ulitem p span.tl2{}
+.ulitem p span.tl3{float:right; margin:0 5px 0 0;}
+.ulitem a:link, .ulitem a:visited{background:url(../images/numicon2.gif) no-repeat 5px 30px; display:block; text-decoration:none;color:#000; border-bottom:1px solid #e3e0e0; height:24px; line-height:24px; padding:0 5px 0 25px; overflow:hidden;}
+.ulitem a:hover{color:#e9930a; text-decoration:underline; background:  url(../images/numicon2.gif) no-repeat 5px 30px; font-weight:bold;}
+.ulitem a:link i, .ulitem a:visited i{float:right; color:#999; font-style:normal;}
+.ulitem a:hover i{color:#e9930a; text-decoration:none;}
+/* 最新评论 ul */
+.newCommond {background:#fff;}
+.newCommond a:link, .newCommond a:visited{text-decoration:none;color:#000; line-height:135%; display:block; border-bottom:1px solid #e3e0e0; padding:10px; height:45px; overflow:hidden;}
+.newCommond a:hover{color:#e9930a; text-decoration:underline;}
+.newCommond a img{float:left; margin:0 5px 0 0;}
+
+/* 受欢迎的作家 友情链接 ul */
+.popularAuthor{ height:45px; background:#f2f2f2; padding:10px;}
+.popularAuthor p{}
+.popularAuthor a:link, .popularAuthor a:visited{text-decoration:none;color:#000; line-height:165%; margin:0 10px 0 10px; display:block;width:80px;}
+.popularAuthor a:hover{color:#e9930a; text-decoration:underline;}
+
+
+
+.allRanking{height:80px;background:#f2f2f2; padding:10px;}
+.allRanking a:link, .allRanking a:visited{text-decoration:none;color:#000; line-height:165%; margin:0 0px 0 10px; width:70px; display:block; float:left;}
+.allRanking a:hover{color:#e9930a; text-decoration:underline;}
+
+
+.Box1{background:#f2f2f2;}
+.Box1 h4{height:32px; line-height:32px; color:#507073; font-size:16px; overflow:hidden; background:url(../images/icon1.gif) no-repeat; padding:0 0 0 35px;}
+
+.Box2{background:#f2f2f2;}
+.Box2 h4{height:32px; line-height:32px; color:#507073; font-size:16px; overflow:hidden; padding:0 0 0 20px; border-bottom:4px solid #507073;}
+
+.box3{}
+.box3 h4{height:32px; line-height:32px; font-size:16px; background:#2b3134 url(../images/icon2.gif) no-repeat; color:#9e9e9e; padding:0 0 0 35px;  overflow:hidden;}
+
+
+/* 通用显示区 */
+.boxShow{margin:0 0 10px 0; background:#f2f2f2;}
+.boxShow h4{height:32px; line-height:32px; color:#507073; font-size:16px; overflow:hidden; background:url(../images/icon1.gif) no-repeat; padding:0 0 0 35px;}
+.boxShow ul{background:#507073 url(../images/numicon.gif) no-repeat 5px 30px; color:#cceaf8;}
+.boxShow ul p{background:#2b3134; color:#a6a6a6; height:30px; line-height:30px; overflow:hidden;}
+.boxShow ul p span{float:left; height:30px; line-height:30px;}
+.boxShow ul p span.tl1{margin:0 30px 0 5px;}
+.boxShow ul p span.tl2{}
+.boxShow ul p span.tl3{float:right; margin:0 5px 0 0;}
+.boxShow ul a:link, .boxShow ul a:visited{display:block; text-decoration:none;color:#cceaf8; border-bottom:1px solid #5a787b; height:24px; line-height:24px; padding:0 5px 0 15px; overflow:hidden;}
+.boxShow ul a:hover{color:#e9930a; text-decoration:underline; background:#5a787b; font-weight:bold;}
+.boxShow ul a:link i, .indexRanking ul a:visited i{float:right; color:#cceaf8; font-style:normal;}
+.boxShow ul a:hover i{color:#fff; text-decoration:none;}
+
+
+
+
+
+
+
+
+
+/* 我要签约 */
+.iWantToSign{margin:10px 0;}
+.iWantToSign a:link, .iWantToSign a:visited{display:block; height:62px; line-height:1000px; text-decoration:none;color:#444; background:#2b3134 url(../images/iWantToSignbg.png) no-repeat 0 0; overflow:hidden;}
+.iWantToSign a:hover{color:#881600; text-decoration:underline; background:#881600 url(../images/iWantToSignbg.png) no-repeat 0 -62px;}
+
+
+
+/* 人气最高的小说  书友推荐的小说 */
+.indexRanking ul{background:#746a51 url(../images/numicon2.gif) no-repeat 5px 30px;}
+
+/* 最新评论 */
+.indexNewCommond{margin:0 0 10px 0;}
+.indexNewCommond ul{background:#507073;}
+.indexNewCommond ul a:link, .indexNewCommond ul a:visited{text-decoration:none;color:#cceaf8; line-height:135%; display:block; border-bottom:1px solid #5a787b; padding:10px; height:50px; overflow:hidden;}
+.indexNewCommond ul a:hover{color:#e9930a; text-decoration:underline;}
+.indexNewCommond ul a img{float:left;} .webpages{width:670px;height:450px;background-color:#f2f2f2;}
+ul,p{margin:0; padding:0; border:none; list-style-type:none;}
+h5{margin:0; padding:0; border:none; list-style-type:none; font-size:12px;}
+a:link, a:visited{text-decoration:none;color:#444;}
+a:hover{color:#881600; text-decoration:underline;}
+.webpages h5{margin-left:10px;margin-right:10px;height:20px;padding-top:15px;border-bottom:1px dotted #CCC;}
+.webpages ul{height:390px;width:135px;padding-left:15px;margin-top:10px;float:left;}
+img{border:none;}
+
+.webpages ul a:link, .webpages ul a:visited{
+	display:block; 
+	text-decoration:none;
+	font-size:16px;
+	color:#6e6c66;
+	border:1px solid #e1e1e1; height:30px; line-height:24px;background:url(../images/image/li-b.gif); margin-top:4px;padding-top:2px;padding-left:5px;overflow:hidden;}
+.webpages ul a:hover{font-weight:bold;color:#881600;}	
+.pageMain{width:495px;height:390px;margin-left:10px;margin-top:10px;padding-right:10px;float:right;}
+.page1{height:40px;width:485px;padding-top:5px;padding-left:10px;}
+.page1 a:link, .page1 a:visited{font-size:30px;font-weight:bold;color:#2b3139;text-decoration:none;}
+.page1 span{font-size:14px;margin-left:60px;}
+.page1 span a:link, .page1 span a:visited{font-size:14px;font-weight:bold;color:#881600;text-decoration:none;}
+.page1 span a:hover{text-decoration:underline;}
+.page2{height:120px;width:475px;padding-top:5px;padding-left:10px; background-color:#FFF; border:1px solid #e1e1e1; font-size:14px;}
+.page2 a:link,.page2 a:visited{color:#881600;text-decoration:none;font-size:16px;font-weight:bold;}
+.page2 a:hover{	text-decoration:underline;}
+.page2 strong{color:#881600;font-size:16px;	font-weight:bold;}
+.page2 p{color:#6e6c66;font-size:12px;}
+.page2 p span{font-size:40px;font-weight:bold;color:#F00;}
+.page3{height:210px;width:475px;padding-top:10px;padding-left:10px;  font-size:14px;line-height:20px;}
+.page3 span{ color:#979797; font-size:12px; font-weight:bold; margin:0 5px 0 0;}
+
+/* 受欢迎的作家 友情链接 */
+.popularAuthor{margin:0 0 10px 0;}
+.popularAuthor ul{background:#507073; padding:10px;}
+.popularAuthor ul a:link, .popularAuthor ul a:visited{text-decoration:none;color:#cceaf8; line-height:165%; margin:0 10px 0 0;}
+.popularAuthor ul a:hover{color:#e9930a; text-decoration:underline;}
+
+
+/* -----  频道首页 ---*/
+/*推荐好看的*/
+.listIndexRecommend{}
+.listIndexRecommend ul{padding:10px;}
+.listIndexRecommend ul ol{width:49.4%; height:200px; overflow:hidden;}
+.listIndexRecommend ul ol img{float:left; margin:0 5px 0 0;}
+.listIndexRecommend ul ol h1 a:link, .listIndexRecommend ul ol h1 a:visited{text-decoration:none; font-weight:normal; color:#881600; font-size:20px; display:block; margin:0 0 0 150px; padding:0 0 10px 0;}
+.listIndexRecommend ul ol h1 a:hover{color:#e9930a; text-decoration:underline;}
+.listIndexRecommend ul ol dd{font-size:13px; color:#000;margin:0 0 5px 0; line-height:135%;}
+.listIndexRecommend ul ol p{color:#999;}
+.listIndexRecommend ul ol p a{margin:0 10px 0 0;}
+
+.listIndexRecommendx{}
+.listIndexRecommendx ul{padding:10px;}
+.listIndexRecommendx ul ol{width:49.4%; height:200px; overflow:hidden;}
+.listIndexRecommendx ul ol img{float:left; margin:0 5px 0 0;}
+.listIndexRecommendx ul ol h1 a:link, .listIndexRecommendx ul ol h1 a:visited{text-decoration:none; font-weight:normal; color:#881600; font-size:20px; display:block; margin:0 0 0 150px; padding:0 0 10px 0;}
+.listIndexRecommendx ul ol h1 a:hover{color:#e9930a; text-decoration:underline;}
+.listIndexRecommendx ul ol dd{font-size:13px; color:#000;margin:0 0 5px 0; line-height:135%;}
+.listIndexRecommendx ul ol p{color:#999;}
+.listIndexRecommendx ul ol p a{margin:0 10px 0 0;}
+
+/* 频道首页:正在更新、已完成 */
+.listIndexUpdata{}
+.listIndexUpdata h4{background:#f2f2f2; color:#2b3134; font-size:16px; height:32px; line-height:32px; overflow:hidden; padding:0 10px; border-bottom:4px solid #2b3134; }
+	.listIndexUpdata h4 a.more:link, .listIndexUpdata h4 a.more:visited{text-decoration:none;color:#cceaf8; font-size:12px; font-weight:normal;}
+	.listIndexUpdata h4 a.more:hover{color:#e9930a; text-decoration:underline;}
+.listIndexUpdata ul{background:#f2f2f2;}
+.listIndexUpdata ul table{width:100%;}
+.listIndexUpdata ul table tr.bg1{background:#e9e9e9;}
+.listIndexUpdata ul table tr:hover{background:#dfdfdf;}
+.listIndexUpdata ul table tr th{background:#c9c9c9; font-weight:normal; color:#000; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+.listIndexUpdata ul table tr td{height:28px; line-height:28px; color:#787878; text-align:center; overflow:hidden;}
+.listIndexUpdata ul table tr td.tdLeft{text-align:left;}
+.listIndexUpdata ul table tr td a.chapters:link, .listIndexUpdata ul table tr td a.chapters:visited{text-decoration:none;color:#000; margin:0 0 0 10px;}/* 章节 */
+.listIndexUpdata ul table tr td a.chapters:hover{color:#881600; text-decoration:none;}
+.listIndexUpdata ol{background:#f2f2f2; padding:5px 0 5px 6px;}
+.listIndexUpdata ol a:link, .listIndexUpdata ol a:visited{text-decoration:none;color:#444; float:left; display:block; width:31.5%; height:80px; margin:8px 5px; overflow:hidden;}
+.listIndexUpdata ol a:hover{color:#881600; text-decoration:none; background:#e9e9e9;}
+.listIndexUpdata ol a img{float:left; margin:0 5px 0 0;}
+.listIndexUpdata ol a:link strong, .listIndexUpdata ol a:visited strong{display:block; font-size:14px; color:#000;}
+.listIndexUpdata ol a:hover strong{color:#881600; text-decoration:underline;}
+.listIndexUpdata ol a:link span, .listIndexUpdata ol a:visited span{display:block; color:#444;}
+.listIndexUpdata ol a:hover span{color:#881600;}
+.listIndexUpdata span {background:#e9e9e9;}
+
+
+
+/*子页翻页样式*/
+.pages span{display:block;  height:30px; color:#881600; float:right; font-size:10px;margin-right:5px;} 
+.pages{text-align:center; padding:10px 0 35px 0; background:#f2f2f2; margin-bottom:15px;}
+.pages a{border:1px solid #ddd; background:#fafafa; text-decoration:none; padding-left:5px; padding-right:5px; margin-right:3px; zoom:1; font-size:120%;}
+.pages a:hover{background:#2b3134;color:#fff; border:1px solid #666;}
+.pages em{text-decoration:none; font-style:normal; padding:.2em .45em; padding:.25em .45em; margin-right:.5em; zoom:1; font-size:120%;}
+.pages strong{color:#fff; font-weight:bold; background:#2b3134; text-decoration:none; padding-left:5px; padding-right:5px; margin-right:5px; zoom:1; font-size:130%}
+.pages kbd input{border:1px solid #ddd; height:20px; line-height:20px; text-align:center;}
+
+/*详细页样式*/
+.webpages{width:670px;height:450px;background-color:#f2f2f2;}
+.webpages h5{margin-left:10px;margin-right:10px;height:20px;padding-top:15px;border-bottom:1px dotted #CCC;}
+.webpages ul{height:390px;width:135px;padding-left:15px;margin-top:10px;float:left;}
+.webpages ul a:link, .webpages ul a:visited{
+	display:block; 
+	text-decoration:none;
+	font-size:16px;
+	color:#6e6c66;
+	border:1px solid #e1e1e1; height:30px; line-height:24px;background:url(../images/li-b.gif); margin-top:4px;padding-top:2px;padding-left:5px;overflow:hidden;}
+.webpages ul a:hover{font-weight:bold;color:#881600;}	
+.pageMain{width:495px;height:390px;margin-left:10px;margin-top:10px;padding-right:10px;float:right;}
+.page1{height:40px;width:485px;padding-top:5px;padding-left:10px;}
+.page1 a:link, .page1 a:visited{font-size:30px;font-weight:bold;color:#2b3139;text-decoration:none;}
+.page1 span{font-size:14px;margin-left:60px;}
+.page1 span a:link, .page1 span a:visited{font-size:14px;font-weight:bold;color:#881600;text-decoration:none;}
+.page1 span a:hover{text-decoration:underline;}
+.page2{height:120px;width:475px;padding-top:5px;padding-left:10px; background-color:#FFF; border:1px solid #e1e1e1; font-size:14px;}
+.page2 a:link,.page2 a:visited{color:#881600;text-decoration:none;font-size:16px;font-weight:bold;}
+.page2 a:hover{	text-decoration:underline;}
+.page2 strong{color:#881600;font-size:16px;	font-weight:bold;}
+.page2 p{color:#6e6c66;font-size:12px;}
+.page2 p span{font-size:40px;font-weight:bold;color:#F00;}
+.page3{height:210px;width:475px;padding-top:10px;padding-left:10px;  font-size:14px;line-height:20px;}
+.page3 span{ color:#979797; font-size:12px; font-weight:bold;}
+
+.webPath{color:#707070; padding:5px 0; border-bottom:1px dotted #c6c6c6; margin:0 0 5px 0;}
+.webPath a{margin:0 10px;}
+
+/* 书本页  2012/4/6 */
+.articleInfo{background:#f2f2f2; padding:10px;}
+.articleInfoLeft{float:left; width:122px;}
+	.articleInfoLeft p img.articleInfoPic{padding:10px; background:#fff; border:1px solid #e8e6e6;}
+	.articleInfoLeft ul{background:url(../images/articleInfoLeftabg.gif) no-repeat 0 0; margin:5px 0 0 0;}
+	.articleInfoLeft ul a:link, .articleInfoLeft ul a:visited{text-decoration:none;color:#444; display:block; margin:0 0 5px 0; border:1px solid #e8e6e6; height:30px; line-height:30px; padding:0 0 0 40px; font-size:14px; overflow:hidden;}
+	.articleInfoLeft ul a:hover{color:#881600; text-decoration:underline; border:1px solid #c9c9c9;}
+	.articleInfoLeft ul a.reader:link, .articleInfoLeft ul a.reader:visited{color:#c00; font-weight:bold;font-size:16px;}
+	.articleInfoLeft ul a.reader:hover{color:#507073;}
+.articleInfoRight{float:right; width:520px;}
+	.articleInfoRight h1{font-size:26px; height:34px; line-height:34px; margin:0 0 10px 0; overflow:hidden;}
+	.articleInfoRight h1 span{font-size:12px; margin-left:5px; font-weight:normal;}
+	.articleInfoRight h1 span a:link, .articleInfoRight h1 span a:visited{text-decoration:none;color:#881600; font-weight:bold;}
+	.articleInfoRight h1 span a:hover{color:#444; text-decoration:underline;}
+	.articleInfoRight ol{background:#f8f8f8; border:1px solid #e8e6e6; padding:10px;}
+	.articleInfoRight ol p.left{width:365px; font-size:14px; line-height:185%; color:#999; overflow:hidden;}
+	.articleInfoRight ol p.left strong{color:#881600; font-weight:bold; font-size:16px;}
+	.articleInfoRight ol p.right{width:115px; text-align:center; margin:0;}
+	.articleInfoRight ol p.right a:link,.articleInfoRight ol p.right a:visited{background:url(../images/12.gif); display:block; color:#e91f1c; font-weight:bold; font-size:18px; height:31px; padding-top:8px; line-height:30px; margin:2px 0;}
+	.articleInfoRight ol p.right a:hover{color:#e9930a; text-decoration:none;}
+	.articleInfoRight dl{margin:10px 0 0 0;}
+	.articleInfoRight dl dt{font-size:14px;font-weight:bold;}
+	.articleInfoRight dl dt span{font-size:12px; float:right;}
+	.articleInfoRight dl dd{font-size:14px; line-height:185%; color:#000;}
+.reviewsShow{background:#f2f2f2; margin:10px 0;}/* 评论列表 */
+.reviewsShow h6{background:#f2f2f2; border-bottom:4px solid #2b3134; height:30px; line-height:30px; overflow:hidden;}
+.reviewsShow h6 span{background:#2b3134; color:#fff; float:left; height:30px; line-height:30px; font-size:16px; padding:0 20px;}
+.reviewsShow h6 a:link, .reviewsShow h6 a:visited{ float:left; text-decoration:none;color:#2b3134; font-size:16px; padding:0 20px;}
+.reviewsShow h6 a:hover{color:#e9930a; text-decoration:underline;}
+.reviewsShow ul{padding:10px; border-bottom:1px solid #e8e6e6; width:650px;}
+.reviewsShow ul p.userFace{float:left; width:80px; height:80px; background:url(../images/reviewsShowuserfacebg.gif) no-repeat; margin:5px 0 0 0;}
+.reviewsShow ul p.userFace img{padding:9px;}
+.reviewsShow ul h5{text-align:right; margin:0 0 0 85px;}
+.reviewsShow ul h5 strong{color:#507073;float:left;}
+.reviewsShow ul h5 span{color:#979797; font-weight:normal; margin:0 0 0 40px; text-align:left;}
+.reviewsShow ul ol{margin:0 0 0 85px; color:#000;padding:0;width:560px;}
+.reviewsPost{background:#f2f2f2;}/* 评论发表表单 */
+.reviewsPost h6{background:#f2f2f2; border-bottom:4px solid #2b3134; height:30px; line-height:30px; overflow:hidden;}
+.reviewsPost h6 span{background:#2b3134; color:#fff; float:left; height:30px; line-height:30px; font-size:16px; padding:0 20px;}
+.reviewsPost ul{padding:10px; border-bottom:1px solid #e8e6e6;}
+.reviewsPost ul table{width:100%;}
+.reviewsPost ul table tr th{width:50px; padding:4px 0;text-align:right;font-size:14px;font-weight:normal;}
+.reviewsPost ul table tr td{padding:4px 4px;}
+.reviewsPost ul table tr td input{height:32px; line-height:32px; border:1px solid #e8e6e6; width:580px; padding:0 5px; font-size:14px; font-weight:bold; background:#fff;}
+.reviewsPost ul table tr td textarea{border:1px solid #e8e6e6; width:580px; padding:5px; height:100px; font-size:14px; font-weight:bold;}
+.reviewsPost ul table tr td button{border:0; background:#333; font-size:12px; color:#fff; cursor: pointer; padding:5px 16px;}
+.reviewsPost ul table tr td button:hover{background:#c00;}
+
+
+
+
+.readerListBody1{width:960px; margin:0 auto; background:#f2f2f2;}
+.readerListADbox1{padding:15px 0 0 0; text-align:center;}/* 广告 */
+.readerListADbox1 p.left{margin:0 0px 0 15px; padding:0 15px 0 0;}
+
+.readerListADbox1 p.right{margin:0 15px 15px;}
+
+
+
+
+.readerListBody{width:960px; margin:0 auto; background:#f2f2f2;}
+.readerListADbox{padding:15px 0 0 0; text-align:center;}/* 广告 */
+.readerListADbox p.left{margin:0 0px 0 15px; padding:0 15px 0 0;}
+
+.readerListADbox p.right{margin:0 15px 15px;}
+.readerListADbox2{padding:0px; text-align:center; background:#f2f2f2;}
+.readerListADbox2 p{margin:0px 0 0 0; background:#f2f2f2;}
+.readerListHeader{margin:0 15px; padding:0px 0; height:40px; line-height:40px; border-bottom:1px solid #ccc; overflow:hidden;}
+.readerListHeader h1{float:left; font-size:30px;}
+.readerListHeader p{float:right; color:#000;margin-top:8px;}
+.readerListHeader p a{margin:0 10px;}
+
+.readerListShow{padding:15px; font-size:16px; background:#f2f2f2;}
+.readerListShow table{width:100%;table-layout:fixed;}
+.readerListShow table tr th{border:1px solid #dfdfdf; padding:8px;}
+	.readerListShow table tr th a:link, .readerListShow table tr th a:visited{text-decoration:none;color:#444; font-size:12px; margin:0 0 0 20px; font-weight:normal;}
+	.readerListShow table tr th a:hover{color:#881600; text-decoration:underline;}
+.readerListShow table tr td{width:25%;border:1px solid #dfdfdf; padding:4px;white-space:nowrap; overflow:hidden;height:30px;text-overflow:ellipsis;}
+	.readerListShow table tr td a:link{text-decoration:none;color:#000; overflow:hidden;}
+	.readerListShow table tr td a:visited{text-decoration:none;color:#881600; overflow:hidden;}
+	.readerListShow table tr td a:hover{color:#881600; text-decoration:underline; overflow:hidden;}
+
+/* 阅读页 */
+.readerHader{width:960px; margin:0 auto; background:#f2f2f2}
+.readerHader ul.readertop{background:#736a50; color:#fff; height:50px; line-height:50px; text-align:center; overflow:hidden;width:960px;}
+.readerHader ul.readertop select{margin:0 10px 0 2px; border:1px solid #fff;}
+.readerHader ul.readertop input{margin:0 10px 0 2px; border:1px solid #fff;}
+.readerHader ul.readertop input#saveset{border:0; background:#333; color:#ababab; padding:4px 10px;}
+.readerHader ul.readertop input#saveset:hover{background:#c00; color:#fff;}
+.readerHader ul.readerNav{background:#444; color:#f2f2f2; height:36px; line-height:36px; padding:0 7px; overflow:hidden;}
+.readerHader ul.readerNav a:link, .readerHader ul.readerNav a:visited{text-decoration:none;color:#fff; margin:0 8px;}
+.readerHader ul.readerNav a:hover{color:#ff0; text-decoration:underline;}
+
+.readerHader ul.top-p{width:960px; margin:0 auto; background:#f2f2f2;text-align:center; }
+.readerHader ul.top-p p{
+padding-top:10px;
+float:right;
+padding-right:10px;
+}
+.readerHader ul.top-p span{
+padding-top:10px;
+display:block;
+margin-left:220px;
+}
+
+
+
+.readerTitle{width:960px; margin:0 auto; background:#f2f2f2;}
+.readerTitle h1{font-size:30px; text-align:center; padding:25px 0; color:#000;}
+.readerTitle p{text-align:center; margin:0 15px; padding:10px 0 0 0;}
+.readerTitle p span{margin:0 10px;}
+
+.readerContent{width:960px; margin:0 auto; background:#f2f2f2; font-family:"楷体";}
+.readerContent ul{padding:15px; font-size:16px; line-height:185%;color:#000;}
+
+.readerFooterNav{width:960px; margin:0 auto; background:#f2f2f2; text-align:center;padding:20px 0;}
+.readerFooterNav a:link, .readerFooterNav a:visited{text-decoration:none;color:#444; margin:0 20px; font-size:18px; padding:.5em 1.05em;  background:url(../images/readerFooterNavbg.gif) repeat-x; border:1px solid #ccc;}
+.readerFooterNav a:hover{text-decoration:underline; border:1px solid #8d1a05; background:#8d1a05; color:#fff;}
+
+.readerFooterPage{width:960px; margin:0 auto; background:#f2f2f2; text-align:center;padding-top:25px;}
+.readerFooterPage a:link, .readerFooterPage a:visited{text-decoration:none;color:#444; margin:0 20px; font-size:18px; font-weight:bold;}
+.readerFooterPage a:hover{color:#881600; text-decoration:underline;}
+
+/* 登录页、注册页 */
+
+ #prediv{ background:url(../images/123456.png) no-repeat left top;color:#000; display:none; position:absolute;line-height:30px;font:14px "Microsoft YaHei",Arial,sans-serif; height:375px; width:610px; padding:20px 0px 0px 30px;}
+ .a_img{float:right; margin-right:20px; clear:both;}
+ #prediv1{ background:url(../images/123456.png) no-repeat left top;color:#000; display:none; position:absolute;line-height:30px;font:14px "Microsoft YaHei",Arial,sans-serif; height:375px; width:610px; padding:20px 0px 0px 30px;}
+ #prediv1.a_img{float:right; margin-right:20px; clear:both;}
+ 
+
+ 
+   #prediv2{ background:url(../images/123456.png) repeat-y left top;color:#000; display:none; position:absolute;line-height:20px;font:16px "Microsoft YaHei",Arial,sans-serif; height:375px; width:620px; padding:15px 0px 0px 20px;}
+ #prediv2.a_img{float:right; margin-right:20px; clear:both;}
+ #prediv2 #div1{padding:20px 0px 0px 20px;font-size:14px;line-height:40px; padding-right:30px;}
+ #prediv2 #div2{margin-left:240px;}
+ #prediv2 #loadname{width:150px;height:60px; padding:5px 10px 5px 10px;font-size:16px;background:url(../images/12.png) repeat-x left top;}
+ #prediv2 #closeload{width:60px;height:30px;width:150px;height:60px; padding:5px 10px 5px 10px;}
+ 
+ 
+ 
+ /*积分规则div样式*/
+ /*推广样式*/
+ .tuiguangfen{line-height:1.6em; font-size:14px;}
+ .but{background:url(../images/12.png) repeat-x left top; color:#8c1400;  height:27px; border:1px solid #dbdbdb; width:460px; text-align:left;}
+ .but1{background:url(../images/12.png) repeat-x left top; color:#8c1400;  height:27px; border:1px solid #dbdbdb; width:440px; text-align:left;}
+  input.but:hover{color:#ef9208;}
+ .bot{text-align:right; margin-right:20px;}
+ 
+ .inp{width:480px;border: 1px solid #D7D7D7;height: 25px;line-height: 25px; padding:0px; margin:0px; padding: 0 5px;margin: 0 5px 5px 0;}
+
+.webLogin{margin:10px auto; width:960px; background:#f2f2f2; min-height:350px; _height:350px; border:1px solid #e6e6e6;}
+.webLogin h2{font-size:20px; font-weight:normal; background:#2b3134; padding:10px; color:#fff;}
+.webLogin h2 strong{font-size:30px;  font-weight:normal; margin:0 5px 0 0;}
+.webLogin form{float:left; width:600px; padding:50px 20px;}
+.webLogin form.reg{padding:20px;}
+	.webLogin form table{width:100%;}
+	.webLogin form table tr th{text-align:right; padding:5px 0; font-weight:normal;}
+	.webLogin form table tr td{padding:5px 0;}
+	.webLogin form table tr td input.textInput{float:left; border:1px solid #d7d7d7; height:30px; line-height:30px; padding:0 5px; width:300px;margin:0 5px 0 0;}
+	.webLogin form table tr td select{float:left; border:1px solid #d7d7d7; height:30px; line-height:30px; margin:0 5px 0 0;}
+	.webLogin form table tr td i.hottext{margin:5px 0 0 5px; color:#999; font-style:normal;}/*必填*/
+	.webLogin form table tr td label{margin:0 10px 0 0;}	
+	.webLogin form table tr td span{margin:5px 0 0 5px; color:#c00;}
+	.webLogin form table tr td button{margin:10px 0 0 0; font-size:18px; height:45px; line-height:45px; border:0; background:#333; color:#fff; cursor: pointer; padding:0 12px;}
+	.webLogin form table tr td button:hover{background:#881600;}
+	.webLogin form table tr td a.clew{margin:0 0 0 10px;}
+.webLogin ul{float:right; width:240px; margin:-30px 50px 0 0; _margin:-30px 20px 0 0; color:#000; background:#f4f4f4; border:1px solid #fff;  _border-right:5px solid #dad9d9; _border-bottom:5px solid #dad9d9; box-shadow:0 0 10px 2px rgba(0,0,0,0.5);}
+	.webLogin ul h4{font-size:16px; border-bottom:1px solid #dad9d9; padding:16px;}
+	.webLogin ul p{padding:15px;}
+	.webLogin ul ol{margin:0 15px 20px 15px; line-height:195%; text-align:center;}
+	.webLogin ul ol li{text-align:left;}
+	.webLogin ul ol a:link, .webLogin ul ol a:visited{text-decoration:none; font-size:16px; background:#333; color:#fff; padding:2px 10px; display:block;width:70px;}
+	.webLogin ul ol a:hover{background:#881600; color:#fff; text-decoration:underline;}
+	.webLogin form table tr td .button{margin:10px 0 0 0; font-size:18px; height:45px; line-height:45px; border:0; background:#333; color:#fff; cursor: pointer; padding:0 12px;}
+	.webLogin form table tr td .button:hover{background:#881600;}
+
+/*跳转页*/
+.msgBox{width:500px;background:#f2f2f2;margin:0 auto; text-align:center; border-radius:5px; box-shadow:0 0 10px 10px rgba(0,0,0,0.25);}
+.msgBox h6{font-size:25px; font-weight:normal; background:#2b3134; color:#fff; padding:15px 0; border-top-right-radius:5px; border-top-left-radius:5px;}
+.msgBox ul{padding:20px; font-size:14px; line-height:185%;}
+.msgBox ul a:link, .msgBox ul a:visited{text-decoration:none;color:#c00;}
+.msgBox ul a:hover{color:#881600; text-decoration:underline;}
+.msgBox ol{padding:10px;}
+.msgBox dl{border-top:1px dotted #d7d7d7; padding:5px;} 
+
+
+/*我的书架*/
+.gridtop{background:#f2f2f2; text-align:center; padding:8px 10px; font-size:14px;}
+.gridtop strong{color:#c00; font-size:16px;margin:0 2px;}
+.gridtop span{margin:0 0 0 10px;}
+.gridtop span select{border:1px solid #d7d7d7; height:25px; line-height:25px; margin:0 0 0 5px;}
+.bookcase{width:100%;background:#f2f2f2;}/* table */
+.bookcase thead tr th{text-align:center; background:#2b3134; color:#fff; padding:5px 0; font-size:14px;}
+.bookcase tbody tr.bg1{background:#e9e9e9;}
+.bookcase tbody tr:hover{background:#dfdfdf;}
+.bookcase tbody tr td{padding:8px 5px; border-bottom:1px solid #fafafa; text-align:left;}
+.bookcase tbody tr td.tdCenter{text-align:center;}
+.bookcase tbody tr td span.hottext{color:#c00;margin:0 2px 0 0;}
+.bookcase tfoot tr td{text-align:center; background:#2b3134; color:#fff; padding:5px 0; font-size:14px;}
+.bookcase tfoot tr td select{border:1px solid #fff; height:22px; line-height:22px; margin:0 0 0 5px;}
+.bookcase tfoot tr td button{font-size:14px; border:0; background:#507073; color:#fff; cursor: pointer; padding:0 10px;}
+.bookcase tfoot tr td button:hover{background:#c00;}
+/*用户中心*/
+.userBody{width:960px; margin:0 auto;}
+.userMain{float:right; width:725px;}
+.userSidebar{float:left; width:225px; margin-top:-10px;}
+
+.userWantToSign{margin:10px 0; }
+.userWantToSign a:link, .userWantToSign a:visited{display:block; height:62px; line-height:1000px; text-decoration:none;color:#444; background:#2b3134 url(../images/iWantToSignbg.png) no-repeat -30px 0; overflow:hidden;}
+.userWantToSign a:hover{color:#881600; text-decoration:underline; background:#881600 url(../images/iWantToSignbg.png) no-repeat -30px -62px;}
+
+
+.userSidebarBox{background:#fff; color:#cceaf8;}/* 用户中心右侧 ul */
+.userSidebarBox a:link, .userSidebarBox a:visited{display:block; text-decoration:none;color:#000; font-size:14px; border-bottom:1px solid #e3e0e0; height:30px; line-height:30px; padding:2px 20px; overflow:hidden;}
+.userSidebarBox a:hover{color:#e9930a; text-decoration:underline; font-weight:bold;}
+
+.grid{width:100%;background:#f2f2f2;}/* table */
+.grid caption{background:#fff; color:#2b3134; font-size:18px; height:32px; line-height:32px; padding:0 10px; text-align:left; overflow:hidden; border-bottom:solid 4px #2b3134;}
+.grid caption a:link,.grid caption a:visited{text-decoration:none;color:#000; font-size:14px; font-weight:normal;}
+.grid caption a:hover{color:#000; text-decoration:underline;}
+.grid tr th{background:#dedede;}
+.grid tr td{border-bottom:1px solid #fff; font-size:14px; padding:5px 2px;}
+.grid tr td.odd{text-align:right;}/* 名称项 */
+.grid tr td.even{color:#000;}/* 内容项 */
+.grid tr td.even input.button{margin:10px 0 0 0; font-size:12px; height:32px; line-height:32px; border:0; background:#333; color:#fff; cursor: pointer; padding:0 20px;}
+.grid tr td.even input.button:hover{background:#c00;}
+.grid tr td.foot{text-align:left; font-weight:bold; padding:5px 10px; font-size:14px; background:#dedede; /*border-bottom:1px solid #e8e6e6;*/} /* 标题项 */
+.grid tr td.foot input.button{margin:10px 0 0 0; font-size:12px; height:32px; line-height:32px; border:0; background:#333; color:#fff; cursor: pointer; padding:0 10px;}
+.grid tr td.foot input.button:hover{background:#c00;}
+.grid tr td.avatar{background:#fafafa;}/*头像*/
+.grid tr td.avatar img{padding:10px;}
+
+.yueduye{width:100%;text-align:center;}
+
+
+
+/* 评论列表 */
+.commentList{width:960px; margin:0 auto;}
+.commentList h1{background:#2B3134; padding:10px 5px; font-size:16px; color:#fff;}
+.commentList h1 a:link, .commentList h1 a:visited{text-decoration:none;color:#fff;}
+.commentList h1 a:hover{color:#e9920a; text-decoration:underline;}
+.commentList h1 a.right:link, .commentList h1 a.right:visited{text-decoration:none;color:#fff; margin:0 10px; font-weight:normal; font-size:14px;}
+.commentList h1 a.right:hover{color:#e9920a; text-decoration:underline;}
+
+.commentList ul{background:#f2f2f2;margin:0 0 10px 0;}
+.commentList ul.bg1{background:#f8f8f8;}
+.commentList ul:hover{background:#faf8f1;}
+.commentList ul ol.commentdLeft{text-align:center; float:left; width:130px; padding:10px; border-right:1px solid #e9e9e9;}
+	.commentList ul ol.commentdLeft dt{}
+	.commentList ul ol.commentdLeft dt img{padding:5px; background:#fafafa;}
+	.commentList ul ol.commentdLeft h3{margin:5px 0;}
+	.commentList ul ol.commentdLeft p{margin:1px 0;}
+	.commentList ul ol.commentdLeft dl{color:#ccc;margin:2px 0;}
+	.commentList ul ol.commentdLeft dl a{margin:0 4px;}
+.commentList ul ol.commentdRight{text-align:left; float:right; width:785px; padding:10px;}
+	.commentList ul ol.commentdRight h2{border-bottom:1px dotted #e6e6e6; padding:5px; font-size:14px;}
+	.commentList ul ol.commentdRight h2 p{float:right; font-weight:normal; font-size:12px; color:#ccc; margin:0 -10px 0 0;}
+	.commentList ul ol.commentdRight h2 p span{color:#444; margin:0 10px;}
+	.commentList ul ol.commentdRight h2 p a:link, .commentList ul ol.commentdRight h2 p a:visited{text-decoration:none;color:#444; margin:0 10px;}
+	.commentList ul ol.commentdRight h2 p a:hover{color:#881600; text-decoration:underline;}
+	.commentList ul ol.commentdRight h2 p a.commentSn:link, .commentList ul ol.commentdRight h2 p a.commentSn:visited{text-decoration:none; padding:.2em .45em; background:#fff; border:1px solid #ccc;}
+	.commentList ul ol.commentdRight h2 p a.commentSn:hover{color:#fff; background:#881600; border:1px solid #881600;}
+	.commentList ul ol.commentdRight dd{font-size:14px; padding:10px 0; line-height:185%;}
+ .commentListPages{width:960px; margin:0 auto;}/* 评论列表分页 */
+.commentListPost{width:960px; margin:10px auto 0 auto;}/* 评论列表中发表评论 */
+.commentListPost ul table tr td input, .commentListPost ul table tr td textarea{width:845px;}

@@ -1,0 +1,238 @@
+@charset "utf-8";
+html{overflow-y: scroll; font:13px/1.6em Arial, Helvetica, sans-serif;}
+body{background:#e7e7e7 url(../images/bg.jpg); line-height:165%; margin:0; padding:0; color:#666; font:13px/1.6em Arial, Helvetica, sans-serif;}
+form,ul,ol,li,dl,dt,dd,form,img,p{margin:0; padding:0; border:none; list-style-type:none;}
+h1,h2,h3,h4,h5,h6{margin:0; padding:0; border:none; list-style-type:none; font-size:12px;}
+img{border:none;}
+a:link, a:visited{text-decoration:none;color:#444;}
+a:hover{color:#881600; text-decoration:underline;}
+select,button,input{font:12px/1.6em Arial, Helvetica, sans-serif;}
+table{empty-cells:show; border-collapse:collapse;}
+.c{clear:both; padding:0;margin:0;height:0; overflow:hidden;}
+s.market{font-style:italic; text-decoration:none; color:#aaa;} /* 删除线 */
+s{font-style: italic; text-decoration: none;}
+.left{float:left;}
+.right{float:right;}
+a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
+input.Wdate{width:95px; height:22px; line-height:22px; border:1px solid #ccc;}
+.loading{color:#f20; background:url(../images/loading.gif) no-repeat center;}/* 装载条 */
+
+
+
+.header ul ol p span.right iframe html body span a{margin:0px; padding:0px;}
+.header{width:960px; margin:0 auto; height:100px; background:url(../images/headerbg.jpg) repeat-x; overflow:hidden;}
+.header ul{width:960px; margin:0 auto;}
+.header ul a.weblogo{float:left; width:216px; margin:0; padding-left:5px;}
+.header ul ol{float:right; width:725px;}
+.header ul ol p{height:41px; margin:0; padding:0; line-height:41px; overflow:hidden;}
+.header ul ol p span{color:#999; height:30px; margin:0; padding:0;}
+.header ul ol p span a{margin:0 3px 0; padding:0;}
+.header ul ol dl{height:50px; line-height:50px;background:#746a51; overflow:hidden;}
+	.header ul ol dl a:link, .header ul ol dl a:visited{text-decoration:none;color:#fff; font-size:18px; float:left; border-left:1px solid #88806b; width:80px;_width:79.9px; margin:0 0 0 -1px; text-align:center; overflow:hidden;}
+	.header ul ol dl a:hover{background:#881600; color:#fff; text-decoration:none;}
+	.header ul ol dl a.select:link, .header ul ol dl a.select:visited{width:85px; background:#507073 url(../images/headeract.jpg) no-repeat 0 0; color:#fff;}
+	.header ul ol dl a.select:hover{background:#507073 url(../images/headeract.jpg) no-repeat 0 -50px; color:#fff;}
+
+.footer{width:960px; margin:10px auto 0 auto; background:#f2f2f2;}
+.footer ul{text-align:center; padding:10px 0;}
+	.footer ul a:link, .footer ul a:visited{text-decoration:none;color:#2b3134; padding:0 6px; font-weight:bold;}
+	.footer ul a:hover{color:#881600; text-decoration:underline;}
+.footer ol{text-align:center; padding:10px 0; background:#2b3134; color:#fff;}
+	.footer ol a:link, .footer ol a:visited{text-decoration:none; color:#fff;}
+	.footer ol a:hover{color:#881600; text-decoration:underline;}
+.footer p{text-align:center; padding:10px 0 0 0; color:#2b3134;}
+	.footer p a:link, .footer p a:visited{text-decoration:none;color:#7c7c7c;}
+	.footer p a:hover{color:#881600; text-decoration:underline;}
+.footer dl{text-align:center; padding:10px 0;}
+	.footer dl a:link, .footer dl a:visited{text-decoration:none;color:#2b3134; padding:0 6px;}
+	.footer dl a:hover{color:#881600; text-decoration:underline;}
+
+
+.Box1{background:#f2f2f2;}
+.Box1 h4{height:32px; line-height:32px; color:#fff; font-size:16px; overflow:hidden; background:#2b3134; padding:0 0 0 35px;}
+
+.Box2{background:#f2f2f2;}
+.Box2 h4{height:32px; line-height:32px; color:#2b3134; font-size:16px; overflow:hidden; padding:0 0 0 20px; border-bottom:4px solid #2b3134;}
+
+.box3{}
+.box3 h4{height:32px; line-height:32px; font-size:16px; background:#2b3134 url(../images/icon2.gif) no-repeat; color:#9e9e9e; padding:0 0 0 35px;  overflow:hidden;}
+
+
+.indexBody{width:960px; margin:0 auto;}
+.indexMain{float:left; width:670px;}
+.indexSidebar{float:right; width:280px;}
+.listIndexMain{float:left; width:670px;}
+.listIndexSidebar{float:right; width:280px;}
+
+/* 热门小说 */
+.indexHot{float:left; width:225px; height:527px; overflow:hidden;}
+.indexHot ul{background:#2b3134;}
+.indexHot ul a:link, .indexHot ul a:visited{text-decoration:none; height:78px; color:#acacac; display:block; padding:10px; border-top:1px solid #505050; overflow:hidden;}
+.indexHot ul a:hover{color:#e9930a; text-decoration:none; background:#000;}
+.indexHot ul a img{float:left; margin:0 5px 0 0;}
+.indexHot ul a:link strong, .indexHot ul a:visited strong{display:block; font-size:16px; color:#fff;}
+.indexHot ul a:hover strong{color:#e9930a; text-decoration:underline;}
+.indexHot ul a:link span, .indexHot ul a:visited span{display:block; color:#acacac; font-size:13px;}
+.indexHot ul a:hover span{color:#cceaf8;}
+
+/* 推荐好看的小说 */
+.indexRecommend{float:right; width:435px; height:527px; overflow:hidden;}
+.indexRecommend ul{padding:10px;}
+.indexRecommend ul:hover{background:#e9e9e9;}
+.indexRecommend ul img.indexRecommendIMG{float:right;}
+.indexRecommend ul h1 a:link, .indexRecommend ul h1 a:visited{text-decoration:none; font-weight:normal; color:#881600; font-size:25px; display:block; text-align:center; margin:0 160px 5px 0; padding:10px 0;}
+.indexRecommend ul h1 a:hover{color:#e9930a; text-decoration:underline;}
+.indexRecommend ul dd{font-size:13px; color:#000;margin:0 0 5px 0; line-height:135%;}
+.indexRecommend ul p{color:#999;}
+.indexRecommend ul p a{margin:0 10px 0 0;}
+.indexRecommend ol{}
+.indexRecommend ol a:link,.indexRecommend ol a:visited{text-decoration:none; height:69px; color:#444; display:block; padding:10px; border-top:1px solid #e6e6e6; overflow:hidden;}
+.indexRecommend ol a:hover{color:#e9930a; text-decoration:none; background:#e9e9e9;}
+.indexRecommend ol a img{float:right; margin:0 0 0 5px;}
+.indexRecommend ol a:link strong,.indexRecommend ol a:visited strong{display:block; font-size:14px; color:#881600;}
+.indexRecommend ol a:hover strong{color:#e9930a; text-decoration:underline;}
+.indexRecommend ol a:link span,.indexRecommend ol a:visited span{display:block; font-size:13px; color:#000; line-height:135%;}
+.indexRecommend ol a:hover span{color:#881600;}
+
+/* 实时更新 新书入库 */
+.indexUpdataNewbook{margin:0px; padding:0px; margin:10px 0 0 0; background:#f2f2f2;}
+.indexUpdataNewbook h3{background:#507073; border-bottom:4px solid #2b3134;height:35px; line-height:35px; overflow:hidden;}
+.indexUpdataNewbook h3 span{float:left; width:50%; text-align:center; font-size:16px; color:#fff; height:35px; line-height:35px; cursor: pointer;}
+.indexUpdataNewbook h3 span.active{background:#2b3134;}
+.indexUpdataNewbook ul{}
+.indexUpdataNewbook ul ol{padding:10px; border-bottom:1px solid #e6e6e6;}
+.indexUpdataNewbook ul ol:hover{background:#e9e9e9;}
+.indexUpdataNewbook ul ol img.indexListIMG{float:right;}
+.indexUpdataNewbook ul ol h2{}
+.indexUpdataNewbook ul .tabcontent{font-size:13px;}
+.indexUpdataNewbook ul ol h2 span{font-weight:normal; color:#999; margin:0 10px;}
+.indexUpdataNewbook ul ol h2 a:link, .indexUpdataNewbook ul ol h2 a:visited{text-decoration:none;color:#881600; font-size:14px;}
+.indexUpdataNewbook ul ol h2 a:hover{color:#881600; text-decoration:underline;}
+.indexUpdataNewbook ul ol h2 a.indexliBookName{font-size:16px;}
+.indexUpdataNewbook ul ol dl{color:#000; margin:3px 0; font-size:13px;}
+.indexUpdataNewbook ul ol p span{margin:0 15px 0 0;}
+.indexUpdataNewbook ul ol p a{margin:0 5px 0 0;}
+.webSidebarBOX{margin:10px 0 10px 0; background:#f2f2f2; color:#fff;}
+.webSidebarBOX h4{margin:0px; padding:0px; height:32px; line-height:32px; color:#fff; font-size:16px; overflow:hidden; padding:0 0 0 15px; background:#263134;}
+
+
+/* 首页搜索 */
+.indexsearch{background:#746a51; padding:10px; height:36px; overflow:hidden;}
+.indexsearch:hover{background:#881600;}
+.indexsearch:hover button{background:#e9930a; color:#fff;}
+.indexsearch input{float:left; height:36px; line-height:36px; border:0; width:132px; padding:0 10px; font-size:14px; background:#f2f2f2;}
+.indexsearch button{float:left; height:36px; line-height:36px; border:0; background:#2b3134; font-size:16px; color:#999; width:50px; text-align:center; cursor: pointer;}
+.listSearch{margin:0 0 10px 0;}/* 列表页 */
+.listSearch input{width:132px;}/* 列表页 */
+
+/* 受欢迎的作家 友情链接 */
+.popularAuthor{margin:0 0 10px 0;}
+.popularAuthor ul{background:#507073; padding:10px;}
+.popularAuthor ul a:link, .popularAuthor ul a:visited{text-decoration:none;color:#cceaf8; line-height:165%; margin:0 10px 0 0;}
+.popularAuthor ul a:hover{color:#e9930a; text-decoration:underline;}
+
+
+/* 我要签约 */
+.iWantToSign{margin:10px 0;}
+.iWantToSign a:link, .iWantToSign a:visited{display:block; height:62px; line-height:1000px; text-decoration:none;color:#444; background:#2b3134 url(../images/iWantToSignbg.png) no-repeat 0 0; overflow:hidden;}
+.iWantToSign a:hover{color:#881600; text-decoration:underline; background:#881600 url(../images/iWantToSignbg.png) no-repeat 0 -62px;}
+
+
+/* 总排行榜 总推荐榜 */
+.indexRanking{margin:0 0 10px 0; background:#f2f2f2;}
+.indexRanking h3{height:32px; line-height:32px; overflow:hidden;}
+.indexRanking h3 span{float:left; width:50%; text-align:center; font-size:16px; color:#838383; height:32px; line-height:32px; cursor: pointer;}
+.indexRanking h3 span.active{background:#f2f2f2; color:#fff;}
+.indexRanking ul{background:#f2f2f2 url(../images/numicon.gif) no-repeat 5px 30px; color:#cceaf8;}
+.indexRanking ul p{background:#2b3134; color:#a6a6a6; height:30px; line-height:30px; overflow:hidden;}
+.indexRanking ul p span{float:left; height:30px; line-height:30px;}
+.indexRanking ul p span.tl1{margin:0 30px 0 5px;}
+.indexRanking ul p span.tl2{}
+.indexRanking ul p span.tl3{float:right; margin:0 5px 0 0;}
+.indexRanking ul a:link, .indexRanking ul a:visited{display:block; text-decoration:none;color:#2b3134; border-bottom:1px solid #e3e0e0; height:24px; line-height:24px; padding:0 5px 0 15px; overflow:hidden;}
+.indexRanking ul a:hover{color:#e9930a; text-decoration:underline;  font-weight:bold;}
+.indexRanking ul a:link i, .indexRanking ul a:visited i{float:right; color:#999; font-style:normal;}
+.indexRanking ul a:hover i{color:#e9930a; text-decoration:none;}
+
+/* 人气最高的小说  书友推荐的小说 */
+.indexRanking ul{background:#f2f2f2 url(../images/numicon2.gif) no-repeat 5px;}
+
+/* 最新评论 */
+.indexNewCommond{margin:0 0 10px 0;}
+.indexNewCommond ul{background:#507073;}
+.indexNewCommond ul a:link, .indexNewCommond ul a:visited{text-decoration:none;color:#cceaf8; line-height:135%; display:block; border-bottom:1px solid #5a787b; padding:10px; height:50px; overflow:hidden;}
+.indexNewCommond ul a:hover{color:#e9930a; text-decoration:underline;}
+.indexNewCommond ul a img{float:left; margin:0 5px 0 0;}
+
+
+/* -----  静态页面 ---*/
+
+.listIndexUpdata ul .leibie{display:block;float:left;width:120px;}
+.listIndexUpdata ul .kauisu{display:block;float:left;width:150px;}
+
+
+
+
+
+/* -----  频道首页 ---*/
+/*推荐好看的*/
+.listIndexRecommend{}
+.listIndexRecommend ul{padding:10px;}
+.listIndexRecommend ul ol{height:170px; overflow:hidden;}
+.listIndexRecommend ul ol img{float:left; margin:0 5px 0 0;}
+.listIndexRecommend ul ol h1 a:link, .listIndexRecommend ul ol h1 a:visited{text-decoration:none; font-weight:normal; color:#881600; font-size:20px; display:block; margin:0px; padding:0px; margin:0 0 0 150px; padding:0 0 10px 0;}
+.listIndexRecommend ul ol h1 a:hover{color:#e9930a; text-decoration:underline;}
+.listIndexRecommend ul ol dd{font-size:13px; color:#000;margin:0 0 5px 0; line-height:135%;height:70px;}
+.listIndexRecommend ul ol p{color:#000;}
+.listIndexRecommend ul ol p a{margin:0 5px 0 0;}
+
+.listIndexRecommend ul ol.left{width:215px;margin:0px; padding:0px;}
+.listIndexRecommend ul ol.left h1{margin:0px; padding:0px; margin-left:-85px;}
+.listIndexRecommend ul ol.left p{margin:0px; padding:0px;}
+.listIndexRecommend ul ol.left p.nr{margin:0px; padding:0px; text-indent:2em; padding-right:5px;}
+.listIndexRecommend ul ol.left dl{margin:0px; padding:0px; text-indent:2em; padding-right:5px;display:block;width:210px;}
+
+
+/*-----table样式----*/
+table{width:655px;}
+table.table{margin-top:10PX; width:655px; margin-bottom:10px; padding-bottom:10px; margin-left:10px;}
+table tr td{height:20px;}
+table.nr tr td{ text-indent:2em; padding-top:10PX; padding-right:5px;}
+table tr td img{ margin:0px; padding:0px; margin-right:10px;}
+
+.listIndexMain td a{ margin-right:4px;
+}
+
+/* 频道首页:正在更新、已完成 */
+.listIndexUpdata{ background:#f2f2f2;}
+.listIndexUpdata h4{background:#2b3134; color:#fff; font-size:16px; height:32px; line-height:32px; overflow:hidden; padding:0 5px;}
+.listIndexUpdata h4 a.more:link, .listIndexUpdata h4 a.more:visited{text-decoration:none;color:#fff; font-size:12px; font-weight:normal;}
+.listIndexUpdata h4 a.more:hover{color:#e9930a; text-decoration:underline;}
+.listIndexUpdata ul{background:#f2f2f2;}
+.listIndexUpdata ul table{width:100%;}
+.listIndexUpdata ul table tr.bg1{background:#e9e9e9;}
+.listIndexUpdata ul table tr:hover{background:#dfdfdf;}
+.listIndexUpdata ul table tr th{background:#c9c9c9; font-weight:normal; color:#881600; height:28px; line-height:28px; text-align:center; overflow:hidden;}
+.listIndexUpdata ul table tr td{height:28px; line-height:28px; color:#787878; text-align:center; overflow:hidden;}
+.listIndexUpdata ul table tr td.tdLeft{text-align:left;}
+.listIndexUpdata ul table tr td a.chapters:link, .listIndexUpdata ul table tr td a.chapters:visited{text-decoration:none;color:#000; margin:0 0 0 10px;}/* 章节 */
+.listIndexUpdata ul table tr td a.chapters:hover{color:#881600; text-decoration:none;}
+.listIndexUpdata ol{background:#f2f2f2; padding:10px 0 10px 6px;}
+.listIndexUpdata ol a:link, .listIndexUpdata ol a:visited{text-decoration:none;color:#444; float:left; display:block; width:31.5%; height:80px; margin:8px 5px; overflow:hidden;}
+.listIndexUpdata ol a:hover{color:#881600; text-decoration:none; background:#e9e9e9;}
+.listIndexUpdata ol a img{float:left; margin:0 5px 0 0;}
+.listIndexUpdata ol a:link strong, .listIndexUpdata ol a:visited strong{display:block; font-size:14px; color:#000;}
+.listIndexUpdata ol a:hover strong{color:#881600; text-decoration:underline;}
+.listIndexUpdata ol a:link span, .listIndexUpdata ol a:visited span{display:block; color:#444;}
+.listIndexUpdata ol a:hover span{color:#881600;}
+.listIndexUpdata ul.text{padding:0; border-top:solid #e9e9e9 1px; padding-top:15px; padding-bottom:10px;}
+ul.text{padding:0px; margin:0px; width:590px; height:90px; float:left; padding-right:5px; clear:both;}
+ul.text:hover{background:#e9e9e9;}
+ul.tu:hover{background:#e9e9e9;}
+ul.text li{padding:0px; margin:0px; padding-left:10px; float:left;}
+ul.tu{padding:0px; margin:0px; background:f2f2f2; padding-top:15px; padding-bottom:20px; border-top:solid 1px #e9e9e9;}
+ul.text h2{font-size:16px; padding:0 10px; color:#c00;}
+
+
+
+.adt{width:650px; padding:10px 5px 10px 15px; margin-bottom:10px; height:60px; background:#f2f2f2;}
