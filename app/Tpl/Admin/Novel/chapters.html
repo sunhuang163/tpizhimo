@@ -69,16 +69,16 @@
 								<td>{$vo.cdesc}</td>
 								<td>{$vo.ord}</td>
 								<td > 
-								   <button title="删除该章节">
+								   <button title="删除该章节" data-id="{$vo.cpid}" data-ord="{$vo.ord}">
 								     <i class="icon-remove"></i>
 								   </button> &nbsp;
-								   <button title="向上移动">
+								   <button title="向上移动" data-id="{$vo.cpid}" data-ord="{$vo.ord}">
 								     <i class="icon-arrow-up"></i>
 								   </button> &nbsp;
-								   <button title="向下移动">
+								   <button title="向下移动" data-id="{$vo.cpid}" data-ord="{$vo.ord}">
 								     <i class="icon-arrow-down"></i>
 								   </button> &nbsp;
-								    <button title="编辑章节" class="edit">
+								    <button title="编辑章节" class="edit" data-id="{$vo.cpid}">
 								     <i class="icon-edit"></i>
 								   </button> 
 								 </td>
@@ -94,38 +94,29 @@
 		</div>
  <include file="Public:footer_js" />
 <script type="text/javascript">
- 
 $(function(){
  $('.edit').click(function(e){
- 
-  art.dialog({
-    id: 'testID',
-    content: 'hello world!',
-    button: [
-        {
-            name: '同意',
-            callback: function () {
-                this.content('你同意了').time(2);
-                return false;
-            },
-            focus: true
-        },
-        {
-            name: '不同意',
-            callback: function () {
-                alert('你不同意')
-            }
-        },
-        {
-            name: '无效按钮',
-            disabled: true
-        },
-        {
-            name: '关闭我'
-        }
-    ]
-});
-
+    $.ajax({
+             url:  "index.php?s=/Admin/Novel/chapter_edit&id="+$(this).attr('data-id')+"&nid={$d.nid}" ,
+             type: "GET",
+             dataType:'json',
+             success:function( d) {
+			   if( parseInt( d.rcode ) > 0)
+			   { 
+				    art.dialog({
+                       id: 'div-edit',
+	                   lock:true,
+                       content:d.data,
+                  }); 
+			   }
+			  else
+			   {
+				   alert(  d.msg  );
+			  }
+			 },
+             error:function(er){
+              alert("ajax请求失败");
+             } });
    }
  );
 });

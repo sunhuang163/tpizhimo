@@ -33,7 +33,35 @@
 						  <table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th>
+							     <label class="checkbox"><input type="checkbox" id="chkall" title="全选"/>
+								   <div class="dropdown">
+                                   <button class="btn btn-mini dropdown-toggle" type="button" id="dropdownMenu{$vo.contract_id}" data-toggle="dropdown" aria-expanded="true">
+                                    批量操作
+                                          <span class="caret"></span>
+                                     </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="{$vo.contract_id}" >
+										 <li role="presentation">
+										     <a role="menuitem" tabindex="-1" href="{:U('/Admin/Contract/edit','id='.$vo['contract_id'])}">细节修改</a>
+									     </li>
+                                         <li role="presentation">
+										     <a role="menuitem" tabindex="-1"  rel="{$vo.contract_id}" ref="__URL__"  class="xufei"
+											 href="javascript:void(0);">
+											 合同续费</a>
+									     </li>
+										 
+                                         <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   	  rel="{$vo.contract_id}"  ref="__URL__"  class="shengji"
+											href="javascript:void(0);">服务升级</a>
+										 </li>
+                                         <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   rel="{$vo.contract_id}"   ref="__URL__"  class="zhuanfa"
+											href="javascript:void(0);">转发续费</a>
+										 </li>
+                                     </ul>
+                                   </div> 
+								  </label>
+								</th>
 								<th>标题</th>
 								<th>创建时间</th>
 								<th> 排序</th>
@@ -48,9 +76,10 @@
 								<td>{$vo.ctime|date="Y-m-d H:i:s",###}</td>
 								<td>{$vo.ord}</td>
 								<td > 
-								   <button rel="{$vo.ncntid}" title="删除该条记录">
+								   <a href="javascript:void(0);" rel="{$vo.ncntid}" title="删除该条记录" class="btn  btn-mini">
 								     <i class="icon-remove"></i>
-								   </button> 
+								   </a> &nbsp;&nbsp;
+								   <a href="{:U('/Admin/Novel/content_edit',array('id'=>$vo['ncntid'],'nid'=>$d['nid']))}" title="编辑内容" class="btn btn-mini"><i class="icon-edit"></i></a>
 								 </td>
 							</tr>
 					       </volist>  

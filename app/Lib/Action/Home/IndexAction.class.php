@@ -8,7 +8,7 @@ class IndexAction extends BaseAction {
 
 	public function index()
    {
-	   $this->display();
+	 $this->display();
    }
 
    //排行榜

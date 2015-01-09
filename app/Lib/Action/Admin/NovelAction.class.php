@@ -165,7 +165,45 @@ class NovelAction extends BackAction {
 
   public function chapter_edit()
  {
-
+  $Mchapter = D("Nchapter");
+  $ret = array("rcode"=>0,"msg"=>"服务器忙，请稍候再试","data"=>NULL);
+  if( $this->isPost())
+  {
+	  $nid  = isset( $_POST['nid']) ? intval($_POST['nid']) : 0;
+	  $res = $Mchapter->create();
+	   $this->assign("jumpUrl",U('/Admin/Novel/chapters','nid='.$nid));
+	  if( !$res ){
+	   $this->error( $Mchapter->getError() );
+	  }
+	  else{
+	   $Mchapter->save();
+	   $this->success("章节数据更新成功");
+	  }
+  }
+  else{
+   $id = isset( $_GET['id']) ? intval( $_GET['id']) : 0;
+   $nid = isset( $_GET['nid']) ? intval( $_GET['nid']) : 0;
+   $wheres = array();
+   $wheres['cpid'] = array('eq',$id);
+   $dcp = NULL;
+   $dcp =  $Mchapter->where( $wheres )->find();
+   if( !$dcp )
+   {
+	  $ret['msg'] = "参数错误";
+   }
+   else{
+    $this->assign("dcp",$dcp);
+	$this->assign("nid",$nid);
+	$Mnclass = D("Nclass");
+	$class = $Mnclass->select();
+	$this->assign("nclass",$class);
+	 $ret['rcode'] = 1 ;
+	 $ret['msg'] = "OK";
+	 $ret['data'] = $this->fetch("Novel:div_chapter_edit");
+   }
+     echo  json_encode( $ret );
+    exit();
+  }
  }
 
   public function chapter_delete()
@@ -262,6 +300,56 @@ class NovelAction extends BackAction {
 
   public function content_edit()
   {
+     if( $this->isGet() )
+    {
+     $nid = isset( $_GET['nid']) ? intval( $_GET['nid']) : 0;
+	 $id =  isset( $_GET['id']) ? intval( $_GET['id']) : 0;
+	 $p = isset( $_GET['p']) ? intval( $_GET['p']) : 1;
+	 $Mcontent = D("Content");
+	 $wheres = array();
+	 $wherec = array();
+	 $Mnovel = D("Novel");
+	 $du = NULL;
+	 $wheres['nid'] = array('eq',$nid);
+	 $wherec['ncntid']= array('eq',$id);
+	 $du = $Mnovel->where( $wheres )->find();
+	 $dcnt = $Mcontent->where( $wherec )->find();
+	 if( !$du  || !$dcnt)
+	 {
+	   $this->assign("jumpUrl","javascript:history.go(-1);");
+	   $this->error("参数错误!");
+	 }
+	 else{
+	  $this->assign("dcnt" , $dcnt);
+	  $this->assign("p",$p);
+	  $this->assign("d",$du);
+	  $Mchapter = D("Nchapter");
+	  $Mcid = D("Nclass");
+	  $chpaters = $nclass = NULL;
+      $wherenc = array();
+	  $chapters = $Mchapter->field("cpid,nid,ncid,title")->where( $wheres )->order("ord ASC")->select();
+	  $nclass = $Mcid->field("ncid,name,state")->select();
+	  $this->assign("chapters",$chapters);
+	  $this->assign("nclass",$nclass);
+	  $this->display();
+	 }
+    }
+    else
+	{
+      $nid = isset( $_POST['nid']) ? intval( $_POST['nid']) : 0;
+	  $p = isset( $_POST['p']) ? intval( $_POST['p']) : 1;
+	  $this->assign("jumpUrl",U('/Admin/Novel/contents',array('nid'=>$nid,'p'=>$p)));
+	  $Mcontent =D("Content");
+	  $res = $Mcontent->create();
+	  if( !$res ){
+	   $this->assign("jumpUrl","javascript:history.go(-1);");
+	   $this->error("小说内容保存失败!");
+	  }
+	  else{
+		$Mcontent->save();
+	   $this->success("修改保存成功!");
+	  }
+	}
   }
 
   public function comments(){

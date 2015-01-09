@@ -23,6 +23,7 @@ class ContentModel extends AdvModel {
   protected function hh_content( $str )
  {
 	//采集内容中外链的处理，特殊字符的处理
+	$str = h( $str );
 	return remove_xss( $str );
  }
 
