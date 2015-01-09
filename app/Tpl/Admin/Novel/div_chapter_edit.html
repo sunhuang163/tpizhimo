@@ -1,0 +1,30 @@
+<form id="edit-chapter" class="form-horizontal" method="POST" action="{:U('/Admin/Novel/chapter_edit')}">
+		  <input type="hidden" name="cpid" value="{$dcp.cpid}">
+		  <input type="hidden" name="nid" value="{$nid}"/>
+       <fieldset>
+    <div class="control-group">
+	   <label class="control-label"  for="title">章节名称</label>
+	  <div class="controls">
+	    <input type="text" class="input-xlarge" id="title" name="title"  value="{$dcp.title}"/>
+	 </div>
+    </div>
+  <div class="control-group">
+	 <label class="control-label"  for="ncid">分类</label>
+		<div class="controls">
+		  <select name="ncid"  id="ncid"> 
+		   <volist name="nclass" id="vo">
+			 <option value="{$vo.ncid}"  <if condition="$vo['ncid'] eq $dcp['ncid']"> selected </if>>{$vo.name}</option>
+		   </volist>
+	     </select>
+       </div>
+	 </div>
+   <div class="control-group">
+	 <label class="control-label" for="cdesc">简介</label>
+		 <div class="controls">
+		   <textarea  name="cdesc" id="cdesc" rows="4" style="width:430px;">{$dcp.cdesc}</textarea>
+	    </div>
+    </div>
+ <div class="form-actions">
+	 <button type="submit" class="btn btn-primary">保存修改</button>
+ </div>
+</form>
