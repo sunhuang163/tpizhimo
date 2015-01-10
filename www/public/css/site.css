@@ -9,7 +9,7 @@ h1 {padding-bottom:0.2em;}
 .meta em {font-style:normal; font-weight:bold;}
 
 /* login */
-#login-page.container {width:320px;}
+#login-page.container {width:320px;padding-top:50px;}
 #login-page img{  display:inline; margin:0 auto;float:right;}
 
 /* dashboard */

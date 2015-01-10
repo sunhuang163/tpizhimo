@@ -5,8 +5,9 @@
 	</head>
 	<body>
 		<div id="login-page" class="container">
-			<h1>后台登录</h1>
-			<form id="login-form" class="well" action="{:U('Admin/Login/check')}" method="POST">
+		  <div class="well">
+			  <h4 >后台登录</h4>
+			<form id="login-form" class="" action="{:U('Admin/Login/check')}" method="POST">
 			<input type="text" class="span2" name="uname" title="用户登录名" value="{$uname}"  placeholder="用户登录名" /><br />
 			<input type="password" class="span2"   name="psw" title="用户密码" placeholder="用户密码" /><br />
 		   <label>
@@ -17,7 +18,8 @@
 			<button type="submit" class="btn btn-primary">登录</button>
 			<button type="submit" class="btn">忘记密码</button>
 		</form>	
-		</div>
+        <div>
+	 </div>
 		<script type="text/javascript" >
                      function fleshVerify(){ 
                      var time = new Date().getTime();
