@@ -67,7 +67,7 @@ class NovelAction extends BackAction {
    public  function view(){
 	if( $this->isGet() )
   {
-    $id = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
+    $id = isset( $_REQUEST['id']) ? intval( $_REQUEST['id']) : 0;
 	$Mnovel = D("Novel");
 	$wheres = array();
 	$wheres['nid'] = array('eq', $id);
