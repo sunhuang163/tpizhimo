@@ -216,7 +216,7 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 			curl_setopt ($ch, CURLOPT_REFERER, $referer);
 		}
 		$content = curl_exec($ch);
-		curl_close($ch);
+        curl_close($ch);
 		if($content){
 			return $content;
 		}
@@ -229,6 +229,14 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 	return false;
 }
 
+//写入文件
+function write_file($l1, $l2=''){
+	$dir = dirname($l1);
+	if(!is_dir($dir)){
+		mkdirss($dir);
+	}
+	return @file_put_contents($l1, $l2);
+}
 
 function ff_upload( $fkey = 'upfile')
 {
@@ -274,13 +282,17 @@ function ff_upload( $fkey = 'upfile')
 	  $datt['ctime'] = time();
       $datt['atype'] = $MAtt->ftype( $datt['ext'] );
 	  $datt['size'] = filesize($reldir.$updir.$fname );
-	  $size = array('w'=>0,'h'=>0);
 	  //图片缩略图,水印
 	  if( 'img' == $datt['atype']){
 		  	  import('ORG.Util.Image');
 		  mkdirss($reldir.$updir.'thumb/',755);
-
-		  Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/'.$fname,'',200 ,150,true);
+		  $imgs = NULL;
+		  $imgs = C('IMG_SIZES');
+         if( is_array($imgs) && count( $imgs ) ) {
+		   foreach( $imgs as $_k=>$_v) {
+		    Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
+		   }
+		  }
         if(  C('IMG_WATER') ){
 		   Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
 		 }
@@ -312,35 +324,59 @@ function ff_upload( $fkey = 'upfile')
 }
 
 	//远程下载图片
- function down_img($url,$sid='vod'){
-       $chr = strrchr($url,'.');
-	   $imgUrl = uniqid();
-	   $imgPath = $sid.'/'.date(C('upload_style'),time()).'/';
-	   $imgPath_s = './'.C('upload_path').'-s/'.$imgPath;
-	   $filename = './'.C('upload_path').'/'.$imgPath.$imgUrl.$chr;
-	   $get_file = ff_file_get_contents($url);
-	   if ($get_file) {
-		   write_file($filename,$get_file);
-		   //是否添加水印
-		   if(C('upload_water')){
-			   import('ORG.Util.Image');
-			   Image::water($filename,C('upload_water_img'),'',C('upload_water_pct'),C('upload_water_pos'));
-		   }
-		   //是否生成缩略图
-		   if(C('upload_thumb')){
-			   mkdirss($imgPath_s);
-			   import('ORG.Util.Image');
-			   Image::thumb($filename,$imgPath_s.$imgUrl.$chr,'',C('upload_thumb_w') ,C('upload_thumb_h'),true);
-		   }
-		   //是否上传远程
-		   if (C('upload_ftp')) {
-			   $this->ftp_upload($imgPath.$imgUrl.$chr);
-		   }
-		   return $imgPath.$imgUrl.$chr;
-	   }else{
+ function down_img($url,$sid='img')
+{
+    if( preg_match('^http:\/\/^isU',$url))
+   {
+	 $get_file = curl_content($url , 20);
+	 if ($get_file)
+	  {
+         $updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
+         $reldir = __ROOT__;
+         $reldir = realpath( $reldir );
+         $reldir = str_replace("\\","/",$reldir).'/';
+         $reldir = str_replace("//","/",$reldir);
+
+         mkdirss($reldir.$updir);
+         $fname = uniqid();
+	     $fname.= strrchr($url,'.');
+	     $desfile =$reldir.$updir.$fname;
+		 write_file($desfile,$get_file);
+
+         $MAtt = D('Att');
+	     $datt = array();
+	     $datt['name'] = $updir.$fname;
+         $datt['ext'] = substr($url,strrpos($url,'.')+1);//strrchr($url,'.');
+	     $datt['ctime'] = time();
+         $datt['atype'] = $MAtt->ftype( $datt['ext'] );
+	     $datt['size'] = filesize($reldir.$updir.$fname );
+	     //图片缩略图,水印
+	    if( 'img' == $datt['atype'])
+	   {
+		    import('ORG.Util.Image');
+		    mkdirss($reldir.$updir.'thumb/',755);
+		    $imgs = NULL;
+		    $imgs = C('IMG_SIZES');
+         if( is_array($imgs) && count( $imgs ) ) {
+		     foreach( $imgs as $_k=>$_v) {
+		      Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
+		     }
+		    }
+        if(  C('IMG_WATER') ){
+		   Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
+		  }
+	   } //is file
+	   $MAtt->data( $datt )->add();
+	   return '/'.$updir.$fname;
+	  }//get the image content
+	  else
+	  {
 			return $url;
-	   }
+	  }
 	}
+   else
+	   return $url;//本站文件
+}
 
 	//远程ftp附件
    function ftp_upload($imgurl, $isIMG = FALSE , $thumb = 'thumb/'){

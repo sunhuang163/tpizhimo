@@ -36,7 +36,10 @@ $cnf =  array(
 	'U_UPLOAD_DIR'     =>'skdata/',
 	'U_UPLOAD_DIRPATH' =>'Y/m/',
 	'IMG_WATER'        => 1, //图片水印
-	'IMG_WATER_PIC'   => 'public/water.png'
+	'IMG_WATER_PIC'   => 'public/water.png',
+	'IMG_SIZES'   => array(
+	          array('w'=>'120','h'=>'150')
+			 ),
 );
 
 return array_merge( $cnf , $dbcnf );

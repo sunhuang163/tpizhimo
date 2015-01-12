@@ -96,7 +96,7 @@ mu4ju3MB5u
 				   nid int,
 				   rid int default 0,
 				   msg varchar(100),
-				   ctime int,
+				   ctime TIMESTAMP default current_timestamp,
 				   isok tinyint(1)
 				   ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
@@ -128,6 +128,7 @@ mu4ju3MB5u
 			 url varchar(50),
 			 newurl varchar(100),
 			 pic varchar(100),
+                         caijiurl varchar(200),
 			 INDEX index_ncid(ncid),
                          UNIQUE index_url(url)
 			 ) ENGINE = MyISAM DEFAULT CHARSET = utf8;

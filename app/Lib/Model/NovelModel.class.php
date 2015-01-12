@@ -23,7 +23,12 @@ class NovelModel extends RelationModel {
    protected function  _before_insert(&$data,$options)
   {
 	$data['ctime'] = time();
+	if( !$data['utime'])
 	$data['utime'] = time();
+	else{
+	 if(!preg_match("#(\d+)#isU",$data['utime']))
+		 $data['utime'] = strtotime( $data['utime']);
+	}
 
    if( !$data['url'] ){
     $url = ff_pinyin( $data['title']);
