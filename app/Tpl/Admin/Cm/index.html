@@ -20,7 +20,7 @@
 					<input type="text" name="seach-title" class="input-large"/>
 					时间:
 					<input type="text" name="search-time" class="input-medium"/>
-					<button type="submit" class="btn">Search</button> 
+					<button type="submit" class="btn">查询</button> 
 				  </form>
 				</p>
 		      <if condition="$dlist neq null ">
@@ -38,7 +38,7 @@
 						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
 					</div>
 				   <else/>
-				   <p>内容为空</p>
+				   <p class="alert alert-warning">内容为空</p>
 				   </if>
 				</div>
 		 </div>

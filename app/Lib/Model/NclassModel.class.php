@@ -37,5 +37,23 @@ class NclassModel extends RelationModel {
 	  }
 	}
 
+  protected function _before_update(&$data,$options){
+       if( !isset( $data['url']) || !$data['url'])
+	  {
+	     $pinyin =ff_pinyin( $data['name']);
+		  if( $pinyin )
+	     {
+		 $Mc = M('Nclass');
+		 $wheres['url'] = array('eq',$pinyin );
+		 $cnt = $Mc->where( $wheres )->count('*');
+		 $url = $pinyin;
+		 if( $cnt )
+             $url .=$pinyin;
+		   $pinyin = $url ;
+		 }//pinyin
+		 $data['url'] = $pinyin;
+	  }
+  }
+
 }
 ?>

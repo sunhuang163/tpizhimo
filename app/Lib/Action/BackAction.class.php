@@ -7,6 +7,9 @@ class BackAction extends AllAction {
 	   parent::_initialize();
 	  session_start();
       header('Cache-control:private,must-revalidate');
+	   header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+       header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+       header("Pramga: no-cache");
 	  $this->auload( );
 	  if( !isset($this->a_u['uid']) || !$this->a_u['uid']){
 		 $_SESSION['AdminLogin'] = 1;

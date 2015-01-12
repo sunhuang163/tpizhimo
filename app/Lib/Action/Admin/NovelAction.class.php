@@ -67,10 +67,10 @@ class NovelAction extends BackAction {
    public  function view(){
 	if( $this->isGet() )
   {
-    $id = isset( $_REQUEST['id']) ? intval( $_POST['id']) : 0;
+    $id = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;
 	$Mnovel = D("Novel");
 	$wheres = array();
-	$wehres['nid'] = array('eq', $id);
+	$wheres['nid'] = array('eq', $id);
 	$dNovel = $Mnovel->where( $wheres )->find();
 	if( !$dNovel ){
         $this->assign("jumpUrl","javascript:history.go(-1);");

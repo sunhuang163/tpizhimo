@@ -203,7 +203,7 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 }
 
 /*----- Content collect -------*/
- function curl_content($url,$timeout=10,$referer){
+ function curl_content($url,$timeout=30,$referer = "http://www.google.com"){
 
 	if(function_exists('curl_init')){
 		$ch = curl_init();
@@ -367,7 +367,7 @@ function ff_upload( $fkey = 'upfile')
 		  }
 	   } //is file
 	   $MAtt->data( $datt )->add();
-	   return '/'.$updir.$fname;
+	   return $updir.$fname;
 	  }//get the image content
 	  else
 	  {

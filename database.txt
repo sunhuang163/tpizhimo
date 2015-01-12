@@ -168,9 +168,11 @@ mu4ju3MB5u
                        cpid int,
 		       title varchar(50),
 		       ctime int,
+                       utime timestamp default current_timestamp,
 		       content text,
 		       ord int default 0,
 		       ncid int,
+                       caijiurl varchar(200),
                        nid int
 		       ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 

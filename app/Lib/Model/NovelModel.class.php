@@ -26,10 +26,11 @@ class NovelModel extends RelationModel {
 	if( !$data['utime'])
 	$data['utime'] = time();
 	else{
-	 if(!preg_match("#(\d+)#isU",$data['utime']))
+         if( strtotime( $data['utime']))
 		 $data['utime'] = strtotime( $data['utime']);
 	}
-
+   if( $data['pic'] && preg_match('#http:#isU',$data['pic']))
+	   $data['pic'] = down_img( $data['pic']);
    if( !$data['url'] ){
     $url = ff_pinyin( $data['title']);
 	$wheres = array();

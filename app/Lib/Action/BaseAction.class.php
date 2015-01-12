@@ -5,12 +5,14 @@ class BaseAction extends AllAction {
     protected $m_u = array();
 	protected $m_isLogin = false;
 	protected $m_path = "/static/";
+	protected $m_path_public ="/public/";
 
    public function _initialize(){
 	  parent::_initialize();
       header('Cache-control:private,must-revalidate');
 	  $this->_uload();
 	  $this->assign("ST_PATH",$this->m_path );
+	  $this->assign("ST_PATH_PUBLIC",$this->m_path_public);
 	}
 
    protected function  _uload( $forece = FALSE){
