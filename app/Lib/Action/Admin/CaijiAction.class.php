@@ -12,7 +12,7 @@ class CaijiAction extends BackAction {
        $res = NULL;
        $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
        $Mcaiji = D("Caiji");
-	   $res = $Mcaiji->start( $p );
+	   $res = $Mcaiji->novel( $p );
 	   if( $res )
 	   {
 	    $this->assign("jumpUrl",$res);
@@ -29,6 +29,16 @@ class CaijiAction extends BackAction {
 		$this->success("采集已经完成");
 	   }
 	}
+
+
+ public function content()
+{
+  $Mcaiji = D("Caiji");
+  $res = NULL;
+  $res = $Mcaiji->getContent();
+
+  var_dump( $res );
+}
 
 }
 ?>

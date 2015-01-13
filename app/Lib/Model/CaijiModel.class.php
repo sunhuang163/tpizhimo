@@ -31,7 +31,9 @@ public function cate( $tag )
 	        array('name' => '都市小说',  'tag' => '都市',  'id' => 4 ),
 	        array('name' => '武侠修真',  'tag' => '武侠|修正|仙侠',  'id' => 6  ),
 	        array('name' => '历史军事',  'tag' => '历史|军事', 'id' => 10   ),
-	        array('name' => '女生言情', 'tag' => '言情',  'id' => 10 ),
+	        array('name' => '女生言情', 'tag' => '言情',  'id' => 11 ),
+	        array('name' => '经管励志', 'tag' => '经济|管理|励志',  'id' => 12 ),
+	        array('name' => '法律教育', 'tag' => '法律|教育|心理',  'id' => 13 ),
 	        array('name' => '文学名著', 'tag' => '文学|名著|古文|经典',  'id' => 7 ),
 	        array('name' => '科幻小说', 'tag' => '科幻',  'id' => 8 ),
 	        array('name' => '恐怖小说', 'tag' => '恐怖|悬疑|灵异',  'id' => 9)
@@ -46,7 +48,7 @@ public function cate( $tag )
    return 1;  //默认是未分类
 }
 
- public  function start( $p = 1 )
+ public  function novel( $p = 1 )
 {
   $url = str_replace('{!p!}',$p,$this->soso);
   $nexturl = ""; //if empty nexturl,OK  NULL for error
@@ -61,6 +63,8 @@ public function cate( $tag )
   if( $matches && isset($matches[2]) ){
      foreach( $matches[1] as $_k=>$_v){
        $rs = $this->getNovel( $_v );
+	   if( $_k > 3)
+	   exit();
       if( $rs['data']) $ic++;
 	 }
 	 if( $rs )
@@ -77,19 +81,81 @@ public function cate( $tag )
   return $nexturl;
 }
 
+public function getContent( $url = "" )
+{
+  $url = "http://www.day66.com/xiaoshuo/23/23149/1272529.shtml";
+
+  $_cnt = '';
+  $_cnt = curl_content( $url , 30);
+  $cnt = "";
+  $cnt = g2u( $_cnt );
+  $reg = "#<div\s+id=\"htmlContent\"\s+class=\"p\">(.*)<\/div>#isU";
+  if( preg_match( $reg , $cnt , $match) ){
+      return h(  remove_xss($match[1]) );
+  }
+  else
+	  return "";
+}
+
 /*
  采集时，注意图片
 */
-public function getContent( $url = "")
+public function getChapter( $url = "")
 {
-// http://www.day66.com/xiaoshuo/23/23149/
-   $url = " http://www.day66.com/xiaoshuo/23/23149/";
-  $_cnt = '';
-  $nreg = array(
-    'chapter' => "#class=\"tit\"><h2>(.*)<\/h2>#iU";
-    'cnt' => "#class=\"con\">(.*)<\/li>\s<\/ul>\s<\/div>#isU",
-	'url' => "#<li><a\s+href=\"(.*)\" title=\"更新时间:{.*}更新字数:\d+\">{.*}<\/a><\/li>#isU",
-   );
+   //$url = "http://www.day66.com/xiaoshuo/23/23149/";
+
+   $res = array('rcode'=>0,'msg'=>"服务器忙，请稍后再试",'data'=> NULL);
+   $_cnt = '';
+   $_cnt = curl_content( $url , 30);
+   $cnt = "";
+   $cnt = g2u( $_cnt );
+
+   if( $_cnt && $cnt ){
+       $nreg = array(
+          'chapter' => "#<div\sclass=\"tit\"><h2>(.*)<\/h2>#i",
+          'cnt' => "#class=\"con\">(.*)<\/li><li><\/li><li><\/li>#isU",
+	      'url' => "#<li><a\s+href=\"(.*)\"\s+title=\"更新时间:(.*)\s+更新字数:\d+\">(.*)<\/a><\/li>#isU",
+       );
+
+      $match = array();
+	 if(  preg_match_all( $nreg['chapter'],$cnt, $match ) )
+	 {
+	    $res['data']['cp'] = $match[1];
+		$dcnt =array();
+	    if( preg_match_all( $nreg['cnt'] , $cnt , $match ) )
+	   {
+	     $contents = array();
+	     $contents = $match[1];
+	    foreach( $contents as $ks=>$vs)
+	    {
+	     $dcnt = array();
+	     preg_match_all($nreg['url'] , $vs ,$match );
+		 $dcnt['url'] = $match[1];
+	     $dcnt['ctime'] = $match[2];
+		 $dcnt['title'] = $match[3];
+		 foreach( $dcnt['url'] as &$_vurl){
+		  $_vurl = $url.$_vurl;
+		 }
+		 foreach( $dcnt['ctime'] as &$_vtime){
+		  $_vtime = strtotime( $_vtime );
+		 }
+		 $res['data']['cnt'][$ks] = $dcnt;
+		 var_dump( $dcnt );
+		 //匹配所有的地址
+	    }//foreach
+	   }//if cnt
+	   $res['rcode'] = 1;
+	   $res['msg'] = "获取内容成功";
+	 } //if chapter
+	 else
+	 {
+       $res["msg"] = "分析章节失败";
+	 }
+   }
+   else{
+    $res['msg'] = "抓取网页失败";
+   }
+   return $res;
 }
 
 public function getNovel( $url = "" )
@@ -125,7 +191,7 @@ public function getNovel( $url = "" )
 	   if( "pic" == $kp)
 	    {
 		  if( $match[1] == "/images/noimg.gif")
-			  $picurl = ""; //图片为空的话，就不显示图片
+			  $picurl = NULL; //图片为空的话，就不显示图片
 		  else
 		  $picurl = down_img( "http://www.day66.com".$match[1] );
 		  $_POST['pic'] = $picurl;
@@ -145,6 +211,8 @@ public function getNovel( $url = "" )
    $nstate  = preg_match("#\"booktexts\s#isU",$cnt) ? 1: 0;
    $_POST['nstate'] = $nstate;
    $_POST['uptxt']  = $nstate ? "已完结":"连载中";
+   $_POST['ctime'] = time();
+   $_POST['caijiurl'] = $url;
    $resm = $Mnovel->create();
    $wheres = array();
    $wheres['title'] = array('eq',$Mnovel->title );
@@ -153,9 +221,14 @@ public function getNovel( $url = "" )
    {
       $res['msg'] = $Mnovel->getError();
    }
-   else if( $Mnovel->where( $wheres)->count() ){
+   else if( $find = $Mnovel->field("nid")->where( $wheres)->find() ){
     $res['msg'] = "该小说已经存在";
 	$res['data'] = 1;
+	$wheren = array();
+	$wheren['nid'] = array( 'eq' , $find['nid']);
+	$dc  = array();
+    $dc['utime'] = time();
+    $Mnovel->where( $wheren )->save( $dc );
    }
    else{
 	$res['rcode'] = 1;
@@ -166,6 +239,20 @@ public function getNovel( $url = "" )
   else
  {
    $res['msg'] = "抓取网页内容失败";
+  }
+   //如果更新成功，则更新章节内容信息
+  if( $res['data'])
+  {
+   if( preg_match('#Book\/(.*)\.aspx#isU',$url,$match) ){
+      $bookid = $match[1] ;
+      $contents = array();
+	  $contents = $this->getChapter("http://www.day66.com/xiaoshuo/".substr($bookid,0,2)."/".$bookid."/");
+	  echo "<h2>Chapter</h2>";
+	  var_dump( $url );
+	  var_dump( "http://www.day66.com/xiaoshuo/".substr($bookid,0,2)."/".$bookid."/" );
+	  print_r( $contents );
+	  exit();
+   }
   }
   return $res;
  }

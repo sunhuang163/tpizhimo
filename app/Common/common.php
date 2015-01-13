@@ -216,6 +216,7 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 			curl_setopt ($ch, CURLOPT_REFERER, $referer);
 		}
 		$content = curl_exec($ch);
+		var_dump( curl_error( $ch ) );
         curl_close($ch);
 		if($content){
 			return $content;
