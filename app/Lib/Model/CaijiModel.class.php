@@ -31,7 +31,7 @@ public function cate( $tag )
 	        array('name' => '都市小说',  'tag' => '都市',  'id' => 4 ),
 	        array('name' => '武侠修真',  'tag' => '武侠|修正|仙侠',  'id' => 6  ),
 	        array('name' => '历史军事',  'tag' => '历史|军事', 'id' => 10   ),
-	        array('name' => '女生言情', 'tag' => '言情',  'id' => 11 ),
+	        array('name' => '女生言情', 'tag' => '言情',  'id' => 5 ),
 	        array('name' => '经管励志', 'tag' => '经济|管理|励志',  'id' => 12 ),
 	        array('name' => '法律教育', 'tag' => '法律|教育|心理',  'id' => 13 ),
 	        array('name' => '文学名著', 'tag' => '文学|名著|古文|经典',  'id' => 7 ),
@@ -83,8 +83,7 @@ public function cate( $tag )
 
 public function getContent( $url = "" )
 {
-  $url = "http://www.day66.com/xiaoshuo/23/23149/1272529.shtml";
-
+  //$url = "http://www.day66.com/xiaoshuo/23/23149/1272529.shtml";
   $_cnt = '';
   $_cnt = curl_content( $url , 30);
   $cnt = "";
