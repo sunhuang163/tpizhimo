@@ -17,11 +17,6 @@ class CaijiModel extends Model{
   private $url_config = array(
 
    );
- /* function CaijiModel( $src = NULL ,  $url = ""){
-	 $this->type = $src;
-	 $this->soso = $url;
-  } */
-
 
 
 public function cate( $tag )
@@ -48,10 +43,17 @@ public function cate( $tag )
    return 1;  //默认是未分类
 }
 
- public  function novel( $p = 1 )
+/**
+  @function nList
+  @access public
+  @parameter
+     $p int 分页
+**/
+public function nList( $p = 1 )
 {
+  $dList = array();
+  $url = "";
   $url = str_replace('{!p!}',$p,$this->soso);
-  $nexturl = ""; //if empty nexturl,OK  NULL for error
   $_cnt = curl_content( $url ,30 );
   $cnt = "";
   if( $_cnt){
@@ -59,28 +61,23 @@ public function cate( $tag )
   }
   $reg="^class=\"fl tl pd8 lm\" style=\"width:50%;\"><a\shref=\"(.*)\"><font color=\"#116699\">(.*)<\/font><\/a>^isU";
   preg_match_all($reg,$cnt,$matches);
-  $ic = 0 ;
   if( $matches && isset($matches[2]) ){
      foreach( $matches[1] as $_k=>$_v){
-       $rs = $this->getNovel( $_v );
-	   if( $_k > 3)
-	   exit();
-      if( $rs['data']) $ic++;
+        $item = array();
+		$item['url'] = $_v;
+		$item['title'] = $matches[2][$_k];
+		$dList[] = $item;
 	 }
-	 if( $rs )
-	{
-      $p++;
-      $nexturl = U("/Admin/Caiji/all",array('p'=>$p));
-	}
   }
-  else
-  {
-    if( $_cnt === FALSE)
-		$nexturl = NULL;
-  }
-  return $nexturl;
+ return $dList;
 }
 
+/**
+   @function getContent
+   @access  public
+   @parameter
+      $url string  小说内容页面的地址
+**/
 public function getContent( $url = "" )
 {
   //$url = "http://www.day66.com/xiaoshuo/23/23149/1272529.shtml";
@@ -96,13 +93,15 @@ public function getContent( $url = "" )
 	  return "";
 }
 
-/*
- 采集时，注意图片
-*/
+/**
+  @function getChapter
+  @access public
+  @parameter
+       $url string 目录页面地址，内容包括分卷信息和具体的内容信息
+**/
 public function getChapter( $url = "")
 {
    //$url = "http://www.day66.com/xiaoshuo/23/23149/";
-
    $res = array('rcode'=>0,'msg'=>"服务器忙，请稍后再试",'data'=> NULL);
    $_cnt = '';
    $_cnt = curl_content( $url , 30);
@@ -112,7 +111,7 @@ public function getChapter( $url = "")
    if( $_cnt && $cnt ){
        $nreg = array(
           'chapter' => "#<div\sclass=\"tit\"><h2>(.*)<\/h2>#i",
-          'cnt' => "#class=\"con\">(.*)<\/li><li><\/li><li><\/li>#isU",
+          'cnt' => "#class=\"con\">(.*)<\/li><li><\/li>#isU",
 	      'url' => "#<li><a\s+href=\"(.*)\"\s+title=\"更新时间:(.*)\s+更新字数:\d+\">(.*)<\/a><\/li>#isU",
        );
 
@@ -132,14 +131,13 @@ public function getChapter( $url = "")
 		 $dcnt['url'] = $match[1];
 	     $dcnt['ctime'] = $match[2];
 		 $dcnt['title'] = $match[3];
-		 foreach( $dcnt['url'] as &$_vurl){
-		  $_vurl = $url.$_vurl;
+		 foreach( $dcnt['url'] as $_kv=>&$_vurl){
+		  $dcnt['url'][$_kv] = $url.$_vurl;
 		 }
-		 foreach( $dcnt['ctime'] as &$_vtime){
-		  $_vtime = strtotime( $_vtime );
+		 foreach( $dcnt['ctime'] as $_kv=>&$_vtime){
+		  $dcnt['ctime'][$_kv] = strtotime( $_vtime );
 		 }
 		 $res['data']['cnt'][$ks] = $dcnt;
-		 var_dump( $dcnt );
 		 //匹配所有的地址
 	    }//foreach
 	   }//if cnt
@@ -157,6 +155,12 @@ public function getChapter( $url = "")
    return $res;
 }
 
+/**
+ @function getNovel
+ @access public
+ @parameter
+     $url string 详情页面地址
+**/
 public function getNovel( $url = "" )
 {
   $res = array(
@@ -164,6 +168,7 @@ public function getNovel( $url = "" )
     'msg' => "",
 	'data'=>NULL
     );
+  $dnovel = array();
   $_POST = array();
   $_cnt = curl_content( $url , 30);
   $cnt = "";
@@ -189,69 +194,77 @@ public function getNovel( $url = "" )
      {
 	   if( "pic" == $kp)
 	    {
-		  if( $match[1] == "/images/noimg.gif")
+		  $picurl = "";
+		  if( substr($match[1],-9) == "noimg.gif")
 			  $picurl = NULL; //图片为空的话，就不显示图片
 		  else
-		  $picurl = down_img( "http://www.day66.com".$match[1] );
-		  $_POST['pic'] = $picurl;
+		  $picurl ="http://www.day66.com".$match[1] ;
+		  if( $picurl )
+		  $dnovel['pic'] = $picurl;
 	    }
 	   else if( 'tags' == $kp)
 	   {
 		 //设置小说的分类信息
          $ncid = $this->cate( $match[1]);
-	     $_POST['ncid'] = $ncid;
-	     $_POST["tags"] = $match[1];
+	     $dnovel['ncid'] = $ncid;
+	     $_POST["tags"] = $match[1];//标签的划分
 	    }
 	  else
-		$_POST[$kp] = $match[1];
+		$dnovel[$kp] = $match[1];
 	 } // if isset $match
 	} //preg_match
    } // foreach
    $nstate  = preg_match("#\"booktexts\s#isU",$cnt) ? 1: 0;
-   $_POST['nstate'] = $nstate;
-   $_POST['uptxt']  = $nstate ? "已完结":"连载中";
-   $_POST['ctime'] = time();
-   $_POST['caijiurl'] = $url;
-   $resm = $Mnovel->create();
+   $dnovel['nstate'] = $nstate;
+   $dnovel['uptxt']  = $nstate ? "已完结":"连载中";
+   $dnovel['ctime'] = time();
+   $dnovel['caijiurl'] = $url;
+   $dnovel = (object) $dnovel;
+   $resm = $Mnovel->create( $dnovel , 3);
    $wheres = array();
-   $wheres['title'] = array('eq',$Mnovel->title );
-   $wheres['author'] = array('eq',$Mnovel->author);
-   if( !$resm )
-   {
+   $wheres['title'] = array('eq',$dnovel->title );
+   $wheres['author'] = array('eq',$dnovel->author);
+   $find = $Mnovel->field("nid,pic")->where( $wheres)->find();
+   if( $find ){
+      $res['msg'] = "该小说已经存在";
+	  $res['data'] = $find['nid'];
+	  $res['ncid'] = $dnovel->ncid;
+      //更新图片
+	  $picurl = "";
+	  if( !$find['pic'] && $Mnovel->pic ){
+         $picurl =  down_img( $Mnovel->pic );
+	  if( $Mnovel->pic == $picurl)
+		  $picurl="";
+	  }
+	  $wheren = array();
+	  $wheren['nid'] = array( 'eq' , $find['nid']);
+	  $dc  = array();
+	  if( $picurl )
+		  $dc['pic'] = $picurl;
+      $dc['utime'] = time();
+      $Mnovel->where( $wheren )->save( $dc );
+   }
+    else if(  !$resm ){
       $res['msg'] = $Mnovel->getError();
-   }
-   else if( $find = $Mnovel->field("nid")->where( $wheres)->find() ){
-    $res['msg'] = "该小说已经存在";
-	$res['data'] = 1;
-	$wheren = array();
-	$wheren['nid'] = array( 'eq' , $find['nid']);
-	$dc  = array();
-    $dc['utime'] = time();
-    $Mnovel->where( $wheren )->save( $dc );
-   }
-   else{
-	$res['rcode'] = 1;
-    $res['data'] = $Mnovel->add();
-    $res['msg']  = "添加成功";
-   }
+    }
+    else
+   {
+	 if( $Mnovel->pic ){
+		 $picurl =  down_img( $Mnovel->pic );
+	  if( $Mnovel->pic == $picurl)
+		  $Mnovel->pic="";
+	   else
+		   $Mnovel->pic = $picurl;
+	 }
+	 $res['rcode'] = 1;
+     $res['data'] = $Mnovel->add();
+	 $res['ncid'] = $dnovel->ncid;
+     $res['msg']  = "添加成功";
+    }
   }
   else
- {
-   $res['msg'] = "抓取网页内容失败";
-  }
-   //如果更新成功，则更新章节内容信息
-  if( $res['data'])
   {
-   if( preg_match('#Book\/(.*)\.aspx#isU',$url,$match) ){
-      $bookid = $match[1] ;
-      $contents = array();
-	  $contents = $this->getChapter("http://www.day66.com/xiaoshuo/".substr($bookid,0,2)."/".$bookid."/");
-	  echo "<h2>Chapter</h2>";
-	  var_dump( $url );
-	  var_dump( "http://www.day66.com/xiaoshuo/".substr($bookid,0,2)."/".$bookid."/" );
-	  print_r( $contents );
-	  exit();
-   }
+   $res['msg'] = "抓取网页内容失败";
   }
   return $res;
  }

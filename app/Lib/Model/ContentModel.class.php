@@ -11,6 +11,7 @@ class ContentModel extends AdvModel {
 	protected $_validate=array(
 		  array('title','require','小说标题不能为空!',1),
 		  array('content','require','小说内容不能为空',1),
+		  array('title,cpid,nid', 'onecontent', '该章节内容已经存在', 1,'callback', 1),
 
 	);
 	//自动完成
@@ -18,6 +19,20 @@ class ContentModel extends AdvModel {
 		array('content','hh_content',3,'callback'),
 		array('ctime','time',1,'function'),
 	);
+
+
+
+  protected function onecontent( $data )
+ {
+	$wheres = array();
+	$wheres['title'] = array('eq',$data['title']);
+	$wheres['cpid'] = array('eq',$data['cpid']);
+	$wheres['nid'] = array('eq',$data['nid']);
+    if($this->where($where)->find())
+        return FALSE;
+    else
+        return TRUE;
+  }
 
 
   protected function hh_content( $str )

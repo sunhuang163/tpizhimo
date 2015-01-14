@@ -216,7 +216,6 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 			curl_setopt ($ch, CURLOPT_REFERER, $referer);
 		}
 		$content = curl_exec($ch);
-		var_dump( curl_error( $ch ) );
         curl_close($ch);
 		if($content){
 			return $content;
@@ -330,7 +329,7 @@ function ff_upload( $fkey = 'upfile')
     if( preg_match('^http:\/\/^isU',$url))
    {
 	 $get_file = curl_content($url , 20);
-	 if ($get_file)
+	 if ($get_file && imagecreatefromstring($get_file))
 	  {
          $updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
          $reldir = __ROOT__;
