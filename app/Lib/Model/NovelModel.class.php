@@ -20,10 +20,10 @@ class NovelModel extends RelationModel {
 
   protected function onenovel( $data )
  {
-	$wheres = array();
-	$wheres['title'] = array('eq',$data['title']);
-	$wheres['author'] = array('eq',$data['author']);
-    if($this->where($where)->find())
+	$wherenovel = array();
+	$wherenovel['title'] = array('eq',$data['title']);
+	$wherenovel['author'] = array('eq',$data['author']);
+    if($this->where($wherenovel )->find())
         return FALSE;
     else
         return TRUE;

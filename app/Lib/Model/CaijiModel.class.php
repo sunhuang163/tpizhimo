@@ -109,10 +109,12 @@ public function getChapter( $url = "")
    $cnt = g2u( $_cnt );
 
    if( $_cnt && $cnt ){
+	   $cnt = nb(nr($cnt));
        $nreg = array(
-          'chapter' => "#<div\sclass=\"tit\"><h2>(.*)<\/h2>#i",
-          'cnt' => "#class=\"con\">(.*)<\/li><li><\/li>#isU",
-	      'url' => "#<li><a\s+href=\"(.*)\"\s+title=\"更新时间:(.*)\s+更新字数:\d+\">(.*)<\/a><\/li>#isU",
+          'chapter' => "#<div class=\"tit\"><h2>(.*)<\/h2>#iU",
+          'cnt' => "#<\/h2><\/div> <div class=\"con\">\s+<ul>\s+(.*)<li><\/li><li><\/li><li><\/li>#is",
+		  'pod' => "#<li><\/li><li>#i",
+	      'url' => "#<a\s+href=\"(.*)\"\s+title=\"更新时间:(.*)\s+更新字数:\d+\">(.*)<\/a><\/li>#isU",
        );
 
       $match = array();
@@ -120,27 +122,30 @@ public function getChapter( $url = "")
 	 {
 	    $res['data']['cp'] = $match[1];
 		$dcnt =array();
-	    if( preg_match_all( $nreg['cnt'] , $cnt , $match ) )
+	    if( preg_match( $nreg['cnt'] , $cnt , $mcnt ) )
 	   {
 	     $contents = array();
-	     $contents = $match[1];
+	     $contents =  preg_split($nreg['pod'],$mcnt[1]);
+		 $ic = 0;
 	    foreach( $contents as $ks=>$vs)
 	    {
-	     $dcnt = array();
-	     preg_match_all($nreg['url'] , $vs ,$match );
-		 $dcnt['url'] = $match[1];
-	     $dcnt['ctime'] = $match[2];
-		 $dcnt['title'] = $match[3];
-		 foreach( $dcnt['url'] as $_kv=>&$_vurl){
-		  $dcnt['url'][$_kv] = $url.$_vurl;
+	     if( preg_match_all($nreg['url'] , $vs ,$mitem ) )
+	    {
+	     $ic++;
+		 $durls = $mitem[1];
+		 $dctimes = $mitem[2];
+		 $dtitles = $mitem[3];
+		 foreach( $durls as $vvk=>$vvs){
+		   $ddcnt = array();
+		   $ddcnt['url'] = $url.$vvs;
+		   $ddcnt['ctime'] = strtotime( $dctimes[$vvk]);
+		   $ddcnt['title'] = trim( $dtitles[$vvk] );
+		   $dcnt[$ks][] = $ddcnt;
 		 }
-		 foreach( $dcnt['ctime'] as $_kv=>&$_vtime){
-		  $dcnt['ctime'][$_kv] = strtotime( $_vtime );
-		 }
-		 $res['data']['cnt'][$ks] = $dcnt;
-		 //匹配所有的地址
-	    }//foreach
-	   }//if cnt
+		}//if novel url infos
+	   }//foreach preg_match content
+	   $res['data']['cnt'] = $dcnt;
+	  }//if novel conntent
 	   $res['rcode'] = 1;
 	   $res['msg'] = "获取内容成功";
 	 } //if chapter

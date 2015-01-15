@@ -3,11 +3,28 @@
 class CaijiAction extends BackAction {
    private $caiji_size = 5; //每次解析5条记录防止，请求超时
 
-    //main page
-	public function index()
-	{
-	  $this->display();
-	}
+   //main page
+   public function index()
+  {
+	 $this->display();
+  }
+
+  //show list cache content
+  public function showlist()
+ {
+   $Mcaiji = D("Caiji");
+   $cp = $Mcaiji->getChapter("http://www.day66.com/xiaoshuo/45/45954/");
+   var_dump( count( $cp['data']['cp']));
+   var_dump( count($cp['data']['cnt']));
+   exit();
+   $this->display();
+ }
+
+ //show  novel ache content
+ public function shownovel()
+ {
+  $this->display();
+ }
 
   /**
    @采集从列表页开始解析，然后再是内容页面
@@ -125,122 +142,95 @@ class CaijiAction extends BackAction {
    $Mcaiji = D("Caiji");
    $Novels = F("_caiji/novel");
    $Mchapter = D("Nchapter");
-   $Mcontent = D("Content");
+   $Dcnt = D("Content");
    $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 0;
    $cp = isset( $_REQUEST['cp']) ? intval( $_REQUEST['cp']) : 0;//具体章节
    $pos = isset( $_REQUEST['pos']) ? intval( $_REQUEST['pos']) : 0; //具体内容
    $res = "";
    $Novels = F("_caiji/novel");
-   $fnovel = "";
-   if( !$Novels )
+  if( $Novels )
   {
-     $this->assign("jumpUrl",U('/Admin/Caiji/index'));
-	 $this->error("没有内容需要解析");
-  }
-  else
-  {
-    if( isset($Novels[$p]) && F('_caiji/novel/'.$Novels[$p]))
+    $Novel = F("_caiji/novel/".$Novels[$p]);
+	if( $Novel )
+   {
+	 /* bug: case when there is no chapter for this novel*/
+	 $cpcount = count( $Novel['cp']);
+     if( $cp >= $cpcount )
 	{
-       $dcnt = F('_caiji/novel/'.$Novels[$p]);
-	  if( $cp < count( $dcnt['cp']) || 0 == count($dcnt['cp']))
+      $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>($p+1),'cp'=>0,'pos'=>0,'t'=>time())));
+	   $this->success("本章节解析完成，跳转到下一条");
+	}//if next novel
+	else
+	{
+      $poscount = isset( $Novel['cnt'][$cp]) ? count( $Novel['cnt'][$cp]) : 0;
+	  if( $pos >= $poscount )
 	  {
-        $wherecp = array();
-	    $wherecp['title'] = array('eq', $dcnt['cp'][$cp] ? isset($dcnt['cp'][$cp]) : "");
-	    $wherecp['nid'] = $dcnt['nid'];
-	    $dcp = $Mchapter->field("cpid")->where( $wherecp )->find();
-	    $cpid =  isset( $dcp['cpid']) ? $dcp['cpid'] : NULL;
-		 if( !$cpid )
-	    {
-          $dcp = array();
-		  $dcp['ncid'] = $dcnt['ncid'];
-		  $dcp['nid'] = $dcnt['nid'];
-		  $dcp['title'] = "正文";
-		  $Mchapter->create( $dcp ,3);
-		  $cpid = $Mchapter->add();
-	    }
-	    else
-		{
-	       unset( $wherecp['title']);
-		   $dcp = $Mnovel->field("cpid")->where( $wherecp )->find();
-		   $cpid = isset( $dcp['cpid']) ? $dcp['cpid'] : NULL;
-	    }
-        if( $pos < count($dcnt['cnt'][$cp]))
-		{
-			$ic = $pos;
-			//每次采集5条数据，防止采集请求超时
-			for( $ic ;$ic<5;$ic++){
-			   if( $ic < count($dcnt['cnt'][$cp])){
-			     $dcontent = array();
-				 $dcontent['nid'] = $dcnt['nid'];
-				 $dcontent['ncid'] = $dcnt['ncid'];
-				 $dcontent['cpid'] = $cpid;
-				 $dcontent['caijiurl'] = $dcnt['cnt'][$cp][$ic]['url'];
-				 $dcontent['title'] = $dcnt['cnt'][$cp][$ic]['title'];
-				 $dcontent['ctime'] = strtotime( $dcnt['cnt'][$cp][$ic]['ctime'] );
-				 $dcontent['content'] = $Mcaiji->getContent( $dcnt['cnt'][$cp][$ic]['url']);
-				 if( $Mcontent->create( $dcontent,3)){
-				   $Mcontent->add();
-				 }//if
-			   }//for
-			   if( $ic >= count($dcnt['cnt'][$cp]))
-			   {
-			     //该章节内容采集完成，跳转到下一章
-				 $cp++;
-				  $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>$cp,'pos'=>0,'t'=>time())));
-		          $this->success("该章节内容更新成功，跳转到下一章");
-			   }
-			   else
-				{
-                 $pos = $ic;
-                 $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>$cp,'pos'=>$pos,'t'=>time())));
-				 $this->success("采集中，当前第".$p."页 第:".$cp."章 第".$pos."条数据，循环一下条数据");
-			   }
-			}//for
-		}//if 数据存在，不需要翻页，和跳转到下一章
-		else
-		{
-          //跳转到本小说的下一个章节
-		  $cp++;
-		  $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>$cp,'pos'=>0,'t'=>time())));
-		  $this->success("该章节内容更新成功，跳转到下一章");
-		}
-	   } //未匹配到章节信息
-	   else if( $cp > count($dcnt['cp']))
-		{
-	     //跳转到下一章
-          $p++;
-           if( isset($Novels[$p]) ){
-           $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>0,'pos'=>0,'t'=>time())));
-           $this->success("该章节内容更新成功，跳转到下一章");
-		}
-		else
-		{
-		 $this->assign("jumpUrl",U('/Admin/Caiji/index'));
-		 $this->success("章节内容更新成功");
-		}
-      } //在章节的内容之后
+          $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>($cp+1),'pos'=>0,'t'=>time())));
+	     $this->success("当前数据，本章节解析成功，跳转到下一章。共".$cpcount."章,当前".$cp);
+	  } // if next chapter
 	  else
 	  {
-		//下一条记录
-		$p++;
-        if( isset($Novels[$p]) )
-		{
-           $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>0,'pos'=>0,'t'=>time())));
-		   $this->success("更新下一章节");
+		$wherecp = array();
+		$wherecp['ncid'] = array('eq',$Novel['ncid']);
+		$wherecp['nid'] = array('eq',$Novel['nid']);
+		$wherecp['title'] = array('eq',$Novel['cp'][$cp]);
+		$cpid = $Mchapter->where( $wherecp )->getField("cpid");
+		if( !$cpid ){
+		  $dcp = array();
+		  $dcp['ncid']  = $Novel['ncid'];
+		  $dcp['nid'] = $Novel['nid'];
+		  $dcp['title'] = $Novel['cp'][$cp];
+		  if( $Mchapter->create( $dcp , 3) ){
+		   $cpid = $Mchapter->add(); //if no chapter ,add it
+		  }
 		}
-		else
+        $ic = $pos;
+		for( $ic ; $ic<(5+$pos) ; $ic++)
 		{
-		 $this->assign("jumpUrl",U('/Admin/Caiji/index'));
-		 $this->success("章节内容更新成功");
-		}
-	  }
-	}
+		 if( $Novel['cnt'][$cp][$ic]){
+            $dcontent = array();
+			$dcontent['cpid'] = $cpid;
+			$dcontent['ncid'] = $Novel['ncid'];
+			$dcontent['nid'] = $Novel['nid'];
+			$dcontent['caijiurl'] = $Novel['cnt'][$cp][$ic]['url'];
+            $dcontent['ctime'] = $Novel['cnt'][$cp][$ic]['ctime'];
+			$dcontent['title'] = $Novel['cnt'][$cp][$ic]['title'];
+			$ncntid = NULL;
+			$wherecnt = array();
+			$wherecnt['ncid'] =array('eq',$dcontent['ncid']);
+			$wherecnt['cpid'] = array('eq',$dcontent['cpid']);
+			$wherecnt['nid'] = array('eq',$dcontent['nid']);
+			$wherecnt['title'] = array('eq',$dcontent['title']);
+			/*bug here: Content Model auto create ,validate not work*/
+			if(!$Dcnt->where( $wherecnt )->find()){
+			  $dcontent['content'] =$Mcaiji->getContent( $dcontent['caijiurl']);
+			  if( $Dcnt->create( $dcontent , 3) )
+			  $ncntid = $Dcnt->add(); //if no content add it
+			}
+		 }//for
+         if( $ic >= $poscount ){
+			 $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>($cp+1),'pos'=>0,'t'=>time())));
+			 $this->success("本条数据解析完成,跳转到下一章，当前第".$cp."章 共".$cpcount."章");
+		 }
+		 else
+		 {
+		   $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>$cp,'pos'=>$ic,'t'=>time())));
+		   $this->success("本条数据正在解析中，当前第".$cp."章 第".$pos."条 共".$poscount."条");
+		 } //else still in this chapter,next pos
+		}//get the content
+	  } //if this chapter
+	} //if this chapter
+   }
 	else
    {
-      $this->assgin("jumpUrl",U('/Admin/Caiji/index'));
-	  $this->success("小说章节内容更新成功");
-	}
-  }//else Novels exists
+     $this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
+	 $this->success("内容解析完成，跳转到首页");
+    }//novel cache content don't exits
+  }
+  else{
+   $this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
+   $this->error("缓存内容不存在,请重新解析");
+  } //no novel list cache exits
  }
 
  /**

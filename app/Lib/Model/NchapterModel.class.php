@@ -20,10 +20,10 @@ class NchapterModel extends AdvModel {
 
    protected function  onecp( $data )
   {
-	$wheres = array();
-	$wheres['title'] = array('eq',$data['title']);
-	$wheres['nid'] = array('eq',$data['nid']);
-    if($this->where($where)->find())
+	$wherecp = array();
+	$wherecp['title'] = array('eq',$data['title']);
+	$wherecp['nid'] = array('eq',$data['nid']);
+    if($this->where($wherecp )->find())
         return FALSE;
     else
         return TRUE;

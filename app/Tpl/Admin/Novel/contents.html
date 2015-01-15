@@ -71,7 +71,7 @@
 						<tbody>
 						   <volist name="list" id="vo">
 							<tr id="tr{$vo.cpid}">
-							    <td><label><input name="ids" type="checkbox" value="{$vo.cpid}"></label></td>
+							    <td><label><input name="ids" type="checkbox" value="{$vo.cpid}">[{$vo.ncntid}]</label></td>
 							    <td>{$vo.title}</td>
 								<td>{$vo.ctime|date="Y-m-d H:i:s",###}</td>
 								<td>{$vo.ord}</td>

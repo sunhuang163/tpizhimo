@@ -39,6 +39,29 @@ function nb($str){
 	return trim($str);
 }
 
+//自动分词
+function ff_tag_auto($title,$content){
+	$data = ff_file_get_contents('http://keyword.discuz.com/related_kw.html?ics=utf-8&ocs=utf-8&title='.rawurlencode($title).'&content='.rawurlencode(msubstr($content,0,500)));
+	if($data) {
+		$parser = xml_parser_create();
+		xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
+		xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
+		xml_parse_into_struct($parser, $data, $values, $index);
+		xml_parser_free($parser);
+		$kws = array();
+		foreach($values as $valuearray) {
+			if($valuearray['tag'] == 'kw') {
+				if(strlen($valuearray['value']) > 3){
+					$kws[] = trim($valuearray['value']);
+				}
+			}elseif($valuearray['tag'] == 'ekw'){
+				$kws[] = trim($valuearray['value']);
+			}
+		}
+		return implode(',',$kws);
+	}
+	return false;
+}
 
 function msubstr($str, $start=0, $length, $suffix=false){
 	return ff_msubstr(eregi_replace('<[^>]+>','',ereg_replace("[\r\n\t ]{1,}",' ',nb($str))),$start,$length,'utf-8',$suffix);

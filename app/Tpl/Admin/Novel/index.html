@@ -54,7 +54,7 @@
 							  </p>
 							</div>
 							<tr id="{$vo.nid}" class="domoreinfo">
-							    <td><label><input name="ids" type="checkbox" value="{$vo.nid}"></label></td>
+							    <td><label><input name="ids" type="checkbox" value="{$vo.nid}">[{$vo.nid}]</label></td>
 								<td title="{$vo.title}"><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
 								<td>{$vo.author}</td>
 								<td>{$vo.ncname}</td>

@@ -241,7 +241,7 @@ class NovelAction extends BackAction {
 	  $limits = ($p-1)*$this->a_psize;
 	  $limits.=','.$this->a_psize;
 	  $Ldata = $Mcontent->field("ncntid,cpid,nid,ncid,ord,title,ctime")->limit( $limits )->where( $wheres )->select();
-	  $url = U('/Admin/Nclass/index',array('p'=>'{!page!}','nid'=>$nid));
+	  $url = U('/Admin/Novel/contents',array('p'=>'{!page!}','nid'=>$nid));
       $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 	  $this->assign("pagestr",$pagestr);
 	  $this->assign("call",$call);
