@@ -226,7 +226,7 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 }
 
 /*----- Content collect -------*/
- function curl_content($url,$timeout=30,$referer = "http://www.google.com"){
+ function curl_content($url,$timeout = 10,$referer = "http://www.google.com"){
 
 	if(function_exists('curl_init')){
 		$ch = curl_init();

@@ -9,22 +9,25 @@
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
-					<div class="hero-unit">
-						<h5>
-							采集管理
-						<small>
-						  <a class="btn btn-mini" href="#"  alt="全部" title="全部重新采集"><i class="icon-refresh"></i></a>
-						</small>
-						</h5>
-						<p>
-							采集说明
-						</p>
-						<p>
-							<a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-large">列表页</a> 
-							<a href="{:U('/Admin/Caiji/novel')}" class="btn btn-large">解析列表页</a>
-							<a href="{:U('/Admin/Caiji/content')}" class="btn btn-large">解析详情页面</a>
-						</p>
+				    <div class="well summary">
+					  <ul> 
+					    <li>
+						   <a class="btn btn-mini" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
+						     清空缓存内容<i class="icon-trash"></i>
+							</a> 
+						 </li>
+						<li>
+						  <a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-medium">列表页<i class="badge">{$npage}</i></a> 
+						</li>
+						<li>
+						   <a href="{:U('/Admin/Caiji/novel')}" class="btn btn-info btn-medium">解析列表页<i class="badge">{$nnovel}</i></a>
+						</li>
+						<li class="last">
+						  <a href="{:U('/Admin/Caiji/content')}"  class="btn btn-info btn-medium">解析详情页面</a>
+						</li>
+					  </ul>
 					</div>
+
 				</div>
 		 </div>
 <script type="text/javascript">

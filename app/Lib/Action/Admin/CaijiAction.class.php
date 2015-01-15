@@ -6,7 +6,24 @@ class CaijiAction extends BackAction {
    //main page
    public function index()
   {
+	 $novels  = F("_caiji/novel");
+	 $lists = F("_caiji/list");
+	 $this->assign("npage", $lists ? count($lists) : 0);
+	 $this->assign("nnovel", $novels ? count($novels) : 0);
 	 $this->display();
+  }
+
+
+  //del all cache content
+  public function trash(){
+    import("ORG.Io.Dir");
+    $dir = new Dir;
+	@unlink(DATA_PATH.'_caiji/list');
+	@unlink(DATA_PATH.'_caiji/novel');
+    if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->del(DATA_PATH."_caiji/novel/");}
+	if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->del(DATA_PATH."_caiji/list/");}
+	$this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
+	$this->success("采集缓存清空成功!");
   }
 
   //show list cache content
@@ -36,8 +53,10 @@ class CaijiAction extends BackAction {
 	   $res = $Mcaiji->nList( $p );
        if( $res ){
 		$list = F("_caiji/list");
-		if(!$list)
+		if(!$list) {
 			$list = array();
+		  F("_caiji/list",$list);
+		}
 		else if( $p == 1)
 			$list = array();
 	    $list[$p] = $p;
@@ -67,14 +86,14 @@ class CaijiAction extends BackAction {
    $Mnovel = M("Novel");
    $plist = F("_caiji/list");
    $Novels = F("_caiji/novel");
-   if( !$Novels)
+   if( !$Novels) {
 	   $Novels = array();
+	 F("_caiji/novel",$Novels);
+	}
     if( isset( $plist[$p]))
   {
     $nList = F("_caiji/list/".$p);
     $psize = count($nList['d']);
-	F("_caiji/novel","fff");
-	F("_caiji/novel",NULL);
 	for($ic = $subpos ;$ic <( $subpos + $this->caiji_size)  ; $ic++ ){
 	 if( $ic <= $psize  && isset( $nList['d'][$ic]['url'])){
         $res = NULL;

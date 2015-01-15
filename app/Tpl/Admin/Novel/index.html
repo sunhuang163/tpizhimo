@@ -96,10 +96,17 @@
 <script type="text/javascript">
  $(function(){
       $(".domoreinfo").mouseenter(function(e){
-	 $('.umoreinfo').hide();
-	 $('#moreinfo'+$(this).attr('id')).css('left', e.screenX);
-	 $('#moreinfo'+$(this).attr('id')).css('top', e.screenY - 80);
-     $('#moreinfo'+$(this).attr('id')).show();
+	    $('.umoreinfo').hide();
+		var pos ={x:e.screenX,y:e.screenY};
+		 pos.x += 20;
+		 pos.y -= 30;
+		if( pos.x > 730 )
+           pos.x -=300;
+		 if( pos.y > 400)
+		  pos.y -= 240;
+		$('#moreinfo'+$(this).attr('id')).css('left', pos.x );
+	    $('#moreinfo'+$(this).attr('id')).css('top',  pos.y);
+        $('#moreinfo'+$(this).attr('id')).show();
   });
   $(".domoreinfo").mouseleave(function(e){
     $('.umoreinfo').hide();
