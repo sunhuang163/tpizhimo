@@ -69,7 +69,7 @@
 							 
 							</div>
 							<tr id="{$vo.ncid}" class="domoreinfo">
-							    <td <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:rgb(130, 212, 150);"</if>>【{$vo.ncid}】&nbsp;&nbsp;{$vo.name}</td>
+							    <td <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:rgb(130, 212, 150);"</if>>【{$vo.ncid}】&nbsp;&nbsp; <a href="{:U('/Admin/Nclass/edit','id='.$vo['ncid'])}"   rel="{$vo.said}"   title="编辑分类">{$vo.name}</a></td>
 								<td>{$vo.url}</td>
 								<td>{$vo.cn}</td>
 								<td > 
