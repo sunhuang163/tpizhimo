@@ -14,7 +14,7 @@ class BackAction extends AllAction {
 	  if( !isset($this->a_u['uid']) || !$this->a_u['uid']){
 		 $_SESSION['AdminLogin'] = 1;
 		 header("Content-Type:text/html; charset=utf-8");
-	    redirect(U('/admin/login/index','','','',TRUE), 5, '未登录，正在跳转到登录页面...');
+	    redirect(U('/admin/login/index','','','',TRUE), 1, '未登录，正在跳转到登录页面...');
 	  }
 	  $this->assign('au',$this->a_u);
 	  $this->assign('auaction', strtolower(ACTION_NAME));

@@ -20,6 +20,15 @@ class NclassModel extends RelationModel {
 	);
 
 	protected  function _before_insert(&$data,$options){
+	  $ord = 0;
+	  $ord = $this->max("ord");
+	  if( is_null( $ord ))
+		  $ord = 0;
+	  else{
+	   $ord = intval( $ord );
+	   $ord++;
+	  }
+	  $data['ord'] = $ord;
 	  if( !isset( $data['url']) || !$data['url'])
 	  {
 	     $pinyin =ff_pinyin( $data['name']);

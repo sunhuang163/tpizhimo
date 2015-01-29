@@ -22,7 +22,7 @@ class NclassAction extends BackAction {
 		  $p = $pall;
 	  $limits = ($p-1)*$this->a_psize;
 	  $limits.=','.$this->a_psize;
-	  $Ldata = $Dclass->limit( $limits )->select();
+	  $Ldata = $Dclass->limit( $limits )->order("ord ASC")->select();
 	  $url = U('/Admin/Nclass/index',array('p'=>'{!page!}'));
       $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
@@ -75,6 +75,84 @@ class NclassAction extends BackAction {
   exit();
 }
 
+  /**
+   *目录排序的修改
+  */
+  public function move()
+ {
+  $res = array('rcode'=>0,'msg'=>'服务器忙，请稍后再试','data'=>NULL);
+  $id = isset( $_POST['id']) ? intval( $_POST['id']) : 0;
+  $type = isset( $_POST['type']) ? trim( $_POST['type']) : "";
+  if( !$id || !$type){
+    $res['msg'] = "提交参数错误";
+  }
+  else
+  {
+   $Mnclass = M("Nclass");
+   $dn = NULL;
+   $wheres = array();
+   $wheres['ncid'] = array('eq',$id);
+   $dn = $Mnclass->field("ord")->where( $wheres )->find();
+   unset( $wheres['ncid']);
+   if( $dn ){
+	 if( $type == 'up')
+	 {
+	  $wheres['ord'] = array('lt',$dn['ord']);
+	  $dnext = NULL;
+	  $dnext = $Mnclass->field('ncid,ord')->where( $wheres )->order("ord DESC")->find();
+	  $res['ff'] = mysql_error();
+	  $res['f'] = $Mnclass->getLastSql();
+	  if( !$dnext ){
+	    $res['msg'] = "该分类已经是第一位";
+	  }
+	  else
+	  {
+        $d = array();
+		$whereu = array();
+		$d['ord'] = $dn['ord'];
+        $whereu['ncid']= array('eq',$dnext['ncid']);
+		$Mnclass->where( $whereu )->save( $d );
+		$d['ord'] = $dnext['ord'];
+		$whereu['ncid'] = array('eq',$id);
+		$Mnclass->where( $whereu )->save( $d );
+		$res['msg']  = "OK";
+		$res['rcode'] = 1;
+	  }
+	 }
+	 else if( $type == 'down')
+     {
+       $wheres['ord'] = array('gt',$dn['ord']);
+	   $dnext = NULL;
+	   $dnext = $Mnclass->field('ncid,ord')->where( $wheres )->order("ord ASC")->find();
+	   if( $dnext )
+	   {
+		 $d = array();
+		 $whereu = array();
+		 $d['ord'] = $dn['ord'];
+		 $whereu['ncid'] = array('eq',$dnext['ncid']);
+		 $Mnclass->where( $whereu )->save( $d );
+		 $res['ff'] = $Mnclass->getLastSql();
+		 $d['ord'] = $dnext['ord'];
+		 $whereu['ncid'] = array('eq',$id);
+		 $Mnclass->where( $whereu )->save( $d );
+		 $res['msg'] = "OK";
+		 $res['rcode'] = 1;
+	   }
+	   else{
+	     $res['msg'] = "该分类已经是最后一位";
+	   }
+	 }
+	 else{
+	  $res['msg'] = "参数提交错误";
+	 }
+   }
+   else{
+    $res['msg'] = "操作对象不存在";
+   }
+  }
+  echo json_encode( $res );
+  exit();
+ }
 	 //目录资料修改
      public function edit()
    {
