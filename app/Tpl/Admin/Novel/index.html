@@ -37,7 +37,22 @@
 								<th> 更新时间 </th>
 								<th> 字母</th>
 								<th>评论</th>
-								<th> 操作 </th>
+								<th> 操作 
+								  <div class="dropdown">
+                                   <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 批量推荐  <span class="caret"></span>
+                                     </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="4">
+									  	 <li role="presentation">
+										     <a role="menuitem" tabindex="-1" href="#">首页热门</a>
+									     </li>										  										 				 <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   href="#">首页推荐</a>
+										 </li>
+										 <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   href="#">列表推荐</a>
+										 </li>
+									 </ul>
+                                  </div>
+								 </th>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,6 +81,20 @@
 								   <span><a href="{:U('/Admin/Novel/chapters','nid='.$vo['nid'])}">章节</a></span>
 								   <span><a href="{:U('/Admin/Novel/contents','nid='.$vo['nid'])}">内容</a></span>
 								   <span><a href="#">删除</a></span>
+								   <div class="dropdown">
+                                   <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 推荐操作  <span class="caret"></span>
+                                     </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="4">
+									  	 <li role="presentation">
+										     <a role="menuitem" tabindex="-1" href="#">首页热门</a>
+									     </li>										  										 				 <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   href="#">首页推荐</a>
+										 </li>
+										 <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   href="#">列表推荐</a>
+										 </li>
+									 </ul>
+                                  </div>
 								</td>
 							</tr>
 					       </volist>  

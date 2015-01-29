@@ -129,6 +129,7 @@ mu4ju3MB5u
 			 newurl varchar(100),
 			 pic varchar(100),
                          caijiurl varchar(200),
+			 tag enum('A','B','C','D','E','F','G','H'), -- 小说标签，方便推荐登陆
 			 INDEX index_ncid(ncid),
                          UNIQUE index_url(url)
 			 ) ENGINE = MyISAM DEFAULT CHARSET = utf8;

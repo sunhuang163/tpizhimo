@@ -1,0 +1,109 @@
+<include file="Public:header" />
+	 <title>用户登录日志</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+				 <ul class="nav nav-tabs">
+		         <li class="active">
+			      <a href="/index.php?s=/Admin/Caiwu/index/state/0">首页热门</a>
+				</li>
+			    <li>
+				 <a href="/index.php?s=/Admin/Caiwu/index/state/1">首页推荐</a>
+			   </li>
+		         <li>
+				  <a href="/index.php?s=/Admin/Caiwu/index/state/-1">分类推荐</a>
+				</li>
+            </ul>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th> 用户名 </th>
+								<th> 时间 </th>
+								<th>内容</th>
+								<th> IP地址 </th>
+								<th> 消息类别 </th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="loglist" id="vo">
+							<tr id="tr{$vo.id}">
+							    <td><label><input name="ids" type="checkbox" value="{$vo.id}"></label></td>
+							    <td>{$vo.name}</td>
+								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.msg}</td>
+								<td>{$vo.ip|long2ip}</td>
+								<td>{$vo.logtype}</td>
+								<td > 
+								   <a href="javascript:void(0);"class="a_delete" rel="{$vo.id}" title="删除该条记录"><i class="icon-remove"></i></a> 
+								 </td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+					  {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			</div>
+		</div>
+<script type="text/javascript">
+function del( arr ){
+   $.ajax({
+				 type: "POST",
+                 url: "{:U('/Admin/Admin/log_del')}" ,
+				 data:{ids:arr},
+                 dataType: "json",
+                 success: function(data){ 
+					 if( data.rcode )
+					 {  
+					   location.reload();
+					 }
+					 else{
+					  alert( data.msg );
+					 }
+			      },
+				 error:function( data ){
+					 alert('加载用户信息失败');
+				 }
+			  });
+}
+$(function(){
+   $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+   
+   $('.btn_delete').click(function(){
+      var _arr = new Array();
+	  $("input[name='ids']").each(function(){
+	     if( $(this).attr('checked')){
+		  _arr.push($(this).val() );
+		 }
+	  });
+	 if( _arr.length > 0){
+	   if( confirm("删除选中记录")){
+	     del( _arr );
+	   }
+	 }
+   });
+  
+  $('.a_delete').click(function(){
+    var _ids = new Array();
+	_ids.push( $(this).attr('rel'));
+     if( confirm("删除选中记录")){
+	     del( _ids );
+	   }
+  });
+
+});
+
+
+</script>
+<include file="Public:footer" />
