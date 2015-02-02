@@ -1,7 +1,6 @@
 <include file="Public:header" />
 	 <title>小说管理</title>
      <include file="Public:header_css" />
-	 <include file="Public:footer_js" />
 	</head>
 	<body>
 		<div class="container">
@@ -16,15 +15,36 @@
 						</small>
 					</h4>
 					<p class="row">
-				   <form class="form-inline " action="">
-				   所属小说:
-				   <input type="hidden" name="novles" id="novels"/>
-				   <input type="text" name="novels-name" id="novels-name"  class="input-large">
-				   包含内容:
-					<input type="text" name="seach-title" class="input-large"/>
-					时间:
-					<input type="text" name="search-time" class="input-medium"/>
-					<button type="submit" class="btn">查询</button> 
+				   <form class="form-inline" action="{:U('/Admin/Novel/index')}" method="GET">
+				   <input type="hidden" name="g" value="Admin"/>
+				   <input type="hidden" name="m" value="Novel" />
+				   <input type="hidden" name="a" value="index" />
+				   <ul class="nav pull-left">
+				    <li class="pull-left">
+				   所属分类:
+				    <select name="ncid" id="ncid" class="input-small" style="width:auto;">
+					  <option value="-1" <if condition="$ncid eq -1"> selected </if>>---选择分类---</option>
+					  <volist name="cates" id="vo">
+                        <option value="{$vo.ncid}" <if condition="$ncid eq $vo['ncid']"> selected </if>>{$vo.name}</option>
+					  </volist>
+					</select>&nbsp;&nbsp;
+					</li>
+					<li class="pull-left">
+				   作者:
+					<input type="text" name="author" class="input-small" value="{$author}"/>&nbsp;&nbsp;
+					</li>
+					<li class="pull-left">
+					更新时间:
+					<select id="gt" style="width:auto" name="gt">	
+				     	<option value="N" <if condition="$gt eq 'N'"> selected </if> >-选择-</option>
+					   <option value="gt" <if condition="$gt eq 'gt'"> selected </if> >大于</option>
+					    <option value="lt" <if condition="$gt eq 'lt'"> selected </if>>小于</option>
+					 </select>
+					<input type="hidden" name="time" id="time">
+					<input type="text" name="uptime" id="uptime" value="{$time}" class="input-medium"/>
+					<button type="submit" class="btn"><i class="icon-search"></i>查找</button>
+					</li>
+					</ul>
 				  </form>
 				</p>
 					<table class="table table-bordered table-striped">
@@ -122,6 +142,8 @@
                   </div><!-- /.modal -->
 
 		 </div>
+<include file="Public:footer_js" />
+<script src="{$ADMIN_PATH}js/lhgcalendar.min.js"></script>
 <script type="text/javascript">
  $(function(){
       $(".domoreinfo").mouseenter(function(e){
@@ -137,6 +159,7 @@
 	    $('#moreinfo'+$(this).attr('id')).css('top',  pos.y);
         $('#moreinfo'+$(this).attr('id')).show();
   });
+ $('#uptime').calendar({ format:'yyyy-MM-dd HH:mm:ss',onSetDate:function(){ this.inpObj.value=this.getDateStr('yyyy-mm-dd HH:ii:ss');}});
   $(".domoreinfo").mouseleave(function(e){
     $('.umoreinfo').hide();
   });

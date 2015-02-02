@@ -7,7 +7,18 @@
 class NovelAction extends BackAction {
 	public function index()
 	{
-      $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+      $Mnclass = D("Nclass");
+	  $cates  = array();
+	  $cates = $Mnclass->field("ncid,name")->select();
+
+	  /*search condition*/
+	  $ncid = isset( $_GET['ncid']) ? intval( $_GET['ncid']) : -1;
+	  $author = isset( $_GET['author']) ? trim( $_GET['author']) : "";
+
+	  $time = isset( $_GET['uptime']) ? $_GET['uptime']  : "";
+      $gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "";
+
+       $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
 	  if( $p< 1)
 		  $p = 1;
 	  $call = 0;
@@ -30,6 +41,11 @@ class NovelAction extends BackAction {
 	  $url = U('/Admin/Novel/index',array('p'=>'{!page!}'));
       $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
+	  $this->assign("author" ,$author);
+	  $this->assign("ncid" , $ncid);
+	  $this->assign("time" , $time );
+	  $this->assign("gt" , $gt);
+	  $this->assign("cates" , $cates );
 	  $this->assign('call' ,$call );
 	  $this->assign('pnow' , $p);
 	  $this->assign('nlist', $Ldata );
