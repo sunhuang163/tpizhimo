@@ -6,39 +6,38 @@ class BaseAction extends AllAction {
 	protected $m_isLogin = false;
 	protected $m_path = "/static/";
 	protected $m_path_public ="/public/";
+    protected $m_cates = array(
+		 array('name'=>'首页','id'=>1,'url'=>U('/Home/Cate/index','id'=>1)),
+		 array('name'=>'玄幻','id'=>2,'url'=>U('/Home/Cate/index','id'=>2)),
+		 array('name'=>'武侠','id'=>3,'url'=>U('/Home/Cate/index','id'=>3)),
+		 array('name'=>'都市','id'=>4,'url'=>U('/Home/Cate/index','id'=>4)),
+		 array('name'=>'历史','id'=>5,'url'=>U('/Home/Cate/index','id'=>5)),
+	);
+
+	   protected $m_cate_list = array(
+		 array('name'=>'首页','id'=>1,'url'=>U('/Home/Cate/index','id'=>1)),
+		 array('name'=>'玄幻','id'=>2,'url'=>U('/Home/Cate/index','id'=>2)),
+		 array('name'=>'武侠','id'=>3,'url'=>U('/Home/Cate/index','id'=>3)),
+		 array('name'=>'都市','id'=>4,'url'=>U('/Home/Cate/index','id'=>4)),
+		 array('name'=>'历史','id'=>5,'url'=>U('/Home/Cate/index','id'=>5)),
+		 array('name'=>'测试','id'=>6,'url'=>U('/Home/Cate/index','id'=>6)),
+	);
+
 
    public function _initialize(){
 	  parent::_initialize();
-      header('Cache-control:private,must-revalidate');
-	  $this->_uload();
+     // header('Cache-control:private,must-revalidate');
+	  $module = MODULE_NAME;
+      $action = ACTION_NAME;
+	  $module = strtolower( $module );
+	  $action = strtolower( $action );
 	  $this->assign("ST_PATH",$this->m_path );
 	  $this->assign("ST_PATH_PUBLIC",$this->m_path_public);
+	  $this->assign("cate_index" , $this->m_cates );
+	  $this->assign("cate_list" , $this->m_cate_list );
+	  $this->assign("module" , $module);
+	  $this->assign("action" , $action);
 	}
-
-   protected function  _uload( $forece = FALSE){
-    /*  $uinfo = session('_nvu');
-	 if( $uinfo )
-	 {
-		 $uinfo = authcode( $uinfo , "DECODE");
-		 $this->m_u = $uinfo;
-		 $this->m_isLogin = TRUE;
-		 if( $forece ){
-		   $this->_update($this->m_u['uid']);
-		 }
-	 } */
-   }
-
-   protected function _update( $uid ){
-    //load user
-	//update  user infomation
-	//update session
-   }
-
-   public function _Login()
-  {
-	  $this->m_isLogin =  isset( $this->m_u) && isset( $this->m_u['uid'] ) ? TRUE : FALSE;
-	  return $this->m_isLogin;
-   }
 
 
 }

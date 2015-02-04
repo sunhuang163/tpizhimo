@@ -6,6 +6,8 @@
 */
 
 class NovelModel extends RelationModel {
+     const NOVEL_UPDATE = 0 ;/* 小说正在更新中 */
+	 const NOVEL_FINISH = 1; /* 小说已经完结 */
 
 	protected $_validate=array(
 		  array('title','require','小说标题不能为空!',1),

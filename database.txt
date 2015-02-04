@@ -221,3 +221,11 @@ create table ih_att(id int not null primary key auto_increment,
 		    atype varchar(10),
 		    ctime int 
 		    ) ENGINE = MyISAM DEFAULT CHARSET =utf8;
+-- »»√≈Õ∆ºˆ:
+create table ih_recommend(
+ recommend_id int unsigned primary key auto_increment,
+ nid int  not null,   -- Novel ID
+ rtype varchar(10) ,  -- Recommend novel type
+ ncid    int not null , -- Novel category type
+ ord  tinyint(4) default 0
+) ENGINE=MyISAM DEFAULT CHARSET =utf8;

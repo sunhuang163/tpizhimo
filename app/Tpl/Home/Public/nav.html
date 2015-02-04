@@ -7,11 +7,9 @@
           </span>
         </p>
         <dl>
-          <a class="select" onclick="left_btn(0)" href="{:U('/Home/Index/index')}">首页</a>
-          <a   href="{:U('/Home/Cate/Index')}">玄幻</a>
-          <a   href="{:U('/Home/Cate/Index')}">武侠</a>
-          <a   href="{:U('/Home/Cate/Index')}">都市</a>
-          <a   href="{:U('/Home/Cate/Index')}">历史</a>
+          <volist name="cate_index" id="vo">
+           <a  href="{$vo.url}">{$vo.name}</a>  <!-- class="select" -->
+		  </volist>
         </dl>
       </ol>
       <div class="c"></div>
