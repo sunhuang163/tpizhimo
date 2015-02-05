@@ -8,15 +8,9 @@
           </span>
         </p>
         <dl>
-          <a class="select" onclick="left_btn(0)" href="{:U('/Home/Index/index')}">首页</a>
-          <a onclick="left_btn(1)" href="{:U('/Home/Cate/index')}">玄幻</a>
-          <a onclick="left_btn(2)" href="{:U('/Home/Cate/index')}">武侠</a>
-          <a onclick="left_btn(3)" href="{:U('/Home/Cate/index')}">都市</a>
-          <a onclick="left_btn(4)" href="{:U('/Home/Cate/index')}">历史</a>
-          <a onclick="left_btn(6)" href="{:U('/Home/Cate/index')}">散文</a>
-          <a onclick="left_btn(7)" href="{:U('/Home/Cate/index')}">动漫</a>
-          <a onclick="left_btn(8)" href="{:U('/Home/Cate/index')}">科幻</a>
-          <a onclick="left_btn(9)" href="{:U('/Home/Cate/index')}">灵异</a>
+		  <volist name="cate_list" id="vo">
+           <a   href="{$vo.url}">{$vo.name}</a>
+		  </volist>
         </dl>
       </ol>
       <div class="c"></div>

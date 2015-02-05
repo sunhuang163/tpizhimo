@@ -15,43 +15,14 @@
       <div class="indexHot">
         <h4>热门推荐</h4>
         <ul>
-		 <li>
-         <a href="http://www.cai.com/t/book/5245.html" target="_blank">
-          <img src="file/img/5245s.jpg" width="65" height="85" alt="云海仙踪" title="武侠修真:云海仙踪"><strong>云海仙踪</strong>
-		   <span>    南宋初年，天下动荡，道佛争锋，魔门逞凶。杭州药商之子许仙....</span>
-		 </a>
+		  <volist name="dhot" id="vo">
+		  <li>
+          <a href="{$vo.url}" target="_blank">
+           <img src="{$vo.pic}" width="65" height="85" alt="{$vo.title}" title="{$vo.ncid}:{$vo.title}"><strong>{$vo.title|msubstr=0,10,true}</strong>
+		   <span>{$vo.ndesc|msubstr=0,25,true}</span>
+		  </a>
          </li>
-
-		 <li>
-        <a href="http://www.cai.com/t/book/5146.html" target="_blank">
-         <img src="file/img/5146s.jpg" width="65" height="85" alt="九霄龙吟" title="武侠修真:九霄龙吟"><strong>九霄龙吟</strong>
-		  <span>    【原创新锐大赛征文作品】
-          他所信奉的信条如下：得不到的....</span>
-	   </a>
-       </li>
-
-	   <li>
-       <a href="http://www.cai.com/t/book/1.html" target="_blank">
-        <img src="file/img/1s.jpg" width="65" height="85" alt="蛊真人" title="武侠修真:蛊真人"><strong>蛊真人</strong>
-		 <span>    人是万物之灵，蛊是天地真精。
-          三观不正，枭魔重生。....</span>
-	   </a>
-      </li>
-
-	  <li>
-       <a href="http://www.cai.com/t/book/2.html" target="_blank">
-          <img src="file/img/2s.jpg" width="65" height="85" alt="醉枕江山" title="历史军事:醉枕江山"><strong>醉枕江山</strong>
-		 <span>    女帝武曌日月凌空，上官婉儿称量天下，
-           李裹儿艳比花娇，....</span>
-	   </a>
-       </li>
-
-	   <li>
-       <a href="http://www.cai.com/t/book/3.html" target="_blank">
-          <img src="file/img/3s.jpg" width="65" height="85" alt="唐砖" title="历史军事:唐砖"><strong>唐砖</strong>
-		 <span>    云烨一直以为自己是一个超级极恋家的人，哪怕把自己放在火星....</span>
-	   </a>
-	   </li>
+		 </volist>
       </ul>
       </div>
 
