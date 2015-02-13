@@ -8,7 +8,7 @@ class IndexAction extends BaseAction {
 
 	public function index()
    {
-	 $Mhot = M("Recommend");
+	 $Mhot = D("Recommend");
      $wheres = array();
 	 $wheres['rtype'] = RecommendModel::RECOMMEND_WITH_TXT ;
 	 $wheres['recommend.ncid'] = 0;

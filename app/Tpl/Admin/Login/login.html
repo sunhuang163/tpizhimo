@@ -12,7 +12,7 @@
 			<input type="password" class="span2"   name="psw" title="用户密码" placeholder="用户密码" /><br />
 		   <label>
 			  <input type="text" class="span2"  name="vcode" title="验证码" placeholder="验证码" />
-			   <img src="{:U('Admin/Login/saverify')}" id="verifyImg" onclick="fleshVerify()" title="点击图片刷新验证码">
+			   <img style="cursor:pointer;" src="{:U('Admin/Login/saverify')}" id="verifyImg" onclick="fleshVerify()" title="点击图片刷新验证码">
 		    </label> 
 			<label class="checkbox"> <input type="checkbox" name="remember" value="1"/> 记住我 </label>
 			<button type="submit" class="btn btn-primary">登录</button>

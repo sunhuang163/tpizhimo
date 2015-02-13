@@ -7,20 +7,20 @@ class BaseAction extends AllAction {
 	protected $m_path = "/static/";
 	protected $m_path_public ="/public/";
     protected $m_cates = array(
-		 array('name'=>'首页','id'=>1,'url'=>U('/Home/Cate/index','id'=>1)),
-		 array('name'=>'玄幻','id'=>2,'url'=>U('/Home/Cate/index','id'=>2)),
-		 array('name'=>'武侠','id'=>3,'url'=>U('/Home/Cate/index','id'=>3)),
-		 array('name'=>'都市','id'=>4,'url'=>U('/Home/Cate/index','id'=>4)),
-		 array('name'=>'历史','id'=>5,'url'=>U('/Home/Cate/index','id'=>5)),
+		 array('name'=>'首页','id'=>1,'url'=>""),
+		 array('name'=>'玄幻','id'=>2,'url'=>""),
+		 array('name'=>'武侠','id'=>3,'url'=>""),
+		 array('name'=>'都市','id'=>4,'url'=>""),
+		 array('name'=>'历史','id'=>5,'url'=>""),
 	);
 
 	   protected $m_cate_list = array(
-		 array('name'=>'首页','id'=>1,'url'=>U('/Home/Cate/index','id'=>1)),
-		 array('name'=>'玄幻','id'=>2,'url'=>U('/Home/Cate/index','id'=>2)),
-		 array('name'=>'武侠','id'=>3,'url'=>U('/Home/Cate/index','id'=>3)),
-		 array('name'=>'都市','id'=>4,'url'=>U('/Home/Cate/index','id'=>4)),
-		 array('name'=>'历史','id'=>5,'url'=>U('/Home/Cate/index','id'=>5)),
-		 array('name'=>'测试','id'=>6,'url'=>U('/Home/Cate/index','id'=>6)),
+		 array('name'=>'首页','id'=>1,'url'=>""),
+		 array('name'=>'玄幻','id'=>2,'url'=>""),
+		 array('name'=>'武侠','id'=>3,'url'=>""),
+		 array('name'=>'都市','id'=>4,'url'=>""),
+		 array('name'=>'历史','id'=>5,'url'=>""),
+		 array('name'=>'测试','id'=>6,'url'=>""),
 	);
 
 
