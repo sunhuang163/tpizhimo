@@ -50,7 +50,7 @@
 					<table class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th><label class="checkbox"><input type="checkbox" id="chkall" class="input-mini"/></label></th>
 								<th> 标题 </th>
 								<th> 作者 </th>
 								<th> 分类</th>
@@ -88,9 +88,9 @@
 							   </span> <img   class="thumbnail"  src="<if condition="$vo['pic']">/{$vo.pic}<else/>{$ADMIN_PATH}nopic.gif</if>"  width="80"  height="30">
 							  </p>
 							</div>
-							<tr id="{$vo.nid}" class="domoreinfo">
-							    <td><label><input name="ids" type="checkbox" value="{$vo.nid}">[{$vo.nid}]</label></td>
-								<td title="{$vo.title}"><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
+							<tr  >
+							    <td style="width:20px;"><label><input name="ids" type="checkbox" value="{$vo.nid}" class="input-mini"></label></td>
+								<td title="{$vo.title}"  class="domoreinfo" id="{$vo.nid}">[{$vo.nid}]<a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
 								<td>{$vo.author}</td>
 								<td>{$vo.ncname}</td>
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
@@ -163,6 +163,12 @@
   $(".domoreinfo").mouseleave(function(e){
     $('.umoreinfo').hide();
   });
+
+   $(function(){
+        $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+ });
  });
 </script>
 <include file="Public:footer" />

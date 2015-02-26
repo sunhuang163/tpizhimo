@@ -36,19 +36,19 @@
 								<th>后缀</th>
 								<th>大小</th>
 								<th>上传时间</th>
-								<th> 操作 </th>
+								<th>查看文件</th>
 							</tr>
 						</thead>
 						<tbody>
 						   <volist name="attlist" id="vo">
 							<tr id="tr{$vo.said}">
 							    <td><label><input name="ids" type="checkbox" value="{$vo.id}"></label></td>
-							    <td>{$vo.name}</td>
+							    <td>{$vo.name|basename}</td>
 								<td>{$vo.ext}</td>
 								<td>{$vo.size}</td>
 								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
 								<td > 
-								   <a href="javascript:void(0);"  class="u_edit" rel="{$vo.said}"   title="查看">
+								   <a href="<php> echo C('SITE_URL');</php>{$vo.name}"  target="_blank" class="u_edit" rel="{$vo.said}"   title="查看">
 								     <i class="icon-share"></i>
 								   </a> 
 								 </td>
