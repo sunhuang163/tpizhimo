@@ -11,5 +11,10 @@ class HotAction extends BackAction {
 	{
 	   $this->display();
 	}
+
+	public function cate()
+   {
+	 $this->display();
+   }
  }
 ?>
