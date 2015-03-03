@@ -225,6 +225,138 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
  return $pstr;
 }
 
+
+function ff_param_lable($tag = ''){
+	$param = array();
+	$array = explode(';',str_replace('num:','limit:',$tag));
+	foreach ($array as $v){
+		list($key,$val) = explode(':',trim($v));
+		$param[trim($key)] = trim($val);
+	}
+	return $param;
+}
+
+/******************************************
+* @小说处理函数
+* @以字符串方式传入,通过ff_param_lable函数解析为以下变量
+* name:
+* ids:调用指定ID的一个或多个数据,如 1,2,3
+* ncid:数据所在分类,可调出一个或多个分类数据,如 1,2,3 默认值为全部,在当前分类为:'.$cid.'
+* field:调用影视类的指定字段,如(id,title,actor) 默认全部
+* limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
+* order:推荐方式(id/addtime/hits/year/up/down) (desc/asc/rand())
+* wd:'关键字' 用于调用自定义关键字(搜索/标签)结果
+*/
+function ff_mysql_novel($tag){
+	$search = array();$where = array();
+	$tag = ff_param_lable($tag);
+	$field = !empty($tag['field']) ? $tag['field'] : '*';
+	$limit = !empty($tag['limit']) ? $tag['limit'] : '10';
+	$order = !empty($tag['order']) ? $tag['order'] : 'utime';
+	//优先从缓存调用
+	if(C('data_cache_novel') && C('currentpage') < 2 ){
+		$data_cache_name = md5(C('data_cache_novel').implode(',',$tag));
+		$data_cache_content = S($data_cache_name);
+		if($data_cache_content){
+			return $data_cache_content;
+		}
+	}
+	//根据参数生成查询条件
+	$where['nsate'] = array('neq',-1);
+	if ($tag['ids']) {
+		$where['nid'] = array('in',$tag['ids']);
+	}
+	if ($tag['ncid']) {
+	   $where['ncid'] = array('in', $tag['ncid']);
+	}
+	if ($tag['day']) {
+		$where['ctime'] = array('gt',getxtime($tag['day']));
+	}
+	if ($tag['letter']) {
+		$where['vod_letter'] = array('in',$tag['letter']);
+	}
+	if($tag['lz'] == 1){
+		$where['vod_continu'] = array('neq','0');
+	}elseif($tag['lz'] == 2){
+		$where['vod_continu'] = 0;
+	}
+	if ($tag['year']) {
+		$year = explode(',',$tag['year']);
+		if (count($year) > 1) {
+			$where['vod_year'] = array('between',$year[0].','.$year[1]);
+		}else{
+			$where['vod_year'] = array('eq',$tag['year']);
+		}
+	}
+	if ($tag['hits']) {
+		$hits = explode(',',$tag['hits']);
+		if (count($hits) > 1) {
+			$where['vod_hits'] = array('between',$hits[0].','.$hits[1]);
+		}else{
+			$where['vod_hits'] = array('gt',$hits[0]);
+		}
+	}
+	if ($tag['name']) {
+		$where['vod_name'] = array('like','%'.$tag['name'].'%');
+	}
+	if ($tag['title']) {
+		$where['vod_title'] = array('like','%'.$tag['title'].'%');
+	}
+	if ($tag['actor']) {
+		$where['vod_actor'] = array('like','%'.$tag['actor'].'%');
+	}
+
+	if ($tag['wd']) {
+		$search['vod_name'] = array('like','%'.$tag['wd'].'%');
+		$search['vod_title'] = array('like','%'.$tag['wd'].'%');
+		$search['vod_actor'] = array('like','%'.$tag['wd'].'%');
+		$search['vod_director'] = array('like','%'.$tag['wd'].'%');
+		$search['_logic'] = 'or';
+		$where['_complex'] = $search;
+	}
+	//查询数据开始
+	if($tag['tag']){//视图模型查询
+		$where['tag_sid'] = 1;
+		$where['tag_name'] = $tag['tag'];
+		$rs = D('TagView');
+	}else{
+		$rs = M('Vod');
+	}
+	if($tag['page']){
+		//组合分页信息
+		$count = $rs->where($where)->count('vod_id');if(!$count){return false;}
+		$totalpages = ceil($count/$limit);
+		$currentpage = get_maxpage(C('currentpage'),$totalpages);
+		//生成分页列表
+		//$pageurl = ff_list_url('vod',C('jumpurl'),9999);
+		$pageurl = C('jumpurl');
+		$pages = '共'.$count.'部影片&nbsp;当前:'.$currentpage.'/'.$totalpages.'页&nbsp;'.getpage($currentpage,$totalpages,C('home_pagenum'),$pageurl,'pagego(\''.$pageurl.'\','.$totalpages.')');
+		//数据列表
+		$list = $rs->field($field)->where($where)->order($order)->limit($limit)->page($currentpage)->select();
+		$list[0]['count'] = count($list);
+		$list[0]['page'] = $pages;
+	}else{
+		$list = $rs->field($field)->where($where)->order($order)->limit($limit)->select();
+	}
+	//dump($rs->getLastSql());
+	//循环赋值
+	foreach($list as $key=>$val){
+		$list[$key]['list_id'] = $list[$key]['vod_cid'];
+		$list[$key]['list_name'] = getlistname($list[$key]['list_id'],'list_name');
+		$list[$key]['list_url'] = getlistname($list[$key]['list_id'],'list_url');
+		$list[$key]['vod_readurl'] = ff_data_url('vod',$list[$key]['vod_id'],$list[$key]['vod_cid'],$list[$key]['vod_name'],1,$list[$key]['vod_jumpurl']);
+		$list[$key]['vod_playurl'] = ff_play_url($list[$key]['vod_id'],0,1,$list[$key]['vod_cid'],$list[$key]['vod_name']);
+		$list[$key]['vod_picurl'] = ff_img_url($list[$key]['vod_pic'],$list[$key]['vod_content']);
+		$list[$key]['vod_picurl_small'] = ff_img_url_small($list[$key]['vod_pic'],$list[$key]['vod_content']);
+	}
+	//是否写入数据缓存
+	if(C('data_cache_novel') && C('currentpage') < 2 ){
+		S($data_cache_name,$list,intval(C('data_cache_novel')));
+	}
+	return $list;
+}
+
+
 /*----- Content collect -------*/
  function curl_content($url,$timeout = 10,$referer = "http://www.google.com"){
 

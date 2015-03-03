@@ -37,6 +37,7 @@ $cnf =  array(
 	'U_AUTH_KEY'        => '_nvau',
 	'U_UPLOAD_DIR'     =>'skdata/',
 	'U_UPLOAD_DIRPATH' =>'Y/m/',
+    'data_cache_novel' => 'mysqlnovel',
 	'IMG_WATER'        => 1, //图片水印
 	'IMG_WATER_PIC'   => 'public/water.png',
 	'IMG_SIZES'   => array(
