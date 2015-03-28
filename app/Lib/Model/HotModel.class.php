@@ -2,14 +2,14 @@
 /*
   banfg56
   2015/2/4
-  @@recommend novel
+  @@热门推荐列表小说
 */
 
 class HotModel extends AdvModel {
      protected $tableName = 'recommend';
 
-     const RECOMMEND_WITH_TXT = 'txt'; /**/
-	 const RECOMMEND_WITH_PIC = 'pic'; /**/
+     const HOT_HOME_TXT = 'txt'; /**/
+	 const HOT_HOME_PIC = 'pic'; /**/
 
 
 	protected $_validate=array(

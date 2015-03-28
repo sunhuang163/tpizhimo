@@ -63,12 +63,12 @@
                                      </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="4">
 									  	 <li role="presentation">
-										     <a role="menuitem" tabindex="-1" href="#">首页热门</a>
+										     <a role="menuitem" tabindex="-1" class="hot_novel" data-r="txt" data-all="1" href="javascript:void(0);">首页热门</a>
 									     </li>										  										 				 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   href="#">到首页</a>
+										    <a role="menuitem" tabindex="-1"   class="hot_novel" data-r="pic" data-all="1" href="javascript:void(0);">首页图片</a>
 										 </li>
 										 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   href="#">到列表</a>
+										    <a role="menuitem" tabindex="-1" class="hot_novel"  data-r="" data-all="1" href="javascript:void(0);">到列表</a>
 										 </li>
 									 </ul>
                                   </div>
@@ -106,12 +106,19 @@
                                      </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="4">
 									  	 <li role="presentation">
-										     <a role="menuitem" tabindex="-1" href="#">首页热门</a>
-									     </li>										  										 				 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   href="#">到首页</a>
+										     <a role="menuitem" tabindex="-1" id="t_{$vo.nid}" class="hot_novel" data-r="txt" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+											  首页热门
+											 </a>
+									     </li>
+										 <li role="presentation">
+										    <a role="menuitem" tabindex="-1"   id="p_{$vo.nid}" class="hot_novel" data-r="pic" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+											  首页图片
+											</a>
 										 </li>
 										 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   href="#">到列表</a>
+										    <a role="menuitem" tabindex="-1"   id="n_{$vo.nid}" data-r="" class="hot_novel" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+											 到列表
+											</a>
 										 </li>
 									 </ul>
                                   </div>
@@ -146,6 +153,61 @@
 <script src="{$ADMIN_PATH}js/lhgcalendar.min.js"></script>
 <script type="text/javascript">
  $(function(){
+	  $(".hot_novel").click( function(e){
+	      var isAll = false;
+		 if( parseInt( $(this).attr("data-all")))
+		     isAll = true;
+	      var d = Array();
+		   var item   =  {'nid':0,'ncid':0,'rtype':''};
+		  if( isAll )
+		  {
+			 var tpn = $(this).attr('data-r');
+			$("input[name='ids']:checked").each(function(e){
+				var nid = $(this).val();
+			   item.nid   =  parseInt( $('#t_' + nid).attr('data-nid'));
+			   item.ncid  =  0;
+			   item.rtype =  tpn;
+			  d.push( item );
+			});
+		  }
+		  else
+		 {
+			item.nid   =  parseInt( $(this).attr('data-nid'));
+			item.rtype =  $(this).attr('data-r');
+			if( !item.rtype )
+			  item.ncid  =  parseInt( $(this).attr('data-ncid'));
+			 else
+			   item.ncid = 0;
+			d.push( item );
+		 }
+         if( d.length < 1){
+		  alert("请选中要提交的项目!");
+		  return;
+		 }
+		 else
+		 {
+		   $.ajax({
+				 type: "POST",
+                 url: "{:U('/Admin/Hot/add')}" ,
+				 data:{hot:d},
+                 dataType: "json",
+                 success: function(data){ 
+					 if( parseInt( data.rcode ) > 0 )
+					 {  
+					   alert("推荐成功!");
+					 }
+					 else
+					 {
+					  alert( data.msg );
+					 }
+			      },
+				 error:function( data ){
+					 alert('加载用户信息失败');
+				 }
+			  });
+		 }
+	  });
+
       $(".domoreinfo").mouseenter(function(e){
 	    $('.umoreinfo').hide();
 		var pos ={x:e.screenX,y:e.screenY};
