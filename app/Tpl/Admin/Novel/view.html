@@ -54,7 +54,7 @@
 									<span id="swfupload" class="btn"></span>
 									{:W('Upload',array('BTN_W'=>60,'target'=>'pic','preview'=>'imgclass'))}
 									<br/>
-									<img src="<present name="d['pic']">{:C('SITE_URL')}{$d.pic}<else/>{$ADMIN_PATH}nopic.gif</present>" width="120px" height="60px" id="imgclass">
+									<img src="<if condition="$d['pic']">{:C('SITE_URL')}{$d.pic}<else/>{$ADMIN_PATH}nopic.gif</if>" width="120px" height="60px" id="imgclass">
 									<br/>
 								</div>
 							</div>

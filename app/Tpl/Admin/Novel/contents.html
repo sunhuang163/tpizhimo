@@ -93,4 +93,11 @@
 				</div>
 			</div>
 		</div>
+<script type="text/javascript">
+   $(function(){
+        $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+ });
+</script>
 <include file="Public:footer" />

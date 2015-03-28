@@ -16,7 +16,7 @@ class NovelAction extends BackAction {
 	  $author = isset( $_GET['author']) ? trim( $_GET['author']) : "";
 
 	  $time = isset( $_GET['uptime']) ? $_GET['uptime']  : "";
-      $gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "";
+      $gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "gt";
 
        $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
 	  if( $p< 1)
@@ -27,8 +27,14 @@ class NovelAction extends BackAction {
 	  $limits ='';
 	  $Ldata = NULL;
 	  $Mnovel  = D('Novel');
-	  $wheres['_string'] = '1=1';
-      $call = $Mnovel->where( $wheres )->count("*");
+      $wheres['_string'] = '1=1';
+	  if( $ncid > 0)
+		  $wheres['ih_novel.ncid'] = array('eq', $ncid);
+	  if( $author)
+		  $wheres['author'] = array("like",'%'.$author.'%');
+	  if( $time )
+		  $wheres['utime'] = array( $gt , strtotime( $time));
+      $call = $Mnovel->where( $wheres )->count();
       $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
 	  if( $p > $pall )
 		  $p = $pall;
@@ -368,7 +374,12 @@ class NovelAction extends BackAction {
 	}
   }
 
-  public function comments(){
+  public function comments()
+  {
+	  $nid = isset( $_GET['nid']) ? intval( $_GET['nid']) : 0;
+	  $d = array();
+	  $d['nid'] = $nid;
+	  $this->assign("d" , $d);
 	  $this->display();
   }
 

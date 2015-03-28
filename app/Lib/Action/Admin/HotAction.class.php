@@ -18,7 +18,7 @@ class HotAction extends BackAction {
 	  $Ldata = NULL;
 	  $wheres = array();
 	  $wheres['ncid'] = array('eq',0);
-	  $Dhot  = D('Recommend');
+	  $Dhot  = D('Hot');
       $call = $Dhot->where( $wheres )->count("*");
       $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
 	  if( $p > $pall )
@@ -41,7 +41,7 @@ class HotAction extends BackAction {
     if( $this->isGet() )
     {
       $wheres = array();
-	  $Dhot = M("Recommend");
+	  $Dhot = M("Hot");
 
 	}
 	// POST add
@@ -101,7 +101,7 @@ class HotAction extends BackAction {
 	  else{
 	   $wheres['ncid'] = array('eq' , $ncid);
 	  }
-	  $Dhot  = D('Recommend');
+	  $Dhot  = D('Hot');
       $call = $Dhot->where( $wheres )->count("*");
       $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
 	  if( $p > $pall )

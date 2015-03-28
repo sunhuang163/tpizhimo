@@ -5,7 +5,8 @@
   @@recommend novel
 */
 
-class RecommendModel extends AdvModel {
+class HotModel extends AdvModel {
+     protected $tableName = 'recommend';
 
      const RECOMMEND_WITH_TXT = 'txt'; /**/
 	 const RECOMMEND_WITH_PIC = 'pic'; /**/
