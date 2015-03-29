@@ -20,7 +20,6 @@ class BaseAction extends AllAction {
 		 array('name'=>'武侠','id'=>3,'url'=>""),
 		 array('name'=>'都市','id'=>4,'url'=>""),
 		 array('name'=>'历史','id'=>5,'url'=>""),
-		 array('name'=>'测试','id'=>6,'url'=>""),
 	);
 
 

@@ -176,7 +176,7 @@ class CaijiAction extends BackAction {
 	 $cpcount = count( $Novel['cp']);
      if( $cp >= $cpcount )
 	{
-      $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>($p+1),'cp'=>0,'pos'=>0,'t'=>time())));
+      $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>($p+1),'cp'=>0,'pos'=>0,'t'=>time())));
 	   $this->success("本章节解析完成，跳转到下一条");
 	}//if next novel
 	else
@@ -184,7 +184,7 @@ class CaijiAction extends BackAction {
       $poscount = isset( $Novel['cnt'][$cp]) ? count( $Novel['cnt'][$cp]) : 0;
 	  if( $pos >= $poscount )
 	  {
-          $this->assgin("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>($cp+1),'pos'=>0,'t'=>time())));
+          $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>($cp+1),'pos'=>0,'t'=>time())));
 	     $this->success("当前数据，本章节解析成功，跳转到下一章。共".$cpcount."章,当前".$cp);
 	  } // if next chapter
 	  else
@@ -193,24 +193,27 @@ class CaijiAction extends BackAction {
 		$wherecp['ncid'] = array('eq',$Novel['ncid']);
 		$wherecp['nid'] = array('eq',$Novel['nid']);
 		$wherecp['title'] = array('eq',$Novel['cp'][$cp]);
-		$cpid = $Mchapter->where( $wherecp )->getField("cpid");
-		if( !$cpid ){
+		$cpid = $Mchapter->where( $wherecp )->order("ord DESC")->getField("cpid");
+		if( !$cpid )
+	   {
 		  $dcp = array();
 		  $dcp['ncid']  = $Novel['ncid'];
 		  $dcp['nid'] = $Novel['nid'];
 		  $dcp['title'] = $Novel['cp'][$cp];
-		  if( $Mchapter->create( $dcp , 3) ){
+		  if( $Mchapter->create( $dcp , 3) )
+		 {
 		   $cpid = $Mchapter->add(); //if no chapter ,add it
 		  }
 		}
         $ic = $pos;
 		for( $ic ; $ic<(5+$pos) ; $ic++)
 		{
-		 if( $Novel['cnt'][$cp][$ic]){
-            $dcontent = array();
-			$dcontent['cpid'] = $cpid;
-			$dcontent['ncid'] = $Novel['ncid'];
-			$dcontent['nid'] = $Novel['nid'];
+		 if( $Novel['cnt'][$cp][$ic])
+		   {
+            $dcontent          =   array();
+			$dcontent['cpid']  =   $cpid;
+			$dcontent['ncid']  =    $Novel['ncid'];
+			$dcontent['nid']   =      $Novel['nid'];
 			$dcontent['caijiurl'] = $Novel['cnt'][$cp][$ic]['url'];
             $dcontent['ctime'] = $Novel['cnt'][$cp][$ic]['ctime'];
 			$dcontent['title'] = $Novel['cnt'][$cp][$ic]['title'];
@@ -221,13 +224,16 @@ class CaijiAction extends BackAction {
 			$wherecnt['nid'] = array('eq',$dcontent['nid']);
 			$wherecnt['title'] = array('eq',$dcontent['title']);
 			/*bug here: Content Model auto create ,validate not work*/
-			if(!$Dcnt->where( $wherecnt )->find()){
+			if(!$Dcnt->where( $wherecnt )->find())
+		   {
 			  $dcontent['content'] =$Mcaiji->getContent( $dcontent['caijiurl']);
 			  if( $Dcnt->create( $dcontent , 3) )
 			  $ncntid = $Dcnt->add(); //if no content add it
 			}
-		 }//for
-         if( $ic >= $poscount ){
+		 }//if the content exists
+		}//for
+            if( $ic >= $poscount )
+		{
 			 $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>($cp+1),'pos'=>0,'t'=>time())));
 			 $this->success("本条数据解析完成,跳转到下一章，当前第".$cp."章 共".$cpcount."章");
 		 }
@@ -236,7 +242,6 @@ class CaijiAction extends BackAction {
 		   $this->assign("jumpUrl",U('/Admin/Caiji/content',array('p'=>$p,'cp'=>$cp,'pos'=>$ic,'t'=>time())));
 		   $this->success("本条数据正在解析中，当前第".$cp."章 第".$pos."条 共".$poscount."条");
 		 } //else still in this chapter,next pos
-		}//get the content
 	  } //if this chapter
 	} //if this chapter
    }
@@ -246,9 +251,10 @@ class CaijiAction extends BackAction {
 	 $this->success("内容解析完成，跳转到首页");
     }//novel cache content don't exits
   }
-  else{
-   $this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
-   $this->error("缓存内容不存在,请重新解析");
+  else
+ {
+    $this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
+    $this->error("缓存内容不存在,请重新解析");
   } //no novel list cache exits
  }
 

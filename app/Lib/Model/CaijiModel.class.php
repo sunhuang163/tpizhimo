@@ -10,18 +10,7 @@ class CaijiModel extends Model{
   private $src = "";
   private $caiji_data = NULL;
   private $soso = "http://www.day66.com/Book/ShowBookList.aspx?tclassid=0&nclassid=0&page={!p!}";
-
-  /*
-    分类信息
-  */
-  private $url_config = array(
-
-   );
-
-
-public function cate( $tag )
-{
-  $cate = array(
+   public $decate = array(
 	        array('name' => '玄幻奇幻', 'tag' => '玄幻|奇幻', 'id' => 3 ),
 	        array('name' => '都市小说',  'tag' => '都市',  'id' => 4 ),
 	        array('name' => '武侠修真',  'tag' => '武侠|修正|仙侠',  'id' => 6  ),
@@ -34,6 +23,10 @@ public function cate( $tag )
 	        array('name' => '恐怖小说', 'tag' => '恐怖|悬疑|灵异',  'id' => 9)
 	       // array('name' => "未分类",  'tag' => '*', 'id' =>1 ),
     );
+
+public function cate( $tag )
+{
+  $cate = $this->decate;
 
    foreach( $cate as $v ){
     if( preg_match( "#".$v['tag']."#isU",$tag)){

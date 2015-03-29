@@ -17,8 +17,8 @@
         <ul>
 		  <volist name="dhot" id="vo">
 		  <li>
-          <a href="{$vo.url}" target="_blank">
-           <img src="{$vo.pic}" width="65" height="85" alt="{$vo.title}" title="{$vo.ncid}:{$vo.title}"><strong>{$vo.title|msubstr=0,10,true}</strong>
+          <a href="{$vo.url|ff_novel_url}" target="_blank">
+           <img src="{$vo.pic|ff_pic_thumb}" width="65" height="85" alt="{$vo.title}" title="{$vo.ncid}:{$vo.title}"><strong>{$vo.title|msubstr=0,10,true}</strong>
 		   <span>{$vo.ndesc|msubstr=0,25,true}</span>
 		  </a>
          </li>
@@ -28,56 +28,37 @@
 
 
       <div class="indexRecommend">
+	   <php>
+	      $homePic = $dpic[0];
+		  unset( $dpic[0]);
+	   </php>
         <h4>推荐图书</h4>
          <ul>
-             <a href="{:U('/Home/Novel/index')}" target="_blank">
-			 <img width="150" height="200" alt="莽荒纪" class="indexRecommendIMG" src="file/img/922s.jpg" title="武侠修真:莽荒纪"></a>
-           <h1><a href="{:U('/Home/Novel/index')}" target="_blank">莽荒纪</a></h1>
-         <dd>    一本小说，就是一个世界。
-                 在《莽荒纪》这个世界里——
-                有为了生存，和天斗，和地斗，和妖斗的部落人们。
-                有为了逍遥长生，历三灾九劫，纵死无悔的修仙者。
-           更有夸父逐日…....</dd>
-        <p>作者：<a href="http://www.cai.com/t/modules/article/authorarticle.php?author=%CE%D2%B3%D4%CE%F7%BA%EC%CA%C1" target="_blank">我吃西红柿</a></p>
+             <a href="{$homePic.url|ff_novel_url}" target="_blank">
+			 <img width="150" height="200" alt="{$homePic.title}" class="indexRecommendIMG" src="<php></php>{$homePic.pic|ff_pic_url}" title="武侠修真:莽荒纪"></a>
+           <h1><a href="{$homePic.url|ff_novel_url}"  alt="{$homePic.title}" target="_blank">{$homePic.title|msubstr=0,6,true}</a></h1>
+          <dd>
+		   {$homePic.ndesc|msubstr=0,85,true}
+		  </dd>
+        <p>作者：{$homePic.author}</p>
         <p>类别：武侠修真</p>
-        <p>快速：<a href="http://www.cai.com/t/modules/article/addbookcase.php?bid=922">收藏</a>
-        <a href="http://www.cai.com/t/modules/article/uservote.php?id=922">推荐</a>
-        <a href="http://www.cai.com/t/modules/article/downlad.html?id=922&amp; lm=http://www.cai.com/t/book/922.html" target="_blank">下载</a></p>
+		<p>最后更新:{$homePic.utime|date='Y-m-d H:i',###}</p>
         <div class="c"></div>
      </ul>
       
 	  <ol>
+	     <volist name="dpic" id="vo">
 		 <li>
-           <a href="http://www.cai.com/t/book/27.html" target="_blank">
-		      <img src="file/img/27s.jpg" width="53" height="70" alt="绝世唐门" title="玄幻魔法:绝世唐门">
-			  <strong>绝世唐门</strong>
-			  <span>    这里没有魔法，没有斗气，没有武术，却有武魂。唐门创立万年之后的斗罗大陆上，唐门式微。一代天骄横空出世，新一代史莱克七怪能否重振唐门，谱写一曲绝世唐....</span>
+           <a href="{$vo.url}" target="_blank">
+		      <img src="{$vo.pic|ff_pic_thumb}" width="53" height="70" alt="{$vo.title}" title="{$vo.catename}:{$vo.title}">
+			  <strong>{$vo.title|msubstr=0,10,true}</strong>
+			  <span>
+			   {$vo.ndesc|msubstr=0,70,true}
+			  </span>
 	       </a>
 		 </li>
-
-         <li>
-           <a href="http://www.cai.com/t/book/39.html" target="_blank">
-		    <img src="file/img/39s.jpg" width="53" height="70" alt="光明纪元" title="玄幻魔法:光明纪元">
-		    <strong>光明纪元</strong>
-		    <span>    文明的宿命，毁灭和复苏，无止尽的轮回
-                    原罪的深渊，世界被崩毁，只有余烬残存
-                     黑暗笼罩下，无边废墟中，唯有一人独行
-                     将血罪消泯，撕破那黑幕，....
-		  </span>
-		  </a>
-		</li>
-       
-	   <li>
-            <a href="http://www.cai.com/t/book/47.html" target="_blank">
-			 <img src="file/img/47s.jpg" width="53" height="70" alt="剑道独尊" title="玄幻魔法:剑道独尊">
-		     <strong>剑道独尊</strong>
-			 <span>    真灵大陆，宗门千万，强者如林。
-                      一个大家族子弟因为奇异的变故从庸才变为天才，不但能过目不忘，感知敏锐，领悟力更是直上云霄，成为妖一样的存在。
-                 ....
-		     </span>
-		    </a>
-           </li>	
-	      </ol>
+       </volist>
+ 	    </ol>
        </div>
       <div class="c"></div>
       <div class="indexUpdataNewbook" id="indexUpdataNewbook">
@@ -86,40 +67,34 @@
         </h3>
 
         <ul id="real" class="tabcontent">
-           <ol style="height:95px;">
-              <a href="http://www.cai.com/t/book/4367.html" target="_blank">
-			     <img class="indexListIMG" style="margin-left:5px;" src="file/img/4367s.jpg" width="65" height="80" alt="炼神" title="玄幻魔法:炼神">
-			  </a>
+		    <php>
+			   $dlast = ff_mysql_novel('order:utime desc;limit:10');
+			</php>
+			<volist name="dlast" id="vo">
+             <ol style="height:95px;">
+                <a href="{$vo.novel_url}" target="_blank">
+			     <img class="indexListIMG" style="margin-left:5px;" src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
+			   </a>
               <h2>
-			     <a target="_blank" href="http://www.cai.com/t/book/4367.html" class="indexliBookName">炼神</a>
+			     <a target="_blank" href="#" class="indexliBookName">{$vo.title}</a>
 				 <span>更新至</span>
-				 <a href="http://www.cai.com/t/files/article/html/4/4367/3374183.html" target="_blank">第八六三章 借刀杀人！</a>
+				 {$vo.novel_last_url}
 			  </h2>
-             <dl>    只有经历重重磨难，遍体鳞伤之后活下来的人，才可以成为强者和英雄,坐拥无数财宝,掌握亿万生死。　　这个世界上，只有极少数....</dl>
+             <dl> 
+			   {$vo.ndesc|msubstr=0,78,true}
+			 </dl>
              <p>
-               <span>类别：玄幻魔法</span>	
-	           <span>作者：
-			     <a href="http://www.cai.com/t/modules/article/authorarticle.php?author=%C1%F7%D1%C0" target="_blank">流牙</a>
+               <span>类别：{$vo.cate_name}</span>	
+	           <span>作者：{$vo.author}</a>
 			   </span>
-	           <span>快速：
-			     <a href="http://www.cai.com/t/modules/article/addbookcase.php?bid=4367">收藏</a>
-	             <a href="http://www.cai.com/t/modules/article/uservote.php?id=4367">推荐</a>
-                 <a href="http://www.cai.com/t/modules/article/downlad.html?id=4367 &amp; lj=http://www.cai.com/t/book/4367.html" target="_blank">
-	          下载</a>
-	             <span>更新时间：05-20</span>
-               </span>
+	           <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
 			  </p>
           </ol>
+			</volist>
 
 
           <div class="more" style="text-align: center; padding: 12px 0; font-size: 14px">
-		    <a href="/lastupdate_1">查看更多...</a>
-		  </div>
-        </ul>
-        <ul id="a1a" class="tabcontent" style="display: none;">
-            图书内容
-          <div class="more" style="text-align: center; padding: 12px 0; font-size: 14px">
-		   <a href="/postdate_1">查看更多...</a>
+		    <a href="{:U('Home/index/update')}">查看更多...</a>
 		  </div>
         </ul>
       </div>

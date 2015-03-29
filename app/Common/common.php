@@ -236,93 +236,135 @@ function ff_param_lable($tag = ''){
 	return $param;
 }
 
+//获取小说的首页
+function ff_novel_url( $url , $nid = 0, $ncid = 0, $newurl = '')
+{
+ return C('SITE_URL').$url;
+}
+
+//获取小说的最新章节
+function ff_novel_last($url , $nid  , $newurl = '' )
+{
+  $lasturl = "";
+   $Mn = M("Content");
+   $wheres = array();
+   $wheres['nid'] = array( 'eq',$nid );
+   $dlast = $Mn->field("ncntid,ncid,title,utime")->where( $wheres )->order('utime DESC')->limit('1')->find();
+   if( $dlast )
+   {
+	 $href = '';
+    if( $newurl )
+	{
+	 $lasturl = $newurl .'/' . $dlast['ncntid'].C('URL_HTML_SUFFIX');
+	}
+	else
+	{
+     $lasturl = $url  .'/'. $dlast['ncntid'].C('URL_HTML_SUFFIX');
+	}
+	$href= '<a href="'.$lasturl.'" target="_blank" alt="'.$dlast['title'].'">'.$dlast['title'].'</a>';
+	$lasturl = $href;
+   }
+  return $lasturl;
+}
+
+//获取小说的目录页面
+function ff_novel_mulu( $url , $nid , $ncid , $newurl = '')
+{
+  return $url;
+}
+
+//获取图片的站外浏览地址
+function ff_pic_url( $pic = '')
+{
+ return C('PIC_URL').$pic;
+}
+
+//获取图片的缩略图
+function ff_pic_thumb( $pic = '' , $s = 's0' )
+{
+	if( !$pic )
+	 return $pic;
+	$thumb_url = '';
+	$fname = substr( $pic , strrpos($pic,'/')+1);
+	$slen = strlen($pic) - strlen( $fname );
+	$fname = "thumb/".$s.'_'.$fname;
+	$thumb_url = substr( $pic , 0, $slen).$fname;
+	return C('PIC_URL').$thumb_url;
+}
 /******************************************
 * @小说处理函数
 * @以字符串方式传入,通过ff_param_lable函数解析为以下变量
-* name:
 * ids:调用指定ID的一个或多个数据,如 1,2,3
 * ncid:数据所在分类,可调出一个或多个分类数据,如 1,2,3 默认值为全部,在当前分类为:'.$cid.'
-* field:调用影视类的指定字段,如(id,title,actor) 默认全部
+* field:调用小说类获取制定的类,如(id,title,actor) 默认全部
 * limit:数据条数,默认值为10,可以指定从第几条开始,如3,8(表示共调用8条,从第3条开始)
 * order:推荐方式(id/addtime/hits/year/up/down) (desc/asc/rand())
-* wd:'关键字' 用于调用自定义关键字(搜索/标签)结果
+* utime:更新时间的关系
+* ctime:小说创建时间
+* zimu:小说首字母内容
+* title:小说标题
+* author:小说作者
 */
 function ff_mysql_novel($tag){
 	$search = array();$where = array();
 	$tag = ff_param_lable($tag);
 	$field = !empty($tag['field']) ? $tag['field'] : '*';
 	$limit = !empty($tag['limit']) ? $tag['limit'] : '10';
-	$order = !empty($tag['order']) ? $tag['order'] : 'utime';
+	$order = !empty($tag['order']) ? $tag['order'] : 'utime DESC';
 	//优先从缓存调用
-	if(C('data_cache_novel') && C('currentpage') < 2 ){
+	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
 		$data_cache_name = md5(C('data_cache_novel').implode(',',$tag));
 		$data_cache_content = S($data_cache_name);
 		if($data_cache_content){
 			return $data_cache_content;
 		}
-	}
+	} */
 	//根据参数生成查询条件
-	$where['nsate'] = array('neq',-1);
+	$where['nstate'] = array('neq',-1);
 	if ($tag['ids']) {
 		$where['nid'] = array('in',$tag['ids']);
 	}
 	if ($tag['ncid']) {
 	   $where['ncid'] = array('in', $tag['ncid']);
 	}
-	if ($tag['day']) {
-		$where['ctime'] = array('gt',getxtime($tag['day']));
-	}
-	if ($tag['letter']) {
-		$where['vod_letter'] = array('in',$tag['letter']);
-	}
 	if($tag['lz'] == 1){
-		$where['vod_continu'] = array('neq','0');
-	}elseif($tag['lz'] == 2){
-		$where['vod_continu'] = 0;
+		$where['nstate'] = array('neq','1');
 	}
-	if ($tag['year']) {
-		$year = explode(',',$tag['year']);
+	elseif( $tag['lz'] == 2)
+	{
+		$where['nstate'] = 0;
+	}
+	if ($tag['utime']) {
+		$year = explode(',',$tag['utime']);
 		if (count($year) > 1) {
-			$where['vod_year'] = array('between',$year[0].','.$year[1]);
+			$where['utime'] = array('between', strtotime($year[0]).','.strtotime($year[1]));
 		}else{
-			$where['vod_year'] = array('eq',$tag['year']);
+			$where['utime'] = array('eq',$tag['year']);
 		}
 	}
-	if ($tag['hits']) {
-		$hits = explode(',',$tag['hits']);
-		if (count($hits) > 1) {
-			$where['vod_hits'] = array('between',$hits[0].','.$hits[1]);
+	if ($tag['ctime']) {
+		$year = explode(',',$tag['utime']);
+		if (count($year) > 1) {
+			$where['ctime'] = array('between',strtotime($year[0]).','.strtotime($year[1]));
 		}else{
-			$where['vod_hits'] = array('gt',$hits[0]);
+			$where['ctime'] = array('eq',$tag['year']);
 		}
 	}
-	if ($tag['name']) {
-		$where['vod_name'] = array('like','%'.$tag['name'].'%');
-	}
-	if ($tag['title']) {
-		$where['vod_title'] = array('like','%'.$tag['title'].'%');
-	}
-	if ($tag['actor']) {
-		$where['vod_actor'] = array('like','%'.$tag['actor'].'%');
+	if( $tag['zimu'])
+	{
+	  $where['zimu'] = array('eq' , strtoupper( $tag['zimu']));
 	}
 
-	if ($tag['wd']) {
-		$search['vod_name'] = array('like','%'.$tag['wd'].'%');
-		$search['vod_title'] = array('like','%'.$tag['wd'].'%');
-		$search['vod_actor'] = array('like','%'.$tag['wd'].'%');
-		$search['vod_director'] = array('like','%'.$tag['wd'].'%');
-		$search['_logic'] = 'or';
-		$where['_complex'] = $search;
+	if ($tag['title']) {
+		$where['ih_novel.title'] = array('like','%'.$tag['title'].'%');
 	}
-	//查询数据开始
-	if($tag['tag']){//视图模型查询
-		$where['tag_sid'] = 1;
-		$where['tag_name'] = $tag['tag'];
-		$rs = D('TagView');
-	}else{
-		$rs = M('Vod');
+	if ($tag['author']) {
+		$where['ih_novel.author'] = array('like','%'.$tag['author'].'%');
 	}
-	if($tag['page']){
+
+    $rs = M("Novel");
+    $list = $rs->field( $filed )->where( $where )->order( $order )->limit( $limit )->select();
+	/*if($tag['page']){
 		//组合分页信息
 		$count = $rs->where($where)->count('vod_id');if(!$count){return false;}
 		$totalpages = ceil($count/$limit);
@@ -337,25 +379,43 @@ function ff_mysql_novel($tag){
 		$list[0]['page'] = $pages;
 	}else{
 		$list = $rs->field($field)->where($where)->order($order)->limit($limit)->select();
-	}
+	}.*/
 	//dump($rs->getLastSql());
 	//循环赋值
 	foreach($list as $key=>$val){
-		$list[$key]['list_id'] = $list[$key]['vod_cid'];
-		$list[$key]['list_name'] = getlistname($list[$key]['list_id'],'list_name');
-		$list[$key]['list_url'] = getlistname($list[$key]['list_id'],'list_url');
-		$list[$key]['vod_readurl'] = ff_data_url('vod',$list[$key]['vod_id'],$list[$key]['vod_cid'],$list[$key]['vod_name'],1,$list[$key]['vod_jumpurl']);
-		$list[$key]['vod_playurl'] = ff_play_url($list[$key]['vod_id'],0,1,$list[$key]['vod_cid'],$list[$key]['vod_name']);
-		$list[$key]['vod_picurl'] = ff_img_url($list[$key]['vod_pic'],$list[$key]['vod_content']);
-		$list[$key]['vod_picurl_small'] = ff_img_url_small($list[$key]['vod_pic'],$list[$key]['vod_content']);
+		$list[$key]['cate_id'] = $list[$key]['ncid'];
+		$list[$key]['cate_name'] = getlistname($list[$key]['ncid'],'name');
+		$list[$key]['cate_url'] = getlistname($list[$key]['ncid'],'url');
+		$list[$key]['novel_url'] = ff_novel_url($list[$key]['url'],$list[$key]['nid'],$list[$key]['ncid'],$list[$key]['newurl']);
+		$list[$key]['novel_url_mulu'] = ff_novel_mulu($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['ncid']);
+		$list[$key]['novel_picurl'] = ff_pic_url($list[$key]['pic']);
+		$list[$key]['novel_picurl_small'] = ff_pic_thumb($list[$key]['pic']);
+		$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
 	}
 	//是否写入数据缓存
-	if(C('data_cache_novel') && C('currentpage') < 2 ){
+	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
 		S($data_cache_name,$list,intval(C('data_cache_novel')));
-	}
+	}*/
 	return $list;
 }
 
+function getlistname( $list_id , $field)
+{
+   $Mcaiji = D("Caiji");
+   $_cate = $Mcaiji->decate;
+   $cate = array();
+   foreach($_cate as $_v){
+    $cate[$_v['id']] = $_v;
+   }
+   if( isset( $cate[$list_id]))
+  {
+    return isset($cate[$list_id][$field] ) ? $cate[$list_id][$field] : '';
+  }
+   else
+  {
+	 return '';
+   }
+}
 
 /*----- Content collect -------*/
  function curl_content($url,$timeout = 10,$referer = "http://www.google.com"){

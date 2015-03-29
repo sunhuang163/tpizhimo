@@ -32,6 +32,7 @@ $cnf =  array(
     'DEFAULT_GROUP'      => 'Home',
 	'SITE_NAME'          => 'izhimo 免费小说站',
 	'SITE_URL'           => '/',
+	'PIC_URL'            =>'/',
     'DOMAIN_NAME'        => 'i织墨小说站',
 	'U_HASH_KEY'        => 'U&8f',
 	'U_AUTH_KEY'        => '_nvau',

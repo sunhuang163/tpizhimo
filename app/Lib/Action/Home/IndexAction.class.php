@@ -8,24 +8,30 @@ class IndexAction extends BaseAction {
 
 	public function index()
    {
-	 $Mhot = D("Recommend");
-     $wheres = array();
-	 $wheres['rtype'] = RecommendModel::RECOMMEND_WITH_TXT ;
-	 $wheres['recommend.ncid'] = 0;
+	 $Mdo = D("Hot");
+     $dhot = array();
+	 $dpic = array();
+	 $wheres = array();
+	 $wheres['rtype'] = array('eq', HotModel::HOT_HOME_TXT);
+     $wheres['ih_recommend.ncid'] = array('eq' , 0);
+	 $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
+		         ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
+		         ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
+		         ->where( $wehres )
+		         ->order("ih_recommend.ord ASC")
+		         ->limit("5")
+		         ->select();
 
-	 $dhot = array();
-	 $drecommend = array();
-	 $dupdate = array();
-
-	 $dhot = $Mhot->field("novel.title,novel.author,novel.ncid,novel.pic,novel.url,novel.newurl,novel.ndesc")
-		          ->join("left JOIN novel on novel.nid=recommend.nid")
-		          ->order("ord ASC")
-		          ->where( $wheres )
-		          ->limit(5)
-		          ->select();
-
-     $this->assign("dhot" , $dhot);
-	 $this->assign("");
+	 $wheres['rtype'] = array('eq' , HotModel::HOT_HOME_PIC);
+	 $dpic = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
+		         ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
+		         ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
+		         ->where( $wheres )
+		         ->order("ih_recommend.ord ASC")
+		         ->limit("4")
+		         ->select();
+	 $this->assign('dhot' , $dhot);
+	 $this->assign('dpic' , $dpic );
 	 $this->display();
    }
 
@@ -36,12 +42,13 @@ class IndexAction extends BaseAction {
    }
 
     //已经完结小说列表
-   public function finish() {
+   public function finish()
+ {
      $this->display();
   }
 
   //最近更新小说
-  public function recent()
+  public function update()
  {
    $this->display();
  }
