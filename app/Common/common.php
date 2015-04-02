@@ -302,7 +302,10 @@ function ff_pic_thumb( $pic = '' , $s = 's0' )
 * utime:更新时间的关系
 * ctime:小说创建时间
 * zimu:小说首字母内容
+* lastUrl:最后更新章节
 * title:小说标题
+* page:分页信息
+* pnow:当前页面
 * author:小说作者
 */
 function ff_mysql_novel($tag){
@@ -311,6 +314,41 @@ function ff_mysql_novel($tag){
 	$field = !empty($tag['field']) ? $tag['field'] : '*';
 	$limit = !empty($tag['limit']) ? $tag['limit'] : '10';
 	$order = !empty($tag['order']) ? $tag['order'] : 'utime DESC';
+	$lastUrl = !empty( $tag['lastUrl']) ? $tag['lastUrl'] : true;
+    $joinData = FALSE ;
+	$_order = explode(" ", $order);
+	$orderKey = "";
+	if( count( $_order) == 1  ){
+		$orderKy = trim( $order );
+		$order .= " DESC"; 
+	}
+	else
+	{
+      $orderKey = trim($_order[0]);
+	}
+    switch( $orderKey )
+    {
+       case 'hit_day':
+       case 'hit_week':
+       case 'hit_month':
+       case 'hit_all':
+           $joinData = TRUE ;
+          break;
+       case 'up_day':
+       case 'up_week':
+       case 'up_month':
+       case 'up_all':
+          $joinData = TRUE ;
+         break;
+       case 'down_day':
+       case 'down_week':
+       case 'down_month':
+       case 'down_all':
+         $joinData = TRUE ;
+         break;
+        default:
+         $joinData = FALSE ; 
+    }
 	//优先从缓存调用
 	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
 		$data_cache_name = md5(C('data_cache_novel').implode(',',$tag));
@@ -322,7 +360,7 @@ function ff_mysql_novel($tag){
 	//根据参数生成查询条件
 	$where['nstate'] = array('neq',-1);
 	if ($tag['ids']) {
-		$where['nid'] = array('in',$tag['ids']);
+		$where[C('DB_PREFIX').'novel.nid'] = array('in',$tag['ids']);
 	}
 	if ($tag['ncid']) {
 	   $where['ncid'] = array('in', $tag['ncid']);
@@ -363,25 +401,33 @@ function ff_mysql_novel($tag){
 	}
 
     $rs = M("Novel");
-    $list = $rs->field( $filed )->where( $where )->order( $order )->limit( $limit )->select();
-	/*if($tag['page']){
+    if( !$joinData )
+    {
+     $list = $rs->field( $filed )->where( $where )->order( $order )->limit( $limit )->select();
+    }
+    else
+    {
+      $list = $rs->field( $filed.','.C('DB_PREFIX').'ndata.*')
+                 ->where( $where )
+                 ->order( $order )
+                 ->limit( $limit )
+                 ->select();
+    }
+
+    //分页信息
+     
+	if($tag['page']){
 		//组合分页信息
-		$count = $rs->where($where)->count('vod_id');if(!$count){return false;}
-		$totalpages = ceil($count/$limit);
-		$currentpage = get_maxpage(C('currentpage'),$totalpages);
-		//生成分页列表
-		//$pageurl = ff_list_url('vod',C('jumpurl'),9999);
+		$count = $rs->where($where)->count();if(!$count){return false;}
+		$totalpages = $count&&$limit ? ceil($count/$limit) : 1;
+		$currentpage = isset( $tag['pnow'] ) ? $tag['pnow'] : 1;
 		$pageurl = C('jumpurl');
-		$pages = '共'.$count.'部影片&nbsp;当前:'.$currentpage.'/'.$totalpages.'页&nbsp;'.getpage($currentpage,$totalpages,C('home_pagenum'),$pageurl,'pagego(\''.$pageurl.'\','.$totalpages.')');
+		$pages = '分页信息';
 		//数据列表
-		$list = $rs->field($field)->where($where)->order($order)->limit($limit)->page($currentpage)->select();
-		$list[0]['count'] = count($list);
+		$list[0]['count'] =  $count;
 		$list[0]['page'] = $pages;
-	}else{
-		$list = $rs->field($field)->where($where)->order($order)->limit($limit)->select();
-	}.*/
-	//dump($rs->getLastSql());
-	//循环赋值
+	} 
+
 	foreach($list as $key=>$val){
 		$list[$key]['cate_id'] = $list[$key]['ncid'];
 		$list[$key]['cate_name'] = getlistname($list[$key]['ncid'],'name');
@@ -390,7 +436,10 @@ function ff_mysql_novel($tag){
 		$list[$key]['novel_url_mulu'] = ff_novel_mulu($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['ncid']);
 		$list[$key]['novel_picurl'] = ff_pic_url($list[$key]['pic']);
 		$list[$key]['novel_picurl_small'] = ff_pic_thumb($list[$key]['pic']);
+	   if( $lastUrl ) 
+	   {
 		$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
+	   }
 	}
 	//是否写入数据缓存
 	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
