@@ -7,7 +7,7 @@ class BaseAction extends AllAction {
 	protected $m_path = "/static/";
 	protected $m_path_public ="/public/";
     protected $m_cates = array(
-		 array('name'=>'首页','id'=>1,'url'=>""),
+		 array('name'=>'首页','id'=>1,'url'=>"/"),
 		 array('name'=>'玄幻','id'=>2,'url'=>""),
 		 array('name'=>'武侠','id'=>3,'url'=>""),
 		 array('name'=>'都市','id'=>4,'url'=>""),

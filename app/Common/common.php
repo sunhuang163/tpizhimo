@@ -225,7 +225,6 @@ function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
  return $pstr;
 }
 
-
 function ff_param_lable($tag = ''){
 	$param = array();
 	$array = explode(';',str_replace('num:','limit:',$tag));
@@ -239,13 +238,13 @@ function ff_param_lable($tag = ''){
 //获取小说的首页
 function ff_novel_url( $url , $nid = 0, $ncid = 0, $newurl = '')
 {
- return C('SITE_URL').$url;
+ return substr(C('SITE_URL'),0,-1).U('Home/Novel/index', array('url'=>$url));
 }
 
 //获取小说的最新章节
 function ff_novel_last($url , $nid  , $newurl = '' )
 {
-  $lasturl = "";
+  $lasturl = substr( C('SITE_URL') , 0, -1);
    $Mn = M("Content");
    $wheres = array();
    $wheres['nid'] = array( 'eq',$nid );
@@ -255,11 +254,12 @@ function ff_novel_last($url , $nid  , $newurl = '' )
 	 $href = '';
     if( $newurl )
 	{
+	 $lasturl = "";
 	 $lasturl = $newurl .'/' . $dlast['ncntid'].C('URL_HTML_SUFFIX');
 	}
 	else
 	{
-     $lasturl = $url  .'/'. $dlast['ncntid'].C('URL_HTML_SUFFIX');
+     $lasturl .= U('Home/Novel/read',array('url'=>$url,'ncntid'=>$dlast['ncntid']));
 	}
 	$href= '<a href="'.$lasturl.'" target="_blank" alt="'.$dlast['title'].'">'.$dlast['title'].'</a>';
 	$lasturl = $href;
@@ -320,7 +320,7 @@ function ff_mysql_novel($tag){
 	$orderKey = "";
 	if( count( $_order) == 1  ){
 		$orderKy = trim( $order );
-		$order .= " DESC"; 
+		$order .= " DESC";
 	}
 	else
 	{
@@ -347,7 +347,7 @@ function ff_mysql_novel($tag){
          $joinData = TRUE ;
          break;
         default:
-         $joinData = FALSE ; 
+         $joinData = FALSE ;
     }
 	//优先从缓存调用
 	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
@@ -415,7 +415,7 @@ function ff_mysql_novel($tag){
     }
 
     //分页信息
-     
+
 	if($tag['page']){
 		//组合分页信息
 		$count = $rs->where($where)->count();if(!$count){return false;}
@@ -426,7 +426,7 @@ function ff_mysql_novel($tag){
 		//数据列表
 		$list[0]['count'] =  $count;
 		$list[0]['page'] = $pages;
-	} 
+	}
 
 	foreach($list as $key=>$val){
 		$list[$key]['cate_id'] = $list[$key]['ncid'];
@@ -436,7 +436,7 @@ function ff_mysql_novel($tag){
 		$list[$key]['novel_url_mulu'] = ff_novel_mulu($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['ncid']);
 		$list[$key]['novel_picurl'] = ff_pic_url($list[$key]['pic']);
 		$list[$key]['novel_picurl_small'] = ff_pic_thumb($list[$key]['pic']);
-	   if( $lastUrl ) 
+	   if( $lastUrl )
 	   {
 		$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
 	   }
