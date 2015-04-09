@@ -6,7 +6,8 @@
 <include file="Public:header_css"/>
 <link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body>
+
 <include file="Public:nav_list" />
 <div class="webBody">
   <div class="webMain">
@@ -18,8 +19,7 @@
 					 alt="{$novel.catename}:{$novel.title}" title="{$novel.catename}:{$novel.title}" />
 				   </a>
 				</p>
-		        <ul>	
-					<a href="#">加入书架</a>
+		        <ul>
 					<a href="#">推荐本书</a>
 					<a href="#">作者专栏</a>
 					<a class="btnlink" href="#" target="_blank">TXT下载</a>
@@ -77,98 +77,34 @@
 </div>
 
 </div>
-
-	</div>
-
+  </div>
 	<div class="webSidebar">
-
-		
-
-	
-
-		<div class="webSidebarBOX" style="overflow:hidden;">
-		
-		<ul class="searchBox"> 
-<form name="articlesearch" method="post" action="http://www.qingdi.com/modules/article/search.php" target="_blank">
-<span style=" float:left;height:36px; line-height:36px; color:#999; text-align:center; cursor: pointer; padding:0px; margin:0px;
-background:#f2f2f2;">
-<select name="searchtype" id="searchtype" class="select" style="margin:9px 0px 0 5px;">
-    <option value="articlename" selected>书名</option>
-    <option value="author">作者</option>
-  </select>
-</span>
-<input name="searchkey" type="text" id="searchkey" size="12" maxlength="50"  />
-<button type="submit">搜索</button>
-</form>
-</ul>
-<style>
-.rightBOX{margin:10px 0 10px 0; background:#f2f2f2; color:#fff;text-align:center;margin-left:auto; margin-right:auto;}
-</style>
-<div class="rightBOX">
-		<!-- 青帝分类页右侧 -->
-		<ins class="adsbygoogle"
-		style="display:inline-block;width:250px;height:250px"
-		data-ad-client="ca-pub-0053502095364843"
-		data-ad-slot="3263217059"></ins>
-		<script>
-		(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
-		</div>
-		</div>
-	
-
-		<div class="webSidebarBOX" style="overflow:hidden;">
+     <include file="Public:nav_search"/>
+	 <div class="webSidebarBOX" style="overflow:hidden;">
 		<h4>热门推荐</h4>
 		<div class="indeHot">
-<ul>
-
-<a href="http://www.qingdi.com/book/9.html" target="_blank"><img src="http://www.qingdi.com/files/article/image/0/9/9s.jpg" width="70" height="90" alt="民国投机者" title="历史军事:民国投机者"/><strong>民国投机者</strong><span>    在中国出生，在美国长大，嗯，好吧，好吧，就是穿越这样的老套故事。
-    这是我的....</span></a>
-
-<a href="http://www.qingdi.com/book/4.html" target="_blank"><img src="http://www.qingdi.com/files/article/image/0/4/4s.jpg" width="70" height="90" alt="绝对权力" title="都市言情:绝对权力"/><strong>绝对权力</strong><span>    江山万里，王者居之！
-    这是一个风起云涌的时代，注定要造就英雄豪杰的时代。
-....</span></a>
-
-<a href="http://www.qingdi.com/book/102.html" target="_blank"><img src="http://www.qingdi.com/files/article/image/0/102/102s.jpg" width="70" height="90" alt="穿入聊斋" title="武侠修真:穿入聊斋"/><strong>穿入聊斋</strong><span>    穿入到一个光怪陆离的聊斋世界，妖孽丛生，群魔乱舞，魑魅魍魉尽出。恰我心张狂，....</span></a>
-
-</ul>
-</div>
-
-		</div>
-	
-
-		<div class="webSidebarBOX" style="overflow:hidden;">
+        	<ul>
+          	<a href="http://www.qingdi.com/book/9.html" target="_blank">
+          		<img src="http://www.qingdi.com/files/article/image/0/9/9s.jpg" width="70" height="90" alt="民国投机者" title="历史军事:民国投机者"/>
+          		<strong>民国投机者</strong>
+          		<span>    
+          			在中国出生，在美国长大，嗯，好吧，好吧，就是穿越这样的老套故事。
+              	这是我的....
+            	</span>
+           	</a>
+        	</ul>
+       </div>
+	</div>
+	<div class="webSidebarBOX" style="overflow:hidden;">
 		<h4>收藏排行</h4>
-		<ul class="ulitem">
+			<ul class="ulitem">
+            	<a href="http://www.qingdi.com/book/922.html" target="_blank"><i>3562人收藏</i>莽荒纪</a>
+            	<a href="http://www.qingdi.com/book/27.html" target="_blank"><i>2531人收藏</i>绝世唐门</a>
 
-<a href="http://www.qingdi.com/book/922.html" target="_blank"><i>3562人收藏</i>莽荒纪</a>
-
-<a href="http://www.qingdi.com/book/27.html" target="_blank"><i>2531人收藏</i>绝世唐门</a>
-
-<a href="http://www.qingdi.com/book/99.html" target="_blank"><i>1854人收藏</i>最强弃少</a>
-
-<a href="http://www.qingdi.com/book/4541.html" target="_blank"><i>1703人收藏</i>大主宰</a>
-
-<a href="http://www.qingdi.com/book/48.html" target="_blank"><i>1589人收藏</i>医道官途</a>
-
-<a href="http://www.qingdi.com/book/78.html" target="_blank"><i>1454人收藏</i>傲世九重天</a>
-
-<a href="http://www.qingdi.com/book/129.html" target="_blank"><i>1303人收藏</i>凡人修仙传</a>
-
-<a href="http://www.qingdi.com/book/47.html" target="_blank"><i>1272人收藏</i>剑道独尊</a>
-
-<a href="http://www.qingdi.com/book/3.html" target="_blank"><i>1197人收藏</i>唐砖</a>
-
-<a href="http://www.qingdi.com/book/95.html" target="_blank"><i>1166人收藏</i>将夜</a>
-
-</ul>
-
-		</div>
-	
-	
+            </ul>
+	</div>
 </div>
 <div class="c"></div>
 </div>
-
 <include file="Public:zimu" />
 </html>

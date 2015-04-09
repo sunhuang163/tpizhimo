@@ -5,10 +5,8 @@
   <include file="Public:header_css"/>
   </head>
   <body>
-   <!--- 首页顶部的公告 --->
   <div id="TopWarn" style="display:block;">建议您将青帝文学网首页加入"浏览器收藏夹"，以便能够轻松访问青帝文学网！<a class="Collections" href="#"    style="cursor:pointer" ;="">点击收藏青帝文学网</a>
   </div>
-  <!--- //首页顶部公告结束--->
   <include file="Public:nav" />
   <div class="webBody">
     <div class="webMain">
@@ -100,20 +98,7 @@
       </div>
     </div>
     <div class="webSidebar">
-      <div class="webSidebarBOX" style="overflow: hidden;">
-        <ul class="searchBox">
-          <form name="articlesearch" method="post" action="/modules/article/search.php">
-            <span style="float: left; height: 36px; line-height: 36px; color: #999; text-align: center; cursor: pointer; padding: 0px; margin: 0px; background: #f2f2f2;">
-              <select name="searchtype" id="searchtype" class="select" style="margin: 9px 0px 0 5px;">
-                <option value="articlename" selected>书名</option>
-                <option value="author">作者</option>
-              </select>
-            </span>
-            <input name="searchkey" type="text" id="searchkey" size="12" maxlength="50" />
-            <button type="submit">搜索</button>
-          </form>
-        </ul>
-      </div>
+      <include file="Public:nav_search"/>
       <div class="webSidebarBOX" style="overflow: hidden;">
         <h4>排 行 榜</h4>
         <ul class="allRanking">
