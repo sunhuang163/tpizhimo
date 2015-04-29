@@ -35,23 +35,23 @@ class IndexAction extends BaseAction {
 	 $this->display();
    }
 
-   //排行榜
-    public function rank()
-   {
-	 $this->display();
-   }
+	//排行榜
+	public function rank()
+	{
+		$this->display();
+	}
 
     //已经完结
-   public function finish()
- {
-     $this->display();
-  }
+	public function finish()
+	{
+		$this->display();
+	}
 
-  //最近更新
-  public function update()
- {
-   $this->display();
- }
+  	//最近更新
+	public function update()
+	{
+		$this->display();
+	}
 
 }
 ?>
