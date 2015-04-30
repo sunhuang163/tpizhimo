@@ -20,11 +20,11 @@ class CateAction extends BaseAction {
         {
             if( $url )
             {
-               $where['url'] = array('eq' , $url); 
+               $wheres['url'] = array('eq' , $url); 
             }
             else if( $id )
             {
-                $where['ncid'] = array('eq' , $ncid );
+                $wheres['ncid'] = array('eq' , $ncid );
             }
             $d = $Mdo->where( $wheres )->find();
             if( !$d )
@@ -37,6 +37,18 @@ class CateAction extends BaseAction {
             }
             else
             {
+                //分类推荐
+                $Mdo = D("Hot");
+                $_wheres['rtype'] = array('eq', HotModel::HOT_HOME_TXT);
+                $_wheres['ih_recommend.ncid'] = array('eq' , $d['ncid']);
+                $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
+                            ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
+                            ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
+                            ->where( $_wheres )
+                            ->order("ih_recommend.ord ASC")
+                            ->limit("6")
+                            ->select();
+                $this->assign("dhot" , $dhot );
                 $this->assign("ncid" , $d['ncid']);
                 $this->assign("cate" , $d );
                 $this->display();  

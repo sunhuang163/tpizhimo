@@ -17,7 +17,7 @@ class IndexAction extends BaseAction {
 	 $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
 		         ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
 		         ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
-		         ->where( $wehres )
+		         ->where( $wheres )
 		         ->order("ih_recommend.ord ASC")
 		         ->limit("5")
 		         ->select();

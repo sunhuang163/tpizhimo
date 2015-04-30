@@ -3,7 +3,6 @@ if (!defined('THINK_PATH')) exit();
 
 $dbcnf = require_once( 'db.php' );
 $cnf =  array(
-	'APP_STATUS'            => 'debug',
     'APP_SUB_DOMAIN_DEPLOY' => false,
 	'COOKIE_PREFIX' => 'izhimo_',
 	'SESSION_AUTO_START'    => false,

@@ -1,46 +1,97 @@
-<include file="Public:header"/>
-  <title>列表页一</title>
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <include file="Public:header_css"/>
-  <link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css"> 
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{$cate.name} 列表 - {$cate.ncdesc}</title>
+    <meta name="keywords" content="{$cate.name}" />
+    <meta name="description" content="{$cate.ncdesc}" />
+    <include file="Public:header"/>
+    <link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css"> 
 </head>
 <body>
-   <include file="Public:nav_list"/>
-  <div class="indexBody">
-    <div class="listIndexMain">
-      <div class="listIndexRecommend Box2">
-        <h4>推荐好看小说</h4>
-          <table border="0" class="table" cellpadding="0" cellspacing="0">
-           <tbody>
-		     <tr>
-               <td width="435"><table width="670" border="0" cellspacing="0" cellpadding="0">
-             <tbody>
-	           <tr>
-                 <td width="70" rowspan="4"><a href="/book/65.html"><img src="html-css/165.jpg" width="70" height="90" alt="武动乾坤" title="玄幻魔法-武动乾坤"></a></td>
-                 <td width="146"><a href="http://www.qingdi.com/book/65.html"><font style="font-size:18px; color:#881600;">武动乾坤</font></a></td>
-                 <td width="70" rowspan="4"><a href="http://www.qingdi.com/book/83.html"><img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座"></a></td>
-                  <td width="146"><a href="http://www.qingdi.com/book/83.html"><font style="font-size:18px; color:#881600;">神印王座</font></a></td>
-                  <td width="71" rowspan="4"><span class="tup"><a href="http://www.qingdi.com/book/89.html"><img src="html-css/167.jpg" width="70" height="90" alt="杀神" title="玄幻魔法-杀神"></a></span></td>
-                 <td width="152"><a href="http://www.qingdi.com/book/89.html"><font style="font-size:18px; color:#881600;">杀神</font></a></td>
-                </tr>
-             <tr>
-                <td>作者：<a href="http://www.qingdi.com/modules/article/authorarticle.php?author=%CC%EC%B2%CF%CD%C1%B6%B9">天蚕土豆</a></td>
-                <td>作者：<a href="http://www.qingdi.com/modules/article/authorarticle.php?author=%CC%C6%BC%D2%C8%FD%C9%D9">唐家三少</a></td>
-                <td>作者：<a href="http://www.qingdi.com/modules/article/authorarticle.php?author=%C4%E6%B2%D4%CC%EC">逆苍天</a></td>
-             </tr>
-       <tr>
-        <td>类别：<a href="http://www.qingdi.com/XuanHuan.html">玄幻魔法</a><a href="http://www.qingdi.com/LiShi.html"></a></td>
-        <td>类别：<a href="http://www.qingdi.com/XuanHuan.html">玄幻魔法</a><a href="http://www.qingdi.com/LiShi.html"></a></td>
-        <td>类别：<a href="http://www.qingdi.com/XuanHuan.html">玄幻魔法</a><a href="http://www.qingdi.com/LiShi.html"></a></td>
-      </tr>
-      <tr>
-        <td>快速：<a href="http://www.qingdi.com/modules/article/addbookcase.php?bid=65">收藏</a><a href="http://www.qingdi.com/modules/article/uservote.php?id=65">推荐</a><a href="http://www.qingdi.com/modules/article/txtarticle.php?id=65">下载</a></td>
-        <td>快速：<a href="http://www.qingdi.com/modules/article/addbookcase.php?bid=83">收藏</a><a href="http://www.qingdi.com/modules/article/uservote.php?id=83">推荐</a><a href="http://www.qingdi.com/modules/article/txtarticle.php?id=83">下载</a></td>
-        <td>快速：<a href="http://www.qingdi.com/modules/article/addbookcase.php?bid=89">收藏</a><a href="http://www.qingdi.com/modules/article/uservote.php?id=89">推荐</a><a href="http://www.qingdi.com/modules/article/txtarticle.php?id=89">下载</a></td>
-      </tr>
-    </tbody></table></td>
-    </tr>
+<include file="Public:nav_list"/>
+    <div class="indexBody">
+        <div class="listIndexMain">
+            <div class="listIndexRecommend Box2">
+                <h4>推荐好看小说</h4>
+                <table border="0" class="table" cellpadding="0" cellspacing="0">
+                    <tbody>
+		                <tr>
+                            <td width="435"><table width="670" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+	                <tr>
+                        <td width="70" rowspan="4">
+                            <a href="/book/65.html">
+                                <img src="html-css/165.jpg" width="70" height="90" alt="武动乾坤" title="玄幻魔法-武动乾坤">
+                            </a>
+                        </td>
+                        <td width="146">
+                            <a href="http://www.qingdi.com/book/65.html">
+                                <font style="font-size:18px; color:#881600;">武动乾坤</font>
+                            </a>
+                        </td>
+                        <td width="70" rowspan="4">
+                            <a href="http://www.qingdi.com/book/83.html">
+                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
+                            </a>
+                        </td>
+                        <td width="146">
+                            <a href="http://www.qingdi.com/book/83.html">
+                                <font style="font-size:18px; color:#881600;">神印王座</font>
+                            </a>
+                        </td>
+                        <td width="71" rowspan="4">
+                            <span class="tup">
+                                <a href="http://www.qingdi.com/book/89.html">
+                                    <img src="html-css/167.jpg" width="70" height="90" alt="杀神" title="玄幻魔法-杀神">
+                                </a>
+                            </span>
+                        </td>
+                        <td width="152">
+                            <a href="http://www.qingdi.com/book/89.html">
+                                <font style="font-size:18px; color:#881600;">杀神</font>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>作者：<a href="#">天蚕土豆</a></td>
+                        <td>作者：<a href="#">唐家三少</a></td>
+                        <td>作者：<a href="#">逆苍天</a></td>
+                    </tr>
+                    <tr>
+                        <td>类别：
+                            <a href="#">玄幻魔法</a>
+                            <a href="#"></a>
+                        </td>
+                        <td>类别：
+                            <a href="#">玄幻魔法</a>
+                            <a href="#"></a>
+                        </td>
+                        <td>类别：
+                            <a href="#">玄幻魔法</a>
+                            <a href="#"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>快速：
+                            <a href="#">收藏</a>
+                            <a href="#">推荐</a>
+                            <a href="h#">下载</a>
+                        </td>
+                        <td>快速：
+                            <a href="#">收藏</a>
+                            <a href="#">推荐</a>
+                            <a href="#">下载</a>
+                        </td>
+                        <td>快速：
+                            <a href="#">收藏</a>
+                            <a href="#">推荐</a>
+                            <a href="#">下载</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        </tr>
   
   <tr>
     <td>
