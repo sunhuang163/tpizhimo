@@ -55,8 +55,8 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-content .ui-four-block{width:670px;padding:10px 0 0 0;}
  
 .ui-content .ui-block  h4.title{text-align:left;height: 32px;line-height: 32px;color: #2b3134;font-size: 16px;overflow: hidden;padding: 0 0 0 20px;}
-.ui-cottent .ui-block  h4.title-border{border-bottom:4px solid #2b3134;}
-.ui-content .ui-block  h4.title-white {color:#fff;}
+.ui-content .ui-block  h4.title-border {color: #2b3134;border-bottom:4px solid #2b3134;}
+.ui-cottent .ui-block  h4.txt-white{color:#fff;border-bottom:4px solid #2b3134;}
 .ui-content .ui-block  h4.bg-blue{ background:#507073;}
 
 .footer{width:960px; margin:10px auto 0 auto; background:#f2f2f2;}
