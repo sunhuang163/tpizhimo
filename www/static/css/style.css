@@ -23,7 +23,6 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .right{float:right;}
 .clear{ clear:both;}
 
-#wrap{word-break:break-all; width:520px;}
 /*信息页广告*/
 .Ad{padding:10px 0 10px 15px; background:#f2f2f2;}
 
@@ -58,6 +57,19 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-content .ui-block  h4.title-border {color: #2b3134;border-bottom:4px solid #2b3134;}
 .ui-cottent .ui-block  h4.txt-white{color:#fff;border-bottom:4px solid #2b3134;}
 .ui-content .ui-block  h4.bg-blue{ background:#507073;}
+
+/*block 内容样式*/
+.ui-block .index-hot {background: #2b3134;margin:0;padding:0;width:100%;}
+.ui-block .index-hot .hot-item {margin:0 5px 0 0;padding:0;border:none;width:225px;}
+.ui-block .index-hot .hot-item .info{margin:0;}
+.ui-block .index-hot .hot-item  h4 {display: block;font-size: 16px;color: #fff;font-weight: bold;margin:0;}
+.ui-block .index-hot .hot-item span {margin:0; display:block;font-size: 13px;}
+.ui-block .index-hot .hot-item img {float:left;border:none;padding:0 5px 0 0;width:65px;height:85px;overflow:hidden;}
+.ui-block  .index-hot a:hover{color:#e9930a; text-decoration:none; background:#000;}
+.ui-block .index-hot a:link, .index-hot a:visited{text-decoration:none; height:78px; color:#acacac; display:block; padding:10px; border-top:1px solid #505050; overflow:hidden;}
+.ui-block .index-hot a:link h4, .index-hot a:visited h4{display:block; font-size:16px; color:#fff;}
+.ui-block .index-hot a:hover h4{color:#e9930a; text-decoration:underline;}
+.ui-block .index-hot a:hover span{color:#cceaf8;}
 
 .footer{width:960px; margin:10px auto 0 auto; background:#f2f2f2;}
 .footer ul{text-align:center; padding:10px 0;}
