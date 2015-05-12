@@ -37,7 +37,6 @@ class CateAction extends BaseAction {
             }
             else
             {
-                //分类推荐
                 $Mdo = D("Hot");
                 $_wheres['rtype'] = array('eq', HotModel::HOT_HOME_TXT);
                 $_wheres['ih_recommend.ncid'] = array('eq' , $d['ncid']);
@@ -48,6 +47,7 @@ class CateAction extends BaseAction {
                             ->order("ih_recommend.ord ASC")
                             ->limit("6")
                             ->select();
+                            
                 $this->assign("dhot" , $dhot );
                 $this->assign("ncid" , $d['ncid']);
                 $this->assign("cate" , $d );

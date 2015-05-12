@@ -30,7 +30,7 @@
                                 </php>
                                 <volist name="dhot" id="vo">
                                 <tr class="bg1">
-                                    <td class="tdLeft">【$vo.cate_name}】</td>
+                                    <td class="tdLeft"><if condition="$vo['cate_name']">【{$vo.cate_name}】</if></td>
                                     <td class="tdLeft"><a title="{$vo.title}" href="{$vo.novel_url}">{$vo.title}</a></td>
                                     <td class="tdLeft">{$vo.novel_last_url}</td>
                                     <td>{$vo.author}</td>

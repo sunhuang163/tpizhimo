@@ -48,14 +48,15 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-container .ui-content {width:670px;float:left;overflow:hidden;}
 .ui-container .ui-sidebar{width:280px;float:right;overflow:hidden;}
 
-.ui-content .ui-block{float:left;width:100%;background:#f2f2f2;overflow:hidden;}
+.ui-content .ui-block{float:left;width:100%;overflow:hidden;}
 .ui-content .ui-one-block{width:225px;margin-right:10px;}
 .ui-content .ui-three-block{width:435px;}
 .ui-content .ui-four-block{width:670px;padding:10px 0 0 0;}
  
-.ui-content .ui-block  h4.title{text-align:left;height: 32px;line-height: 32px;color: #2b3134;font-size: 16px;overflow: hidden;padding: 0 0 0 20px;}
+.ui-content .ui-block  h4{}
+.ui-content .ui-block  h4.title{background:#f2f2f2;text-align:left;height: 32px;line-height: 32px;color: #2b3134;font-size: 16px;overflow: hidden;padding: 0 0 0 20px;}
 .ui-content .ui-block  h4.title-border {color: #2b3134;border-bottom:4px solid #2b3134;}
-.ui-cottent .ui-block  h4.txt-white{color:#fff;border-bottom:4px solid #2b3134;}
+.ui-content .ui-block  h4.title-white{color:#fff;}
 .ui-content .ui-block  h4.bg-blue{ background:#507073;}
 
 /*block 内容样式*/
@@ -65,10 +66,10 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-block .index-hot .hot-item  h4 {display: block;font-size: 16px;color: #fff;font-weight: bold;margin:0;}
 .ui-block .index-hot .hot-item span {margin:0; display:block;font-size: 13px;}
 .ui-block .index-hot .hot-item img {float:left;border:none;padding:0 5px 0 0;width:65px;height:85px;overflow:hidden;}
-.ui-block  .index-hot a:hover{color:#e9930a; text-decoration:none; background:#000;}
+.ui-block .index-hot a:hover{color:#e9930a; text-decoration:none; background:#000;}
 .ui-block .index-hot a:link, .index-hot a:visited{text-decoration:none; height:78px; color:#acacac; display:block; padding:10px; border-top:1px solid #505050; overflow:hidden;}
 .ui-block .index-hot a:link h4, .index-hot a:visited h4{display:block; font-size:16px; color:#fff;}
-.ui-block .index-hot a:hover h4{color:#e9930a; text-decoration:underline;}
+.ui-block .index-hot a:hover h4{color:#e9930a;}
 .ui-block .index-hot a:hover span{color:#cceaf8;}
 
 .footer{width:960px; margin:10px auto 0 auto; background:#f2f2f2;}

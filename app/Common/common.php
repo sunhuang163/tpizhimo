@@ -251,19 +251,21 @@ function ff_novel_last($url , $nid  , $newurl = '' )
    $dlast = $Mn->field("ncntid,ncid,title,utime")->where( $wheres )->order('utime DESC')->limit('1')->find();
    if( $dlast )
    {
-	 $href = '';
-    if( $newurl )
-	{
-	 $lasturl = "";
-	 $lasturl = $newurl .'/' . $dlast['ncntid'].C('URL_HTML_SUFFIX');
-	}
-	else
-	{
-     $lasturl .= U('Home/Novel/read',array('url'=>$url,'ncntid'=>$dlast['ncntid']));
-	}
-	$href= '<a href="'.$lasturl.'" target="_blank" alt="'.$dlast['title'].'">'.$dlast['title'].'</a>';
-	$lasturl = $href;
+		$href = '';
+		if( $newurl )
+		{
+			$lasturl = "";
+			$lasturl = $newurl .'/' . $dlast['ncntid'].C('URL_HTML_SUFFIX');
+		}
+		else
+		{
+			$lasturl .= U('Home/Novel/read',array('url'=>$url,'ncntid'=>$dlast['ncntid']));
+		}
+		$href= '<a href="'.$lasturl.'" target="_blank" alt="'.$dlast['title'].'">'.$dlast['title'].'</a>';
+		$lasturl = $href;
    }
+   else
+   	$lasturl = "";
   return $lasturl;
 }
 
