@@ -366,11 +366,11 @@ function ff_mysql_novel($tag){
 	   $where['ncid'] = array('in', $tag['ncid']);
 	}
 	if($tag['lz'] == 1){
-		$where['nstate'] = array('neq','1');
+		$where['nstate'] = array('eq', 1 );
 	}
 	elseif( $tag['lz'] == 2)
 	{
-		$where['nstate'] = 0;
+		$where['nstate'] = array('eq' , 0);
 	}
 	if ($tag['utime']) {
 		$year = explode(',',$tag['utime']);
@@ -416,7 +416,8 @@ function ff_mysql_novel($tag){
 
     //分页信息
 
-	if($tag['page']){
+	if($tag['page'])
+    {
 		//组合分页信息
 		$count = $rs->where($where)->count();if(!$count){return false;}
 		$totalpages = $count&&$limit ? ceil($count/$limit) : 1;

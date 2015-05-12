@@ -1,5 +1,5 @@
 <include file="Public:header" />
-<title>排行榜</title>
+<title>热门排行</title>
 <meta name="keywords" content=" " />
 <meta name="description" content=" " />
 <include file="Public:header_css" />
@@ -7,76 +7,56 @@
 </head>
 <body>
 <include file="Public:nav_list" />
-<div class="webBody">
-	<div class="webMain">
-		<div id="content">
-       <div class="listIndexUpdata">
-         <h4></h4>
-          <ul>
-           <table>
-             <tbody>
-               <tr>
-                <th width="15%">文章类别</th>
-                <th width="18%">文章名称</th>
-                <th>最新章节</th>
-                <th width="18%">作者</th>
-                <th width="9%">更新</th>
-                <th width="8%">状态</th>
-              </tr>
-              <tr class="bg1">
-                 <td class="tdLeft">【玄幻魔法】</td>
-                 <td class="tdLeft"><a title="非常猎人" href="http://www.qingdi.com/book/6814.html">非常猎人</a></td>
-                 <td class="tdLeft"><a target="_blank" href="http://www.qingdi.com/files/article/html/6/6814/index.html">第九百一十三章 睡了一个女神...</a></td>
-                 <td><a title="瑞恩" href="http://www.qingdi.com/modules/article/authorarticle.php?author=%C8%F0%B6%F7">瑞恩</a></td>
-                 <td>05-20</td>
-                 <td>连载中</td>
-               </tr>
-              <tr class="bg1">
-                 <td class="tdLeft">【玄幻魔法】</td>
-                 <td class="tdLeft"><a title="非常猎人" href="http://www.qingdi.com/book/6814.html">非常猎人</a></td>
-                 <td class="tdLeft"><a target="_blank" href="http://www.qingdi.com/files/article/html/6/6814/index.html">第九百一十三章 睡了一个女神...</a></td>
-                 <td><a title="瑞恩" href="http://www.qingdi.com/modules/article/authorarticle.php?author=%C8%F0%B6%F7">瑞恩</a></td>
-                 <td>05-20</td>
-                 <td>连载中</td>
-               </tr>              
-        </tbody>
-       </table>
-      </ul>
-   <span style="height:20px; background:#fff;">
-   </span>
- </div>
-<div class="pages">
-   <span>
-     <div class="pagelink" id="pagelink">
-        <em id="pagestats">1/55</em>
-           <a href="http://www.qingdi.com/Classification1/1.html" class="first">1</a>
-           <a href="http://www.qingdi.com/Classification1/1.html" class="pgroup">&lt;&lt;</a>
-              <strong>1</strong>
-          <a href="http://www.qingdi.com/Classification1/2.html">2</a>
-          <a href="http://www.qingdi.com/Classification1/3.html">3</a>
-          <a href="http://www.qingdi.com/Classification1/4.html">4</a>
-          <a href="http://www.qingdi.com/Classification1/2.html" class="next">&gt;</a>
-          <a href="http://www.qingdi.com/Classification1/16.html" class="ngroup">&gt;&gt;</a>
-          <a href="http://www.qingdi.com/Classification1/55.html" class="last">55</a>
-          </div>
-    </span>
- </div>
+    <div class="webBody">
+	    <div class="webMain">
+	        <div id="content">
+                <div class="listIndexUpdata">
+                    <h4>热门排行</h4>
+                    <ul>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="15%">文章类别</th>
+                                    <th width="18%">文章名称</th>
+                                    <th>最新章节</th>
+                                    <th width="18%">作者</th>
+                                    <th width="9%">更新</th>
+                                    <th width="8%">状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <php> 
+                                    $dhot = ff_mysql_novel('field:"title,author,utime,uptxt";lastUrl:true;limit:20;order:"hit_month DESC" ' );
+                                </php>
+                                <volist name="dhot" id="vo">
+                                <tr class="bg1">
+                                    <td class="tdLeft">【$vo.cate_name}】</td>
+                                    <td class="tdLeft"><a title="{$vo.title}" href="{$vo.novel_url}">{$vo.title}</a></td>
+                                    <td class="tdLeft">{$vo.novel_last_url}</td>
+                                    <td>{$vo.author}</td>
+                                     <td>{$vo.utime|date='m-d',###}</td>
+                                     <td><if condition="$vo['nstate']"> 已完结 <else/> 连载中 </if></td>
+                                </tr> 
+                                </volist>          
+                            </tbody>
+                        </table>
+                    </ul>
+                    <span style="height:20px; background:#fff;"> </span>
+                </div>
+            </div>
+	    </div>
 
-</div>
-	</div>
-	<div class="webSidebar">
-		<include file="Public:nav_search"/>
-   <div class="webSidebarBOX" style="overflow:hidden;">
-		<h4>最好看的小说</h4>
-		 <ul class="rankingBox">
-         边侧栏内容
-     </ul>
-		</div>
-
- 
-</div>
-<div class="c"></div>
-</div>
-  <include file="Public:footer"/>
+	    <div class="webSidebar">
+	    <include file="Public:nav_search"/>
+            <div class="webSidebarBOX" style="overflow:hidden;">
+		    <h4>最好看的小说</h4>
+		      <ul class="rankingBox">
+                边侧栏内容
+             </ul>
+		    </div>
+        </div>
+        <div class="c"></div>
+    </div>
+<include file="Public:footer"/>
 </body>
 </html>
