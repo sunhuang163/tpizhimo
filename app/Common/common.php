@@ -469,8 +469,7 @@ function getlistname( $list_id , $field)
    }
 }
 
-/*----- Content collect -------*/
- function curl_content($url,$timeout = 10,$referer = "http://www.google.com"){
+ function curl_content($url, $timeout = 10, $referer = "http://www.baidu.com"){
 
 	if(function_exists('curl_init')){
 		$ch = curl_init();
@@ -481,6 +480,9 @@ function getlistname( $list_id , $field)
 		curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
 		if($referer){
 			curl_setopt ($ch, CURLOPT_REFERER, $referer);
+		}
+		if(defined('CURLOPT_IPRESOLVE') && defined('CURL_IPRESOLVE_V4')){
+			curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 		}
 		$content = curl_exec($ch);
         curl_close($ch);
