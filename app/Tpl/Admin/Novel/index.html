@@ -90,7 +90,7 @@
 							</div>
 							<tr  >
 							    <td style="width:20px;"><label><input name="ids" type="checkbox" value="{$vo.nid}" class="input-mini"></label></td>
-								<td title="{$vo.title}"  class="domoreinfo" id="{$vo.nid}">[{$vo.nid}]<a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
+								<td title="{$vo.title}"  class="domoreinfo" id="{$vo.nid}"><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
 								<td>{$vo.author}</td>
 								<td>{$vo.ncname}</td>
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>

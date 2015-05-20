@@ -1,0 +1,40 @@
+<include file="Public:header" />
+	 <title>标签关联文章</title>
+     <include file="Public:header_css" />
+	 <include file="Public:footer_js" />
+	</head>
+	<body>
+		<div class="container">
+	    <include file="Public:top_nav" />
+			<div class="row">
+			   <include file="Public:left_menu" />
+				<div class="span10">
+					<h5>
+					  <i class="icon-tag"></i>{$dlist[0]['name']} 下的所有文章&nbsp;&nbsp;|&nbsp;&nbsp; 
+					  <span><a class="btn btn-primary btn-small" href="{:U('Tag/index')}">返回列表</a></span>
+					</h5>
+					<table class="table table-bordered table-condensed table-striped">
+						<thead>
+							<tr>
+								<th>小说</th>
+								<th>更新</th>
+								<th>更新时间</th>
+							</tr>
+						</thead>
+						<tbody>
+						   <volist name="dlist" id="vo">
+							<tr id="tr{$vo.nid}">
+							    <td><a href="{:U('Novel/view',array('id'=>$vo['nid']))}" title="查看小说">{$vo.title}</a></td>
+								<td>{$vo.uptxt}</td>
+								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
+							</tr>
+					       </volist>  
+						</tbody>
+					</table>
+					 <div class="pagination">
+					  {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			</div>
+		</div>
+<include file="Public:footer" />

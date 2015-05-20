@@ -1,8 +1,8 @@
 <include file="Public:header"/>
-<title>非常猎人 瑞恩 青帝文学网_小说最新章节TXT下载</title>
-<meta name="keywords" content="" />
-<meta name="description" content="青帝文学网提供玄幻小说、武侠小说、网游小说、都市小说最新章节阅读，小说TXT下载。首发小说最新章节免费阅读。" />
-<meta name="author" content="瑞恩" />
+<title>{$novel.title} -{$novel.uptxt}-小说最新章节TXT下载</title>
+<meta name="keywords" content="<php> echo implode('|',$tags); </php>"/>
+<meta name="description" content="{$novel.ndesc|h=''}" />
+<meta name="author" content="{$novel.author}" />
 <include file="Public:header_css"/>
 <link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css">
 </head>
@@ -14,16 +14,11 @@
 	<div id="content">
 		<div class="articleInfo">
 			<div class="articleInfoLeft">
-				<p><a href="http://www.qingdi.com/files/article/html/6/6814/index.html" target="_blank">
+				<p><a href="{$novel.url}" target="_blank">
 					<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125" 
 					 alt="{$novel.catename}:{$novel.title}" title="{$novel.catename}:{$novel.title}" />
 				   </a>
 				</p>
-		        <ul>
-					<a href="#">推荐本书</a>
-					<a href="#">作者专栏</a>
-					<a class="btnlink" href="#" target="_blank">TXT下载</a>
-		       </ul>
 	      </div>
 	      <div class="articleInfoRight">
 		     <h1>{$novel.title}&nbsp;&nbsp;
@@ -51,8 +46,6 @@
 <div class="reviewsShow">
 <h6>
   <span>最新书评</span>
-  <a href="http://www.qingdi.com/modules/article/reviews.php?aid=6814&type=good" target="_blank">精华书评</a>
-  <a href="http://www.qingdi.com/modules/article/reviews.php?aid=6814&type=all" target="_blank">全部书评</a>
 </h6>
 <ul>
 暂无评论
@@ -68,8 +61,7 @@
 	<tr><th>内容</th><td><textarea class="textarea" name="pcontent" id="pcontent" cols="60" rows="12"></textarea>
 	</td></tr>
 		
-	<tr><th class="odd" width="25%">&nbsp;<input type="hidden" name="action" id="action" value="newpost" /></th><td><button type="submit" name="Submit" style="margin-right:20px;">发表书评</button>
-	没登陆不能发表书评，请先<a href="/login.php?}" target="_blank" style="font-size:14px; font-weight:bold;">登陆</a>,还没<a href="/login.php?}" target="_blank" style="font-size:14px; font-weight:bold;">注册</a>？</td></tr>
+	<tr><th class="odd" width="25%">&nbsp;<input type="hidden" name="action" id="action" value="newpost" /></th><td><button type="submit" name="Submit" style="margin-right:20px;">发表书评</button></td></tr>
 </table>
 </form>
 </ul>

@@ -9,10 +9,10 @@
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
-					<h3>
-						附件列表
+					<h5>
+						附件列表&nbsp;&nbsp;|&nbsp;&nbsp;
 						<small>
-						  <a class="toggle-link" href="#new-file"><i class="icon-plus"></i>上传文件</a>
+						  <a class="toggle-link btn btn-small" href="#new-file"><i class="icon-plus"></i>上传文件</a>
 				       	<form id="new-file" enctype="multipart/form-data" class="form-horizontal hidden" action="{:U('/Admin/Att/upload')}" method="POST">
 						  <fieldset>
 					           	<div class="control-group">
@@ -27,11 +27,11 @@
 						    </fieldset>
 					    </form>
 						</small>
-					</h3>
+					</h5>
 					<table class="table table-bordered table-condensed table-striped">
 						<thead>
 							<tr>
-								<th><label class="checkbox"><input type="checkbox" id="chkall"/>选择</label></th>
+								<th class="span1"><label class="checkbox"><input type="checkbox" id="chkall" title="选择"/></label></th>
 								<th>文件名</th>
 								<th>后缀</th>
 								<th>大小</th>

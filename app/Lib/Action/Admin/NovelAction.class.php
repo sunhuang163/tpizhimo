@@ -7,56 +7,61 @@
 class NovelAction extends BackAction {
 	public function index()
 	{
-      $Mnclass = D("Nclass");
-	  $cates  = array();
-	  $cates = $Mnclass->field("ncid,name")->select();
+		$Mnclass = D("Nclass");
+		$cates  = array();
+		$cates = $Mnclass->field("ncid,name")->select();
 
-	  /*search condition*/
-	  $ncid = isset( $_GET['ncid']) ? intval( $_GET['ncid']) : -1;
-	  $author = isset( $_GET['author']) ? trim( $_GET['author']) : "";
+		/*search condition*/
+		$ncid = isset( $_GET['ncid']) ? intval( $_GET['ncid']) : -1;
+		$author = isset( $_GET['author']) ? trim( $_GET['author']) : "";
 
-	  $time = isset( $_GET['uptime']) ? $_GET['uptime']  : "";
-      $gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "gt";
+		$time = isset( $_GET['uptime']) ? $_GET['uptime']  : "";
+		$gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "gt";
 
-       $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
-	  if( $p< 1)
-		  $p = 1;
-	  $call = 0;
-	  $pall = 1;
-	  $wheres = array();
-	  $limits ='';
-	  $Ldata = NULL;
-	  $Mnovel  = D('Novel');
-      $wheres['_string'] = '1=1';
-	  if( $ncid > 0)
-		  $wheres['ih_novel.ncid'] = array('eq', $ncid);
-	  if( $author)
-		  $wheres['author'] = array("like",'%'.$author.'%');
-	  if( $time )
-		  $wheres['utime'] = array( $gt , strtotime( $time));
-      $call = $Mnovel->where( $wheres )->count();
-      $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
-	  if( $p > $pall )
-		  $p = $pall;
-	  $limits = ($p-1)*$this->a_psize;
-	  $limits.=','.$this->a_psize;
-	  $Ldata = $Mnovel->field("ih_novel.*,ih_nclass.name as ncname")
-		  ->join("ih_nclass on ih_novel.ncid=ih_nclass.ncid")
-		  ->where( $wheres )->order('utime DESC')
-		  ->limit( $limits )->select();
-	  $url = U('/Admin/Novel/index',array('p'=>'{!page!}'));
-      $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
+		$p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+		if( cookie('_P_NOVEL') && !isset( $_REQUEST['p'] ))
+			$p = cookie("_P_NOVEL");
+		if( $p< 1)
+		$p = 1;
+		$call = 0;
+		$pall = 1;
+		$wheres = array();
+		$limits ='';
+		$Ldata = NULL;
+		$Mnovel  = D('Novel');
+		$wheres['_string'] = '1=1';
+		if( $ncid > 0)
+		$wheres['ih_novel.ncid'] = array('eq', $ncid);
+		if( $author)
+		$wheres['author'] = array("like",'%'.$author.'%');
+		if( $time )
+		$wheres['utime'] = array( $gt , strtotime( $time));
+		$call = $Mnovel->where( $wheres )->count();
+		$pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
+		if( $p > $pall )
+		$p = $pall;
+		$limits = ($p-1)*$this->a_psize;
+		$limits.=','.$this->a_psize;
+		$Ldata = $Mnovel->field("ih_novel.title,ih_novel.author,ih_novel.nid,ih_novel.utime,ih_novel.zimu,ih_novel.ncomm,ih_nclass.name as ncname")
+		                ->join("ih_nclass on ih_novel.ncid=ih_nclass.ncid")
+		                ->where( $wheres )
+		                ->order('utime DESC')
+		                ->limit( $limits )
+		                ->select();
+		$url = U('/Admin/Novel/index',array('p'=>'{!page!}'));
+		cookie("_P_NOVEL" , $p);
+		$pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
-	  $this->assign("author" ,$author);
-	  $this->assign("ncid" , $ncid);
-	  $this->assign("time" , $time );
-	  $this->assign("gt" , $gt);
-	  $this->assign("cates" , $cates );
-	  $this->assign('call' ,$call );
-	  $this->assign('pnow' , $p);
-	  $this->assign('nlist', $Ldata );
-	  $this->assign('pagestr', $pagestr );
-	   $this->display();
+		$this->assign("author" ,$author);
+		$this->assign("ncid" , $ncid);
+		$this->assign("time" , $time );
+		$this->assign("gt" , $gt);
+		$this->assign("cates" , $cates );
+		$this->assign('call' ,$call );
+		$this->assign('pnow' , $p);
+		$this->assign('nlist', $Ldata );
+		$this->assign('pagestr', $pagestr );
+		$this->display();
 	}
 
 	public function add()
@@ -249,29 +254,32 @@ class NovelAction extends BackAction {
 	}
 	else
 	{
-      $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
-	  if( $p< 1)
+		$p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+		if( cookie('_P_NOVEL_CNT') && !isset( $_REQUEST['p'] ))
+			$p = cookie("_P_NOVEL_CNT");
+		if( $p< 1)
 		  $p = 1;
-	  $call = 0;
-	  $pall = 1;
-	  $limits ='';
-	  $Ldata = NULL;
-      $call = $Mcontent->where( $wheres )->count("*");
-      $pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
-	  if( $p > $pall )
+		$call = 0;
+		$pall = 1;
+		$limits ='';
+		$Ldata = NULL;
+		$call = $Mcontent->where( $wheres )->count("*");
+		$pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
+		if( $p > $pall )
 		  $p = $pall;
-	  $limits = ($p-1)*$this->a_psize;
-	  $limits.=','.$this->a_psize;
-	  $Ldata = $Mcontent->field("ncntid,cpid,nid,ncid,ord,title,ctime")->limit( $limits )->where( $wheres )->select();
-	  $url = U('/Admin/Novel/contents',array('p'=>'{!page!}','nid'=>$nid));
-      $pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
-	  $this->assign("pagestr",$pagestr);
-	  $this->assign("call",$call);
-	  $this->assign("pnow",$p);
-	  $this->assign("list",$Ldata);
-	  $this->assign('ref',U('/Admin/Novel/contents',array('nid'=>$nid)));
-	  $this->assign("d" ,$dn);
-	  $this->display();
+		$limits = ($p-1)*$this->a_psize;
+		$limits.=','.$this->a_psize;
+		$Ldata = $Mcontent->field("ncntid,cpid,nid,ncid,ord,title,ctime")->limit( $limits )->where( $wheres )->select();
+		$url = U('/Admin/Novel/contents',array('p'=>'{!page!}','nid'=>$nid));
+		$pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
+		cookie("_P_NOVEL_CNT" , $p );
+		$this->assign("pagestr",$pagestr);
+		$this->assign("call",$call);
+		$this->assign("pnow",$p);
+		$this->assign("list",$Ldata);
+		$this->assign('ref',U('/Admin/Novel/contents',array('nid'=>$nid)));
+		$this->assign("d" ,$dn);
+		$this->display();
 	}
   }
 

@@ -38,11 +38,27 @@ $cnf =  array(
 	'U_UPLOAD_DIR'     =>'skdata/',
 	'U_UPLOAD_DIRPATH' =>'Y/m/',
     'data_cache_novel' => 'mysqlnovel',
+    'ST_PATH' => '/static/',
+    'ST_PATH_PUBLIC' => '/public/',
 	'IMG_WATER'        => 1, //图片水印
 	'IMG_WATER_PIC'   => 'public/water.png',
 	'IMG_SIZES'   => array(
 	          array('w'=>'120','h'=>'150')
 			 ),
+	'WWW_CATE_HOME' => array(
+		array('name'=>'首页','id'=>0,'url'=>"/"),
+		array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
+		array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
+		array('name'=>'都市','id'=>4,'url'=>"dushi" ),
+		array('name'=>'历史','id'=>5,'url'=>"lishi" ),
+		),
+	'WWW_CATE_SUB' => array(
+		array('name'=>'首页','id'=>0,'url'=>"/"),
+		array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
+		array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
+		array('name'=>'都市','id'=>4,'url'=>"dushi"),
+		array('name'=>'历史','id'=>5,'url'=>"lishi"),
+		),
 );
 
 return array_merge( $cnf , $dbcnf );

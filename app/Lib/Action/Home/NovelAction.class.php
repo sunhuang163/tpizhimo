@@ -19,12 +19,24 @@ class NovelAction extends BaseAction {
 		             ->join("LEFT JOIN ih_ndata  on ih_ndata.nid=ih_novel.nid")
 		             ->where( $wheres )
 		             ->find();
+		$tags = array();
+		$wheret['nid'] = array('eq', $dnovel['nid']);
+		$_tags = M('tagindex')->field("name")
+							 ->join("LEFT JOIN ih_tag on ih_tag.tid=ih_tagindex.tid")
+							 ->where( $wheret )
+							 ->select();
+		foreach( $_tags as $v)
+		{
+			$tags[] = $v['name'];
+		}
+
 	   if( $dnovel )
-	   {
+	   	{
 		   $dnovel['lasturl'] = ff_novel_last( $dnovel['url'] , $dnovel['nid'] , $dnovel['new_url']);
-	   }
-	   $this->assign("novel", $dnovel);
-	   $this->display();
+	    }
+	    $this->assign("tags" , $tags );
+	    $this->assign("novel", $dnovel);
+	    $this->display();
    }
 
 

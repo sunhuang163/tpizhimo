@@ -4,32 +4,21 @@ if (!defined('THINK_PATH')) exit();
 class BaseAction extends AllAction {
     protected $m_u = array();
 	protected $m_isLogin = false;
-	protected $m_path = "/static/";
-	protected $m_path_public ="/public/";
-    protected $m_cates = array(
-		 array('name'=>'首页','id'=>0,'url'=>"/"),
-		 array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
-		 array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
-		 array('name'=>'都市','id'=>4,'url'=>"dushi" ),
-		 array('name'=>'历史','id'=>5,'url'=>"lishi" ),
-	);
-
-	   protected $m_cate_list = array(
-		 array('name'=>'首页','id'=>0,'url'=>"/"),
-		 array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
-		 array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
-		 array('name'=>'都市','id'=>4,'url'=>"dushi"),
-		 array('name'=>'历史','id'=>5,'url'=>"lishi"),
-	);
+    protected $m_cates = array(); 
+    protected $m_cate_list = array(); 
 
 
-   public function _initialize(){
+   public function _initialize()
+   {
+   	  $webinfo = M('webinfo')->find();
+   	  unset( $webinfo['extdata']);
 	  parent::_initialize();
-     // header('Cache-control:private,must-revalidate');
 	  $module = MODULE_NAME;
       $action = ACTION_NAME;
 	  $module = strtolower( $module );
 	  $action = strtolower( $action );
+	  $this->m_cates = C('WWW_CATE_HOME');
+      $this->m_cate_list = C('WWW_CATE_SUB');
 	  foreach( $this->m_cates as &$v)
 	  {
 	  	if( $v['id'] )
@@ -44,12 +33,13 @@ class BaseAction extends AllAction {
 	  	else
 	  	 	$v['view'] = $v['url'];
 	  }
-	  $this->assign("ST_PATH",$this->m_path );
-	  $this->assign("ST_PATH_PUBLIC",$this->m_path_public);
+	  $this->assign("ST_PATH", C('ST_PATH') );
+	  $this->assign("ST_PATH_PUBLIC", C('ST_PATH_PUBLIC'));
 	  $this->assign("cate_index" , $this->m_cates );
 	  $this->assign("cate_list" , $this->m_cate_list );
 	  $this->assign("module" , $module);
 	  $this->assign("action" , $action);
+	  $this->assign("webinfo" , $webinfo );
 	}
 
 
