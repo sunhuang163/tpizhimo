@@ -15,7 +15,8 @@ class CaijiAction extends BackAction {
 
 
   //del all cache content
-  public function trash(){
+  public function trash()
+  {
     import("ORG.Io.Dir");
     $dir = new Dir;
 	@unlink(DATA_PATH.'_caiji/list');

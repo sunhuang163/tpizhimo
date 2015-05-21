@@ -2,7 +2,7 @@
 				<div class="navbar-inner">
 					<div class="container">
 						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a> 
-						   <a class="brand" href="http://www.izhimo.com" target="_blank">izhimo</a>
+						   <a class="brand" href="{:C('SITE_URL')}" target="_blank">{:C('DOMAIN_NAME')}</a>
 						<div class="nav-collapse">
 							<ul class="nav">
 								<li class="active">
@@ -15,10 +15,10 @@
 									<a href="help.htm" class="dropdown-toggle" data-toggle="dropdown">生成选项<b class="caret"></b></a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="#">生成百度sitemap</a>
+											<a href="{:U('Html/baiduSitemap')}">生成百度sitemap</a>
 										</li>
 										<li>
-											<a href="#">生成谷歌sitemap</a>
+											<a href="{:U('Html/googleSitemap')}">生成谷歌sitemap</a>
 										</li>
 										<li class="divider">
 										</li>
@@ -26,13 +26,13 @@
 											静态页面
 										</li>
 										<li>
-											<a href="#">生成最近更新</a>
+											<a href="{:U('Html/createFinish')}">生成最近更新</a>
 										</li>
 										<li>
-											<a href="#">生成列表页</a>
+											<a href="{:U('Html/createCatelist')}">生成列表页</a>
 										</li>
 										<li>
-											<a href="#">生成列内容页</a>
+											<a href="{:U('Html/createLast')}">生成列内容页</a>
 										</li>
 									</ul>
 								</li>

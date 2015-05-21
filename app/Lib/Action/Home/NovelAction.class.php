@@ -1,10 +1,13 @@
 <?php
-/*----
-   banfg56
-   2015-1-8
-   @@小说编辑
-----*/
-class NovelAction extends BaseAction {
+/**
+ *  @Author   banfg56
+ *  @Date     2015-1-8
+ *  @Info     小说管理
+ *  @File      NovelAction.class.php
+ *
+ **/
+class NovelAction extends BaseAction 
+{
 
 	public function index()
    {
@@ -40,17 +43,28 @@ class NovelAction extends BaseAction {
    }
 
 
-   //章节
 	public function  show()
-  {
-	$this->display();
-  }
+    {
+       $Mcontent = M("Content");
+       $wheres = array();
+       $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid'] ) : 1;
 
-  //阅读
-   public function  read()
-  {
-	$this->display();
-  }
+       $wheres['nid'] = array('eq' , $nid );
+       $dcontent = $Mcontent->where( $wheres )->order("cpid ASC,ord ASC")->select();
+       $this->assign("contents" , $dcontent );
+	   $this->display();
+    }
+
+    public function  read()
+   {
+       $MCview = D("ContentView");
+       $wheres  = array();
+       $ncntid = isset( $_REQUEST['ncntid']) ? intval( $_REQUEST['ncntid']) : 1;
+       $wheres['ncntid'] = array('eq' , $ncntid );
+       $dcontent = $MCview->where( $wheres )->find();
+       $this->assign('content' , $dcontent );
+	   $this->display();
+   }
 
 }
 ?>

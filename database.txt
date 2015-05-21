@@ -5,132 +5,133 @@ mu4ju3MB5u
 管理员部分：
 1、系统管理员 ih_sysuser
   said psw salt email name ctime utime ip 
-  create table ih_sysuser( said int(10) not null primary key auto_increment,
-                        psw varchar(100), 
-			 salt varchar(10),
-			 email varchar(100),
-			 name varchar(30),
-			 ctime int,utime int,
-			 mtime int,
-			 state tinyint(1),
-			 ip int )  ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+  create table ih_sysuser(  said int(10) not null primary key auto_increment,
+                             psw varchar(100), 
+                			 salt varchar(10),
+                			 email varchar(100),
+                			 name varchar(30),
+                			 ctime int,utime int,
+                			 mtime int,
+                			 state tinyint(1),
+                			 ip int )  ENGINE=MyISAM  DEFAULT CHARSET=utf8;
  
 2、操作历史 ih_syslog
   ID said name  ctype msg ctime ip
   create table ih_syslog(id int not null primary key auto_increment,
                           said int(10),
-			  name varchar(30),
-			  ctype varchar(10),
-			  msg varchar(200),
+            			  name varchar(30),
+            			  ctype varchar(10),
+            			  msg varchar(200),
                           ctime  int,
-			  INDEX index_logc (ctype),
-			  ip int
-			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			  INDEX index_logc (ctype),
+            			  ip int
+            			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
  
 3、网站信息 ih_webinfo
   id seotitle seokw seodesc contact copyright extdata
   create table ih_webinfo(id int not null primary key auto_increment,
                           seotitle varchar(50),
-			  seokey varchar(100),
-			  seodesc varchar(100),
-			  contact varchar(200),
-			  copyright varchar(200),
-			  extdata text
-			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			  seokey varchar(100),
+            			  seodesc varchar(100),
+            			  contact varchar(200),
+            			  copyright varchar(200),
+            			  extdata text
+            			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+
 4、网站留言 ih_webgb
   ID rid name email title msg ctime ip isok rpmsg
    create table ih_webgb(id int not null primary key auto_increment,
                          rid int default 0,
                          name varchar(30),
-			 email varchar(100),
-			 title varchar(50),
-			 msg varchar(500),
-			 ctime int,
-			 ip int,
+            			 email varchar(100),
+            			 title varchar(50),
+            			 msg varchar(500),
+            			 ctime int,
+            			 ip int,
                          isok tinyint(1) default 0,
                          rpmsg varchar(500)
-			 ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+			            ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 用户部分： 
 5、用户表 ih_user
    uid  psw salt email phone sign  state ctime utime ip logo udesc cnotify
    create table ih_user( uid int(10) not null primary key auto_increment,
                          psw varchar(100),
-			 salt varchar(10),
-			 email varchar(100),
-			 phone varchar(15),
+            			 salt varchar(10),
+            			 email varchar(100),
+            			 phone varchar(15),
                          sign varchar(50),
-			 state tinyint(2) default 1,
-			 ctime int,
-			 utime int,
-			 ip int ,
-			 logo varchar(100),
-			 udesc varchar(100),
-			 cnotify int
+            			 state tinyint(2) default 1,
+            			 ctime int,
+            			 utime int,
+            			 ip int ,
+            			 logo varchar(100),
+            			 udesc varchar(100),
+            			 cnotify int
                        ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 6、用户验证 ih_validate
    ID uid type salt data txt ctime 
     create  table ih_validate(id int not null primary key auto_increment,
                                uid int(10),
-			       type varchar(5),
-			       salt varchar(10),
-			       data varchar(20),
-			       txt varchar(500),
-			       ctime int
-			       ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			       type varchar(5),
+            			       salt varchar(10),
+            			       data varchar(20),
+            			       txt varchar(500),
+            			       ctime int
+            			       ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 7、用户订阅 ih_ubook
    ID uid email nid ctime 
       create table ih_ubook( id int(10) not null primary key auto_increment,
                              uid int(10),
-			     email varchar(100),
-			     nid int,
-			     ctime int
-			     ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			     email varchar(100),
+            			     nid int,
+            			     ctime int
+            			     ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 8、用户评论 ih_ucomment
    ID uid nid  rid name  msg ctime  isok
         create table ih_ucomment( id int not null primary key auto_increment,
 	                           uid int(10),
-				   nid int,
-				   rid int default 0,
-				   msg varchar(100),
-				   ctime TIMESTAMP default current_timestamp,
-				   isok tinyint(1)
-				   ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            				   nid int,
+            				   rid int default 0,
+            				   msg varchar(100),
+            				   ctime TIMESTAMP default current_timestamp,
+            				   isok tinyint(1)
+            				   ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 通知 ih_unotify
   ID uid ctype ctime title txt fview
      create table ih_unotify(id int not null primary key auto_increment,
                               uid int(10),
-			      ctype varchar(10),
-			      title varchar(20),
-			      txt  varchar(200),
-			      fview tinyint(1) default 0,
-			      INDEX index_ctype(ctype)
-			     ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			      ctype varchar(10),
+            			      title varchar(20),
+            			      txt  varchar(200),
+            			      fview tinyint(1) default 0,
+            			      INDEX index_ctype(ctype)
+            			     ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 小说部分:
 9、小说 ih_novel
  nid title author ctime utime  nstate uptxt ndesc ncomm  zimu(字母，快速选择) url newurl pic
   create  table ih_novel(nid int(10) not null primary key auto_increment,
                          title varchar(100),
-			 author varchar(30),
-			 ctime int,
-			 utime int,
-			 ncid int,
-			 nstate tinyint(1) default 0,
-			 uptxt varchar(50),
-			 ndesc varchar(300),
-			 ncomm int default 0,
-			 zimu varchar(1),
-			 url varchar(50),
-			 newurl varchar(100),
-			 pic varchar(100),
-                         caijiurl varchar(200),
-			 tag enum('A','B','C','D','E','F','G','H'), -- 小说标签，方便推荐登陆
-			 INDEX index_ncid(ncid),
+            			 author varchar(30),
+            			 ctime int,
+            			 utime int,
+            			 ncid int,
+            			 nstate tinyint(1) default 0,
+            			 uptxt varchar(50),
+            			 ndesc varchar(300),
+            			 ncomm int default 0,
+            			 zimu varchar(1),
+            			 url varchar(50),
+            			 newurl varchar(100),
+            			 pic varchar(100),
+                                     caijiurl varchar(200),
+            			 tag enum('A','B','C','D','E','F','G','H'), -- 小说标签，方便推荐登陆
+            			 INDEX index_ncid(ncid),
                          UNIQUE index_url(url)
 			 ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
@@ -140,39 +141,39 @@ mu4ju3MB5u
  dday dweek dmonth dall
     create table ih_ndata(nid int(10) not null primary key ,
                          cnday int,
-			 cnweek int,
-			 cnmonth int,
-			 cnall int,
-			 upday int,
-			 upweek int,
-			 upmonth int,
-			 upall int,
-			 dday int,
-			 dweek int,
-			 dmonth int,
-			 dall int
+            			 cnweek int,
+            			 cnmonth int,
+            			 cnall int,
+            			 upday int,
+            			 upweek int,
+            			 upmonth int,
+            			 upall int,
+            			 dday int,
+            			 dweek int,
+            			 dmonth int,
+            			 dall int
                         ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 10、小说章节 ih_nchapter
  cpid nid title  cdesc ord ncid
   create table ih_nchapter(cpid int not null primary key auto_increment,
                              nid int(10) not null,
-			     title varchar(50),
-			     cdesc varchar(100),
-			      ord int(5),
-			      ncid int
-			     ) ENGINE  = MyISAM DEFAULT CHARSET = utf8;
+            			     title varchar(50),
+            			     cdesc varchar(100),
+            			      ord int(5),
+            			      ncid int
+            			     ) ENGINE  = MyISAM DEFAULT CHARSET = utf8;
   
 11、小说内容 ih_content
  ncntid cpid nid title ctime content ord ncid
  create table ih_content(ncntid int(10) not null primary key auto_increment,
                        cpid int,
-		       title varchar(50),
-		       ctime int,
+        		       title varchar(50),
+        		       ctime int,
                        utime timestamp default current_timestamp,
-		       content text,
-		       ord int default 0,
-		       ncid int,
+        		       content text,
+        		       ord int default 0,
+        		       ncid int,
                        caijiurl varchar(200),
                        nid int
 		       ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
@@ -181,46 +182,46 @@ mu4ju3MB5u
  tid name ctime tc
       create table ih_tag(tid int not null primary key auto_increment,
                           name varchar(40),
-			  ctime int,
-			  tc int default 0
-			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			  ctime int,
+            			  tc int default 0
+            			  ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 13、标签关联 ih_tagindex
    id tid nid ctime
       create table ih_tagindex(id int not null primary key auto_increment,
-                              tid int,
-			      nid int,
-			      ctime int
-                               ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+                               tid int,
+            			       nid int,
+            			      ctime int
+                              ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 14、小说分类 ih_nclass
  ncid name ncdesc logo pid cn
        create table ih_nclass(ncid int not null primary key auto_increment,
                               name varchar(30) not null,
-			      ncdesc varchar(50),
-			      logo varchar(100),
+            			      ncdesc varchar(50),
+            			      logo varchar(100),
                               cn int default 0,
-			      state tinyint(1) default 1,
-			      url varchar(50),
-			      ord tinyint   -- 排序,顺序
-			      ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			      state tinyint(1) default 1,
+            			      url varchar(50),
+            			      ord tinyint   -- 排序,顺序
+			                ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 系统公告: ih_sysnotice
 id title ntxt ctime etime
  create  table ih_sysnotice(id int not null primary key auto_increment,
                            title varchar(30),
-			   ntxt  varchar(1000),
-			   etime int
-			   ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
+            			   ntxt  varchar(1000),
+            			   etime int
+            			   ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 系统附件: ih_att
 id name ext size atype ctime
 create table ih_att(id int not null primary key auto_increment,
                     name varchar(100),
-		    ext varchar(10),
-		    size int,
-		    atype varchar(10),
-		    ctime int 
-		    ) ENGINE = MyISAM DEFAULT CHARSET =utf8;
+        		    ext varchar(10),
+        		    size int,
+        		    atype varchar(10),
+        		    ctime int 
+        		    ) ENGINE = MyISAM DEFAULT CHARSET =utf8;
 -- 热门推荐:
 create table ih_recommend(
  recommend_id int unsigned primary key auto_increment,

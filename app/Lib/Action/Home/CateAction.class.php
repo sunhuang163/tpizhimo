@@ -1,9 +1,11 @@
 <?php
-/*----
-   banfg56
-   2015-1-8
-   @@小说分类查看
-----*/
+/**
+ *  @Author  banfg56
+ *  @Date    2015-1-8
+ *  @Info  小说分类查看
+ *  @File   CateAction.class.php
+ *
+ */
 class CateAction extends BaseAction {
 
     public function index()
@@ -57,9 +59,16 @@ class CateAction extends BaseAction {
         }
     }
 
-    //二级分类的列表页
     public function  show()
     {
+        $Mcate = M("Nclass");
+        $wheren = array();
+        $cate = isset( $_REQUEST['url']) ? trim( $_REQUEST['url']) : "";
+        $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+        $wheren['url'] = array('eq' , $cate);
+        $dcate = $Mcate->where( $wheren )->find();
+        $this->assign("p" , $p );
+        $this->assign("dcate" , $dcate );
         $this->display();
     }
 
