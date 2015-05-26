@@ -4,7 +4,7 @@
    2015-1-8
    @@网站首页
 ----*/
-class IndexAction extends BaseAction {
+class IndexAction extends HomeAction {
 
 	public function index()
    {

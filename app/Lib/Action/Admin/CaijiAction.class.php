@@ -1,6 +1,6 @@
 <?php
 /*--采集操作--*/
-class CaijiAction extends BackAction {
+class CaijiAction extends BaseAction {
    private $caiji_size = 5; //每次解析5条记录防止，请求超时
 
    //main page

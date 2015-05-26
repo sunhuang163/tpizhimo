@@ -6,7 +6,7 @@
 * @File    HtmlAction.class.php
 *
 */
-class HtmlAction extends BackAction 
+class HtmlAction extends BaseAction 
 {
 	public function index()
     {

@@ -4,7 +4,7 @@
   2014/11/30 星期日
   @@小说分类管理
 --*/
-class NclassAction extends BackAction {
+class NclassAction extends BaseAction {
     //main page
 	public function index()
 	{

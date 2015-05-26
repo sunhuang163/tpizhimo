@@ -1,6 +1,6 @@
 <?php
 /*----网站评论管理----*/
-class CmAction extends BackAction {
+class CmAction extends BaseAction {
 
 	public function index()
    {

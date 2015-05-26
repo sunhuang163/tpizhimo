@@ -5,7 +5,7 @@
  *@date 2015/1/30
  *@info 首页推荐管理
 */
-class HotAction extends BackAction {
+class HotAction extends BaseAction {
 
 	public function index()
 	{

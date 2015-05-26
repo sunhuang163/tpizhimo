@@ -1,5 +1,5 @@
 <?php
-class IndexAction extends BackAction {
+class IndexAction extends BaseAction {
 
 	public function index()
 	{

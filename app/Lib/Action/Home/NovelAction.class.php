@@ -6,7 +6,7 @@
  *  @File      NovelAction.class.php
  *
  **/
-class NovelAction extends BaseAction 
+class NovelAction extends HomeAction 
 {
 
 	public function index()

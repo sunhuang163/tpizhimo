@@ -1,6 +1,6 @@
 <?php
 /*--系统管理员操作--*/
-class AdminAction extends BackAction {
+class AdminAction extends BaseAction {
     //main page
 	public function index(){
 	   $this->display();

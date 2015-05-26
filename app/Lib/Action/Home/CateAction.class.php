@@ -6,7 +6,7 @@
  *  @File   CateAction.class.php
  *
  */
-class CateAction extends BaseAction {
+class CateAction extends HomeAction {
 
     public function index()
     {

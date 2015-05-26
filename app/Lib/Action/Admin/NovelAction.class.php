@@ -4,7 +4,7 @@
    2014/11/30 星期日
    @@小说操作类
 --*/
-class NovelAction extends BackAction {
+class NovelAction extends BaseAction {
 	public function index()
 	{
 		$Mnclass = D("Nclass");

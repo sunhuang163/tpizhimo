@@ -4,7 +4,7 @@
   2014/11/27 星期四
   @@附件管理
 */
-class AttAction extends BackAction {
+class AttAction extends BaseAction {
 
 	public function index(){
       $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
