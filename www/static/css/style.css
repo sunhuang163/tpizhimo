@@ -1,9 +1,14 @@
-html{overflow-y: scroll; font:13px/1.6em "Microsoft YaHei",Arial,Helvetica,sans-serif;}
-body{background:#e7e7e7 url(../images/bg.jpg); line-height:165%; margin:0; padding:0; color:#666; font:13px/1.6em "Microsoft YaHei",Arial,sans-serif;}
-form,ul,ol,li,dl,dt,dd,form,img,p{margin:0; padding:0; border:none; list-style-type:none;}
-h1,h2,h3,h4,h5,h6{margin:0; padding:0; border:none; list-style-type:none; font-size:12px;}
-img{border:none;}
+/* Reset */
+* {margin:0; padding:0;}
+body,div,ul,dl,dd,li,h1,h2,h3,h4,h5,h6,form,input,p{margin:0; padding:0;}
+body{cursor:default; padding-top:5px}
+img{border:0;}
+input{vertical-align:middel}
+ol,ul,li{list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
 
+/* Global  */
+body{background:#e7e7e7 url(../images/bg.jpg); line-height:165%; margin:0; padding:0; color:#666; font:13px/1.6em "Microsoft YaHei",Arial,sans-serif;}
 a:link, a:visited{text-decoration:none;color:#444;}
 a:hover{color:#881600; text-decoration:underline;}
 select,button,input,textarea{font:12px/1.6em Arial, Helvetica, sans-serif;}
@@ -22,6 +27,10 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .left {float:left;}
 .right{float:right;}
 .clear{ clear:both;}
+
+.clear{clear:both;height:0;font-size:0px;overflow:hidden;}
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+.clearfix{*zoom:1;}
 
 /*信息页广告*/
 .Ad{padding:10px 0 10px 15px; background:#f2f2f2;}
