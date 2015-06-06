@@ -1,12 +1,48 @@
-<include file="Public:header"/>
-<title>{$novel.title} -{$novel.uptxt}-小说最新章节TXT下载</title>
-<meta name="keywords" content="<php> echo implode('|',$tags); </php>"/>
-<meta name="description" content="{$novel.ndesc|h=''}" />
-<meta name="author" content="{$novel.author}" />
-<include file="Public:header_css"/>
-<link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css">
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{$novel.title} -{$novel.uptxt}-小说最新章节TXT下载</title>
+	<meta name="keywords" content="<php> echo implode('|',$tags); </php>"/>
+	<meta name="description" content="{$novel.ndesc|h=''}" />
+	<include file="Public:header"/>
+	<link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<div class="wrapper">
+    <include file="Public:nav" />
+    <div class="ui-container">
+    	<div class="ui-content">
+    		<div class="ui-four-block ui-block ui-article">
+    			<div class="info">
+    				<a href="{$novel.url}" target="_blank">
+						<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125" 
+					 	alt="{$novel.catename}:{$novel.title}"  />
+				   	</a>
+				   	<h1>{$novel.title}</h1>
+				   	<p>
+				   		<span>作者：{$novel.author}</span>
+				   		<span class="right">最近章节：{$novel.lasturl}</span>
+				   	</p>
+				   	<p>
+				   		<span>最后更新：{$novel.utime|date='Y-m-d H:i:s',###}</span>
+				   	</p>
+				   	<div class="note">
+				   			本书属于<strong>{$novel.catename}</strong>
+				   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；<br />
+				   			已有<strong>{$novel.upall}</strong>人推荐过此书；
+				   			目前<strong>连载中</strong>
+				   			<a href="/index.php/Home/Novel/show" class="right">点击阅读</a>
+				   	</div>
+				   	<div class="clear"></div>
+				   	<div class="detail">
+				   		<span>内容简介</span>
+				   		<p>{$novel.ndesc}</p>
+				   	</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
 
 <include file="Public:nav_list" />
 <div class="webBody">

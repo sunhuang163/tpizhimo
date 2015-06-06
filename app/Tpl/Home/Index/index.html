@@ -48,7 +48,7 @@
                         <span>最后更新:{$homeTuijian.utime|date='Y-m-d H:i',###}</span> <br/>
                     </div>
                      <div class="clear"></div>
-                    <ol class="list">
+                    <ol class="ui-list">
                     <volist name="dpic" id="vo">
                         <li>
                             <a href="{$vo.url|ff_novel_url}" target="_blank">
@@ -69,7 +69,7 @@
                 <php>
                      $dlast = ff_mysql_novel('order:utime desc;limit:10');
                 </php>
-                <ol class="list">
+                <ol class="ui-list">
                     <volist name="dlast" id="vo">
                         <li>
                             <a href="{$vo.novel_url}" target="_blank">
