@@ -1,4 +1,4 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>{$webinfo.seotitle}</title>
@@ -15,194 +15,141 @@
             <div class="ui-block ui-one-block">
                 <h4 class="title">热门推荐</h4>
                 <div class="index-hot">
+                    <volist name="dhot" id="vo"> 
                     <div class="hot-item">
-                            <a href="#">
-                                <img   src="http://www.nv.com/skdata/2015/01/thumb/s0_54b7dff1772fc.gif" width="65" height="85" alt="女总裁的神级保镖" title="1:女总裁的神级保镖">  
+                            <a href="{$vo.url|ff_novel_url}" target="_blank">
+                                <img   src="{$vo.pic|ff_pic_thumb}" width="65" height="85" alt="{$vo.title}" >  
                             <div class="info">
-                                <h4>女总裁的神级保镖</h4>
-                                <span>【简介】书名和内容没多少关系，这是一个有都市，有玄…</span>
+                                <h4>{$vo.title|msubstr=0,10,true}</h4>
+                                <span>{$vo.ndesc|msubstr=0,27,true}</span>
                             </div>
                             </a>
                     </div>
-                     <div class="hot-item">
-                            <a href="#">
-                                <img   src="http://www.nv.com/skdata/2015/01/thumb/s0_54b7dff1772fc.gif" width="65" height="85" alt="女总裁的神级保镖" title="1:女总裁的神级保镖">  
-                            <div class="info">
-                                <h4>女总裁的神级保镖</h4>
-                                <span>【简介】书名和内容没多少关系，这是一个有都市，有玄…</span>
-                            </div>
-                            </a>
-                    </div>
-                     <div class="hot-item">
-                            <a href="#">
-                                <img   src="http://www.nv.com/skdata/2015/01/thumb/s0_54b7dff1772fc.gif" width="65" height="85" alt="女总裁的神级保镖" title="1:女总裁的神级保镖">  
-                            <div class="info">
-                                <h4>女总裁的神级保镖</h4>
-                                <span>【简介】书名和内容没多少关系，这是一个有都市，有玄…</span>
-                            </div>
-                            </a>
-                    </div>
+                    </volist>
                 </div>
             </div>
             <div class="ui-block ui-three-block">
                 <h4 class="title title-border">  推荐图书 </h4>
+                <div class="index-tuijian">
+                    <php>
+                        $homeTuijian = $dpic[0];
+                        unset( $dpic[0]);
+                    </php>
+                    <div class="itemfirst">
+                        <a href="{$homeTuijian.url|ff_novel_url}" target="_blank" >
+                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.pic|ff_pic_url}" alt="{$homeTuijian.catename}:{$homeTuijian.title}"> 
+                        </a>
+                        <h3>
+                            <a href="{$homeTuijian.url|ff_novel_url}"  alt="{$homeTuijian.title}"   target="_blank">{$homeTuijian.title|msubstr=0,10,true}</a>
+                        </h3>
+                        <p> {$homeTuijian.ndesc|msubstr=0,85,true} </p>
+                        <span>作者:{$homeTuijian.author}</span> <br/>
+                        <span>类别:{$homeTuijian.catename}</span> <br/>
+                        <span>最后更新:{$homeTuijian.utime|date='Y-m-d H:i',###}</span> <br/>
+                    </div>
+                     <div class="clear"></div>
+                    <ol class="list">
+                    <volist name="dpic" id="vo">
+                        <li>
+                            <a href="{$vo.url|ff_novel_url}" target="_blank">
+                                <img src="{$vo.pic|ff_pic_thumb}" width="65" height="80" alt="{$vo.title}" title="{$vo.catename}:{$vo.title}">
+                            </a>
+                            <h2>
+                                <a href="{$vo.url|ff_novel_url}" target="_blank">{$vo.title|msubstr=0,10,true}</a>
+                            </h2>
+                            <span> {$vo.ndesc|msubstr=0,70,true} </span>
+                        </li>
+                    </volist>
+                    </ol>
+                </div>
             </div>
             <div class="clear"></div>
             <div class="ui-four-block ui-block">
                 <h4 class="title title-white bg-blue title-border">实时更新</h4>
+                <php>
+                     $dlast = ff_mysql_novel('order:utime desc;limit:10');
+                </php>
+                <ol class="list">
+                    <volist name="dlast" id="vo">
+                        <li>
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img    src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
+                            </a>
+                            <h2>
+                                <a target="_blank" href="{$vo.novel_url}"  >{$vo.title}</a>
+                                <span>更新至</span>
+                                {$vo.novel_last_url}
+                            </h2>
+                            <span> 
+                                 {$vo.ndesc|msubstr=0,78,true}
+                            </span>
+                            <p>
+                                <span>类别：{$vo.cate_name}</span> 
+                                <span>作者：{$vo.author}</span>
+                                <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
+                             </p>
+                        </li>
+                    </volist>
+                </ol>
+                <div class="more"  >
+                    <a href="{:U('Home/index/update')}">查看更多...</a>
+                </div>
             </div>
         </div>
         <div class="ui-sidebar">
+            <div class="ui-box">
+                <include file="Public:nav_search"/>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">排行榜</h4>
+                <div class="rankindex">
+                    <a href="/allvisit_1" >总点击榜</a>
+                    <a href="/allvote_1" >月点击榜</a>
+                    <a href="/monthvisit_1" >周点击榜</a>
+                    <a href="/monthvote_1" >日点击榜</a>
+                    <a href="/postdate_1" >最新入库</a>
+                    <a href="/lastupdate_1" >最近更新</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">人气小说</h4>
+                <ul class="rank">
+                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
+                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
+                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
+                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
+                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
+                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
+                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
+                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
+                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
+                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                </ul>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">受欢迎作家</h4>
+                <div class="ui-box-author">
+                    <a href="/modules/article/authorarticle.php?author=我吃西红柿" target="_blank" style="color: red;">我吃西红柿</a>
+                    <a href="/modules/article/authorarticle.php?author=猫腻" target="_blank">猫腻</a>
+                    <a href="/modules/article/authorarticle.php?author=唐家三少" target="_blank">唐家三少</a>
+                    <a href="/modules/article/authorarticle.php?author=烟雨江南" target="_blank">烟雨江南</a>
+                    <a href="/modules/article/authorarticle.php?author=风凌天下" target="_blank">风凌天下</a>
+                    <a href="/modules/article/authorarticle.php?author=皇甫奇" target="_blank">皇甫奇</a>
+                    <a href="/modules/article/authorarticle.php?author=月关" target="_blank">月关</a>
+                    <a href="/modules/article/authorarticle.php?author=辰东" target="_blank" style="color: blue;">辰东</a>
+                    <a href="/modules/article/authorarticle.php?author=纯洁的胖子" target="_blank">纯洁的胖子</a>
+                    <a href="/modules/article/authorarticle.php?author=忘语" target="_blank">忘语</a>
+                    <a href="/modules/article/authorarticle.php?author=浮沉" target="_blank">浮沉</a>
+                    <a href="/modules/article/authorarticle.php?author=林海听涛" target="_blank">林海听涛</a>
+                    <a href="/modules/article/authorarticle.php?author=网络黑侠" target="_blank">网络黑侠</a>
+                    <a href="/modules/article/authorarticle.php?author=剑游太虚" target="_blank">剑游太虚</a>
+                    <a href="/modules/article/authorarticle.php?author=叶天南" target="_blank" style="color: tomato;">叶天南</a>
+                </div>
+            </div>
         </div>
+        <div class="clear"> </div>
+        <include file="Public:footer"/>
     </div>
-    <div class="webBody">
-        <div class="webMain">
-            <div class="indexHot">
-                <h4>热门推荐</h4>
-                <ul>
-    		        <volist name="dhot" id="vo">
-    	            <li>
-                        <a href="{$vo.url|ff_novel_url}" target="_blank">
-                            <img src="{$vo.pic|ff_pic_thumb}" width="65" height="85" alt="{$vo.title}" title="{$vo.ncid}:{$vo.title}">
-                            <strong>{$vo.title|msubstr=0,10,true}</strong>
-    	                    <span>{$vo.ndesc|msubstr=0,25,true}</span>
-    	                </a>
-                    </li>
-    		        </volist>
-                </ul>
-            </div>
-
-            <div class="indexRecommend">
-        	   <php>
-        	      $homePic = $dpic[0];
-        		  unset( $dpic[0]);
-        	   </php>
-                <h4>推荐图书</h4>
-                <ul>
-                    <a href="{$homePic.url|ff_novel_url}" target="_blank">
-			             <img width="150" height="200" alt="{$homePic.title}" class="indexRecommendIMG" src="<php></php>{$homePic.pic|ff_pic_url}" title="武侠修真:莽荒纪">
-                    </a>
-                    <h1>
-                        <a href="{$homePic.url|ff_novel_url}"  alt="{$homePic.title}" target="_blank">{$homePic.title|msubstr=0,6,true}</a>
-                    </h1>
-                    <dd>
-    		          {$homePic.ndesc|msubstr=0,85,true}
-    		        </dd>
-                    <p>作者：{$homePic.author}</p>
-                    <p>类别：武侠修真</p>
-    		        <p>最后更新:{$homePic.utime|date='Y-m-d H:i',###}</p>
-                    <div class="c"></div>
-                </ul>
-              
-                <ol>
-                    <volist name="dpic" id="vo">
-                    <li>
-                        <a href="{$vo.url|ff_novel_url}" target="_blank">
-                            <img src="{$vo.pic|ff_pic_thumb}" width="53" height="70" alt="{$vo.title}" title="{$vo.catename}:{$vo.title}">
-                            <strong>{$vo.title|msubstr=0,10,true}</strong>
-                            <span> {$vo.ndesc|msubstr=0,70,true} </span>
-                        </a>
-                    </li>
-                    </volist>
- 	            </ol>
-            </div>
-            <div class="c"></div>
-
-            <div class="indexUpdataNewbook" id="indexUpdataNewbook">
-                <h3 id="indexUpdataNewbooktabs">
-                    <span>实时更新</span>
-                </h3>
-                <ul id="real" class="tabcontent">
-		          <php>
-			         $dlast = ff_mysql_novel('order:utime desc;limit:10');
-			     </php>
-			        <volist name="dlast" id="vo">
-                        <ol style="height:95px;">
-                            <a href="{$vo.novel_url}" target="_blank">
-			                     <img class="indexListIMG" style="margin-left:5px;" src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
-			                 </a>
-                            <h2>
-			                    <a target="_blank" href="#" class="indexliBookName">{$vo.title}</a>
-				                <span>更新至</span>
-				                {$vo.novel_last_url}
-			                </h2>
-                            <dl> 
-			                     {$vo.ndesc|msubstr=0,78,true}
-			                </dl>
-                            <p>
-                                <span>类别：{$vo.cate_name}</span>	
-	                            <span>作者：{$vo.author}</a></span>
-	                            <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
-			                 </p>
-                        </ol>
-			        </volist>
-
-                    <div class="more" style="text-align: center; padding: 12px 0; font-size: 14px">
-		              <a href="{:U('Home/index/update')}">查看更多...</a>
-		            </div>
-                </ul>
-            </div>
-        </div>
-
-        <div class="webSidebar">
-            <include file="Public:nav_search"/>
-            <div class="webSidebarBOX" style="overflow: hidden;">
-            <h4>排 行 榜</h4>
-            <ul class="allRanking">
-                <a href="/allvisit_1">总点击榜</a>
-                <a href="/allvote_1">月点击榜</a>
-                <a href="/monthvisit_1">周点击榜</a>
-                <a href="/monthvote_1">日点击榜</a>
-                <a href="/postdate_1">最新入库</a>
-                <a href="/lastupdate_1">最近更新</a>
-                <div class="c"></div>
-            </ul>
-        </div>
-        <div class="webSidebarBOX" style="overflow: hidden;">
-            <h4>边侧栏标题</h4>
-            <ul class="rankingBox">
-                <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
-            </ul>
-        </div>
-
-        <div class="webSidebarBOX" style="overflow: hidden;">
-            <h4>最受关注的作家</h4>
-            <ul style="padding: 5px; color: #000;">
-                <a href="/modules/article/authorarticle.php?author=我吃西红柿" target="_blank" style="color: red;">我吃西红柿</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=猫腻" target="_blank">猫腻</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=唐家三少" target="_blank">唐家三少</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=烟雨江南" target="_blank">烟雨江南</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=风凌天下" target="_blank">风凌天下</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=皇甫奇" target="_blank">皇甫奇</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=月关" target="_blank">月关</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=辰东" target="_blank" style="color: blue;">辰东</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=纯洁的胖子" target="_blank">纯洁的胖子</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=忘语" target="_blank">忘语</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=浮沉" target="_blank">浮沉</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=林海听涛" target="_blank">林海听涛</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=网络黑侠" target="_blank">网络黑侠</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=剑游太虚" target="_blank">剑游太虚</a>&nbsp;&nbsp;
-                <a href="/modules/article/authorarticle.php?author=叶天南" target="_blank" style="color: tomato;">叶天南</a>&nbsp;&nbsp;
-            </ul>
-        </div>
-        <div class="webSidebarBOX" style="overflow: hidden;">
-            <h4>友情链接</h4>
-            <ul class="popularAuthor" style="height: 143px;">
-                <a href="http://leshi.pro">乐视影院</a>
-            </ul>
-        </div>
-    </div>
-    <div class="c"></div>
-</div>
-<include file="Public:footer"/>
 </body>
 </html>
