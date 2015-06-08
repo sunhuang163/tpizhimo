@@ -11,6 +11,19 @@
 <div class="wrapper">
     <include file="Public:nav" />
     <div class="ui-container">
+	    <ul class="ui-breadcrumb ui-block">
+			<li>
+				<a href="#">首页</a>
+				<span class="divider"> / </span>
+			</li>
+			<li>
+				<a href="#">分类</a>
+				<span class="divider"> / </span>
+			</li>
+			<li>
+				<a href="#">小说详情</a>
+			</li>
+		</ul>
     	<div class="ui-content">
     		<div class="ui-four-block ui-block ui-article">
     			<div class="info">
@@ -20,119 +33,71 @@
 				   	</a>
 				   	<h1>{$novel.title}</h1>
 				   	<p>
-				   		<span>作者：{$novel.author}</span>
-				   		<span class="right">最近章节：{$novel.lasturl}</span>
+				   		<span><b>作者</b>{$novel.author}</span>
+				   		<span class="right"><b>最近章节</b>{$novel.lasturl}</span>
 				   	</p>
 				   	<p>
 				   		<span>最后更新：{$novel.utime|date='Y-m-d H:i:s',###}</span>
 				   	</p>
 				   	<div class="note">
+				   		<span class="read">
+				   			<a href="/index.php/Home/Novel/show" >点击阅读</a>
+				   		</span>
+				   		<div >
 				   			本书属于<strong>{$novel.catename}</strong>
-				   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；<br />
+				   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；
 				   			已有<strong>{$novel.upall}</strong>人推荐过此书；
 				   			目前<strong>连载中</strong>
-				   			<a href="/index.php/Home/Novel/show" class="right">点击阅读</a>
+				   		</div>
 				   	</div>
 				   	<div class="clear"></div>
 				   	<div class="detail">
-				   		<span>内容简介</span>
+				   		<div class="ribbon">
+				   			<div class="ribbon-content">内容简介</div>
+				   		</div>
+				   		<div class="clear"></div>
 				   		<p>{$novel.ndesc}</p>
 				   	</div>
     			</div>
     		</div>
+    		<div class="ui-four-block ui-block">
+    			<h4 class="title title-white bg-black title-border">精彩评论</h4>
+    		</div>
+    		<div class="ui-comment ui-four-block ui-block">
+    			<h4 class="title title-white bg-black title-border">发表评论 </h4>
+    			<div class="comment-add">
+    				<p>
+    					<textarea class="ui-input" class="textarea" name="pcontent" cols="60" rows="5"></textarea>
+    				</p>
+    				<p >
+    					<button type="submit" name="Submit" class="right" >发表书评</button>	
+    				</p>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="ui-sidebar">
+    		<div class="ui-box" style="margin-top:0px;">
+                <include file="Public:nav_search"/>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">最好看小说</h4>
+                <ul class="rank">
+                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
+                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
+                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
+                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
+                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
+                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
+                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
+                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
+                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
+                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                </ul>
+            </div>
     	</div>
     </div>
+    <div class="clear"> </div>
+    <include file="Public:zimu" />
+    <include file="Public:footer"/>
 </div>
-
-<include file="Public:nav_list" />
-<div class="webBody">
-  <div class="webMain">
-	<div id="content">
-		<div class="articleInfo">
-			<div class="articleInfoLeft">
-				<p><a href="{$novel.url}" target="_blank">
-					<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125" 
-					 alt="{$novel.catename}:{$novel.title}" title="{$novel.catename}:{$novel.title}" />
-				   </a>
-				</p>
-	      </div>
-	      <div class="articleInfoRight">
-		     <h1>{$novel.title}&nbsp;&nbsp;
-				<b style="font-size:12px;">作者：{$novel.author}</b>
-				<span>最近章节：
-				  {$novel.lasturl}
-				</span>
-			 </h1>
-		     <ol>
-				<p class="left">
-					本书属于<strong>{$novel.catename}</strong>小说；已有<strong>{$novel.cnall}</strong>人读过此书；<br />已有<strong>{$novel.upall}</strong>人推荐过此书；目前<strong>连载中</strong>
-				</p>
-	            <p class="right">
-					<a href="{:U('/Home/Novel/show')}" class="reader" target="_blank">点击阅读</a>
-				</p>		
-	 	        <div class="c"></div>
-		     </ol>
-		     <dl>
-				<dt>内容简介：<span>最后更新：{$novel.utime|date='Y-m-d H:i:s',###}</span></dt>
-				<dd id="wrap">&nbsp;&nbsp;&nbsp;&nbsp;{$novel.ndesc}</dd>
-			 </dl>
-	      </div>
-	    <div class="c"></div>
-</div>
-<div class="reviewsShow">
-<h6>
-  <span>最新书评</span>
-</h6>
-<ul>
-暂无评论
-</ul>
-</div>
- 
-<div class="reviewsPost">
-<h6><span>发表书评</span></h6>
-<ul>
-<form name="frmreview" method="post" action="http://www.qingdi.com/modules/article/reviews.php?aid=6814" target="_blank">
-<table>
-	<tr><th>标题</th><td><input type='text' class='text' name='ptitle' id='ptitle' size='60' maxlength='60' value=''/></td></tr>
-	<tr><th>内容</th><td><textarea class="textarea" name="pcontent" id="pcontent" cols="60" rows="12"></textarea>
-	</td></tr>
-		
-	<tr><th class="odd" width="25%">&nbsp;<input type="hidden" name="action" id="action" value="newpost" /></th><td><button type="submit" name="Submit" style="margin-right:20px;">发表书评</button></td></tr>
-</table>
-</form>
-</ul>
- <div class="plgg"></div>
-</div>
-
-</div>
-  </div>
-	<div class="webSidebar">
-     <include file="Public:nav_search"/>
-	 <div class="webSidebarBOX" style="overflow:hidden;">
-		<h4>热门推荐</h4>
-		<div class="indeHot">
-        	<ul>
-          	<a href="http://www.qingdi.com/book/9.html" target="_blank">
-          		<img src="http://www.qingdi.com/files/article/image/0/9/9s.jpg" width="70" height="90" alt="民国投机者" title="历史军事:民国投机者"/>
-          		<strong>民国投机者</strong>
-          		<span>    
-          			在中国出生，在美国长大，嗯，好吧，好吧，就是穿越这样的老套故事。
-              	这是我的....
-            	</span>
-           	</a>
-        	</ul>
-       </div>
-	</div>
-	<div class="webSidebarBOX" style="overflow:hidden;">
-		<h4>收藏排行</h4>
-			<ul class="ulitem">
-            	<a href="http://www.qingdi.com/book/922.html" target="_blank"><i>3562人收藏</i>莽荒纪</a>
-            	<a href="http://www.qingdi.com/book/27.html" target="_blank"><i>2531人收藏</i>绝世唐门</a>
-
-            </ul>
-	</div>
-</div>
-<div class="c"></div>
-</div>
-<include file="Public:zimu" />
 </html>
