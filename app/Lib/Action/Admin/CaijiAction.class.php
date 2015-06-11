@@ -41,7 +41,7 @@ class CaijiAction extends BaseAction {
  //show  novel ache content
  public function shownovel()
  {
-  $this->display();
+ 	$this->display();
  }
 
   /**

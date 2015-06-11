@@ -197,7 +197,7 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-melu{font-size: 14px;background: #f0f0f0;}
 .ui-melu .ui-melu-chapter{font-size: 16px;background: #e4e1d8;text-align: center;}
 .ui-melu .ui-melu-list{padding-bottom:10px;list-style: none;}
-.ui-melu .ui-melu-item{width:22%;display:block;padding: 3px 5px;float: left;}
+.ui-melu .ui-melu-item{width:22%;display: list-item;padding: 3px 5px;float: left;text-align:center;}
 .ui-melu .ui-melu-item a:link{color:#881600;}
 .ui-melu .ui-melu-item a:visited{ color: #2b3134;text-decoration:none;}
 
