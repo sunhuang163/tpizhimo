@@ -1,62 +1,62 @@
-<include file="Public:header" />
-<title>热门排行</title>
-<meta name="keywords" content=" " />
-<meta name="description" content=" " />
-<include file="Public:header_css" />
- <link href="{$ST_PATH}css/fenlei.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>最近更新</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content="" />
+    <include file="Public:header"/>
 </head>
 <body>
 <include file="Public:nav_list" />
-    <div class="webBody">
-	    <div class="webMain">
-	        <div id="content">
-                <div class="listIndexUpdata">
-                    <h4>热门排行</h4>
-                    <ul>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th width="15%">文章类别</th>
-                                    <th width="18%">文章名称</th>
-                                    <th>最新章节</th>
-                                    <th width="18%">作者</th>
-                                    <th width="9%">更新</th>
-                                    <th width="8%">状态</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <php> 
-                                    $dhot = ff_mysql_novel('field:"title,author,utime,uptxt";lastUrl:true;limit:20;order:"hit_month DESC" ' );
-                                </php>
-                                <volist name="dhot" id="vo">
-                                <tr class="bg1">
-                                    <td class="tdLeft"><if condition="$vo['cate_name']">【{$vo.cate_name}】</if></td>
-                                    <td class="tdLeft"><a title="{$vo.title}" href="{$vo.novel_url}">{$vo.title}</a></td>
-                                    <td class="tdLeft">{$vo.novel_last_url}</td>
-                                    <td>{$vo.author}</td>
-                                     <td>{$vo.utime|date='m-d',###}</td>
-                                     <td><if condition="$vo['nstate']"> 已完结 <else/> 连载中 </if></td>
-                                </tr> 
-                                </volist>          
-                            </tbody>
-                        </table>
-                    </ul>
-                    <span style="height:20px; background:#fff;"> </span>
-                </div>
+<div class="wrapper">
+    <include file="Public:nav" />
+    <div class="ui-container">
+        <ul class="ui-breadcrumb ui-block">
+            <li>
+                <a href="#">首页</a>
+                <span class="divider"> / </span>
+            </li>
+            <li>
+                <a href="#">分类</a>
+                <span class="divider"> / </span>
+            </li>
+            <li>
+                <a href="#">小说详情</a>
+            </li>
+        </ul>
+        <div class="ui-content">
+            <div class="ui-block">
+                <h4 class="title title-white bg-blue title-border">热门排行</h4>
+                <php>
+                     $dlast = ff_mysql_novel('field:"title,author,utime,uptxt";lastUrl:true;limit:20;order:"hit_month DESC" ' );
+                </php>
+                <ol class="ui-list">
+                    <volist name="dlast" id="vo">
+                        <li>
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img    src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
+                            </a>
+                            <h2>
+                                <a target="_blank" href="{$vo.novel_url}"  >{$vo.title}</a>
+                                <span>更新至</span>
+                                {$vo.novel_last_url}
+                            </h2>
+                            <span> 
+                                 {$vo.ndesc|msubstr=0,78,true}
+                            </span>
+                            <p>
+                                <span>类别：{$vo.cate_name}</span> 
+                                <span>作者：{$vo.author}</span>
+                                <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
+                             </p>
+                        </li>
+                    </volist>
+                </ol>
             </div>
-	    </div>
-
-	    <div class="webSidebar">
-	    <include file="Public:nav_search"/>
-            <div class="webSidebarBOX" style="overflow:hidden;">
-		    <h4>最好看的小说</h4>
-		      <ul class="rankingBox">
-                边侧栏内容
-             </ul>
-		    </div>
         </div>
-        <div class="c"></div>
     </div>
-<include file="Public:footer"/>
+    <div class="clear"> </div>
+    <include file="Public:footer"/>
+</div>
 </body>
 </html>
