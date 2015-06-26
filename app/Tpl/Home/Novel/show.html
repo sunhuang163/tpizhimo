@@ -1,11 +1,10 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>非常猎人最新章节_非常猎人TXT下载_瑞恩_青帝文学网_小说最新章节TXT下载www.qingdi.com</title>
-<meta name="keywords" content="非常猎人最新章节,非常猎人TXT下载,玄幻魔法,青帝文学网_小说最新章节TXT下载" />
-<meta name="description" content="非常猎人TXT下载，非常猎人最新章节阅读，尽在青帝文学网_小说最新章节TXT下载。提供最新更新，最优质的阅读体验。" />
-<meta name="author" content="瑞恩" />
-<meta name="copyright" content="" />
+<title>{$novel.title}最新章节_{$novel.title}TXT下载_{$novel.author}_{:C('SITE_NAME')}_小说最新章节TXT下载</title>
+<meta name="keywords" content="{$novel.title}最新章节,{$novel.title}TXT下载,{$novel.catename},{:C('SITE_NAME')}_小说最新章节TXT下载" />
+<meta name="description" content="{$novel.title}TXT下载，{$novel.title}最新章节阅读，尽在{:C('SITE_NAME')}_小说最新章节TXT下载。提供最新更新，最优质的阅读体验。" />
+<meta name="author" content="{$nove.author}" />
 <include file="Public:header"/>
 </head>
 <body>
@@ -14,15 +13,15 @@
     <div class="ui-container">
          <ul class="ui-breadcrumb ui-block">
             <li>
-                <a href="#">首页</a>
+                <a href="/">首页</a>
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="#">分类</a>
+                <a href="#">{$novel.catename}</a>
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="#">非常猎人</a>
+                <a href="#">{$novel.title}</a>
                 <span class="divider"> / </span>
             </li>
             <li>
@@ -30,27 +29,13 @@
             </li>
         </ul>
         <div class="ui-melu ui-block">
-            <p class="ui-melu-chapter">章节信息</p>
+            <p class="ui-melu-chapter">{$novel.title}</p>
             <ul class="ui-melu-list">
-                <li class="ui-melu-item"><a href="3007361.html">第一章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007362.html">第2章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="30073ss63.html">第3章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="300736f4.html">第4章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="30073dd65.html">第5章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007366.html">第6章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007367.html">第7章 晋级一级护卫</a></li>
+                <volist name="contents" id="vo">
+                    <li class="ui-melu-item"><a href="{:U('Novel/read',array('nid'=>$vo['ncntid']))}" title="{$vo.title}">{$vo.title|ff_msubstr=0,15}</a></li>
+                </volist>
             </ul>
             <div class="clear"></div>
-            <p class="ui-melu-chapter">章节信息</p>
-            <ul class="ui-melu-list">
-                <li class="ui-melu-item"><a href="3007361.html">第一章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007362.html">第2章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="30073ss63.html">第3章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="300736f4.html">第4章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="30073dd65.html">第5章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007366.html">第6章 晋级一级护卫</a></li>
-                <li class="ui-melu-item"><a href="3007367.html">第7章 晋级一级护卫</a></li>
-            </ul>
         </div>
         <div class="clear"> </div>
     <include file="Public:zimu" />

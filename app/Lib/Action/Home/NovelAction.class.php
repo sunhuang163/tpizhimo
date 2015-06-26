@@ -45,23 +45,33 @@ class NovelAction extends HomeAction
 
 	public function  show()
     {
-       $Mcontent = M("Content");
-       $wheres = array();
-       $nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid'] ) : 1;
+       $Mcontent = M("content");
+       $wheres = $wherec = array();
+       $nid = 0;
+       $url = isset( $_GET['url']) ? trim( $_GET['url']) : "";
 
-       $wheres['nid'] = array('eq' , $nid );
-       $dcontent = $Mcontent->where( $wheres )->order("cpid ASC,ord ASC")->select();
-       $this->assign("contents" , $dcontent );
+       $wheres['ih_novel.url'] = array('eq' , $url );
+       $dnovel = M('novel')->field("ih_novel.*,ih_nclass.name as catename")
+		             		->join("LEFT JOIN ih_nclass on ih_nclass.ncid =ih_novel.ncid")
+		             		->where( $wheres )->find();
+       if( $dnovel )
+       {
+       		$wherec['nid'] = array('eq' , $dnovel['nid']);
+         	$dcontents = $Mcontent->where( $wherec )->order("cpid ASC,ord ASC")->select();
+       }
+       $this->assign("novel" , $dnovel );
+       $this->assign("contents" , $dcontents );
 	   $this->display();
     }
 
     public function  read()
    {
-       $MCview = D("ContentView");
+       $Mdo = D("ContentView");
        $wheres  = array();
-       $ncntid = isset( $_REQUEST['ncntid']) ? intval( $_REQUEST['ncntid']) : 1;
+       $ncntid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 1;
        $wheres['ncntid'] = array('eq' , $ncntid );
-       $dcontent = $MCview->where( $wheres )->find();
+       $dcontent = $Mdo->where( $wheres )->find();
+
        $this->assign('content' , $dcontent );
 	   $this->display();
    }

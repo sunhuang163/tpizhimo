@@ -54,6 +54,8 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 .ui-container .ui-content {width:670px;float:left;overflow:hidden;}
 .ui-container .ui-sidebar{width:280px;float:right;overflow:hidden;}
 
+.ui-container .ui-full{width:100%;}
+
 .ui-block{float:left;width:100%;overflow:hidden;}
 .ui-one-block{width:225px;margin-right:10px;}
 .ui-three-block{width:435px;}
@@ -195,21 +197,25 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 
 /*小说目录页样式*/
 .ui-melu{font-size: 14px;background: #f0f0f0;}
-.ui-melu .ui-melu-chapter{font-size: 16px;background: #e4e1d8;text-align: center;}
+.ui-melu .ui-melu-chapter{font-size: 17px;background: #e4e1d8;text-align: center;height:17px; padding:8px 0;}
 .ui-melu .ui-melu-list{padding-bottom:10px;list-style: none;}
-.ui-melu .ui-melu-item{width:22%;display: list-item;padding: 3px 5px;float: left;text-align:center;}
+.ui-melu .ui-melu-item{width:22%;display: list-item;padding: 3px 5px;float: left;text-align:left;overflow:hidden;font-size:13px;}
 .ui-melu .ui-melu-item a:link{color:#881600;}
 .ui-melu .ui-melu-item a:visited{ color: #2b3134;text-decoration:none;}
 
 
 /*阅读文章样式*/
-#ui-read{}
-#ui-read .ui-read-top-bar{}
-#ui-read .ui-read-top-bar .bar-label{}
+#ui-reader{width:100%;overflow: hidden;}
+#ui-reader .top-bar{}
+#ui-reader .top-bar .bar-label{}
+#ui-reader .top-melu{}
+#ui-reader .box {}
+#ui-reader .box-title{}
+#ui-reader .box-subitem{}
+#ui-reader .box-content{}
+#ui-reader .box-bottom-btn{}
+#ui-reader .box-bottom-nav{}
 
-#ui-read .ui-read-melu{}
-#ui-read .ui-read-melu-item{}
-#ui-read .ui-read-content{}
 
 /*子页翻页样式*/
 .pages span{display:block;  height:30px; color:#881600; float:right; font-size:10px;margin-right:5px;} 
