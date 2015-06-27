@@ -12,60 +12,71 @@
     <div class="ui-container">
     	<div id="ui-reader">
     		<div class="top-bar"> 
-    			背景颜色<select name="bcolor" id="bcolor" onchange="javascript:document.getElementById('content').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('h1').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('yueduye').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerListADbox').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerFooterNav').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerListADboxs').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerFooterPage').style.backgroundColor=this.options[this.selectedIndex].value;">			  <option style="background-color: #f6f6f6" value="#f6f6f6">默认</option>			  <option style="background-color: #ffffff" value="#ffffff">白色</option>              <option style="background-color: #e3e8f7" value="#e3e8f7">淡蓝</option>			  <option style="background-color: #daebfc" value="#daebfc">蓝色</option>              <option style="background-color: #ebeaea" value="#ebeaea">淡灰</option>              <option style="background-color: #e7e3e6" value="#e7e3e6">灰色</option>              <option style="background-color: #dedcd8" value="#dedcd8">深灰</option>              <option style="background-color: #d8d7d7" value="#d8d7d7">暗灰</option>              <option style="background-color: #e6fae4" value="#e6fae4">绿色</option>              <option style="background-color: #f9fbdd" value="#f9fbdd">明黄</option>                   </select>			  字体颜色<select name="txtcolor" id="txtcolor" onchange="javascript:document.getElementById('content').style.color=this.options[this.selectedIndex].value;"> 			  <option value="#000000">黑色</option>              <option value="#ff0000">红色</option>              <option value="#006600">绿色</option>              <option value="#0000ff">蓝色</option>              <option value="#660000">棕色</option>			  </select>              字体大小<select name="fonttype" id="fonttype" onchange="javascript:document.getElementById('content').style.fontSize=this.options[this.selectedIndex].value;"> 			  <option value="12px">小号</option> 			  <option value="14px">较小</option> 			  <option value="16px">中号</option>			  <option value="18px">较大</option>			  <option value="24px">大号</option>			  </select>            鼠标双击滚屏<input name="scrollspeed" id="scrollspeed" onchange="javascript:setSpeed();" size="2" value="5">            (1-10，1最慢，10最快）        <input name="saveset" id="saveset" onclick="javascript:saveSet();" type="button" value="保存设置"><br><br></ul>
+    			<ul>
+	    			背景颜色<select name="bcolor" id="bcolor" onchange="javascript:document.getElementById('box-content').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('h1').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('yueduye').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerListADbox').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerFooterNav').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerListADboxs').style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById('readerFooterPage').style.backgroundColor=this.options[this.selectedIndex].value;">
+	    				<option style="background-color: #f6f6f6" value="#f6f6f6">默认</option>		
+	    				<option style="background-color: #ffffff" value="#ffffff">白色</option>   
+	    				<option style="background-color: #e3e8f7" value="#e3e8f7">淡蓝</option>	
+	    				<option style="background-color: #daebfc" value="#daebfc">蓝色</option>  
+	    				<option style="background-color: #ebeaea" value="#ebeaea">淡灰</option>  
+	    				<option style="background-color: #e7e3e6" value="#e7e3e6">灰色</option>  
+	    				<option style="background-color: #dedcd8" value="#dedcd8">深灰</option>  
+	    				<option style="background-color: #d8d7d7" value="#d8d7d7">暗灰</option>  
+	    				<option style="background-color: #e6fae4" value="#e6fae4">绿色</option>   
+	    				<option style="background-color: #f9fbdd" value="#f9fbdd">明黄</option>   
+	    			</select>			  
+	    			字体颜色
+	    			<select name="txtcolor" id="txtcolor" onchange="javascript:document.getElementById('box-content').style.color=this.options[this.selectedIndex].value;"> 			
+	    				<option value="#000000">黑色</option> 
+	    				<option value="#ff0000">红色</option> 
+	    				<option value="#006600">绿色</option> 
+	    				<option value="#0000ff">蓝色</option>
+	    				<option value="#660000">棕色</option>			  
+	    			</select>              
+	    			字体大小
+	    			<select name="fonttype" id="fonttype" onchange="javascript:document.getElementById('box-content').style.fontSize=this.options[this.selectedIndex].value;"> 		
+	    				<option value="12px">小号</option> 
+	    				<option value="14px">较小</option> 
+	    				<option value="16px">中号</option>
+	    				<option value="18px">较大</option>
+	    				<option value="24px">大号</option>
+	    			</select> 
+	    			鼠标双击滚屏<input name="scrollspeed" id="scrollspeed" onchange="javascript:setSpeed();" size="2" value="5">(1-10，1最慢，10最快）       
+	    			<input name="saveset" id="saveset" onclick="javascript:saveSet();" type="button" value="保存设置"><br><br>
+    			</ul>
     		</div>
-    		<div class="top-melu">
-    			顶部目录
-    		</div>
+    		<ul class="top-melu">
+    			<p class="right">
+    				<a href="#"> 返回书页 </a> | 
+    				<a href="#"> 上一页 </a> | 
+    				<a href="#"> 章节列表 </a> |
+    				<a href="#"> 下一页 </a> 
+    			</p>
+    		</ul>
     		<div class="box">
-    			<div class="box-title">章节标题</div>
-    			<div class="box-subitem">二级标题</div>
-    			<div class="box-content">章节内容</div>
-    			<div class="box-bottom-btn">返回首页</div>
-    			<div class="box-bottom-nav">底部导航</div>
+    			<div class="box-title">{$content.title}</div>
+    			<div class="box-subitem">
+    				类别：{$content.catename}&nbsp;&nbsp;&nbsp;
+    				作者：{$content.novel_author}&nbsp;&nbsp;&nbsp;
+    				书名：{$content.novel_title}
+    			</div>
+    			<div class="box-content" id="box-content">
+    				<php> echo html_entity_decode( h($content['content'],'p|br' ) );</php>
+    			</div>
+    			<div class="box-bottom-btn">
+    				<a href="#">返回首页</a>
+    			</div>
+    			<div class="box-bottom-nav">
+    				<a href="#">上一页</a>
+    				<a href="#">返回目录</a>
+    				<a href="#">下一页</a>
+    			</div>
     		</div>
     	</div>
-		<div class="readerHader">
-			<ul class="readertop">
-				<script type="text/javascript" src="{$ST_PATH}js/pagetop.js"></script>
-			</ul>
-			<ul class="readerNav">
-				<p style="float:right;">
-					<a href="http://www.qingdi.com/modules/article/addbookcase.php?bid=6814&cid=3007360" target="_blank">加入书签</a>|
-					<a href="http://www.qingdi.com/modules/article/uservote.php?id=6814" target="_blank">推荐本书</a>|
-					<a href="http://www.qingdi.com/book/6814.html">返回书页</a>
-					<a href="3007358.html">上一页</a>|
-					<a href="index.html">章节列表</a>|
-					<a href="3007361.html">下一页</a>
-				</p>
-			</ul>
-			<div class="c"></div>
-		</div>
-		<div class="readerTitle">
-			<h1 id="h1">职业猎人 第一章 晋级一级护卫</h1>
-			<div class="yueduye" id="yueduye">
-				类别：玄幻魔法 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				作者：<a href="http://www.qingdi.com/modules/article/authorarticle.php?author=瑞恩">瑞恩</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				书名：<a href="http://www.qingdi.com/book/6814.html">非常猎人</a>
-			</div>
-			<div class="readerContent">
-				<div id="content">
-					<php> echo html_entity_decode( h($content['content'],'p|br' ) );</php>
-				</div>
-			</div>
-			<div class="readerFooterNav" id="readerFooterNav">
-				<a href="#" target="_blank">我推荐</a>
-				<a href="#" target="_blank">加入书签</a>
-				<a href="http://www.qingdi.com">回首页</a>
-			</div>
-			<div class="readerFooterPage" id="readerFooterPage">
-				<a href="3007358.html">上一页</a>
-				<a href="index.html">返回目录</a>
-				<a href="3007361.html">下一页</a>
-			</div>
-    	</div>
+    	<div class="clear"> </div>
+    	<include file="Public:zimu" />
+    	<include file="Public:footer" />
     </div>
-    <include file="Public:footer" />
  </div>
 </body>
 </html>

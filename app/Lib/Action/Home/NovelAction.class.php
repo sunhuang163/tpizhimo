@@ -71,7 +71,7 @@ class NovelAction extends HomeAction
        $ncntid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 1;
        $wheres['ncntid'] = array('eq' , $ncntid );
        $dcontent = $Mdo->where( $wheres )->find();
-
+       
        $this->assign('content' , $dcontent );
 	   $this->display();
    }

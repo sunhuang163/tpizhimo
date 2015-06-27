@@ -36,6 +36,7 @@ class ContentModel extends AdvModel {
   protected function hh_content( $str )
  {
 	//采集内容中外链的处理，特殊字符的处理
+	//替换掉script中的内容
 	$str = h( $str );
 	return remove_xss( $str );
  }
@@ -44,10 +45,9 @@ class ContentModel extends AdvModel {
   {
 	 if( !$data['ctime'])
 		 $data['ctime'] = time();
-     $Mcnt = M("Content");
 	 $wheres = array();
 	 $wheres['nid'] = array('eq',$data['nid']);
-	 $cnt = $Mcnt->where( $wheres )->max("ord");
+	 $cnt = $this->where( $wheres )->max("ord");
 	 if( !$cnt )
 		 $cnt = 1;
 	 else

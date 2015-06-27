@@ -205,16 +205,28 @@ a.more{float:right;  font-size:13px; font-weight:normal; padding:0;}
 
 
 /*阅读文章样式*/
-#ui-reader{width:100%;overflow: hidden;}
-#ui-reader .top-bar{}
-#ui-reader .top-bar .bar-label{}
-#ui-reader .top-melu{}
-#ui-reader .box {}
-#ui-reader .box-title{}
-#ui-reader .box-subitem{}
-#ui-reader .box-content{}
-#ui-reader .box-bottom-btn{}
-#ui-reader .box-bottom-nav{}
+#ui-reader{width:100%;overflow: hidden;padding-top:5px;}
+#ui-reader .top-bar{margin:0 auto; background:#f2f2f2}
+#ui-reader .top-bar ul{background:#736a50; color:#fff; height:50px; line-height:50px; text-align:center; overflow:hidden;}
+#ui-reader .top-bar ul select{margin:0 10px 0 2px; border:1px solid #fff;}
+#ui-reader .top-bar ul input{margin:0 10px 0 2px; border:1px solid #fff;}
+#ui-reader .top-bar ul input#saveset{border:0; background:#333; color:#ababab; padding:4px 10px;}
+#ui-reader .top-bar ul input#saveset:hover{background:#c00; color:#fff;cursor: pointer;}
+#ui-reader .top-melu{background:#444; color:#f2f2f2; height:36px; line-height:36px; padding:0 7px; overflow:hidden;}
+#ui-reader .top-melu a:link, #ui-reader .top-melu a:visited{text-decoration:none;color:#fff; margin:0 8px;}
+#ui-reader .top-melu a:hover{color:#ff0; text-decoration:underline;}
+
+#ui-reader .box {width:100%;margin: 0 auto;background: #f2f2f2;}
+#ui-reader .box-title{font-size: 22px;text-align: center;padding: 25px 0 15px 0;color: #000;font-weight: bold;}
+#ui-reader .box-subitem{width:100%;text-align:center;background-color: rgb(246, 246, 246);margin: 5px 0;}
+#ui-reader .box-content{ text-align: left;padding: 10px 3% 10px 3%;font-size: 16px;color: rgb(0, 0, 0);background-color: rgb(246, 246, 246);}
+#box-content {font: 13px "Microsoft YaHei",Arial,sans-serif;text-indent: 2em;}
+#ui-reader .box-bottom-btn{margin:0 auto; background:#f2f2f2; text-align:center;padding:20px 0;}
+#ui-reader .box-bottom-btn a:link, #ui-reader .box-bottom-btn a:visited{text-decoration:none;color:#444; margin:0 20px; font-size:18px; padding:.5em 1.05em;  background:url(readerFooterNavbg.gif) repeat-x; border:1px solid #ccc;}
+#ui-reader .box-bottom-btn a:hover{text-decoration:underline; border:1px solid #8d1a05; background:#8d1a05; color:#fff;}
+#ui-reader .box-bottom-nav{width:100%; margin:0 auto; background:#f2f2f2; text-align:center;padding:15px 0 10px 0;}
+#ui-reader .box-bottom-nav a:link, #ui-reader .box-bottom-nav a:visited{text-decoration:none;color:#444; margin:0 20px; font-size:18px; font-weight:bold;}
+#ui-reader .box-bottom-nav a:hover{color:#881600; text-decoration:underline;}
 
 
 /*子页翻页样式*/
