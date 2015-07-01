@@ -469,8 +469,8 @@ function getlistname( $list_id , $field)
    }
 }
 
- function curl_content($url, $timeout = 10, $referer = "http://www.baidu.com"){
-
+ function curl_content($url, $timeout = 10, $referer = "http://www.baidu.com")
+ {
 	if(function_exists('curl_init')){
 		$ch = curl_init();
 		curl_setopt ($ch, CURLOPT_URL, $url);
@@ -499,7 +499,8 @@ function getlistname( $list_id , $field)
 }
 
 //写入文件
-function write_file($l1, $l2=''){
+function write_file($l1, $l2='')
+{
 	$dir = dirname($l1);
 	if(!is_dir($dir)){
 		mkdirss($dir);
