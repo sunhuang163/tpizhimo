@@ -1,3 +1,6 @@
 **/Runtime
 **/skdata
+www/html/**
+www/*.html
+www/*.xml
 Thumbs.db
