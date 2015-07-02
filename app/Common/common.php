@@ -269,19 +269,21 @@ function ff_novel_last($url , $nid  , $newurl = '' )
   return $lasturl;
 }
 
-//获取小说的目录页面
+function UU( $action , $params = FALSE , $sufix = "" , $domain = FALSE )
+{
+	return U( $action , $params , $sufix , $domain );
+}
+
 function ff_novel_mulu( $url , $nid , $ncid , $newurl = '')
 {
   return $url;
 }
 
-//获取图片的站外浏览地址
 function ff_pic_url( $pic = '')
 {
  return C('PIC_URL').$pic;
 }
 
-//获取图片的缩略图
 function ff_pic_thumb( $pic = '' , $s = 's0' )
 {
 	if( !$pic )
@@ -321,13 +323,15 @@ function ff_mysql_novel($tag){
 	$_order = explode(" ", $order);
 	$orderKey = "";
 	if( count( $_order) == 1  ){
-		$orderKy = trim( $order );
-		$order .= " DESC";
+		$orderKey = trim( $order );
+		$order = " DESC";
 	}
 	else
 	{
       $orderKey = trim($_order[0]);
-	}
+      $order = $_order[1];
+    }
+    
     switch( $orderKey )
     {
        case 'hit_day':
@@ -335,23 +339,29 @@ function ff_mysql_novel($tag){
        case 'hit_month':
        case 'hit_all':
            $joinData = TRUE ;
+           $orderKey =  preg_replace( '#^hit\_#isU', 'cn', $orderKey );
+           $orderkey = 'ih_ndata.'.$orderkey;
           break;
        case 'up_day':
        case 'up_week':
        case 'up_month':
        case 'up_all':
           $joinData = TRUE ;
+           $orderKey =  preg_replace( '#^up\_#isU', 'up', $orderKey );
+           $orderkey = 'ih_ndata.'.$orderkey;
          break;
        case 'down_day':
        case 'down_week':
        case 'down_month':
        case 'down_all':
          $joinData = TRUE ;
+          $orderKey =  preg_replace( '#^down\_#isU', 'd', $orderKey );
+          $orderkey = 'ih_ndata.'.$orderkey;
          break;
         default:
          $joinData = FALSE ;
     }
-	//优先从缓存调用
+ 	//优先从缓存调用
 	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
 		$data_cache_name = md5(C('data_cache_novel').implode(',',$tag));
 		$data_cache_content = S($data_cache_name);
@@ -360,6 +370,8 @@ function ff_mysql_novel($tag){
 		}
 	} */
 	//根据参数生成查询条件
+	$strOrder = $orderKey.' '.$order;
+
 	$where['nstate'] = array('neq',-1);
 	if ($tag['ids']) {
 		$where[C('DB_PREFIX').'novel.nid'] = array('in',$tag['ids']);
@@ -403,22 +415,33 @@ function ff_mysql_novel($tag){
 	}
 
     $rs = M("Novel");
+
     if( !$joinData )
     {
-     $list = $rs->field( $filed )->where( $where )->order( $order )->limit( $limit )->select();
+     $list = $rs->field( $field )->where( $where )->order( $strOrder )->limit( $limit )->select();
     }
     else
     {
-      $list = $rs->field( $filed.','.C('DB_PREFIX').'ndata.*')
-                 ->where( $where )
-                 ->order( $order )
-                 ->limit( $limit )
-                 ->select();
+    	if( !trim($field) )
+    		$field = 'ih_novel.*,'; 
+    	else
+    		$field .=',';
+      	$list = $rs->field( $field.C('DB_PREFIX').'ndata.*')
+      			   ->join("LEFT JOIN ".C('DB_PREFIX').'ndata ON '.C('DB_PREFIX').'ndata.nid='.C('DB_PREFIX').'novel.nid')
+                   ->where( $where )
+                   ->order( $strOrder )
+                   ->limit( $limit )
+                   ->select();
+
+        if( mysql_error() )
+        {
+        	exit( mysql_error() );
+        }
     }
 
     //分页信息
 
-	if($tag['page'])
+	if( $tag['page'] )
     {
 		//组合分页信息
 		$count = $rs->where($where)->count();if(!$count){return false;}
@@ -441,7 +464,7 @@ function ff_mysql_novel($tag){
 		$list[$key]['novel_picurl_small'] = ff_pic_thumb($list[$key]['pic']);
 	   if( $lastUrl )
 	   {
-		$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
+			$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
 	   }
 	}
 	//是否写入数据缓存

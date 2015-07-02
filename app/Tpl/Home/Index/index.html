@@ -125,35 +125,36 @@
                 <include file="Public:nav_search"/>
             </div>
             <div class="ui-box">
-                <h4 class="title">排行榜</h4>
-                <div class="rankindex">
-                    <a href="/allvisit_1" >总点击榜</a>
-                    <a href="/allvote_1" >月点击榜</a>
-                    <a href="/monthvisit_1" >周点击榜</a>
-                    <a href="/monthvote_1" >日点击榜</a>
-                    <a href="/postdate_1" >最新入库</a>
-                    <a href="/lastupdate_1" >最近更新</a>
-                </div>
-                <div class="clear"></div>
+                <h4 class="title">本周人气小说</h4>
+                <ul class="rank">
+                    <php>
+                        $sideHot = ff_mysql_novel('field:title;order:hit_week desc;limit:10');
+                    </php>
+                    <volist name="sideHot" id="vo">
+                        <a href="{$vo.novel_url}" target="_blank"><i>{$vo.hit_month|default=0}人读过</i>{$vo.title}</a>
+                    </volist>
+                </ul>
             </div>
             <div class="ui-box">
-                <h4 class="title">人气小说</h4>
+                <h4 class="title">本月人气小说</h4>
                 <ul class="rank">
-                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                    <php>
+                        $sideHotm = ff_mysql_novel('field:title;order:hit_month desc;limit:10');
+                    </php>
+                    <volist name="sideHotm" id="vo">
+                        <a href="{$vo.novel_url}" target="_blank"><i>{$vo.hit_month|default=0}人读过</i>{$vo.title}</a>
+                    </volist>
                 </ul>
             </div>
             <div class="ui-box">
                 <h4 class="title">受欢迎作家</h4>
+                    <php>
+                        $sideAuthor = ff_mysql_novel('field:distinct(author);order:hit_all desc;limit:15');
+                    </php>
                 <div class="ui-box-author">
+                    <volist name="sideAuthor" id="vo">
+                        <a href="{:U('/Home/Search/index' , array('author'=>$vo['author']))}" target="_blank" >{$vo.author}</a>
+                    </volist>
                     <a href="/modules/article/authorarticle.php?author=我吃西红柿" target="_blank" style="color: red;">我吃西红柿</a>
                     <a href="/modules/article/authorarticle.php?author=猫腻" target="_blank">猫腻</a>
                     <a href="/modules/article/authorarticle.php?author=唐家三少" target="_blank">唐家三少</a>
@@ -170,6 +171,7 @@
                     <a href="/modules/article/authorarticle.php?author=剑游太虚" target="_blank">剑游太虚</a>
                     <a href="/modules/article/authorarticle.php?author=叶天南" target="_blank" style="color: tomato;">叶天南</a>
                 </div>
+                    
             </div>
         </div>
         <div class="clear"> </div>
