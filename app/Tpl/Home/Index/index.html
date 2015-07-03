@@ -128,7 +128,7 @@
                 <h4 class="title">本周人气小说</h4>
                 <ul class="rank">
                     <php>
-                        $sideHot = ff_mysql_novel('field:title;order:hit_week desc;limit:10');
+                        $sideHot = ff_mysql_novel('order:hit_week desc;limit:10');
                     </php>
                     <volist name="sideHot" id="vo">
                         <a href="{$vo.novel_url}" target="_blank"><i>{$vo.hit_month|default=0}人读过</i>{$vo.title}</a>
