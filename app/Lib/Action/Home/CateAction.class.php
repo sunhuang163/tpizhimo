@@ -67,6 +67,7 @@ class CateAction extends HomeAction {
         $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
         $wheren['url'] = array('eq' , $cate);
         $dcate = $Mcate->where( $wheren )->find();
+        $this->assign("ncid" , $dcate['ncid']);
         $this->assign("p" , $p );
         $this->assign("dcate" , $dcate );
         $this->display();

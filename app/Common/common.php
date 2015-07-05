@@ -419,11 +419,11 @@ function ff_mysql_novel($tag){
  	if( trim( $field) && !preg_match('/distinct|\*/is' , $field)  ) 
 	{
 		$sfield =  explode("," , $field );
-		$sf = array(C('DB_PREFIX').'novel.url',C('DB_PREFIX').'novel.newurl',C('DB_PREFIX').'novel.nid' , C('DB_PREFIX').'novel.ncid');
+		$sf = array(C('DB_PREFIX').'novel.url',C('DB_PREFIX').'novel.newurl',C('DB_PREFIX').'novel.nid' , C('DB_PREFIX').'novel.ncid',C('DB_PREFIX').'novel.pic');
 	    foreach( $sfield as $v )
 	    {
 	    	$v = trim( $v );
-	    	if( !in_array( $v , array('url','newurl','nid' , 'ncid') ) && $v  )
+	    	if( !in_array( $v , array('url','newurl','nid' , 'ncid','pic') ) && $v  )
 	    	{
 	    	 	$sf[] = $v;
 	    	}

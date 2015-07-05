@@ -5,9 +5,9 @@
         <a href="{:U('/Home/Index/update')}">最近更新</a>
     </p>
     <ul>
-    <volist name="cate_index" id="vo">
-        <li  >
-            <a  href="{$vo.view}">{$vo.name}</a>  <!-- class="select" -->
+    <volist name="cate_index"  id="vo">
+        <li   <php> if( intval($ncid) == intval($vo['id']) )  { echo ' class="active" '; } </php>  >
+            <a  href="{$vo.view}"  >{$vo.name}</a>  <!-- class="select" -->
         </li>
     </volist>
     </ul>

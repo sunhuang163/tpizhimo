@@ -37,6 +37,7 @@ class HomeAction extends AllAction {
 	  $this->assign("ST_PATH_PUBLIC", C('ST_PATH_PUBLIC'));
 	  $this->assign("cate_index" , $this->m_cates );
 	  $this->assign("cate_list" , $this->m_cate_list );
+	  $this->assign('ncid' , 0 );
 	  $this->assign("module" , $module);
 	  $this->assign("action" , $action);
 	  $this->assign("webinfo" , $webinfo );

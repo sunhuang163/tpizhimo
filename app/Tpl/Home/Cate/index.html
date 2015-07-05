@@ -14,107 +14,48 @@
             <div class="ui-block ui-four-block">
                 <h4 class="title title-border">推荐好看小说</h4>
                 <ul class="ui-img-list">
-                    <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:天蚕土豆</span>
-                            <span>类别:玄幻魔法</span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:天蚕土豆</span>
-                            <span>类别:玄幻魔法</span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:<a href="#">天蚕土豆</a></span>
-                            <span>类别:<a href="#">玄幻魔法</a></span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
-                                        <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:天蚕土豆</span>
-                            <span>类别:玄幻魔法</span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:天蚕土豆</span>
-                            <span>类别:玄幻魔法</span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-info">
-                            <a href="#" alt="测试信息">
-                                <img src="html-css/166.jpg" width="70" height="90" alt="神印王座" title="玄幻魔法-神印王座">
-                            </a>
-                            <h4><a href="#">神印王座</a></h4>
-                            <span>作者:天蚕土豆</span>
-                            <span>类别:玄幻魔法</span>
-                            <span>最后更新:2015-03-30</span>
-                        </div>
-                        <div class="item-detail">
-                            修炼一途，乃窃阴阳，夺造化，转涅盘，握生死，掌轮回。武之极，破......
-                                            ( <a href="http://www.qingdi.com/book/65.html">点击阅读</a> ) 
-                        </div>
-                    </li>
+                    <php>
+                        $Mdo = D("Hot");
+                        $dhot = array();
+                        $wheres = array();
+
+                        $wheres['ih_recommend.ncid'] = array('eq' ,  $cate['ncid'] );
+                        $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
+                                 ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
+                                 ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
+                                 ->where( $wheres )
+                                 ->order("ih_recommend.ord ASC")
+                                 ->limit("6")
+                                 ->select();
+                    </php>
+                    <volist name="dhot" id="vo">
+                        <li>
+                            <div class="item-info">
+                                <a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>" alt="{$vo.title}">
+                                    <img src="{$vo.pic|ff_pic_url}" width="70" height="90" alt="{$vo.title}" title="{$vo.catename}-{$vo.title}">
+                                </a>
+                                <h4><a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>">{$vo.title|ff_msubstr=0,6}</a></h4>
+                                <span>作者:{$vo.author}</span>
+                                <span>类别:{$vo.catename}</span>
+                                <span>最后更新:{$vo.utime|date='Y-m-d',### }</span>
+                            </div>
+                            <div class="item-detail">
+                                {$vo.ndesc|ff_msubstr=0,37}( <a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>">点击阅读</a> ) 
+                            </div>
+                        </li>
+                    </volist>
+
                 </ul>
             </div>
              <div class="ui-block ui-four-block">
                 <h4 class="title title-white bg-black title-border">
                     <div class="right more-list">
-                        <a href="#" >查看更多连载小说 »</a>
+                        <a href="{:U('/Home/cate/show',array('url'=>$cate['url']))}" >查看更多连载小说 »</a>
                     </div>
                     最近更新
                 </h4>
                 <php>
-                     $dlast = ff_mysql_novel('order:utime desc;limit:10');
+                     $dlast = ff_mysql_novel('ncid:'.$cate['ncid'].';order:utime desc;limit:10');
                 </php>
                 <ol class="ui-list">
                     <volist name="dlast" id="vo">
@@ -131,9 +72,8 @@
                                  {$vo.ndesc|msubstr=0,78,true}
                             </span>
                             <p>
-                                <span>类别：{$vo.cate_name}</span> 
-                                <span>作者：{$vo.author}</span>
                                 <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
+                                <span>作者：{$vo.author}</span>
                              </p>
                         </li>
                     </volist>
@@ -146,47 +86,24 @@
             </div>
             <div class="ui-box">
                 <h4 class="title">最好看小说</h4>
+                <php>
+                    $sideHota = ff_mysql_novel('ncid:'.$cate['ncid'].';order:hit_week desc;limit:10');
+                </php>
                 <ul class="rank">
-                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                <volist name="sideHota" id="vo">
+                    <a href="{$vo.novel_url}" target="_blank" title="{$vo.cate_name} - {$vo.title}"><i>{$vo.cnall|default=0}人读过</i>{$vo.title|ff_msubstr=0,12}</a>
+                </volist>
                 </ul>
             </div>
             <div class="ui-box">
-                <h4 class="title">推荐小说</h4>
+                <h4 class="title">热门推荐</h4>
+                <php>
+                    $sideHotrem = ff_mysql_novel('ncid:'.$cate['ncid'].';order:up_week desc;limit:10');
+                </php>
                 <ul class="rank">
-                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
-                </ul>
-            </div>
-            <div class="ui-box">
-                <h4 class="title">收藏小说</h4>
-                <ul class="rank">
-                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                    <volist name="sideHotrem" id="vo">
+                    <a href="{$vo.novel_url}" target="_blank"><i>{$vo.cnall|default=0}人读过</i>{$vo.title|ff_msubstr=0,12}</a>
+                    </volist>
                 </ul>
             </div>
         </div>

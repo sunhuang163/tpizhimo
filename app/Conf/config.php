@@ -38,6 +38,7 @@ $cnf =  array(
 	'U_UPLOAD_DIR'     =>'skdata/',
 	'U_UPLOAD_DIRPATH' =>'Y/m/',
 	'U_HTML_DIR'       => 'html/', /* HTML 静态页面生成目录 */
+	'U_CONTENT_REPLACE' => '', /*内容页面默默认配置替换选项*/
     'data_cache_novel' => 'mysqlnovel',
     'ST_PATH' => '/static/',
     'ST_PATH_PUBLIC' => '/public/',
