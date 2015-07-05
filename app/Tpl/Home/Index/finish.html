@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>最近更新</title>
+    <title>最近完本</title>
     <meta name="keywords" content=""/>
     <meta name="description" content="" />
     <include file="Public:header"/>
@@ -28,7 +28,7 @@
             <div class="ui-block">
                 <h4 class="title title-white bg-blue title-border">最近完结</h4>
                 <php>
-                     $dlast = ff_mysql_novel(' field:"title,author,utime,uptxt";lastUrl:true;limit:20;lz:1 ');
+                     $dlast = ff_mysql_novel(' field:title,author,utime,uptxt,ndesc;lastUrl:true;limit:20;lz:1 ');
                 </php>
                 <ol class="ui-list">
                     <volist name="dlast" id="vo">

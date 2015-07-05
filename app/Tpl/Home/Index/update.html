@@ -28,7 +28,7 @@
             <div class="ui-block">
                 <h4 class="title title-white bg-blue title-border">最近更新</h4>
                 <php>
-                     $dlast = ff_mysql_novel('field:"title,author,utime,uptxt";lastUrl:true;limit:20;order:"utime DESC"  ');
+                    $dlast = ff_mysql_novel('field:title,author,utime,ndesc,uptxt;lastUrl:true;limit:20;order:utime DESC  ');
                 </php>
                 <ol class="ui-list">
                     <volist name="dlast" id="vo">

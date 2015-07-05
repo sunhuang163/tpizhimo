@@ -416,26 +416,27 @@ function ff_mysql_novel($tag){
 
     $rs = M("Novel");
 
+ 	if( trim( $field) && !preg_match('/distinct|\*/is' , $field)  ) 
+	{
+		$sfield =  explode("," , $field );
+		$sf = array(C('DB_PREFIX').'novel.url',C('DB_PREFIX').'novel.newurl',C('DB_PREFIX').'novel.nid' , C('DB_PREFIX').'novel.ncid');
+	    foreach( $sfield as $v )
+	    {
+	    	$v = trim( $v );
+	    	if( !in_array( $v , array('url','newurl','nid' , 'ncid') ) && $v  )
+	    	{
+	    	 	$sf[] = $v;
+	    	}
+	    }
+	    $field =  implode("," , $sf );
+	} 
+
     if( !$joinData )
     {
-     $list = $rs->field( $field )->where( $where )->order( $strOrder )->limit( $limit )->select();
+    	$list = $rs->field( $field )->where( $where )->order( $strOrder )->limit( $limit )->select();
     }
     else
-    {
-    	if( trim( $field) && !preg_match('#distinct|\*#is' , $field)  ) 
-    	{
-    		$sfield =  explode("," , $field );
-    		$sf = array(C('DB_PREFIX').'novel.url',C('DB_PREFIX').'novel.newurl',C('DB_PREFIX').'novel.nid' , C('DB_PREFIX').'novel.ncid');
-    	    foreach( $sfield as $v )
-    	    {
-    	    	$v = trim( $v );
-    	    	if( !in_array( $v , array('url','newurl','nid' , 'ncid') ) && $v  )
-    	    	{
-    	    	 	$sf[] = $v;
-    	    	}
-    	    }
-    	    $field =  implode("," , $sf );
-    	} 
+    {	
     	if( !trim($field) )
     		$field = 'ih_novel.*,'; 
     	else
