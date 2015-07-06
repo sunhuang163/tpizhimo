@@ -451,7 +451,6 @@ function ff_mysql_novel($tag){
     }
 
     //分页信息
-
 	if( $tag['page'] )
     {
 		//组合分页信息
