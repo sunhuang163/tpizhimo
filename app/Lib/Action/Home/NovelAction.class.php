@@ -38,7 +38,8 @@ class NovelAction extends HomeAction
 		   $dnovel['lasturl'] = ff_novel_last( $dnovel['url'] , $dnovel['nid'] , $dnovel['new_url']);
 	    }
 	    $this->assign("tags" , $tags );
-	    $this->assign("novel", $dnovel);
+	    $this->assign("novel", $dnovel );
+	    $this->assign("ncid" , $dnovel['ncid'] );
 	    $this->display();
    }
 
@@ -61,6 +62,7 @@ class NovelAction extends HomeAction
        }
        $this->assign("novel" , $dnovel );
        $this->assign("contents" , $dcontents );
+       $this->assign("ncid" , $dcontents['ncid'] );
 	   $this->display();
     }
 
@@ -71,8 +73,39 @@ class NovelAction extends HomeAction
        $ncntid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 1;
        $wheres['ncntid'] = array('eq' , $ncntid );
        $dcontent = $Mdo->where( $wheres )->find();
-       
+       $nextUrl = "";
+       $preUrl = "";
+       $novelUrl = "";
+       if( $dcontent )
+       {
+       		$menu_url  = ff_novel_mulu( $dcontent['novel_url'] , $dcontent['nid'], $dcontent['ncid'] , $dcontent['novel_newurl'] );
+       		$wherecnt = array();
+       		$wherecnt['cpid'] = array( 'ELT' , $dcontent['cpid'] );
+       		$wherecnt['nid'] = array( 'eq' , $dcontent['nid'] );
+       		if( $dcontent['ord'] > 2  )
+       		{
+       			$wherecnt['ord'] = array('lt', $dcontent['ord'] );
+       		}
+       		$preCnt = M('Content')->where( $wherecnt )->order(" cpid desc , ord desc")->find();
+       		if( $preCnt )
+       		{
+       			$preUrl = U('/Home/Novel/read' , array('nid' => $preCnt['ncntid'] ));
+       		}
+       		unset( $wherecnt['ord'] );
+       		$wherecnt['cpid'] = array( 'EGT' , $dcontent['cpid'] );
+       		$nextCnt = M('Content')->where( $wherecnt )->order(" cpid ASC , ord ASC")->find();
+       		if( $nextCnt )
+       		{
+       			$preUrl = U('/Home/Novel/read' , array('nid' => $nextCnt['ncntid'] ));
+       		}
+       		$novelUrl = ff_novel_url( $dcontent['novel_url'], $dcontent['nid'], $dcontent['ncid'], $dcontent['novel_newurl'] );
+       }
+       $this->assign("novelUrl", $novelUrl );
+       $this->assign("nextUrl", $nextUrl );
+       $this->assign("preUrl", $preUrl );
+       $this->assign("menu_url" , $menu_url );
        $this->assign('content' , $dcontent );
+       $this->assign("ncid" , $dcontent['ncid'] );
 	   $this->display();
    }
 
