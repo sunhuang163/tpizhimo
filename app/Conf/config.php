@@ -1,7 +1,8 @@
 <?php
 if (!defined('THINK_PATH')) exit();
 
-$dbcnf = require_once( 'db.php' );
+$dbcnf = require_once('db.php' );
+$catecnf = require_once('cate.php');
 $cnf =  array(
     'APP_SUB_DOMAIN_DEPLOY' => false,
 	'COOKIE_PREFIX' => 'izhimo_',
@@ -47,21 +48,7 @@ $cnf =  array(
 	'IMG_SIZES'   => array(
 	          array('w'=>'120','h'=>'150')
 			 ),
-	'WWW_CATE_HOME' => array(
-		array('name'=>'首页','id'=>0,'url'=>"/"),
-		array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
-		array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
-		array('name'=>'都市','id'=>4,'url'=>"dushi" ),
-		array('name'=>'历史','id'=>5,'url'=>"lishi" ),
-		),
-	'WWW_CATE_SUB' => array(
-		array('name'=>'首页','id'=>0,'url'=>"/"),
-		array('name'=>'玄幻','id'=>2,'url'=>"xuanhuanqihuan"),
-		array('name'=>'武侠','id'=>3,'url'=>"wuxia"),
-		array('name'=>'都市','id'=>4,'url'=>"dushi"),
-		array('name'=>'历史','id'=>5,'url'=>"lishi"),
-		),
 );
 
-return array_merge( $cnf , $dbcnf );
+return array_merge( $cnf , $dbcnf ,$catecnf );
 ?>

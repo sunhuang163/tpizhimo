@@ -68,8 +68,8 @@
 							  <p> <img  class="media-left" src="<if condition="$vo['logo']">/{$vo.logo}<else/>{$ADMIN_PATH}nopic.gif</if>"  width="80"  height="30">简介信息:{$vo.ncdesc}</p>
 							 
 							</div>
-							<tr id="{$vo.ncid}" class="domoreinfo">
-							    <td <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:rgb(130, 212, 150);"</if>>【{$vo.ncid}】&nbsp;&nbsp; <a href="{:U('/Admin/Nclass/edit','id='.$vo['ncid'])}"   rel="{$vo.said}"   title="编辑分类">{$vo.name}</a></td>
+							<tr >
+							    <td id="{$vo.ncid}" class="domoreinfo"  <if condition="$vo['state'] eq 0">style="background-color:red;"<else/>style="background-color:rgb(130, 212, 150);"</if>>【{$vo.ncid}】&nbsp;&nbsp; <a href="{:U('/Admin/Nclass/edit','id='.$vo['ncid'])}"   rel="{$vo.said}"   title="编辑分类">{$vo.name}</a></td>
 								<td>{$vo.url}</td>
 								<td>{$vo.cn}</td>
 								<td > 
@@ -137,7 +137,7 @@
 
      $(".domoreinfo").mouseenter(function(e){
 	 $('.umoreinfo').hide();
-	 $('#moreinfo'+$(this).attr('id')).css('left', e.screenX);
+	 $('#moreinfo'+$(this).attr('id')).css('left', e.screenX + 80);
 	 $('#moreinfo'+$(this).attr('id')).css('top', e.screenY - 50);
      $('#moreinfo'+$(this).attr('id')).show();
   });
