@@ -31,13 +31,13 @@ class  Day66 extends _Caiji
 	public function t()
 	{
 		echo "test ORG ";
-		$this->getNovel( 'http://www.day66.com/46068.aspx' );
+		$this->getChapter( 'http://www.day66.com/xiaoshuo/48/48953/Index.shtml' );
 	}
 
 	//示例URL http://www.day66.com/Book/ShowBookList.aspx?tclassid=0&nclassid=0&page=1 
 	public function getList( $p = 1)
 	{
-		$res = array('rcode'=>0,'msg'=>'Server Busy','data'=>NULL);
+		$res = $this->m_res;
 		$soso = $this->m_baseURL.'Book/ShowBookList.aspx?tclassid=0&nclassid=0&page={!p!}';
 		$this->m_pageNow = $p;
 		$dList = array();
@@ -89,7 +89,7 @@ class  Day66 extends _Caiji
 	//示例 URL地址: http://www.day66.com/46068.aspx
     public function getNovel( $url  , $extData = NULL )
     {
-    	$res = array('rcode'=>0,'msg'=>'Server Busy','data'=>NULL);
+    	$res = $this->m_res;
     	if( !$url )
     	{
     		$res['msg'] = "URL地址无效";
@@ -106,8 +106,8 @@ class  Day66 extends _Caiji
     				  	'title' => "#<h1>(.*)<\/h1>#is",
 	  					'author' => "#class=\"author\">作者：(.*)<\/#isU",
 					  	'pic' => '#<div class="fengmian">(.*)<\/div>#isU',
-					  	'cate' => "#<span>类别：(.*)<\/span#iS",
-				      	'tags' => "^<span>类别：(.*)<#iU^iUS",
+					  	'cate' => "#<span>类别：(.*)<\/span#isU",
+				      	'tags' => "#<span>类别：(.*)<#iUs",
 				      	'utime' => "#<span>更新：(.*)<\/span>#isU",
 					  	'ndesc' => "#<div class=\"bookintro\">(.*)<\/#isU",
 					  	'nstate' =>'#(lianzai|wanjie)">(.*)<\/span>#isU',
@@ -127,10 +127,6 @@ class  Day66 extends _Caiji
 				  	if( $picurl )
 				  		$novelData['pic'] = $picurl;
 				}
-				else if( 'tags' == $kp )
-				{
-					//划分tag
-				}
 				else if('nstate' == $kp )
 				{
 					$novelData['uptxt'] = $match[2];
@@ -140,28 +136,107 @@ class  Day66 extends _Caiji
 					$novelData[$kp] = trim( $match[1] );
 				}
     		}
-    		var_dump( $novelData );
-    		exit();
-    		$nstate = "";
-   			$novelData['uptxt']  = $nstate ? "已完结":"连载中";
-   			$novelData['ctime'] = time();
+    		$novelData['nstate'] = ('连载中' == $novelData['uptxt']) ? 0 : 1;//小说是否已经完结
    			$novelData['caijiurl'] = $url;
-
-    		//更新内容到数据库
+   			$res['rcode'] = 1;
+   			$res['msg'] = 'OK';
+   			$res['data'] = $novelData;
     	}
 
     	return $res;
     }
 
-    public function getChapter()
+    //获取小说的章节信息
+    //示例 URL http://www.day66.com/xiaoshuo/48/48953/Index.shtml
+    public function getChapter( $url )
     {
-    	//
+    	$res = $this->m_res;
+    	if( !$url )
+    	{
+    		$res['msg'] = "URL地址无效";
+    	}
+    	$IndexCnt = self::ss_cnt( $url );
+    	if( !$IndexCnt )
+    	{
+    		$res['msg'] = "抓取网页内容失败";
+    	}
+    	else
+    	{
+    		$RegChanpter = "#<dt>(.*)<\/a>(.*)<\/dt>#isU";
+    		$RegContent = "#<\/dt>(.*)(<dt>|<\/dl>)#isU";
+    		$RegDetail = "#<dd><a href=\"(.*)\" title=\"(.*)\">(.*)<\/a><\/dd>#isU";
+    		$chaps = array();
+    		if( preg_match_all($RegChanpter, $IndexCnt, $mathCp) && preg_match_all($RegContent, $IndexCnt, $matchCDiv ) )
+    		{
+    			$chaps = $mathCp[2];
+    			foreach( $matchCDiv[1] as $kc=>$vc )
+    			{
+    				preg_match_all( $RegDetail , $vc , $matchRefs );
+    				var_dump( $matchRefs );
+    			}
+    		}
+    		
+    		exit();
+    	}
+    	return $res;
     }
 
-    public function getContent()
+    //获取小说的详情
+    public function getContent( $url )
     {
     	//
     } 
+
+    public function addNovel( $_data )
+    {
+    	$ret = array('rcode'=>0,'msg'=>'Server Busy','data'=>NULL);
+    	if( $_data )
+    	{
+    		$MNovel = D("Novel");
+    		$wheres = array();
+
+    		$wheres['title'] = array('eq', $_data['title'] );
+       		$wheres['author'] = array('eq', $_data['author']);
+       		$find = $MNovel->field("nid,pic")->where( $wheres)->find();
+       		//该小说已经存在
+       		if( $find )
+       		{
+       			$ret['msg'] = "该小说已经存在";
+       			$ret['data'] = $find['nid']; //结果中返回该小说的编号
+       		}
+       		else
+       		{
+       			$addRes = $MNovel->create( $_data , 3);
+       			if( !$addRes )
+       			{
+       				$ret['msg'] = "创建表单失败，错误信息：".$MNovel->getError();
+       			}
+       			else
+       			{
+       				//获取分类信息
+       				$_data['ncid'] = $this->cate( $_data['cate'] );
+       				//更新tags
+       				$_POST['tags'] = $_data['tags'];
+       				$novel_id = $MNovel->add();
+       				$ret['rcode'] = 1;
+       				$ret['msg'] = 'OK';
+       				$ret['data'] = $novel_id;
+       			}
+       		}
+
+    	}
+    	else
+    	{
+    		$ret['msg'] = "参数不能为空";
+    	}
+
+    	return $ret ;
+    }
+
+    public function addContent( $_data )
+    {
+    	//
+    }
 
     private  function ss_cnt( $url  )
     {

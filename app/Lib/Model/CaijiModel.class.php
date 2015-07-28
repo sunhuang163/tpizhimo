@@ -10,8 +10,12 @@ class CaijiModel extends Model{
     private $src = "";
     private $caiji_data = NULL;
     private $soso = "http://www.day66.com/Book/ShowBookList.aspx?tclassid=0&nclassid=0&page={!p!}";
-    public $decate = C('WWW_CATE_ALL');
+    public $decate = NULL;
 
+    public function CaijiModel()
+    {
+        $this->decate = C('WWW_CATE_ALL');
+    }
     public function cate( $tag )
     {
         $cate = $this->decate;
@@ -213,7 +217,8 @@ class CaijiModel extends Model{
        $wheres['title'] = array('eq',$dnovel->title );
        $wheres['author'] = array('eq',$dnovel->author);
        $find = $Mnovel->field("nid,pic")->where( $wheres)->find();
-       if( $find ){
+       if( $find )
+       {
           $res['msg'] = "该小说已经存在";
     	  $res['data'] = $find['nid'];
     	  $res['ncid'] = $dnovel->ncid;
@@ -232,7 +237,8 @@ class CaijiModel extends Model{
           $dc['utime'] = time();
           $Mnovel->where( $wheren )->save( $dc );
        }
-        else if(  !$resm ){
+        else if
+        (  !$resm ){
           $res['msg'] = $Mnovel->getError();
         }
         else
