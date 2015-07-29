@@ -13,13 +13,13 @@ class CaijiAction extends BaseAction {
 		 $this->display();
 	}
 
-
 	public function t()
 	{
 		import("@.ORG.Caiji.Day66");
 		$CDay66 = new Day66( 'http://www.day66.com/');
 		$CDay66->t();
 	}
+
 	public function trash()
 	{
 		import("ORG.Io.Dir");
