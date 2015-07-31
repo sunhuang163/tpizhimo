@@ -6,7 +6,7 @@
 * @File    HtmlAction.class.php
 *
 */
-class HtmlAction extends BaseAction 
+class HtmlAction extends BaseAction
 {
     private $m_htmlDir = '';
     private $m_baseDir = "";
@@ -27,7 +27,6 @@ class HtmlAction extends BaseAction
     {
 	    $this->display();
 	}
-
     //创建首页静态页面
     public function createHome()
     {
@@ -51,7 +50,7 @@ class HtmlAction extends BaseAction
             $this->error("首页生成错误");
         }
     }
-    
+
     //创建最新更新，排行，完结等
     public function createFinish()
     {
@@ -99,10 +98,10 @@ class HtmlAction extends BaseAction
     //创建某个内容静态页面
     protected function createNovel()
     {
-        // code here 
+        // code here
     }
 
- 
+
     //谷歌  sitemap
     public function siteMap()
     {

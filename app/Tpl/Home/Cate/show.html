@@ -1,7 +1,7 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>{$dcate.name} 分类下 - 第{$p}页</title>
+    <title>{$dcate.name}  - 第{$p}页 - {:C('DOMAIN_NAME')}</title>
     <meta name="keywords" content="{$dcate.name}" />
     <meta name="description" content="{$dcate.ncdesc}" />
     <include file="Public:header"/>
@@ -18,7 +18,7 @@
                 <li>
                     <a href="/">首页</a>
                     <span class="divider"> / </span>
-                </li> 
+                </li>
             </ul>
             <div class="ui-full ui-content">
                 <div class="ui-block">
@@ -37,11 +37,11 @@
                                     <span>更新至</span>
                                     {$vo.novel_last_url}
                                 </h2>
-                                <span> 
+                                <span>
                                      {$vo.ndesc|msubstr=0,78,true}
                                 </span>
                                 <p>
-                                    <span>类别：{$vo.cate_name}</span> 
+                                    <span>类别：{$vo.cate_name}</span>
                                     <span>作者：{$vo.author}</span>
                                     <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
                                  </p>

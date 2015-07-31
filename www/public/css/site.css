@@ -54,6 +54,8 @@ h1 {padding-bottom:0.2em;}
 .zebra-list li:first-child {-webkit-border-radius:4px 4px 0 0; -moz-border-radius:4px 4px 0 0; border-radius:4px 4px 0 0;}
 .zebra-list li:last-child {border-bottom:1px solid #DDD; -webkit-border-radius:0 0 4px 4px; -moz-border-radius:0 0 4px 4px; border-radius:0 0 4px 4px;}
 @charset "utf-8";
+
+.td-a td a{margin-right:5px;}
 /*
  * artDialog skin
  * http://code.google.com/p/artdialog/
