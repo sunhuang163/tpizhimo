@@ -9,24 +9,11 @@
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
-				    <div class="well summary">
-						<ul> 
-							<li>
-							   <a class="btn btn-mini" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
-								 清空缓存内容<i class="icon-trash"></i>
-								</a> 
-							 </li>
-							<li>
-							  <a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-medium">列表页<i class="badge">{$npage}</i></a> 
-							</li>
-							<li>
-							   <a href="{:U('/Admin/Caiji/novel')}" class="btn btn-info btn-medium">解析列表页<i class="badge">{$nnovel}</i></a>
-							</li>
-							<li class="last">
-							  <a href="{:U('/Admin/Caiji/content')}"  class="btn btn-info btn-medium">解析详情页面</a>
-							</li>
-						</ul>
-					</div>
+					<h5>
+						<a class="btn btn-mini btn-danger empty-cache" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
+							清空缓存内容<i class="icon-trash"></i>
+						</a>
+					</h5>
 					<table class="table table-bordered table-striped td-a">
 						<thead>
 							<tr>
@@ -38,44 +25,33 @@
 							</tr>
 						</thead>
 						<tbody>
+							<volist name="orgs" id="vo">
 							<tr>
-								<td> Nike.com Redesign </td>
-								<td> Monsters Inc </td>
-								<td> <span class="badge">11</span> </td>
-								<td> <span class="badge">2</span> </td>
-								<td> 
-									<a class="btn btn-warning btn-small" href="{:U('/Admin/Caiji/listparse')}">重新采集</a>
-									<a class="btn btn-info btn-small">解析列表</a>
-									<a class="btn btn-info btn-small">解析详情</a>
-								</td>
-							</tr>
-							<tr>
-								<td> Twitter Server Consulting </td>
-								<td> Bad Robot </td>
-								<td> <span class="badge">7</span> </td>
-								<td> <span class="badge">3</span> </td>
+								<td>{$vo.name}</td>
+								<td><a href="{$vo.source}" target="_blank">{$vo.source}</a></td>
+								<td> <span class="badge">{$vo.list}</span> </td>
+								<td> <span class="badge">{$vo.novel}</span> </td>
 								<td>
-									<a class="btn btn-warning btn-small">重新采集</a>
-									<a class="btn btn-info btn-small">解析列表</a>
-									<a class="btn btn-info btn-small">解析详情</a>
+									<a class="btn btn-warning btn-small" href="{:U('/Admin/Caiji/caiji',array('key'=>$vo['key']))}">重新采集</a>
+									<a class="btn btn-info btn-small" href="{:U('/Admin/Caiji/listparse',array('key'=>$vo['key']))}">解析列表</a>
+									<a class="btn btn-info btn-small" href="{:U('/Admin/Caiji/novelparse',array('key'=>$vo['key']))}">解析详情</a>
 								</td>
 							</tr>
-							<tr>
-								<td> Childrens Book Illustration </td>
-								<td> Evil Genius </td>
-								<td> <span class="badge">10</span> </td>
-								<td> <span class="badge">2</span> </td>
-								<td>
-									<a class="btn btn-warning btn-small">重新采集</a>
-									<a class="btn btn-info btn-small">解析列表</a>
-									<a class="btn btn-info btn-small">解析详情</a>
-								</td>
-							</tr>
+							</volist>
 						</tbody>
 					</table>
 				</div>
-		 </div>
+		</div>
 <script type="text/javascript">
-
+$( function(){
+	$('.empty-cache').click( function( e )
+		{
+			if( !confirm('确定删除采集缓存文件?') )
+			{
+				e.preventDefault();
+				return false;
+			}
+		});
+});
 </script>
 <include file="Public:footer" />

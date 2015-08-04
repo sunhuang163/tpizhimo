@@ -6,7 +6,7 @@
  *  @File      NovelAction.class.php
  *
  **/
-class NovelAction extends HomeAction 
+class NovelAction extends HomeAction
 {
 
 	public function index()
@@ -109,5 +109,28 @@ class NovelAction extends HomeAction
 	   $this->display();
    }
 
+   //js 统计信息
+   public function ts()
+   {
+        if( $this->isGet() )
+        {
+            exit("error");
+        }
+        else
+        {
+            $act = isset( $_POST['act'] ) ? trim( $_SERVER['act']) : '';
+            $act = strtolower( $act );
+            if( $act == 'view')
+            {
+                //
+            }
+            else if( $act == 'recomm')
+            {
+                //
+            }
+            exit("js update novel data ");
+        }
+   }
 }
+
 ?>

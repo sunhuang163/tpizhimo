@@ -238,7 +238,7 @@ function ff_param_lable($tag = ''){
 //获取小说的首页
 function ff_novel_url( $url , $nid = 0, $ncid = 0, $newurl = '')
 {
- return substr(C('SITE_URL'),0,-1).U('Home/Novel/index', array('url'=>$url));
+	return substr(C('SITE_URL'),0,-1).U('Home/Novel/index', array('url'=>$url));
 }
 
 //获取小说的最新章节
@@ -331,7 +331,7 @@ function ff_mysql_novel($tag){
       $orderKey = trim($_order[0]);
       $order = $_order[1];
     }
-    
+
     switch( $orderKey )
     {
        case 'hit_day':
@@ -416,7 +416,7 @@ function ff_mysql_novel($tag){
 
     $rs = M("Novel");
 
- 	if( trim( $field) && !preg_match('/distinct|\*/is' , $field)  ) 
+ 	if( trim( $field) && !preg_match('/distinct|\*/is' , $field)  )
 	{
 		$sfield =  explode("," , $field );
 		$sf = array(C('DB_PREFIX').'novel.url',C('DB_PREFIX').'novel.newurl',C('DB_PREFIX').'novel.nid' , C('DB_PREFIX').'novel.ncid',C('DB_PREFIX').'novel.pic');
@@ -429,16 +429,16 @@ function ff_mysql_novel($tag){
 	    	}
 	    }
 	    $field =  implode("," , $sf );
-	} 
+	}
 
     if( !$joinData )
     {
     	$list = $rs->field( $field )->where( $where )->order( $strOrder )->limit( $limit )->select();
     }
     else
-    {	
+    {
     	if( !trim($field) )
-    		$field = 'ih_novel.*,'; 
+    		$field = 'ih_novel.*,';
     	else
     		$field .=',';
 

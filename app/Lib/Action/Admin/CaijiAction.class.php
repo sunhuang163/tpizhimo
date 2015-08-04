@@ -6,32 +6,63 @@ class CaijiAction extends BaseAction {
 
 	public function index()
 	{
-		 $novels  = F("_caiji/novel");
-		 $lists = F("_caiji/list");
-		 $this->assign("npage", $lists ? count($lists) : 0);
-		 $this->assign("nnovel", $novels ? count($novels) : 0);
-		 $this->display();
+        //glob
+        $orgPath = realpath( APP_PATH );
+        $orgPath = str_replace("\\", "/", $orgPath);
+        $orgPath .='/Lib/ORG/Caiji/';
+        $ssresult = glob($orgPath.'*.class.php');
+        $orgLib = array();
+        foreach( $ssresult as $v)
+        {
+            $orgLib[] = basename( $v, '.class.php');
+        }
+        $orgInfo = array();
+        foreach( $orgLib as $vg )
+        {
+            import("@.ORG.Caiji.".$vg);
+            $vc = new $vg();
+            $vcinfo = $vc->m_class_info;
+            $Flist = F("_caiji/list".$vcinfo['key']);
+            $Fnovel = F('_caiji/novel'.$vcinfo['key']);
+            $vcinfo['list'] = $Flist ? count( $Flist ) : 0;
+            $vcinfo['novel'] = $Fnovel ? count( $Fnovel) :0;
+            $orgInfo[] = $vcinfo;
+        }
+        $this->assign("orgs", $orgInfo);
+		$this->display();
 	}
 
 	public function t()
 	{
 		import("@.ORG.Caiji.Day66");
-		$CDay66 = new Day66( 'http://www.day66.com/');
-		$CDay66->t();
+        echo "ORG test ";
+		//$CDay66 = new Day66( 'http://www.day66.com/');
+		//$CDay66->t();
 	}
 
 	public function trash()
 	{
 		import("ORG.Io.Dir");
 		$dir = new Dir;
-		@unlink(DATA_PATH.'_caiji/list');
-		@unlink(DATA_PATH.'_caiji/novel');
-		if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->del(DATA_PATH."_caiji/novel/");}
-		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->del(DATA_PATH."_caiji/list/");}
+        $dir->del( DATA_PATH.'_caiji/' );
+		if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->delDir(DATA_PATH."_caiji/novel/");}
+		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->delDir(DATA_PATH."_caiji/list/");}
 		$this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
 		$this->success("采集缓存清空成功!");
 	}
 
+    //开始重新采集
+    public function caiji()
+    {
+        if( $this->isGet() )
+        {
+            $this->display();
+        }
+        else
+        {
+            exit("caiji options");
+        }
+    }
 
 	//静态页面解析,源地址的，开始用ajax去解析
     public function listparse()

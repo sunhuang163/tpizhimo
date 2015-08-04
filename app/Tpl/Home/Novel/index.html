@@ -5,6 +5,8 @@
 	<meta name="keywords" content="<php> echo implode('|',$tags); </php>"/>
 	<meta name="description" content="{$novel.ndesc|h=''}" />
 	<include file="Public:header"/>
+	<script tyle="text/javascript" src="{$ST_PATH}js/jquery.js"> </script>
+	<script tyle="text/javascript" src="{$ST_PATH}js/page.js"> </script>
 </head>
 <body>
 <div class="wrapper">
@@ -27,7 +29,7 @@
     		<div class="ui-four-block ui-block ui-article">
     			<div class="info">
     				<a href="{$novel.url}" target="_blank">
-						<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125" 
+						<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125"
 					 	alt="{$novel.catename}:{$novel.title}"  />
 				   	</a>
 				   	<h1>{$novel.title}</h1>
@@ -69,7 +71,7 @@
     					<textarea class="ui-input" class="textarea" name="pcontent" cols="60" rows="5"></textarea>
     				</p>
     				<p >
-    					<button type="submit" name="Submit" class="right" >发表书评</button>	
+    					<button type="submit" name="Submit" class="right" >发表书评</button>
     				</p>
     			</div>
     		</div>
@@ -99,4 +101,9 @@
     <include file="Public:zimu" />
     <include file="Public:footer"/>
 </div>
+<script type="text/javascript">
+	$(function(){
+		novelKit.View({$novel.nid);
+	})
+</script>
 </html>

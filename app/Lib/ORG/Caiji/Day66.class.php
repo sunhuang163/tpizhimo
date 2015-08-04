@@ -6,11 +6,15 @@
  *
 ***/
 if( !defined('ORG_CAIJI') )
-	require_once('_Caiji.class.php');
+	require_once('_Caiji.php');
 
 class  Day66 extends _Caiji
 {
-
+    public $m_class_info = array(
+                        'name'=>'天天小说网',
+                        'source'=>'http://www.day66.com/',
+                        'key'=>'day66'
+                        );
 	//初始化函数
 	public function _initialize()
 	{
