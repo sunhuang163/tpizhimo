@@ -27,7 +27,7 @@ class Page {
     // 分页的栏的总页数
     protected $coolPages   ;
     // 分页显示定制
-	protected $config  =    array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'首页','last'=>'末页','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
+	protected $config  =    array('header'=>'条记录','prev'=>'&lt;','next'=>'&gt;','first'=>'&lt;&lt;','last'=>'&gt;&gt;','theme'=>'%nowPage%/%totalPage%  %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
 
 
     // 默认分页变量名
@@ -58,7 +58,8 @@ class Page {
         $this->firstRow     =   $this->listRows*($this->nowPage-1);
     }
 
-    public function setConfig($name,$value) {
+    public function setConfig($name,$value)
+    {
         if(isset($this->config[$name])) {
             $this->config[$name]    =   $value;
         }
@@ -138,7 +139,7 @@ class Page {
                 }
             }else{
                 if($this->totalPages != 1){
-                    $linkPage .= "&nbsp;<span class='current'>".$page."</span>";
+                    $linkPage .= "&nbsp;<strong>".$page."</strong>";
                 }
             }
         }

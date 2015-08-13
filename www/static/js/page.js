@@ -17,7 +17,7 @@ var novelKit = {
 	},
 	Read:function(nid, ncntid , title ){
 		$.ajax({
-			 url: '/index.php?m=Novel&g=Home&a=read',
+			 url: '/index.php?m=Novel&g=Home&a=ts',
              data: {'nid':nid,'ncntid':ncntid,'act':'read'},
              type: "POST",
              dataType:'json',

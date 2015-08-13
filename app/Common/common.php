@@ -169,63 +169,69 @@ function ff_letter_first($s0){
 
 function pagestr( $pnow , $pall , $url ,$psize = 15, $em = 3)
 {
-  $p = 1;
-  $pstr = '<ul>';
-  if( $pnow > $pall )
-	  $pnow = $pall;
-  $cpre = $pnow -1;
-  $cnext = $pall - $pnow;
+	$p = 1;
+	$pstr = '<ul>';
+	if( $pnow > $pall )  $pnow = $pall;
+	$cpre = $pnow -1;
+	$cnext = $pall - $pnow;
 
-  $pstrnow = '';
-  $pstrpre = '';
-  $pstrnext = '';
-  if( 1 == $pnow )
-	  $pstrpre = '<li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>';
-  else
-    $pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'"  >&laquo;</a></li>';
+	$pstrnow = '';
+	$pstrpre = '';
+	$pstrnext = '';
+	if( 1 == $pnow )
+		$pstrpre = '<li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>';
+	else
+		$pstrpre = '<li><a href="'.str_replace('{!page!}', $pnow -1 ,$url).'"  >&laquo;</a></li>';
 
-  if( 0 == $cnext )
-    $pstrnext = '<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>';
-  else
-     $pstrnext = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" >&raquo;</a></li>';
+	if( 0 == $cnext )
+		$pstrnext = '<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>';
+	else
+		$pstrnext = '<li><a href="'.str_replace('{!page!}',$pnow + 1,$url).'" >&raquo;</a></li>';
 
-  if( $cpre > $em){
-	 $page =1;
-	 for( $page =1 ;$page < $em;$page++){
-	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
-	 }
-	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
-	 $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow-1,$url).'"  >'.($pnow-1).'</a></li>';
-     $pstrnow .= '<li class="active"><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
-  }
-  else{
-	for( $page =1 ;$page < $pnow;$page++){
-	   $pstrnow .= $strpre = '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
-	 }
-	 $pstrnow .= '<li class="active" ><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
-  }
+	if( $cpre > $em)
+	{
+	 	$page =1;
+	 	for( $page =1 ;$page < $em;$page++)
+	 	{
+	   		$pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 	}
+	 	$pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
+	 	$pstrnow .= '<li><a href="'.str_replace('{!page!}',$pnow-1,$url).'"  >'.($pnow-1).'</a></li>';
+	 	$pstrnow .= '<li class="active"><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
+	}
+	else
+	{
+		for( $page =1 ;$page < $pnow;$page++)
+		{
+	   		$pstrnow .= $strpre = '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+		}
+	 	$pstrnow .= '<li class="active" ><a href="'.str_replace('{!page!}',$pnow,$url).'" >'.$pnow.'</a></li>';
+	}
 
- if( $cnext > $em )
- {
-    $page =1 + $pnow;
-	 for( ;($page < $pnow+$em);$page++){
-	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
-	 }
-	 $pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
-	  $pstrnow .= '<li><a href="'.str_replace('{!page!}',$pall,$url).'" >'.$pall.'</a></li>';
- }
- else
- {
-    $page =1 + $pnow;
-	 for( ;($page <= $pall);$page++){
-	   $pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
-	 }
- }
-  $pstr.= $pstrpre.$pstrnow.$pstrnext.'</ul>';
- return $pstr;
+	if( $cnext > $em )
+	{
+		$page =1 + $pnow;
+	 	for( ;($page < $pnow+$em);$page++)
+	 	{
+	  		$pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 	}
+	 	$pstrnow.='<li><a href="javacript:void(0);">...</a></li>';
+	 	$pstrnow .= '<li><a href="'.str_replace('{!page!}',$pall,$url).'" >'.$pall.'</a></li>';
+	}
+	else
+	{
+		$page =1 + $pnow;
+	 	for( ;($page <= $pall);$page++)
+	 	{
+	   		$pstrnow .= '<li><a href="'.str_replace('{!page!}',$page,$url).'" >'.$page.'</a></li>';
+	 	}
+	}
+	$pstr.= $pstrpre.$pstrnow.$pstrnext.'</ul>';
+	return $pstr;
 }
 
-function ff_param_lable($tag = ''){
+function ff_param_lable($tag = '')
+{
 	$param = array();
 	$array = explode(';',str_replace('num:','limit:',$tag));
 	foreach ($array as $v){
@@ -235,22 +241,36 @@ function ff_param_lable($tag = ''){
 	return $param;
 }
 
-//获取小说的首页
-function ff_novel_url( $url , $nid = 0, $ncid = 0, $newurl = '')
+function UU( $action , $params = FALSE , $sufix = "" , $domain = FALSE )
 {
-	return substr(C('SITE_URL'),0,-1).U('Home/Novel/index', array('url'=>$url));
+	return U( $action , $params , $sufix , $domain );
+}
+
+//获取小说的首页
+function ff_novel_url( $url , $nid , $ncid , $newurl = '')
+{
+	$novelUrl = "";
+	if( $newurl )
+		$novelUrl = substr(C('SITE_URL'),0,-1).$newurl;
+	else
+	{
+		$cate = getlistname( $ncid ,'url');
+		$novelUrl = C('SITE_URL').$cate.'/'.$url.'/';
+	}
+
+	return $novelUrl;
 }
 
 //获取小说的最新章节
 function ff_novel_last($url , $nid  , $newurl = '' )
 {
-  $lasturl = substr( C('SITE_URL') , 0, -1);
-   $Mn = M("Content");
-   $wheres = array();
-   $wheres['nid'] = array( 'eq',$nid );
-   $dlast = $Mn->field("ncntid,ncid,title,utime")->where( $wheres )->order('utime DESC')->limit('1')->find();
-   if( $dlast )
-   {
+	$lasturl = substr( C('SITE_URL') , 0, -1);
+	$Mn = M("Content");
+	$wheres = array();
+	$wheres['nid'] = array( 'eq',$nid );
+	$dlast = $Mn->field("ncntid,ncid,title,utime")->where( $wheres )->order('utime DESC')->limit('1')->find();
+	if( $dlast )
+	{
 		$href = '';
 		if( $newurl )
 		{
@@ -263,31 +283,51 @@ function ff_novel_last($url , $nid  , $newurl = '' )
 		}
 		$href= '<a href="'.$lasturl.'" target="_blank" alt="'.$dlast['title'].'">'.$dlast['title'].'</a>';
 		$lasturl = $href;
-   }
-   else
-   	$lasturl = "";
-  return $lasturl;
+	}
+	else
+		$lasturl = "";
+	return $lasturl;
 }
 
-function UU( $action , $params = FALSE , $sufix = "" , $domain = FALSE )
-{
-	return U( $action , $params , $sufix , $domain );
-}
-
+//章节列表目录
 function ff_novel_mulu( $url , $nid , $ncid , $newurl = '')
 {
-  return $url;
+	$novelUrl = "";
+	if( $newurl )
+		$novelUrl = substr(C('SITE_URL'),0,-1).$newurl;
+	else
+	{
+		$cate = getlistname( $ncid ,'url');
+		$novelUrl = C('SITE_URL').$cate.'/'.$url.'/show.html';
+	}
+
+	return $novelUrl;
+}
+
+//章节连接内容
+function ff_chapter_url( $ncntid, $ncid, $url, $newurl = '')
+{
+	$novelUrl = "";
+	if( $newurl )
+		$novelUrl = substr(C('SITE_URL'),0,-1).$newurl;
+	else
+	{
+		$cate = getlistname( $ncid ,'url');
+		$novelUrl = C('SITE_URL').$cate.'/'.$url.'/'.$ncntid.'.html';
+	}
+
+	return $novelUrl;
 }
 
 function ff_pic_url( $pic = '')
 {
- return C('PIC_URL').$pic;
+	return C('PIC_URL').$pic;
 }
 
 function ff_pic_thumb( $pic = '' , $s = 's0' )
 {
 	if( !$pic )
-	 return $pic;
+		return $pic;
 	$thumb_url = '';
 	$fname = substr( $pic , strrpos($pic,'/')+1);
 	$slen = strlen($pic) - strlen( $fname );
@@ -295,6 +335,7 @@ function ff_pic_thumb( $pic = '' , $s = 's0' )
 	$thumb_url = substr( $pic , 0, $slen).$fname;
 	return C('PIC_URL').$thumb_url;
 }
+
 /******************************************
 * @小说处理函数
 * @以字符串方式传入,通过ff_param_lable函数解析为以下变量
@@ -312,7 +353,8 @@ function ff_pic_thumb( $pic = '' , $s = 's0' )
 * pnow:当前页面
 * author:小说作者
 */
-function ff_mysql_novel($tag){
+function ff_mysql_novel($tag)
+{
 	$search = array();$where = array();
 	$tag = ff_param_lable($tag);
 	$field = !empty($tag['field']) ? $tag['field'] : '*';
@@ -322,7 +364,8 @@ function ff_mysql_novel($tag){
     $joinData = FALSE ;
 	$_order = explode(" ", $order);
 	$orderKey = "";
-	if( count( $_order) == 1  ){
+	if( count( $_order) == 1  )
+	{
 		$orderKey = trim( $order );
 		$order = " DESC";
 	}
@@ -455,16 +498,16 @@ function ff_mysql_novel($tag){
     {
 		//组合分页信息
 		$count = $rs->where($where)->count();if(!$count){return false;}
-		$totalpages = $count&&$limit ? ceil($count/$limit) : 1;
-		$currentpage = isset( $tag['pnow'] ) ? $tag['pnow'] : 1;
-		$pageurl = C('jumpurl');
-		$pages = '分页信息';
+		import('@.ORG.Page');
+		$Page = new Page( $count, $limit);
+		$pages = $Page->show();
 		//数据列表
 		$list[0]['count'] =  $count;
 		$list[0]['page'] = $pages;
 	}
 
-	foreach($list as $key=>$val){
+	foreach($list as $key=>$val)
+	{
 		$list[$key]['cate_id'] = $list[$key]['ncid'];
 		$list[$key]['cate_name'] = getlistname($list[$key]['ncid'],'name');
 		$list[$key]['cate_url'] = getlistname($list[$key]['ncid'],'url');
@@ -484,22 +527,24 @@ function ff_mysql_novel($tag){
 	return $list;
 }
 
+//分类信息缓存,根据缓存获取目录信息
 function getlistname( $list_id , $field)
 {
-   $Mcaiji = D("Caiji");
-   $_cate = $Mcaiji->decate;
-   $cate = array();
-   foreach($_cate as $_v){
-    $cate[$_v['id']] = $_v;
-   }
+   	$Mcaiji = D("Caiji");
+   	$_cate = $Mcaiji->decate;
+   	$cate = array();
+  	foreach($_cate as $_v)
+   	{
+    	$cate[$_v['id']] = $_v;
+   	}
    if( isset( $cate[$list_id]))
-  {
-    return isset($cate[$list_id][$field] ) ? $cate[$list_id][$field] : '';
-  }
-   else
-  {
-	 return '';
-   }
+  	{
+    	return isset($cate[$list_id][$field] ) ? $cate[$list_id][$field] : '';
+  	}
+   	else
+  	{
+		return '';
+   	}
 }
 
  function curl_content($url, $timeout = 10, $referer = "http://www.baidu.com")
@@ -545,173 +590,177 @@ function write_file($l1, $l2='')
 
 function ff_upload( $fkey = 'upfile')
 {
-  $Finfo = array(
-    'rcode' => -1,
+	$Finfo = array(
+	'rcode' => -1,
 	 'msg' => '服务器忙',
 	'name' => '',
 	'type' => '',
 	 'size' => 0,
-    'file_path' => '',
-    'view_path'  => ''
-  );
-  $updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
-  $reldir = __ROOT__;
-  $reldir = realpath( $reldir );
-  $reldir = str_replace("\\","/",$reldir).'/';
-  $reldir = str_replace("//","/",$reldir);
+	'file_path' => '',
+	'view_path'  => ''
+	);
+	$updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
+	$reldir = __ROOT__;
+	$reldir = realpath( $reldir );
+	$reldir = str_replace("\\","/",$reldir).'/';
+	$reldir = str_replace("//","/",$reldir);
 
-  if( isset( $_FILES[$fkey]) && is_uploaded_file($_FILES[$fkey]['tmp_name']))
-  {
-    if(( UPLOAD_ERR_OK != $_FILES[$fkey]['error']) || ($_FILES[$fkey]['size'] == 0 ) ){
-	  $Finfo['ff'] = $_FILES[$fkey];
-	 $Finfo['msg'] = '上传文件错误';
+	if( isset( $_FILES[$fkey]) && is_uploaded_file($_FILES[$fkey]['tmp_name']))
+	{
+		if(( UPLOAD_ERR_OK != $_FILES[$fkey]['error']) || ($_FILES[$fkey]['size'] == 0 ) ){
+			$Finfo['ff'] = $_FILES[$fkey];
+			$Finfo['msg'] = '上传文件错误';
+		}
+		else
+		{
+			mkdirss($reldir.$updir);
+			$_fname = basename($_FILES[$fkey]['name']);
+			$fname = uniqid();
+			$fname.=substr($_fname,strrpos($_fname,'.'));
+			$desfile =$reldir.$updir.$fname;
+			if( !move_uploaded_file( $_FILES[$fkey]['tmp_name'] , $desfile ) )
+		 	{
+				$Finfo['msg'] = '移动临时文件失败';
+		 	}
+		 	else
+			{
+		  		@unlink( $_FILES[$fkey]['tmp_name']);
+		  		$MAtt = D('Att');
+		  		$datt = array();
+		  		$datt['name'] = $updir.$fname;
+		  		$datt['ext'] =substr($_fname,strrpos($_fname,'.')+1);
+		  		$datt['ctime'] = time();
+		  		$datt['atype'] = $MAtt->ftype( $datt['ext'] );
+		  		$datt['size'] = filesize($reldir.$updir.$fname );
+				//图片缩略图,水印
+				if( 'img' == $datt['atype'])
+				{
+				  	import('ORG.Util.Image');
+				  	mkdirss($reldir.$updir.'thumb/',755);
+				 	$imgs = NULL;
+				 	$imgs = C('IMG_SIZES');
+				 	if( is_array($imgs) && count( $imgs ) )
+				 	{
+				   		foreach( $imgs as $_k=>$_v)
+				   		{
+				    		Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
+				   		}
+				  	}
+					if(  C('IMG_WATER') ){
+				   		Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
+				 	}
+				 	$DImg = new Image( );
+				 	$_size = $DImg->getImageInfo( $reldir.$updir.$fname );
+				 	$size['w'] = isset($_size['width']) ? $_size['width'] : 0;
+				 	$size['h'] = isset( $_size['height']) ? $_size['height'] : 0;
+				}
+				$MAtt->data( $datt )->add();
+				$Finfo['rcode'] = 1;
+				$Finfo['width'] = $size['w'];
+				$Finfo['height'] = $size['h'];
+				$Finfo['name'] = $fname;
+				$Finfo['border'] = 0;
+				$Finfo['align'] = 'center';
+				$Finfo['type'] = $datt['atype'];
+				$Finfo['size'] = $datt['size'];
+				$Finfo['file_path'] = $updir.$fname;
+				$Finfo['view_path'] = C('SITE_URL').$updir.$fname;
+				$Finfo['msg'] = '文件上传成功';
+			}
+		}
 	}
 	else
-   {
-     mkdirss($reldir.$updir);
-	 $_fname = basename($_FILES[$fkey]['name']);
-     $fname = uniqid();
-	 $fname.=substr($_fname,strrpos($_fname,'.'));
-	 $desfile =$reldir.$updir.$fname;
-	 if( !move_uploaded_file( $_FILES[$fkey]['tmp_name'] , $desfile ) )
-	 {
-		 $Finfo['msg'] = '移动临时文件失败';
-	 }
-	 else
 	{
-      @unlink( $_FILES[$fkey]['tmp_name']);
-      $MAtt = D('Att');
-	  $datt = array();
-	  $datt['name'] = $updir.$fname;
-      $datt['ext'] =substr($_fname,strrpos($_fname,'.')+1);
-	  $datt['ctime'] = time();
-      $datt['atype'] = $MAtt->ftype( $datt['ext'] );
-	  $datt['size'] = filesize($reldir.$updir.$fname );
-	  //图片缩略图,水印
-	  if( 'img' == $datt['atype']){
-		  	  import('ORG.Util.Image');
-		  mkdirss($reldir.$updir.'thumb/',755);
-		  $imgs = NULL;
-		  $imgs = C('IMG_SIZES');
-         if( is_array($imgs) && count( $imgs ) ) {
-		   foreach( $imgs as $_k=>$_v) {
-		    Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
-		   }
-		  }
-        if(  C('IMG_WATER') ){
-		   Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
-		 }
-		 $DImg = new Image( );
-         $_size = $DImg->getImageInfo( $reldir.$updir.$fname );
-		 $size['w'] = isset($_size['width']) ? $_size['width'] : 0;
-		 $size['h'] = isset( $_size['height']) ? $_size['height'] : 0;
-	  }
-	  $MAtt->data( $datt )->add();
-	  $Finfo['rcode'] = 1;
-	  $Finfo['width'] = $size['w'];
-	  $Finfo['height'] = $size['h'];
-	  $Finfo['name'] = $fname;
-	  $Finfo['border'] = 0;
-	  $Finfo['align'] = 'center';
-	  $Finfo['type'] = $datt['atype'];
-	  $Finfo['size'] = $datt['size'];
-	  $Finfo['file_path'] = $updir.$fname;
-	  $Finfo['view_path'] = C('SITE_URL').$updir.$fname;
-	  $Finfo['msg'] = '文件上传成功';
+		$Finfo['msg'] = '上传文件不存在';
 	}
-   }
-  }
-  else
-  {
-   $Finfo['msg'] = '上传文件不存在';
-  }
-  return $Finfo;
+
+	return $Finfo;
 }
 
 	//远程下载图片
  function down_img($url,$sid='img')
 {
-    if( preg_match('^http:\/\/^isU',$url))
-   {
-	 $get_file = curl_content($url , 20);
-	 if ($get_file && imagecreatefromstring($get_file))
-	  {
-         $updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
-         $reldir = __ROOT__;
-         $reldir = realpath( $reldir );
-         $reldir = str_replace("\\","/",$reldir).'/';
-         $reldir = str_replace("//","/",$reldir);
+	if( preg_match('^http:\/\/^isU',$url))
+	{
+		$get_file = curl_content($url , 20);
+		if ($get_file && imagecreatefromstring($get_file))
+		{
+			$updir = C('U_UPLOAD_DIR').date( C('U_UPLOAD_DIRPATH'));
+			$reldir = __ROOT__;
+			$reldir = realpath( $reldir );
+			$reldir = str_replace("\\","/",$reldir).'/';
+			$reldir = str_replace("//","/",$reldir);
 
-         mkdirss($reldir.$updir);
-         $fname = uniqid();
-	     $fname.= strrchr($url,'.');
-	     $desfile =$reldir.$updir.$fname;
-		 write_file($desfile,$get_file);
+			mkdirss($reldir.$updir);
+			$fname = uniqid();
+			$fname.= strrchr($url,'.');
+			$desfile =$reldir.$updir.$fname;
+			write_file($desfile,$get_file);
 
-         $MAtt = D('Att');
-	     $datt = array();
-	     $datt['name'] = $updir.$fname;
-         $datt['ext'] = substr($url,strrpos($url,'.')+1);//strrchr($url,'.');
-	     $datt['ctime'] = time();
-         $datt['atype'] = $MAtt->ftype( $datt['ext'] );
-	     $datt['size'] = filesize($reldir.$updir.$fname );
-	     //图片缩略图,水印
-	    if( 'img' == $datt['atype'])
-	   {
-		    import('ORG.Util.Image');
-		    mkdirss($reldir.$updir.'thumb/',755);
-		    $imgs = NULL;
-		    $imgs = C('IMG_SIZES');
-         if( is_array($imgs) && count( $imgs ) ) {
-		     foreach( $imgs as $_k=>$_v) {
-		      Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
-		     }
-		    }
-        if(  C('IMG_WATER') ){
-		   Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
-		  }
-	   } //is file
-	   $MAtt->data( $datt )->add();
-	   return $updir.$fname;
-	  }//get the image content
-	  else
-	  {
+			$MAtt = D('Att');
+			$datt = array();
+			$datt['name'] = $updir.$fname;
+			$datt['ext'] = substr($url,strrpos($url,'.')+1);//strrchr($url,'.');
+			$datt['ctime'] = time();
+			$datt['atype'] = $MAtt->ftype( $datt['ext'] );
+			$datt['size'] = filesize($reldir.$updir.$fname );
+		 	//图片缩略图,水印
+			if( 'img' == $datt['atype'])
+			{
+		    	import('ORG.Util.Image');
+		    	mkdirss($reldir.$updir.'thumb/',755);
+		    	$imgs = NULL;
+		    	$imgs = C('IMG_SIZES');
+		 		if( is_array($imgs) && count( $imgs ) ) {
+		     		foreach( $imgs as $_k=>$_v) {
+		      			Image::thumb( $reldir.$updir.$fname , $reldir.$updir.'thumb/s'.$_k.'_'.$fname,'',$_v['w'] ,$_v['h'],true);
+		     		}
+		    	}
+				if(  C('IMG_WATER') ){
+		   			Image::water( $reldir.$updir.$fname ,C('IMG_WATER_PIC'));
+		  		}
+			} //is file
+			$MAtt->data( $datt )->add();
+			return $updir.$fname;
+		}//get the image content
+		else
+		{
 			return $url;
-	  }
+		}
 	}
-   else
-	   return $url;//本站文件
+	else
+		return $url;//本站文件
 }
 
-	//远程ftp附件
-   function ftp_upload($imgurl, $isIMG = FALSE , $thumb = 'thumb/'){
-		Vendor('Ftp.Ftp');
-		$ftpcon = array(
-			'ftp_host'=>C('upload_ftp_host'),
-			'ftp_port'=>C('upload_ftp_port'),
-			'ftp_user'=>C('upload_ftp_user'),
-			'ftp_pwd'=>C('upload_ftp_pass'),
-			'ftp_dir'=>C('upload_ftp_dir'),
-		);
-		$ftp = new ftp();
-		$ftp->config($ftpcon);
-		$ftp->connect();
-		$ftpimg = $ftp->put(C('upload_path').'/'.$imgurl,C('upload_path').'/'.$imgurl);
-		if(C('upload_thumb')){
-			//$imgurl_s = strrchr($imgurl,"/");
-			//$ftpimg_s = $ftp->put(C('upload_path').'/thumb'.$imgurl_s, 'thumb'.$imgurl_s);
-			$ftpimg_s = $ftp->put(C('upload_path').'-s/'.$imgurl, C('upload_path').'-s/'.$imgurl);
+//远程ftp附件
+function ftp_upload($imgurl, $isIMG = FALSE , $thumb = 'thumb/'){
+	Vendor('Ftp.Ftp');
+	$ftpcon = array(
+		'ftp_host'=>C('upload_ftp_host'),
+		'ftp_port'=>C('upload_ftp_port'),
+		'ftp_user'=>C('upload_ftp_user'),
+		'ftp_pwd'=>C('upload_ftp_pass'),
+		'ftp_dir'=>C('upload_ftp_dir'),
+	);
+	$ftp = new ftp();
+	$ftp->config($ftpcon);
+	$ftp->connect();
+	$ftpimg = $ftp->put(C('upload_path').'/'.$imgurl,C('upload_path').'/'.$imgurl);
+	if(C('upload_thumb')){
+		//$imgurl_s = strrchr($imgurl,"/");
+		//$ftpimg_s = $ftp->put(C('upload_path').'/thumb'.$imgurl_s, 'thumb'.$imgurl_s);
+		$ftpimg_s = $ftp->put(C('upload_path').'-s/'.$imgurl, C('upload_path').'-s/'.$imgurl);
+	}
+	if(C('upload_ftp_del')){
+		if($ftpimg){
+			@unlink(C('upload_path').'/'.$imgurl);
 		}
-		if(C('upload_ftp_del')){
-			if($ftpimg){
-				@unlink(C('upload_path').'/'.$imgurl);
-			}
-			if($ftpimg_s){
-				@unlink(C('upload_path').'/thumb'.$imgurl_s);
-			}
+		if($ftpimg_s){
+			@unlink(C('upload_path').'/thumb'.$imgurl_s);
 		}
-		$ftp->bye();
-   }
+	}
+	$ftp->bye();
+}
 
 
 /*------ Encrpt --------*/

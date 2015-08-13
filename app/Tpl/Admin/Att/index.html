@@ -47,19 +47,20 @@
 								<td>{$vo.ext}</td>
 								<td>{$vo.size}</td>
 								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
-								<td > 
-								   <a href="<php> echo C('SITE_URL');</php>{$vo.name}"  target="_blank" class="u_edit" rel="{$vo.said}"   title="查看">
-								     <i class="icon-share"></i>
-								   </a> 
+								<td >
+								   <a href="{:C('SITE_URL')}{$vo.name}"  target="_blank"   rel="{$vo.said}"   title="查看">
+								     <i class="icon-eye-open"></i>
+								     查看
+								   </a>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">
 						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
 					</div>
-				</div>	 
+				</div>
 			   </div>
 		 </div>
 <script type="text/javascript">
