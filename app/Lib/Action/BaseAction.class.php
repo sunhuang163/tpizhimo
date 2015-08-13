@@ -11,7 +11,8 @@ class BaseAction extends AllAction {
        header("Pramga: no-cache");
 	   parent::_initialize();
 	  $this->auload( );
-	  if( !isset($this->a_u['uid']) || !$this->a_u['uid']){
+	  if( !isset($this->a_u['uid']) || !$this->a_u['uid'])
+	  {
 		 $_SESSION['AdminLogin'] = 1;
 		 header("Content-Type:text/html; charset=utf-8");
 	    redirect(U('/admin/login/index','','','',TRUE), 1, '未登录，正在跳转到登录页面...');
@@ -21,47 +22,52 @@ class BaseAction extends AllAction {
 	  $this->assign('aumodle', strtolower(MODULE_NAME));
 	}
 
-     protected function  auload( $force = FALSE){
-      $uinfo = '';
-      $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';
-	    if( count($uinfo) )
-         {
-		   $uinfos = authcode( $uinfo , "DECODE");
-		   $arruinfo = unserialize( $uinfos );
-		    $this->a_u = $arruinfo;
-		   if( $force ){
-		    $this->aupdate($this->a_u['uid']);
-	 	  }//force
-	    } //if
-   }//function auload
+	//从session中加载用户信息，或者从数据库更新
+	protected function  auload( $force = FALSE)
+	{
+		$uinfo = '';
+		$uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';
+		if( count($uinfo) )
+		{
+			$uinfos = authcode( $uinfo , "DECODE");
+			$arruinfo = unserialize( $uinfos );
+			$this->a_u = $arruinfo;
+			if( $force )
+			{
+				$this->aupdate($this->a_u['uid']);
+			}//force
+		} //if
+	}
 
-   protected function aupdate( $uid ){
-	 //load user
-	 $Mau = M('sysuser');
-	 $dU = NULL;
-	 $wheres = array();
-	 $wheres['said'] = array('eq' , $uid);
-	 $dU = $Mau->where( $wheres )->find();
-	 if( $dU )
-	 {
-	  $uinfo = '';
-	  $dU['uid'] = $uid;
-	  $srdu = serialize( $dU );
-	  $uinfo = authcode( $srdu , 'ENCODE');
-	  $this->a_u = $dU;
-	  $_SESSION[C('U_AUTH_KEY')]=$uinfo;
-	  return TRUE;
-	 }
-	 else
+	protected function aupdate( $uid )
+	{
+		//load user
+		$Mau = M('sysuser');
+		$dU = NULL;
+		$wheres = array();
+		$wheres['said'] = array('eq' , $uid);
+		$dU = $Mau->where( $wheres )->find();
+		if( $dU )
+		{
+		$uinfo = '';
+		$dU['uid'] = $uid;
+		$srdu = serialize( $dU );
+		$uinfo = authcode( $srdu , 'ENCODE');
+		$this->a_u = $dU;
+		$_SESSION[C('U_AUTH_KEY')]=$uinfo;
+		return TRUE;
+		}
+		else
 		 return FALSE;
-   }
+	}
 
-    protected function  _aulogin( $force = FALSE ){
-      if( $force )
-	   $this->auload( $force );
-	  if( isset( $this->a_u) && isset( $this->a_u['uid']) && $this->a_u['uid'])
+    protected function  _aulogin( $force = FALSE )
+    {
+		if( $force )
+			$this->auload( $force );
+		if( isset( $this->a_u) && isset( $this->a_u['uid']) && $this->a_u['uid'])
 		  return TRUE;
-	  else
+		else
 		  return FALSE;
 	}
 
