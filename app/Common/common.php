@@ -530,20 +530,26 @@ function ff_mysql_novel($tag)
 //分类信息缓存,根据缓存获取目录信息
 function getlistname( $list_id , $field)
 {
-   	$Mcaiji = D("Caiji");
-   	$_cate = $Mcaiji->decate;
-   	$cate = array();
-  	foreach($_cate as $_v)
+   	$listData = F('_ffnovel/cate');
+   	if( !$listData )
    	{
-    	$cate[$_v['id']] = $_v;
+   		$Mcate = M("nclass");
+   		$cates = $Mcate->order("ord asc")->select();
+   		$_cates = array();
+   		foreach( $cates as $v)
+   		{
+   			$_cates[$v['ncid']] = $v;
+   		}
+   		F('_ffnovel/cate', $_cates);
+   		$listData = $_cates;
    	}
-   if( isset( $cate[$list_id]))
+   if( isset( $listData[$list_id]))
   	{
-    	return isset($cate[$list_id][$field] ) ? $cate[$list_id][$field] : '';
+    	return isset($listData[$list_id][$field] ) ? $listData[$list_id][$field] : '';
   	}
    	else
   	{
-		return '';
+		return FALSE;
    	}
 }
 
