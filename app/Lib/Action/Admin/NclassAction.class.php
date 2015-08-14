@@ -85,6 +85,7 @@ class NclassAction extends BaseAction {
 		$res = array('rcode'=>0,'msg'=>'服务器忙，请稍后再试','data'=>NULL);
 		$id = isset( $_POST['id']) ? intval( $_POST['id']) : 0;
 		$type = isset( $_POST['type']) ? trim( $_POST['type']) : "";
+
 		if( !$id || !$type)
 		{
 			$res['msg'] = "提交参数错误";
@@ -92,6 +93,7 @@ class NclassAction extends BaseAction {
 		else
 		{
 			$Mnclass = M("Nclass");
+			$Mdocache = D("Nclass");
 			$dn = NULL;
 			$wheres = array();
 			$wheres['ncid'] = array('eq',$id);
@@ -122,6 +124,7 @@ class NclassAction extends BaseAction {
 						$Mnclass->where( $whereu )->save( $d );
 						$res['msg']  = "OK";
 						$res['rcode'] = 1;
+						$Mdocache->_cache();
 		  			}
 		 		}
 				else if( $type == 'down')
@@ -142,6 +145,7 @@ class NclassAction extends BaseAction {
 						$Mnclass->where( $whereu )->save( $d );
 						$res['msg'] = "OK";
 						$res['rcode'] = 1;
+						$Mdocache->_cache();
 					}
 					else
 					{
