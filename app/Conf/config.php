@@ -15,11 +15,6 @@ $cnf =  array(
 	'LOG_RECORD' => false,
     'LOG_LEVEL' =>'EMERG,ERR',
     'HTML_CACHE_ON' => false, /*禁止静态缓存 */
-	'URL_CASE_INSENSITIVE'  => false,
-    'URL_MODEL'             => 1,//2,
-    'URL_HTML_SUFFIX'       => '',
-	'URL_ROUTER_ON'      => true,
-	'URL_CASE_INSENSITIVE' => TRUE,
 	'DATA_CACHE_TYPE' => "File", /*缓存配置 */
 	'DATA_CACHE_COMPRESS' => true,
 	'DATA_CACHE_SUBDIR'=>true,/*哈希子目录动态缓存的方式 */
@@ -48,6 +43,10 @@ $cnf =  array(
 	'IMG_SIZES'   => array(
 	          array('w'=>'120','h'=>'150')
 			 ),
+	'URL_MODEL'             => 1, //项目ULR配置
+	'URL_CASE_INSENSITIVE' => TRUE,
+    'URL_HTML_SUFFIX'       => '',
+	'URL_ROUTER_ON'      => true,
 );
 
 return array_merge( $cnf , $dbcnf ,$catecnf );
