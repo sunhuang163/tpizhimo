@@ -16,23 +16,25 @@
         $dpic = array();
         $wheres = array();
         $wheres['rtype'] = array('eq', HotModel::HOT_HOME_TXT);
-        $wheres['ih_recommend.ncid'] = array('eq' , 0);
-        $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
-                 ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
-                 ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
-                 ->where( $wheres )
-                 ->order("ih_recommend.ord ASC")
-                 ->limit("5")
-                 ->select();
+        $wheres['ncid'] = array('eq' , 0);
+        $dhotids = $Mdo->field("nid")->where( $wheres )->order("ord asc")->limit('5')->select();
+        $arrs = array();
+        foreach( $dhotids  as $v)
+        {
+            $arrs[] = $v['nid'];
+        }
+        $arrs = implode(",", $arrs);
+        $dhot = ff_mysql_novel('ids:'.$arrs);
 
         $wheres['rtype'] = array('eq' , HotModel::HOT_HOME_PIC);
-        $dpic = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
-                 ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
-                 ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
-                 ->where( $wheres )
-                 ->order("ih_recommend.ord ASC")
-                 ->limit("4")
-                 ->select();
+        $dpicids = $Mdo->field("nid")->where( $wheres )->order("ih_recommend.ord ASC")->limit("4")->select();
+        $arrs = array();
+        foreach( $dpicids  as $v)
+        {
+            $arrs[] = $v['nid'];
+        }
+        $arrs = implode(",", $arrs);
+        $dpic = ff_mysql_novel('ids:'.$arrs);
     </php>
     <div class="ui-container">
         <div class="ui-content">
@@ -41,8 +43,8 @@
                 <div class="index-hot">
                     <volist name="dhot" id="vo"> 
                     <div class="hot-item">
-                            <a href="{$vo.url|ff_novel_url}" target="_blank">
-                                <img   src="{$vo.pic|ff_pic_thumb}" width="65" height="85" alt="{$vo.title}" >  
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img   src="{$vo.novel_picurl_small}" width="65" height="85" alt="{$vo.title}" >  
                             <div class="info">
                                 <h4>{$vo.title|msubstr=0,10,true}</h4>
                                 <span>{$vo.ndesc|msubstr=0,27,true}</span>
@@ -60,26 +62,26 @@
                         unset( $dpic[0]);
                     </php>
                     <div class="itemfirst">
-                        <a href="{$homeTuijian.url|ff_novel_url}" target="_blank" >
-                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.pic|ff_pic_url}" alt="{$homeTuijian.catename}:{$homeTuijian.title}"> 
+                        <a href="{$vo.novel_url}" target="_blank" >
+                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.novel_picurl}" alt="{$homeTuijian.cate_name}:{$homeTuijian.title}"> 
                         </a>
                         <h3>
-                            <a href="{$homeTuijian.url|ff_novel_url}"  alt="{$homeTuijian.title}"   target="_blank">{$homeTuijian.title|msubstr=0,10,true}</a>
+                            <a href="{$homeTuijian.novel_url}"  alt="{$homeTuijian.title}"   target="_blank">{$homeTuijian.title|msubstr=0,10,true}</a>
                         </h3>
                         <p> {$homeTuijian.ndesc|msubstr=0,85,true} </p>
                         <span>作者:{$homeTuijian.author}</span> <br/>
-                        <span>类别:{$homeTuijian.catename}</span> <br/>
+                        <span>类别:{$homeTuijian.cate_name}</span> <br/>
                         <span>最后更新:{$homeTuijian.utime|date='Y-m-d H:i',###}</span> <br/>
                     </div>
                      <div class="clear"></div>
                     <ol class="ui-list">
                     <volist name="dpic" id="vo">
                         <li>
-                            <a href="{$vo.url|ff_novel_url}" target="_blank">
-                                <img src="{$vo.pic|ff_pic_thumb}" width="65" height="80" alt="{$vo.title}" title="{$vo.catename}:{$vo.title}">
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}:{$vo.title}">
                             </a>
                             <h2>
-                                <a href="{$vo.url|ff_novel_url}" target="_blank">{$vo.title|msubstr=0,10,true}</a>
+                                <a href="{$vo.novel_url}" target="_blank">{$vo.title|msubstr=0,10,true}</a>
                             </h2>
                             <span> {$vo.ndesc|msubstr=0,70,true} </span>
                         </li>

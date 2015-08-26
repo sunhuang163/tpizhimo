@@ -1,13 +1,13 @@
 <div class="ui-menu">
     <p>
-        <a href="{:U('/Home/Index/rank')}">排行榜</a>┊
-        <a href="{:U('/Home/Index/finish')}">最近完结</a>┊
-        <a href="{:U('/Home/Index/update')}">最近更新</a>
+        <a href="/rank.html">排行榜</a>┊
+        <a href="/finish.html">最近完结</a>┊
+        <a href="/update.html">最近更新</a>
     </p>
     <ul>
     <volist name="cate_index"  id="vo">
         <li   <php> if( intval($ncid) == intval($vo['id']) )  { echo ' class="active" '; } </php>  >
-            <a  href="{$vo.view}"  >{$vo.name}</a>  <!-- class="select" -->
+            <a  href="{$vo.view}"  >{$vo.name}</a>
         </li>
     </volist>
     </ul>
