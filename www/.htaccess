@@ -1,9 +1,13 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
+RewriteCond %{REQUEST_URI} \.html$
+RewriteRule	^(.*)$    html/$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule   ^([^/]*)  $1/  [R]
-RewriteRule    ^([^/]*)/	index.php/Home/cate/index/url/$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]\w+)(/?)(?<!\.html)$	index.php/Home/cate/index/url/$1 [L]
+RewriteRule ^([^/]*)/([^/]*)(/?)(?<!\.html)$	index.php/Home/novel/index/url/$2 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
