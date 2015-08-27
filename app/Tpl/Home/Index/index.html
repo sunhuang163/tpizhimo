@@ -24,7 +24,7 @@
             $arrs[] = $v['nid'];
         }
         $arrs = implode(",", $arrs);
-        $dhot = ff_mysql_novel('ids:'.$arrs);
+        $dhot = ff_mysql_novel('ids:'.$arrs.';limit:5');
 
         $wheres['rtype'] = array('eq' , HotModel::HOT_HOME_PIC);
         $dpicids = $Mdo->field("nid")->where( $wheres )->order("ih_recommend.ord ASC")->limit("4")->select();
@@ -34,17 +34,17 @@
             $arrs[] = $v['nid'];
         }
         $arrs = implode(",", $arrs);
-        $dpic = ff_mysql_novel('ids:'.$arrs);
+        $dpic = ff_mysql_novel('ids:'.$arrs.';limit:4');
     </php>
     <div class="ui-container">
         <div class="ui-content">
             <div class="ui-block ui-one-block">
                 <h4 class="title">热门推荐</h4>
                 <div class="index-hot">
-                    <volist name="dhot" id="vo"> 
+                    <volist name="dhot" id="vo">
                     <div class="hot-item">
                             <a href="{$vo.novel_url}" target="_blank">
-                                <img   src="{$vo.novel_picurl_small}" width="65" height="85" alt="{$vo.title}" >  
+                                <img   src="{$vo.novel_picurl_small}" width="65" height="85" alt="{$vo.title}" >
                             <div class="info">
                                 <h4>{$vo.title|msubstr=0,10,true}</h4>
                                 <span>{$vo.ndesc|msubstr=0,27,true}</span>
@@ -63,7 +63,7 @@
                     </php>
                     <div class="itemfirst">
                         <a href="{$vo.novel_url}" target="_blank" >
-                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.novel_picurl}" alt="{$homeTuijian.cate_name}:{$homeTuijian.title}"> 
+                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.novel_picurl}" alt="{$homeTuijian.cate_name}:{$homeTuijian.title}">
                         </a>
                         <h3>
                             <a href="{$homeTuijian.novel_url}"  alt="{$homeTuijian.title}"   target="_blank">{$homeTuijian.title|msubstr=0,10,true}</a>
@@ -106,11 +106,11 @@
                                 <span>更新至</span>
                                 {$vo.novel_last_url}
                             </h2>
-                            <span> 
+                            <span>
                                  {$vo.ndesc|msubstr=0,78,true}
                             </span>
                             <p>
-                                <span>类别：{$vo.cate_name}</span> 
+                                <span>类别：{$vo.cate_name}</span>
                                 <span>作者：{$vo.author}</span>
                                 <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
                              </p>
@@ -155,10 +155,10 @@
                     </php>
                 <div class="ui-box-author">
                     <volist name="sideAuthor" id="vo">
-                        <a href="{:U('/Home/Search/index',array('author'=>$vo['author'] )) }" target="_blank" >{$vo.author}</a>
+                        <a href="/search/{$vo.author}" target="_blank" >{$vo.author}</a>
                     </volist>
                 </div>
-                    
+
             </div>
         </div>
         <div class="clear"> </div>

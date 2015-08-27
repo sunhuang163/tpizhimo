@@ -27,7 +27,7 @@ class Page {
     // 分页的栏的总页数
     protected $coolPages   ;
     // 分页显示定制
-	protected $config  =    array('header'=>'条记录','prev'=>'&lt;','next'=>'&gt;','first'=>'&lt;&lt;','last'=>'&gt;&gt;','theme'=>'%nowPage%/%totalPage%  %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
+	protected $config  =    array('header'=>'条记录','prev'=>'&lt;','next'=>'&gt;','first'=>'&lt;&lt;','last'=>'&gt;&gt;','theme'=>'%nowPage%/%totalPage%  %first%   %upPage%  %linkPage%  %downPage% %end%');
 
 
     // 默认分页变量名

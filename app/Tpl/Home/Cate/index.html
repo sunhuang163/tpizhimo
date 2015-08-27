@@ -18,29 +18,30 @@
                         $Mdo = D("Hot");
                         $dhot = array();
                         $wheres = array();
-
-                        $wheres['ih_recommend.ncid'] = array('eq' ,  $cate['ncid'] );
-                        $dhot = $Mdo->field("ih_novel.*,ih_nclass.name as catename")
-                                 ->join("LEFT JOIN ih_novel on ih_novel.nid=ih_recommend.nid")
-                                 ->join("LEFT JOIN ih_nclass on ih_nclass.ncid=ih_recommend.ncid")
-                                 ->where( $wheres )
-                                 ->order("ih_recommend.ord ASC")
-                                 ->limit("6")
-                                 ->select();
+                        $wheres['ncid'] = array('eq' ,  $cate['ncid'] );
+                        $_arrs = $Mdo->field("nid")->where( $wheres )->order("ord ASC")->limit("6")->select();
+                        $arrs = array();
+                        foreach( $_arrs as $v)
+                        {
+                            $arrs[] = $v['nid'];
+                        }
+                        $idsss = implode(',', $arrs);
+                        $dhot = ff_mysql_novel('ids:'.$idsss.';limit:6;ncid:'.$cate['ncid'].';order:hit_month desc');
+                        unset( $arrs );
                     </php>
                     <volist name="dhot" id="vo">
                         <li>
                             <div class="item-info">
-                                <a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>" alt="{$vo.title}">
-                                    <img src="{$vo.pic|ff_pic_url}" width="70" height="90" alt="{$vo.title}" title="{$vo.catename}-{$vo.title}">
+                                <a href="{$vo.novel_url}" alt="{$vo.title}">
+                                    <img src="{$vo.novel_picurl}" width="70" height="90" alt="{$vo.title}" title="{$vo.cate_name}-{$vo.title}">
                                 </a>
-                                <h4><a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>">{$vo.title|ff_msubstr=0,6}</a></h4>
+                                <h4><a href="{$vo.novel_url}">{$vo.title|ff_msubstr=0,6}</a></h4>
                                 <span>作者:{$vo.author}</span>
-                                <span>类别:{$vo.catename}</span>
+                                <span>类别:{$vo.cate_name}</span>
                                 <span>最后更新:{$vo.utime|date='Y-m-d',### }</span>
                             </div>
                             <div class="item-detail">
-                                {$vo.ndesc|ff_msubstr=0,37}( <a href="<php>echo ff_novel_url($vo['url'],$vo['nid'],$vo['ncid'],$vo['newurl']);</php>">点击阅读</a> ) 
+                                {$vo.ndesc|ff_msubstr=0,37}( <a href="{$vo.novel_url}">点击阅读</a> )
                             </div>
                         </li>
                     </volist>
@@ -68,7 +69,7 @@
                                 <span>更新至</span>
                                 {$vo.novel_last_url}
                             </h2>
-                            <span> 
+                            <span>
                                  {$vo.ndesc|msubstr=0,78,true}
                             </span>
                             <p>

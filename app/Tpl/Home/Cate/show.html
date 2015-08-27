@@ -1,4 +1,4 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>{$dcate.name}  - 第{$p}页 - {:C('DOMAIN_NAME')}</title>
@@ -16,15 +16,15 @@
                     <span class="divider"> / </span>
                 </li>
                 <li>
-                    <a href="/">首页</a>
-                    <span class="divider"> / </span>
+                    <a href="/{$dcate.url}/">{$dcate.name}</a>
                 </li>
             </ul>
             <div class="ui-full ui-content">
                 <div class="ui-block">
                     <h4 class="title title-white bg-blue title-border">{$dcate.name} - 分类列表</h4>
                     <php>
-                        $dlast = ff_mysql_novel('ncid:'.$ncid.';lastUrl:true;limit:20');
+                        $dlast = ff_mysql_novel('ncid:'.$ncid.';lastUrl:true;limit:20;page:true;pnow:'.$p);
+                        $pagestr = $dlast && isset( $dlast[0]) && isset($dlast[0]['page']) ? $dlast[0]['page'] :'';
                     </php>
                     <ol class="ui-list">
                         <volist name="dlast" id="vo">
@@ -50,16 +50,7 @@
                     </ol>
                         <div class="pages">
                             <span>
-                                <em id="pagestats">1/55</em>
-                                <a href="http://www.qingdi.com/Classification1/1.html">1</a>
-                                <a href="http://www.qingdi.com/Classification1/1.html" >&lt;&lt;</a>
-                                <strong>1</strong>
-                                <a href="http://www.qingdi.com/Classification1/2.html">2</a>
-                                <a href="http://www.qingdi.com/Classification1/3.html">3</a>
-                                <a href="http://www.qingdi.com/Classification1/4.html">4</a>
-                                <a href="http://www.qingdi.com/Classification1/2.html" >&gt;</a>
-                                <a href="http://www.qingdi.com/Classification1/16.html">&gt;&gt;</a>
-                                <a href="http://www.qingdi.com/Classification1/55.html">55</a>
+                                {$pagestr}
                             </span>
                         </div>
                 </div>

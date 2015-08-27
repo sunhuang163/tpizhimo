@@ -19,6 +19,23 @@ class NclassModel extends RelationModel {
 		 array('state','1'),
 	);
 
+	public function  _getcache( $update = FALSE )
+	{
+		$listData = F('_ffnovel/cate');
+	   	if( !$listData || $update)
+	   	{
+	   		$cates = $this->order("ord asc")->select();
+	   		$_cates = array();
+	   		foreach( $cates as $v)
+	   		{
+	   			$_cates[$v['ncid']] = $v;
+	   		}
+	   		F('_ffnovel/cate', $_cates);
+	   		$listData = $_cates;
+	   	}
+	   	return $listData;
+	}
+
 	public function _cache()
 	{
    		$cates = $this->order("ord asc")->select();

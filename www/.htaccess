@@ -2,10 +2,13 @@
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_URI} \.html$
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule	^(.*)$    html/$1 [L]
 
-RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg|.swf)$
+#RewriteCond %{REQUEST_URI} !^(public|static|skdata).*$
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^/]\w+)(/?)(?<!\.html)$	index.php/Home/cate/index/url/$1 [L]
 RewriteRule ^([^/]*)/([^/]*)(/?)(?<!\.html)$	index.php/Home/novel/index/url/$2 [L]
 

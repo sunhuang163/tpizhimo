@@ -14,15 +14,15 @@
     <div class="ui-container">
 	    <ul class="ui-breadcrumb ui-block">
 			<li>
-				<a href="#">首页</a>
+				<a href="/">首页</a>
 				<span class="divider"> / </span>
 			</li>
 			<li>
-				<a href="#">分类</a>
+				<a href="/{$nove.cate_url}/">{$novel.cate_name}</a>
 				<span class="divider"> / </span>
 			</li>
 			<li>
-				<a href="#">小说详情</a>
+				<a href="/{$novel.cate_url}/{$novel.url}/">{$novel.title}</a>
 			</li>
 		</ul>
     	<div class="ui-content">
@@ -45,7 +45,7 @@
 				   			<a href="{:U('/Home/Novel/show',array('url'=>$novel['url']))}" >点击阅读</a>
 				   		</span>
 				   		<div >
-				   			本书属于<strong>{$novel.catename}</strong>
+				   			本书属于<strong>{$novel.cate_name}</strong>
 				   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；
 				   			已有<strong>{$novel.upall}</strong>人推荐过此书；
 				   			目前<strong>连载中</strong>
@@ -61,19 +61,19 @@
 				   	</div>
     			</div>
     		</div>
-    		<div class="ui-four-block ui-block">
+    		<!-- <div class="ui-four-block ui-block">
     			<h4 class="title title-white bg-black title-border">精彩评论</h4>
-    		</div>
+    		</div> -->
     		<div class="ui-comment ui-four-block ui-block">
     			<h4 class="title title-white bg-black title-border">发表评论 </h4>
-    			<div class="comment-add">
+    			<!--<div class="comment-add">
     				<p>
     					<textarea class="ui-input" class="textarea" name="pcontent" cols="60" rows="5"></textarea>
     				</p>
     				<p >
     					<button type="submit" name="Submit" class="right" >发表书评</button>
     				</p>
-    			</div>
+    			</div> -->
     		</div>
     	</div>
     	<div class="ui-sidebar">
@@ -82,17 +82,13 @@
             </div>
             <div class="ui-box">
                 <h4 class="title">最好看小说</h4>
+                <php>
+                     $dhot = ff_mysql_novel('ncid:'.$novel['ncid'].';order:hit_week desc;limit:10');
+                </php>
                 <ul class="rank">
-                    <a href="http://www.cai.com/t/book/922.html" target="_blank"><i>3890791人读过</i>莽荒纪</a>
-                    <a href="http://www.cai.com/t/book/27.html" target="_blank"><i>2187310人读过</i>绝世唐门</a>
-                    <a href="http://www.cai.com/t/book/4541.html" target="_blank"><i>2181236人读过</i>大主宰</a>
-                    <a href="http://www.cai.com/t/book/99.html" target="_blank"><i>2014134人读过</i>最强弃少</a>
-                    <a href="http://www.cai.com/t/book/4527.html" target="_blank"><i>1950215人读过</i>混世小术士</a>
-                    <a href="http://www.cai.com/t/book/4877.html" target="_blank"><i>1759731人读过</i>完美世界</a>
-                    <a href="http://www.cai.com/t/book/3.html" target="_blank"><i>1623815人读过</i>唐砖</a>
-                    <a href="http://www.cai.com/t/book/4632.html" target="_blank"><i>1604800人读过</i>全能戒指</a>
-                    <a href="http://www.cai.com/t/book/2699.html" target="_blank"><i>1468082人读过</i>少年医仙</a>
-                    <a href="http://www.cai.com/t/book/3545.html" target="_blank"><i>1459754人读过</i>崛起美洲1620</a>
+                	<volist id="vo" name="dhot" >
+                    	<a href="{$vo.novel_url}" target="_blank"><i>{$vo.cnall}人读过</i>{$vo.title|msubstr=0,8,true}</a>
+                    </volist>
                 </ul>
             </div>
     	</div>

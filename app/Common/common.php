@@ -360,6 +360,7 @@ function ff_mysql_novel($tag)
 	$field = !empty($tag['field']) ? $tag['field'] : '*';
 	$limit = !empty($tag['limit']) ? $tag['limit'] : '10';
 	$order = !empty($tag['order']) ? $tag['order'] : 'utime DESC';
+	$page =  !empty($tag['pnow']) ? $tag['pnow'] : '1';
 	$lastUrl = !empty( $tag['lastUrl']) ? $tag['lastUrl'] : true;
     $joinData = FALSE ;
 	$_order = explode(" ", $order);
@@ -476,7 +477,7 @@ function ff_mysql_novel($tag)
 
     if( !$joinData )
     {
-    	$list = $rs->field( $field )->where( $where )->order( $strOrder )->limit( $limit )->select();
+    	$list = $rs->field( $field )->where( $where )->order( $strOrder )->page( $page.",".$limit )->select();
     }
     else
     {
@@ -489,22 +490,9 @@ function ff_mysql_novel($tag)
       			   ->join("LEFT JOIN ".C('DB_PREFIX').'ndata ON '.C('DB_PREFIX').'ndata.nid='.C('DB_PREFIX').'novel.nid')
                    ->where( $where )
                    ->order( $strOrder )
-                   ->limit( $limit )
+                   ->page( $page.",".$limit )
                    ->select();
     }
-
-    //分页信息
-	if( $tag['page'] )
-    {
-		//组合分页信息
-		$count = $rs->where($where)->count();if(!$count){return false;}
-		import('@.ORG.Page');
-		$Page = new Page( $count, $limit);
-		$pages = $Page->show();
-		//数据列表
-		$list[0]['count'] =  $count;
-		$list[0]['page'] = $pages;
-	}
 
 	foreach($list as $key=>$val)
 	{
@@ -520,6 +508,20 @@ function ff_mysql_novel($tag)
 			$list[$key]['novel_last_url'] = ff_novel_last($list[$key]['url'] , $list[$key]['nid'] , $list[$key]['newurl']);
 	   }
 	}
+
+	  //分页信息
+	if( $tag['page'] )
+    {
+		//组合分页信息
+		$count = $rs->where($where)->count();if(!$count){return false;}
+		import('@.ORG.Page');
+		$Page = new Page( $count, $limit);
+		$pages = $Page->show();
+		//数据列表
+		$list[0]['count'] =  $count;
+		$list[0]['page'] = $pages;
+	}
+
 	//是否写入数据缓存
 	/*if(C('data_cache_novel') && C('currentpage') < 2 ){
 		S($data_cache_name,$list,intval(C('data_cache_novel')));
@@ -530,19 +532,8 @@ function ff_mysql_novel($tag)
 //分类信息缓存,根据缓存获取目录信息
 function getlistname( $list_id , $field)
 {
-   	$listData = F('_ffnovel/cate');
-   	if( !$listData )
-   	{
-   		$Mcate = M("nclass");
-   		$cates = $Mcate->order("ord asc")->select();
-   		$_cates = array();
-   		foreach( $cates as $v)
-   		{
-   			$_cates[$v['ncid']] = $v;
-   		}
-   		F('_ffnovel/cate', $_cates);
-   		$listData = $_cates;
-   	}
+	$MCate = D("Nclass");
+   	$listData = $MCate->_getcache();
    if( isset( $listData[$list_id]))
   	{
     	return isset($listData[$list_id][$field] ) ? $listData[$list_id][$field] : '';
@@ -553,7 +544,7 @@ function getlistname( $list_id , $field)
    	}
 }
 
- function curl_content($url, $timeout = 10, $referer = "http://www.baidu.com")
+ function curl_content($url, $timeout = 20, $referer = "http://www.baidu.com")
  {
 	if(function_exists('curl_init')){
 		$ch = curl_init();

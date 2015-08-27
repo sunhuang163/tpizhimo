@@ -17,7 +17,7 @@ class NovelAction extends HomeAction
 
        $wheres['ih_novel.url'] = array('eq' , $url);
 	   $dnovel = null;
-	   $dnovel = $Mdo->field("ih_novel.*,ih_ndata.*,ih_nclass.name as catename")
+	   $dnovel = $Mdo->field("ih_novel.*,ih_ndata.*,ih_nclass.name as cate_name,ih_nclass.url as cate_url")
 		             ->join("LEFT JOIN ih_nclass on ih_nclass.ncid =ih_novel.ncid")
 		             ->join("LEFT JOIN ih_ndata  on ih_ndata.nid=ih_novel.nid")
 		             ->where( $wheres )
