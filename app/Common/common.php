@@ -19,7 +19,16 @@ function u2g($str){
 }
 
 function g2u($str){
-	return iconv("GBK","UTF-8//ignore",$str);
+	$cnt = iconv("GBK","UTF-8//ignore",$str);
+		if( FALSE === $cnt )
+		{
+			//gbk 2 utf8 gb2312bug
+			if( function_exists( 'mb_convert_encoding' ) )
+			{
+				$cnt = mb_convert_encoding($str, "UTF-8", "gb2312");
+			}
+		}
+		return $cnt;
 }
 
 function t2js($l1, $l2=1){
