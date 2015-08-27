@@ -47,6 +47,17 @@ class CateAction extends HomeAction {
         }
     }
 
+    //字母分页
+    public function zimu()
+    {
+        $zimu = isset( $_REQUEST['zimu'] ) ? trim( $_REQUEST['zimu'] ) : 'A';
+        $p = isset( $_REQUEST['p']) ? intval( $_REQUEST['p']) : 1;
+        $zimu = strtoupper( $zimu );
+        $this->assign("p", $p);
+        $this->assign("zimu", $zimu);
+        $this->display();
+    }
+
     public function  show()
     {
         $Mcate = M("Nclass");

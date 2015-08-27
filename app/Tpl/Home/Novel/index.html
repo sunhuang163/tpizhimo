@@ -9,97 +9,98 @@
 	<script tyle="text/javascript" src="{$ST_PATH}js/page.js"> </script>
 </head>
 <body>
-<div class="wrapper">
-    <include file="Public:nav" />
-    <div class="ui-container">
-	    <ul class="ui-breadcrumb ui-block">
-			<li>
-				<a href="/">首页</a>
-				<span class="divider"> / </span>
-			</li>
-			<li>
-				<a href="/{$nove.cate_url}/">{$novel.cate_name}</a>
-				<span class="divider"> / </span>
-			</li>
-			<li>
-				<a href="/{$novel.cate_url}/{$novel.url}/">{$novel.title}</a>
-			</li>
-		</ul>
-    	<div class="ui-content">
-    		<div class="ui-four-block ui-block ui-article">
-    			<div class="info">
-    				<a href="{$novel.url}" target="_blank">
-						<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125"
-					 	alt="{$novel.catename}:{$novel.title}"  />
-				   	</a>
-				   	<h1>{$novel.title}</h1>
-				   	<p>
-				   		<span><b>作者</b>{$novel.author}</span>
-				   		<span class="right"><b>最近章节</b>{$novel.lasturl}</span>
-				   	</p>
-				   	<p>
-				   		<span>最后更新：{$novel.utime|date='Y-m-d H:i:s',###}</span>
-				   	</p>
-				   	<div class="note">
-				   		<span class="read">
-				   			<a href="{:U('/Home/Novel/show',array('url'=>$novel['url']))}" >点击阅读</a>
-				   		</span>
-				   		<div >
-				   			本书属于<strong>{$novel.cate_name}</strong>
-				   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；
-				   			已有<strong>{$novel.upall}</strong>人推荐过此书；
-				   			目前<strong>连载中</strong>
-				   		</div>
-				   	</div>
-				   	<div class="clear"></div>
-				   	<div class="detail">
-				   		<div class="ribbon">
-				   			<div class="ribbon-content">内容简介</div>
-				   		</div>
-				   		<div class="clear"></div>
-				   		<p>{$novel.ndesc}</p>
-				   	</div>
+	<div class="wrapper">
+    	<include file="Public:nav" />
+    	<div class="ui-container">
+	    	<ul class="ui-breadcrumb ui-block">
+				<li>
+					<a href="/">首页</a>
+					<span class="divider"> / </span>
+				</li>
+				<li>
+					<a href="/{$nove.cate_url}/">{$novel.cate_name}</a>
+					<span class="divider"> / </span>
+				</li>
+				<li>
+					<a href="/{$novel.cate_url}/{$novel.url}/">{$novel.title}</a>
+				</li>
+			</ul>
+	    	<div class="ui-content">
+	    		<div class="ui-four-block ui-block ui-article">
+	    			<div class="info">
+	    				<a href="{$novel.url}" target="_blank">
+							<img class="articleInfoPic" src="{$novel.pic|ff_pic_thumb}" width="100" height="125"
+						 	alt="{$novel.catename}:{$novel.title}"  />
+					   	</a>
+					   	<h1>{$novel.title}</h1>
+					   	<p>
+					   		<span><b>作者</b>{$novel.author}</span>
+					   		<span class="right"><b>最近章节</b>{$novel.lasturl}</span>
+					   	</p>
+					   	<p>
+					   		<span>最后更新：{$novel.utime|date='Y-m-d H:i:s',###}</span>
+					   	</p>
+					   	<div class="note">
+					   		<span class="read">
+					   			<a href="{:U('/Home/Novel/show',array('url'=>$novel['url']))}" >点击阅读</a>
+					   		</span>
+					   		<div >
+					   			本书属于<strong>{$novel.cate_name}</strong>
+					   			小说；已有<strong>{$novel.cnall}</strong>人读过此书；
+					   			已有<strong>{$novel.upall}</strong>人推荐过此书；
+					   			目前<strong>连载中</strong>
+					   		</div>
+					   	</div>
+					   	<div class="clear"></div>
+					   	<div class="detail">
+					   		<div class="ribbon">
+					   			<div class="ribbon-content">内容简介</div>
+					   		</div>
+					   		<div class="clear"></div>
+					   		<p>{$novel.ndesc}</p>
+					   	</div>
+	    			</div>
+	    		</div>
+    			<!-- <div class="ui-four-block ui-block">
+    				<h4 class="title title-white bg-black title-border">精彩评论</h4>
+    			</div> -->
+    			<div class="ui-comment ui-four-block ui-block">
+    				<h4 class="title title-white bg-black title-border">发表评论 </h4>
+	    			<!--<div class="comment-add">
+	    				<p>
+	    					<textarea class="ui-input" class="textarea" name="pcontent" cols="60" rows="5"></textarea>
+	    				</p>
+	    				<p >
+	    					<button type="submit" name="Submit" class="right" >发表书评</button>
+	    				</p>
+	    			</div> -->
     			</div>
     		</div>
-    		<!-- <div class="ui-four-block ui-block">
-    			<h4 class="title title-white bg-black title-border">精彩评论</h4>
-    		</div> -->
-    		<div class="ui-comment ui-four-block ui-block">
-    			<h4 class="title title-white bg-black title-border">发表评论 </h4>
-    			<!--<div class="comment-add">
-    				<p>
-    					<textarea class="ui-input" class="textarea" name="pcontent" cols="60" rows="5"></textarea>
-    				</p>
-    				<p >
-    					<button type="submit" name="Submit" class="right" >发表书评</button>
-    				</p>
-    			</div> -->
-    		</div>
+	    	<div class="ui-sidebar">
+	    		<div class="ui-box" style="margin-top:0px;">
+	                <include file="Public:nav_search"/>
+	            </div>
+	            <div class="ui-box">
+	                <h4 class="title">最好看小说</h4>
+	                <php>
+	                     $dhot = ff_mysql_novel('ncid:'.$novel['ncid'].';order:hit_week desc;limit:10');
+	                </php>
+	                <ul class="rank">
+	                	<volist id="vo" name="dhot" >
+	                    	<a href="{$vo.novel_url}" target="_blank"><i>{$vo.cnall}人读过</i>{$vo.title|msubstr=0,8,true}</a>
+	                    </volist>
+	                </ul>
+	            </div>
+	    	</div>
     	</div>
-    	<div class="ui-sidebar">
-    		<div class="ui-box" style="margin-top:0px;">
-                <include file="Public:nav_search"/>
-            </div>
-            <div class="ui-box">
-                <h4 class="title">最好看小说</h4>
-                <php>
-                     $dhot = ff_mysql_novel('ncid:'.$novel['ncid'].';order:hit_week desc;limit:10');
-                </php>
-                <ul class="rank">
-                	<volist id="vo" name="dhot" >
-                    	<a href="{$vo.novel_url}" target="_blank"><i>{$vo.cnall}人读过</i>{$vo.title|msubstr=0,8,true}</a>
-                    </volist>
-                </ul>
-            </div>
-    	</div>
-    </div>
-    <div class="clear"> </div>
-    <include file="Public:zimu" />
-    <include file="Public:footer"/>
-</div>
+    	<div class="clear"> </div>
+    	<include file="Public:zimu" />
+    	<include file="Public:footer"/>
+	</div>
 <script type="text/javascript">
 	$(function(){
 		novelKit.View({$novel.nid);
 	})
 </script>
+</body>
 </html>

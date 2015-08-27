@@ -52,7 +52,7 @@ class NovelAction extends HomeAction
        $url = isset( $_GET['url']) ? trim( $_GET['url']) : "";
 
        $wheres['ih_novel.url'] = array('eq' , $url );
-       $dnovel = M('novel')->field("ih_novel.*,ih_nclass.name as catename")
+       $dnovel = M('novel')->field("ih_novel.*,ih_nclass.name as cate_name,ih_nclass.url as cate_url")
 		             		->join("LEFT JOIN ih_nclass on ih_nclass.ncid =ih_novel.ncid")
 		             		->where( $wheres )->find();
        if( $dnovel )

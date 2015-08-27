@@ -9,6 +9,8 @@ RewriteRule	^(.*)$    html/$1 [L]
 #RewriteCond %{REQUEST_URI} !^(public|static|skdata).*$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^zimu/(\w)(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/1 [L]
+RewriteRule ^zimu/(\w)_([\d+])(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/$2 [L]
 RewriteRule ^([^/]\w+)(/?)(?<!\.html)$	index.php/Home/cate/index/url/$1 [L]
 RewriteRule ^([^/]*)/([^/]*)(/?)(?<!\.html)$	index.php/Home/novel/index/url/$2 [L]
 

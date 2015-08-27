@@ -1,11 +1,13 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>{$novel.title}最新章节_{$novel.title}TXT下载_{$novel.author}_{:C('SITE_NAME')}_小说最新章节TXT下载</title>
-<meta name="keywords" content="{$novel.title}最新章节,{$novel.title}TXT下载,{$novel.catename},{:C('SITE_NAME')}_小说最新章节TXT下载" />
-<meta name="description" content="{$novel.title}TXT下载，{$novel.title}最新章节阅读，尽在{:C('SITE_NAME')}_小说最新章节TXT下载。提供最新更新，最优质的阅读体验。" />
-<meta name="author" content="{$nove.author}" />
-<include file="Public:header"/>
+    <title>{$novel.title}最新章节_{$novel.title}TXT下载_{$novel.author}_{:C('SITE_NAME')}_小说最新章节TXT下载</title>
+    <meta name="keywords" content="{$novel.title}最新章节,{$novel.title}TXT下载,{$novel.cate_name},{:C('SITE_NAME')}_小说最新章节TXT下载" />
+    <meta name="description" content="{$novel.title}TXT下载，{$novel.title}最新章节阅读，尽在{:C('SITE_NAME')}_小说最新章节TXT下载。提供最新更新，最优质的阅读体验。" />
+    <meta name="author" content="{$nove.author}" />
+    <include file="Public:header"/>
+    <script tyle="text/javascript" src="{$ST_PATH}js/jquery.js"> </script>
+    <script tyle="text/javascript" src="{$ST_PATH}js/page.js"> </script>
 </head>
 <body>
 <div class="wrapper">
@@ -17,15 +19,15 @@
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="#">{$novel.catename}</a>
+                <a href="/{$novel.cate_url}/">{$novel.cate_name}</a>
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="#">{$novel.title}</a>
+                <a href="/{$novel.cate_url}/{$nove.url}/">{$novel.title}</a>
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="#">目录</a>
+                目录
             </li>
         </ul>
         <div class="ui-melu ui-block">
@@ -41,5 +43,10 @@
     <include file="Public:zimu" />
     <include file="Public:footer" />
  </div>
+<script type="text/javascript">
+    $(function(){
+        novelKit.View({$novel.nid);
+    })
+</script>
 </body>
 </html>

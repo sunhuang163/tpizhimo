@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>字母{$zimu}  - 第{$p}页 - {:C('DOMAIN_NAME')}</title>
+    <meta name="keywords" content="{$zimu}" />
+    <meta name="description" content="{$zimu}" />
+    <include file="Public:header"/>
+</head>
+<body>
+    <div class="wrapper">
+        <include file="Public:nav" />
+        <div class="ui-container">
+            <ul class="ui-breadcrumb ui-block">
+                <li>
+                    <a href="/">首页</a>
+                    <span class="divider"> / </span>
+                </li>
+                <li>
+                    <a href="/zimu/{$zimu}">{$zimu}</a>
+                </li>
+            </ul>
+            <div class="ui-full ui-content">
+                <div class="ui-block">
+                    <h4 class="title title-white bg-blue title-border">{$zimu} - 列表</h4>
+                    <php>
+                        $dlast = ff_mysql_novel('zimu:'.$zimu.';lastUrl:true;limit:20;page:true;pnow:'.$p);
+                        $pagestr = $dlast && isset( $dlast[0]) && isset($dlast[0]['page']) ? $dlast[0]['page'] :'';
+                    </php>
+                    <ol class="ui-list">
+                        <volist name="dlast" id="vo">
+                            <li>
+                                <a href="{$vo.novel_url}" target="_blank">
+                                    <img    src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
+                                </a>
+                                <h2>
+                                    <a target="_blank" href="{$vo.novel_url}"  >{$vo.title}</a>
+                                    <span>更新至</span>
+                                    {$vo.novel_last_url}
+                                </h2>
+                                <span>
+                                     {$vo.ndesc|msubstr=0,78,true}
+                                </span>
+                                <p>
+                                    <span>类别：{$vo.cate_name}</span>
+                                    <span>作者：{$vo.author}</span>
+                                    <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
+                                 </p>
+                            </li>
+                        </volist>
+                    </ol>
+                        <div class="pages">
+                            <span>
+                                {$pagestr}
+                            </span>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <div class="clear"> </div>
+    <include file="Public:footer"/>
+</div>
+</body>
+</html>
