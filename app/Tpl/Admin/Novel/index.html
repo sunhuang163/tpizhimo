@@ -1,154 +1,158 @@
 <include file="Public:header" />
-	 <title>小说管理</title>
-     <include file="Public:header_css" />
-	</head>
-	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
-			<div class="row">
-			   <include file="Public:left_menu" />
-				<div class="span10">
-					<h4>
-						小说列表
-						<small>
-						  <a class="toggle-link" href="{:U('/Admin/Novel/add')}"><i class="icon-plus"></i>添加新小说</a>
-						</small>
-					</h4>
-					<p class="row">
-				   <form class="form-inline" action="{:U('/Admin/Novel/index')}" method="GET">
-				   <input type="hidden" name="g" value="Admin"/>
-				   <input type="hidden" name="m" value="Novel" />
-				   <input type="hidden" name="a" value="index" />
-				   <ul class="nav pull-left">
-				    <li class="pull-left">
-				   所属分类:
-				    <select name="ncid" id="ncid" class="input-small" style="width:auto;">
-					  <option value="-1" <if condition="$ncid eq -1"> selected </if>>---选择分类---</option>
-					  <volist name="cates" id="vo">
-                        <option value="{$vo.ncid}" <if condition="$ncid eq $vo['ncid']"> selected </if>>{$vo.name}</option>
-					  </volist>
-					</select>&nbsp;&nbsp;
-					</li>
-					<li class="pull-left">
-				   作者:
-					<input type="text" name="author" class="input-small" value="{$author}"/>&nbsp;&nbsp;
-					</li>
-					<li class="pull-left">
-					更新时间:
-					<select id="gt" style="width:auto" name="gt">	
-				     	<option value="N" <if condition="$gt eq 'N'"> selected </if> >-选择-</option>
-					   <option value="gt" <if condition="$gt eq 'gt'"> selected </if> >大于</option>
-					    <option value="lt" <if condition="$gt eq 'lt'"> selected </if>>小于</option>
-					 </select>
-					<input type="hidden" name="time" id="time">
-					<input type="text" name="uptime" id="uptime" value="{$time}" class="input-medium"/>
-					<button type="submit" class="btn"><i class="icon-search"></i>查找</button>
-					</li>
+<title>小说管理</title>
+<include file="Public:header_css" />
+</head>
+<body>
+	<div class="container">
+    <include file="Public:top_nav" />
+		<div class="row">
+		   	<include file="Public:left_menu" />
+			<div class="span10">
+				<h4>
+					小说列表
+					<small>
+					  <a class="toggle-link" href="{:U('/Admin/Novel/add')}"><i class="icon-plus"></i>添加新小说</a>
+					</small>
+				</h4>
+				<p class="row">
+			   	<form class="form-inline" action="{:U('/Admin/Novel/index')}" method="GET">
+			   		<input type="hidden" name="g" value="Admin"/>
+			   		<input type="hidden" name="m" value="Novel" />
+			   		<input type="hidden" name="a" value="index" />
+					<ul class="nav pull-left">
+						<li class="pull-left">
+							所属分类:
+							<select name="ncid" id="ncid" class="input-small" style="width:auto;">
+								<option value="-1" <if condition="$ncid eq -1"> selected </if>>---选择分类---</option>
+								<volist name="cates" id="vo">
+								<option value="{$vo.ncid}" <if condition="$ncid eq $vo['ncid']"> selected </if>>{$vo.name}</option>
+								</volist>
+								</select>&nbsp;&nbsp;
+						</li>
+						<li class="pull-left">
+							作者:
+							<input type="text" name="author" class="input-small" value="{$author}"/>&nbsp;&nbsp;
+						</li>
+						<li class="pull-left">
+							文章标题:
+							<input type="text" name="title" class="input-small" value="{$title}"/>&nbsp;&nbsp;
+						</li>
+						<li class="pull-left">
+							更新时间:
+							<select id="gt" style="width:auto" name="gt">	
+								<option value="N" <if condition="$gt eq 'N'"> selected </if> >-选择-</option>
+								<option value="gt" <if condition="$gt eq 'gt'"> selected </if> >大于</option>
+								<option value="lt" <if condition="$gt eq 'lt'"> selected </if>>小于</option>
+							</select>
+							<input type="hidden" name="time" id="time">
+							<input type="text" name="uptime" id="uptime" value="{$time}" class="input-medium"/>
+							<button type="submit" class="btn"><i class="icon-search"></i>查找</button>
+						</li>
 					</ul>
-				  </form>
-				</p>
-					<table class="table table-bordered table-condensed table-striped">
-						<thead >
-							<tr>
-								<th><label class="checkbox"><input type="checkbox" id="chkall" class="input-mini"/></label></th>
-								<th> 标题 </th>
-								<th> 作者 </th>
-								<th> 分类</th>
-								<th> 更新时间 </th>
-								<th> 字母</th>
-								<th>评论</th>
-								<th> 
-								  <div class="dropdown">
-                                   <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 批量推荐  <span class="caret"></span>
-                                     </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="4">
-									  	 <li role="presentation">
-										     <a role="menuitem" tabindex="-1" class="hot_novel" data-r="txt" data-all="1" href="javascript:void(0);">首页热门</a>
-									     </li>										  										 				 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   class="hot_novel" data-r="pic" data-all="1" href="javascript:void(0);">首页图片</a>
-										 </li>
-										 <li role="presentation">
-										    <a role="menuitem" tabindex="-1" class="hot_novel"  data-r="" data-all="1" href="javascript:void(0);">到列表</a>
-										 </li>
-									 </ul>
-                                  </div>
-								 </th>
-							</tr>
-						</thead>
-						<tbody>
-						   <volist name="nlist" id="vo">
-						    <div  class="umoreinfo alert alert-info"  id="moreinfo{$vo.nid}" style="position:fixed;display:none;">
-							  <p>{$vo.title} / {$vo.author} </p>
-							  <p class="media-left">
-							    <span class="caption" >简介信息:{$vo.ndesc|msubstr=0,40,true}
-							  <br/>
-							  地址:{$vo.url} &nbsp;&nbsp;&nbsp;新地址:{$vo.newurl}
-							  <br/>
-							   创建时间:{$vo.ctime|date='Y-m-d H:i:s',###}
-							   </span> <img   class="thumbnail"  src="<if condition="$vo['pic']">/{$vo.pic}<else/>{$ADMIN_PATH}nopic.gif</if>"  width="80"  height="30">
-							  </p>
-							</div>
-							<tr  >
-							    <td style="width:20px;"><label><input name="ids" type="checkbox" value="{$vo.nid}" class="input-mini"></label></td>
-								<td title="{$vo.title}"  class="domoreinfo" id="{$vo.nid}"><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
-								<td>{$vo.author}</td>
-								<td>{$vo.ncname}</td>
-								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
-								<td>{$vo.zimu}</td>
-								<td>{$vo.ncomm}</td>
-								<td>
-								   <span><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">详情</a></span>
-								   <span><a href="{:U('/Admin/Novel/chapters','nid='.$vo['nid'])}">章节</a></span>
-								   <span><a href="{:U('/Admin/Novel/contents','nid='.$vo['nid'])}">内容</a></span>
-								   <span><a href="#">删除</a></span>
-								   <div class="dropdown">
-                                   <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 推荐操作  <span class="caret"></span>
-                                     </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="4">
-									  	 <li role="presentation">
-										     <a role="menuitem" tabindex="-1" id="t_{$vo.nid}" class="hot_novel" data-r="txt" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
-											  首页热门
-											 </a>
-									     </li>
-										 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   id="p_{$vo.nid}" class="hot_novel" data-r="pic" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
-											  首页图片
-											</a>
-										 </li>
-										 <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   id="n_{$vo.nid}" data-r="" class="hot_novel" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
-											 到列表
-											</a>
-										 </li>
-									 </ul>
-                                  </div>
-								</td>
-							</tr>
-					       </volist>  
-						</tbody>
-					</table>
-					 <div class="pagination">
-						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
-					</div>
+			  </form>
+			</p>
+				<table class="table table-bordered table-condensed table-striped">
+					<thead >
+						<tr>
+							<th><label class="checkbox"><input type="checkbox" id="chkall" class="input-mini"/></label></th>
+							<th> 标题 </th>
+							<th> 作者 </th>
+							<th> 分类</th>
+							<th> 更新时间 </th>
+							<th> 字母</th>
+							<th>评论</th>
+							<th> 
+							  <div class="dropdown">
+                               <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 批量推荐  <span class="caret"></span>
+                                 </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="4">
+								  	 <li role="presentation">
+									     <a role="menuitem" tabindex="-1" class="hot_novel" data-r="txt" data-all="1" href="javascript:void(0);">首页热门</a>
+								     </li>										  										 				 <li role="presentation">
+									    <a role="menuitem" tabindex="-1"   class="hot_novel" data-r="pic" data-all="1" href="javascript:void(0);">首页图片</a>
+									 </li>
+									 <li role="presentation">
+									    <a role="menuitem" tabindex="-1" class="hot_novel"  data-r="" data-all="1" href="javascript:void(0);">到列表</a>
+									 </li>
+								 </ul>
+                              </div>
+							 </th>
+						</tr>
+					</thead>
+					<tbody>
+					   <volist name="nlist" id="vo">
+					    <div  class="umoreinfo alert alert-info"  id="moreinfo{$vo.nid}" style="position:fixed;display:none;">
+						  <p>{$vo.title} / {$vo.author} </p>
+						  <p class="media-left">
+						    <span class="caption" >简介信息:{$vo.ndesc|msubstr=0,40,true}
+						  <br/>
+						  地址:{$vo.url} &nbsp;&nbsp;&nbsp;新地址:{$vo.newurl}
+						  <br/>
+						   创建时间:{$vo.ctime|date='Y-m-d H:i:s',###}
+						   </span> <img   class="thumbnail"  src="<if condition="$vo['pic']">/{$vo.pic}<else/>{$ADMIN_PATH}nopic.gif</if>"  width="80"  height="30">
+						  </p>
+						</div>
+						<tr  >
+						    <td style="width:20px;"><label><input name="ids" type="checkbox" value="{$vo.nid}" class="input-mini"></label></td>
+							<td title="{$vo.title}"  class="domoreinfo" id="{$vo.nid}"><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">{$vo.title|msubstr=0,12}</a></td>
+							<td>{$vo.author}</td>
+							<td>{$vo.ncname}</td>
+							<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
+							<td>{$vo.zimu}</td>
+							<td>{$vo.ncomm}</td>
+							<td>
+							   <span><a href="{:U('/Admin/Novel/view','id='.$vo['nid'])}">详情</a></span>
+							   <span><a href="{:U('/Admin/Novel/chapters','nid='.$vo['nid'])}">章节</a></span>
+							   <span><a href="{:U('/Admin/Novel/contents','nid='.$vo['nid'])}">内容</a></span>
+							   <span><a href="#">删除</a></span>
+							   <div class="dropdown">
+                               <button class="btn dropdown-toggle " type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true"> 推荐操作  <span class="caret"></span>
+                                 </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="4">
+								  	 <li role="presentation">
+									     <a role="menuitem" tabindex="-1" id="t_{$vo.nid}" class="hot_novel" data-r="txt" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+										  首页热门
+										 </a>
+								     </li>
+									 <li role="presentation">
+									    <a role="menuitem" tabindex="-1"   id="p_{$vo.nid}" class="hot_novel" data-r="pic" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+										  首页图片
+										</a>
+									 </li>
+									 <li role="presentation">
+									    <a role="menuitem" tabindex="-1"   id="n_{$vo.nid}" data-r="" class="hot_novel" href="javascript:void(0);" data-all="0" data-nid="{$vo.nid}" data-ncid="{$vo.ncid}">
+										 到列表
+										</a>
+									 </li>
+								 </ul>
+                              </div>
+							</td>
+						</tr>
+				       </volist>  
+					</tbody>
+				</table>
+				 <div class="pagination">
+					 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
 				</div>
-				   <div class="modal fade hide" id="dialog_uedit" tabindex="-1" role="dialog"  aria-hidden="true">
-                       <div class="modal-dialog">
-                           <div class="modal-content">
-                            <div class="modal-header">
-                               <button type="button" class="close" 
-                                 data-dismiss="modal" aria-hidden="true">
-                                     &times;
-                               </button>
-                          <h4 class="modal-title" id="myModalLabel">
-                            修改用户信息
-                           </h4>
-                         </div>
-                         <div class="modal-body">  </div>
-                        </div>
-                     </div><!-- /.modal-content -->
-                  </div><!-- /.modal -->
+			</div>
+			   <div class="modal fade hide" id="dialog_uedit" tabindex="-1" role="dialog"  aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" 
+                             data-dismiss="modal" aria-hidden="true">
+                                 &times;
+                           </button>
+                      <h4 class="modal-title" id="myModalLabel">
+                        修改用户信息
+                       </h4>
+                     </div>
+                     <div class="modal-body">  </div>
+                    </div>
+                 </div><!-- /.modal-content -->
+              </div><!-- /.modal -->
 
-		 </div>
+	 </div>
 <include file="Public:footer_js" />
 <script src="{$ADMIN_PATH}js/lhgcalendar.min.js"></script>
 <script type="text/javascript">

@@ -14,7 +14,7 @@ class NovelAction extends BaseAction {
 		/*search condition*/
 		$ncid = isset( $_GET['ncid']) ? intval( $_GET['ncid']) : -1;
 		$author = isset( $_GET['author']) ? trim( $_GET['author']) : "";
-
+		$title = isset( $_GET['title']) ? trim( $_GET['title']) : "";
 		$time = isset( $_GET['uptime']) ? $_GET['uptime']  : "";
 		$gt = isset( $_GET['gt'])  ? trim( $_GET['gt']) : "gt";
 
@@ -31,11 +31,13 @@ class NovelAction extends BaseAction {
 		$Mnovel  = D('Novel');
 		$wheres['_string'] = '1=1';
 		if( $ncid > 0)
-		$wheres['ih_novel.ncid'] = array('eq', $ncid);
+			$wheres['ih_novel.ncid'] = array('eq', $ncid);
 		if( $author)
-		$wheres['author'] = array("like",'%'.$author.'%');
+			$wheres['author'] = array("like",'%'.$author.'%');
+		if( $title)
+			$wheres['title'] = array("like",'%'.$title.'%');
 		if( $time )
-		$wheres['utime'] = array( $gt , strtotime( $time));
+			$wheres['utime'] = array( $gt , strtotime( $time));
 		$call = $Mnovel->where( $wheres )->count();
 		$pall = ($call >0) ? ceil($call/$this->a_psize) : 1;
 		if( $p > $pall )
@@ -48,17 +50,19 @@ class NovelAction extends BaseAction {
 		                ->order('utime DESC')
 		                ->limit( $limits )
 		                ->select();
+		
 		$url = U('/Admin/Novel/index',array('p'=>'{!page!}'));
 		cookie("_P_NOVEL" , $p);
 		$pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
 
-		$this->assign("author" ,$author);
+		$this->assign("author", $author);
+		$this->assign("title", $title);
 		$this->assign("ncid" , $ncid);
 		$this->assign("time" , $time );
 		$this->assign("gt" , $gt);
-		$this->assign("cates" , $cates );
-		$this->assign('call' ,$call );
-		$this->assign('pnow' , $p);
+		$this->assign("cates", $cates );
+		$this->assign('call', $call );
+		$this->assign('pnow', $p);
 		$this->assign('nlist', $Ldata );
 		$this->assign('pagestr', $pagestr );
 		$this->display();
