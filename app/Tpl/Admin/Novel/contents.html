@@ -41,23 +41,12 @@
                                           <span class="caret"></span>
                                      </button>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="{$vo.contract_id}" >
-										 <li role="presentation">
-										     <a role="menuitem" tabindex="-1" href="{:U('/Admin/Contract/edit','id='.$vo['contract_id'])}">细节修改</a>
-									     </li>
-                                         <li role="presentation">
-										     <a role="menuitem" tabindex="-1"  rel="{$vo.contract_id}" ref="__URL__"  class="xufei"
-											 href="javascript:void(0);">
-											 合同续费</a>
-									     </li>
-										 
-                                         <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   	  rel="{$vo.contract_id}"  ref="__URL__"  class="shengji"
-											href="javascript:void(0);">服务升级</a>
-										 </li>
-                                         <li role="presentation">
-										    <a role="menuitem" tabindex="-1"   rel="{$vo.contract_id}"   ref="__URL__"  class="zhuanfa"
-											href="javascript:void(0);">转发续费</a>
-										 </li>
+										<li role="presentation">
+									    	<a role="menuitem" href="javascript:void(0);" class="mult_del">批量删除</a>
+								     	</li>
+								     	<li role="presentation">
+									    	<a role="menuitem" href="javascript:void(0);" class="mult_create">生成静态</a>
+								     	</li>
                                      </ul>
                                    </div> 
 								  </label>
@@ -94,9 +83,17 @@
 			</div>
 		</div>
 <script type="text/javascript">
-   $(function(){
+ $(function(){
         $('#chkall').click(function(){
       $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+
+   $('.mult_del').click( function(){
+   		alert("批量删除内容");
+   });
+
+   $('.mult_create').click( function(){
+   		alert("批量生成静态页面内容");
    });
  });
 </script>

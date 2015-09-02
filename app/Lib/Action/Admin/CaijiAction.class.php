@@ -43,8 +43,13 @@ class CaijiAction extends BaseAction {
 	public function trash()
 	{
 		import("ORG.Io.Dir");
+		$dpath = realpath( DATA_PATH );
+		$dpath = str_replace( '\\', '/',  $dpath );
+		$dpath .='/';
 		$dir = new Dir;
-        $dir->del( DATA_PATH.'_caiji/' );
+        //$dir->del( $dpath.'_caiji/' );
+        $ss = $dir->getList( $dpath.'_caiji/' );
+        var_dump( $ss );
 		if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->delDir(DATA_PATH."_caiji/novel/");}
 		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->delDir(DATA_PATH."_caiji/list/");}
 		$this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
@@ -56,13 +61,22 @@ class CaijiAction extends BaseAction {
     {
         if( $this->isGet() )
         {
-            $this->display();
+        	$key = isset( $_GET['key']) ? trim( $_GET['key'] ) : '';
+        	if( !$key )
+        	{
+        		$this->error("采集网站更新错误");
+        	}
+        	else
+        	{
+        		$this->display();
+        	}
         }
         else
         {
             exit("caiji options");
         }
     }
+
 
 	//静态页面解析,源地址的，开始用ajax去解析
     public function listparse()

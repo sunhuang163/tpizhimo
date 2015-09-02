@@ -96,9 +96,21 @@ class HtmlAction extends BaseAction
     }
 
     //创建某个内容静态页面
-    protected function createNovel()
+    public function createNovel()
     {
-        // code here
+        $ids = isset( $_REQUEST['ids']) ? trim( $_REQUEST['ids']) : '';
+        //生成指定内容的小说
+        if( $ids )
+        {
+            //
+            var_dump( $ids );
+        }
+        else
+        {
+            //分页生成静态页面
+            $p = isset( $_GET['p']) ? intval( $_GET['p']) : 1; //默认为第一页,按照更新时间排序
+
+        }
     }
 
 
