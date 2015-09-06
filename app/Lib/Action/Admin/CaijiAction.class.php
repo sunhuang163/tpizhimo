@@ -45,10 +45,13 @@ class CaijiAction extends BaseAction {
 		import("ORG.Io.Dir");
 		$dpath = realpath( DATA_PATH );
 		$dpath = str_replace( '\\', '/',  $dpath );
-		$dpath .='/';
-		$dir = new Dir;
-        //$dir->del( $dpath.'_caiji/' );
-        $ss = $dir->getList( $dpath.'_caiji/' );
+		$dpath .='/_caiji';
+		$ff = glob($dpath.'/*.php');
+		var_dump( $ff );
+		$dir = new Dir( $dpath );
+        $dir->delDir( $dpath  );
+        var_dump( $dpath  );
+        $ss = $dir->getList( $dpath );
         var_dump( $ss );
 		if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->delDir(DATA_PATH."_caiji/novel/");}
 		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->delDir(DATA_PATH."_caiji/list/");}
