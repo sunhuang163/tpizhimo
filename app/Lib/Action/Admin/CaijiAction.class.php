@@ -17,17 +17,21 @@ class CaijiAction extends BaseAction {
             $orgLib[] = basename( $v, '.class.php');
         }
         $orgInfo = array();
+
+        $caijiPack = array();
         foreach( $orgLib as $vg )
         {
             import("@.ORG.Caiji.".$vg);
             $vc = new $vg();
             $vcinfo = $vc->m_class_info;
+            $caijiPack[$vcinfo['key']] = $vcinfo;
             $Flist = F("_caiji/list".$vcinfo['key']);
             $Fnovel = F('_caiji/novel'.$vcinfo['key']);
             $vcinfo['list'] = $Flist ? count( $Flist ) : 0;
             $vcinfo['novel'] = $Fnovel ? count( $Fnovel) :0;
             $orgInfo[] = $vcinfo;
         }
+        F('caijiModel',$caijiPack);
         $this->assign("orgs", $orgInfo);
 		$this->display();
 	}
@@ -71,12 +75,85 @@ class CaijiAction extends BaseAction {
         	}
         	else
         	{
+                $this->assign("caiji_key", $key );
+                $list = F('_caiji/list'.$key);
+                $p = isset( $_GET['p']) ? intval( $_GET['p']) : 1;
+                $this->assign("call",count( $list ));
+                if( isset( $list[$p]) )
+                {
+                    $url = U('/Admin/Caiji/caiji',array('p'=>'{!page!}','key'=>$key));
+                    $pagestr = pagestr( $p ,count( $list) , urldecode($url) , 1);
+                    $listContent = F('_caiji/list/'.$key.'/'.$p);
+                    $this->assign("novels", $listContent['d']);
+                    $this->assign("keyp", $listContent['p']);
+                    $this->assign("pagestr", $pagestr);
+                }
+                else
+                    $this->assign("pagestr",'');
+                $this->assign("pnow", $p);
         		$this->display();
         	}
         }
         else
         {
-            exit("caiji options");
+            $res = array('rcode'=>0,'msg'=>'Server Busy','data'=>NULL);
+            $op = isset( $_POST['op']) ? trim( $_POST['op']): FALSE;
+            $key = isset( $_POST['key']) ? trim( $_POST['key']) : '';
+            if( $op )
+            {
+                if( 'list' == $op)
+                {
+                    $Mcaiji = FALSE;
+                    $arrcaijiModel = F('caijiModel');
+                    //解析列表页
+                    $page = isset( $_POST['p']) ? intval( $_POST['p']) : 1;
+                    if( $page == 0 )
+                    {
+                        //采集全部内容
+                        $p = 1;
+                    }
+                    else
+                    {
+                         $p = $page;
+                    }
+
+                    if( isset($arrcaijiModel[$key]) )
+                    {
+                        import( $arrcaijiModel[$key]['package'] );
+                        $class = $arrcaijiModel[$key]['class'];
+                        $Mcaiji = new $class();
+                    }
+                    if( !$Mcaiji )
+                    {
+                        $res['msg'] = "采集模块不存在";
+                    }
+                    else
+                    {
+                        $caijiRes = $Mcaiji->getList( $p );
+                        $res['pall'] = $caijiRes['page'];
+                        if( $caijiRes['rcode'])
+                        {
+                            $res['msg'] = "采集成功";
+                            $res['rcode'] = 1;
+                            $res['data'] = $p;
+                        }
+                        else
+                        {
+                            $res['msg'] = $caijiRes['msg'];
+                        }
+                    }
+                }
+                else if('novel' == $op )
+                {
+                    //解析小说页面
+                }
+                else if('content' == $op )
+                {
+                    //解析小说的具体章节信息
+                }
+            }
+            echo json_encode( $res );
+            exit();
         }
     }
 

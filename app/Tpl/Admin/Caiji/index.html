@@ -29,8 +29,8 @@
 							<tr>
 								<td>{$vo.name}</td>
 								<td><a href="{$vo.source}" target="_blank">{$vo.source}</a></td>
-								<td> <span class="badge">{$vo.list}</span> </td>
-								<td> <span class="badge">{$vo.novel}</span> </td>
+								<td> <span class="badge <if condition="$vo['list']"> badge-success </if>">{$vo.list}</span> </td>
+								<td> <span class="badge <if condition="$vo['novel']"> badge-success </if>">{$vo.novel}</span> </td>
 								<td>
 									<a class="btn btn-warning btn-small" href="{:U('/Admin/Caiji/caiji',array('key'=>$vo['key']))}">重新采集</a>
 									<a class="btn btn-info btn-small" href="{:U('/Admin/Caiji/listparse',array('key'=>$vo['key']))}">解析列表</a>

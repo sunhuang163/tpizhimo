@@ -13,7 +13,9 @@ class  Day66 extends _Caiji
     public $m_class_info = array(
                         'name'=>'天天小说网',
                         'source'=>'http://www.day66.com/',
-                        'key'=>'day66'
+                        'key'=>'day66',
+                        'package'=>'@.ORG.Caiji.Day66',
+                        'class'=>'Day66'
                         );
 	//初始化函数
 	public function _initialize()
@@ -36,7 +38,7 @@ class  Day66 extends _Caiji
 	public function getList( $p = 1)
 	{
 		$res = $this->m_res;
-		$soso = $this->m_baseURL.'Book/ShowBookList.aspx?tclassid=0&nclassid=0&page={!p!}';
+		$soso = $this->m_baseURL.'Book/ShowBookList.aspx?page={!p!}';
 		$this->m_pageNow = $p;
 		$dList = array();
 	    $url = str_replace('{!p!}',$this->m_pageNow ,$soso);
@@ -60,14 +62,21 @@ class  Day66 extends _Caiji
 
 		     	$cateData  = array('d' => $dList , 't'=>time(), 'p'=> $this->m_pageNow );
 			    $cacheList = F('_caiji/list'.$this->m_cacheKey);
-			    if( !$caheList )
+			    if( !$cacheList )
 			    {
 			    	$cacheList = array();
 			    }
+                $reg_all_page = '^page=([\d]+)">末页<\/a>^isU';
+                if( preg_match($reg_all_page, $cnt, $mpage))
+                {
+                    $res['page'] = intval( $mpage[1] );
+                }
+                else
+                    $res['page'] = 0;
 			    $cacheList[$this->m_pageNow] = $this->m_pageNow;
 			    F('_caiji/list'.$this->m_cacheKey , $cacheList );
 			    F('_caiji/list/'.$this->m_cacheKey.'/'.$this->m_pageNow , $cateData );
-			    $res['rcode'] = 0;
+			    $res['rcode'] = 1;
 			    $res['msg']='OK';
 			    $res['data'] = $dList;
 		    }

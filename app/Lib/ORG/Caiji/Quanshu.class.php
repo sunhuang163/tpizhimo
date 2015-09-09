@@ -13,7 +13,9 @@ class  Quanshu extends _Caiji
     public $m_class_info = array(
                         'name'=>'全书网',
                         'source'=>'http://www.quanshu.net/',
-                        'key'=>'quanshu'
+                        'key'=>'quanshu',
+                        'package'=>'@.ORG.Caiji.Quanshu',
+                        'class'=>'Quanshu'
                         );
 	//初始化函数
 	public function _initialize()

@@ -13,7 +13,9 @@ class  Biquge extends _Caiji
     public $m_class_info = array(
                         'name'=>'笔趣阁',
                         'source'=>'http://www.biquge001.com/',
-                        'key'=>'biquge'
+                        'key'=>'biquge',
+                        'package'=>'@.ORG.Caiji.Biquge',
+                        'class'=>'Biquge'
                         );
 	//初始化函数
 	public function _initialize()

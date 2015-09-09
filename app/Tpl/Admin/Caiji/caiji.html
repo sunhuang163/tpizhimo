@@ -10,39 +10,123 @@
 			   <include file="Public:left_menu" />
 				<div class="span10">
 					<h5>
-						<a class="btn btn-mini btn-danger empty-cache" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
-							清空缓存内容<i class="icon-trash"></i>
-						</a>
+						<form class="form-inline">
+							<span class="pull-left">
+								<a class="btn btn-mini btn-danger empty-cache" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
+									清空缓存内容<i class="icon-trash"></i>
+								</a>
+							</span>
+							<span class="pull-left span4" id="spaninfo">
+								<div class="progress">
+									<div class="bar" style="width: 0%;"></div>
+								</div>
+							</span>
+							<span class="pull-left" id="ajerror" style="width:150px;padding-left:15px;display:none;">
+								<img src="{$ADMIN_PATH}loading.gif"/>
+								<i class="alert-error" style="font-size:9px;">错误信息</i>
+							</span>
+							<span class="pull-right">
+								<label class="text">
+									采集前
+									<input type="text" class="input-small" class="caiji_page" id="caiji_page"/>页&nbsp;
+								</label>
+								<button type="button" class="btn btn-mini btn-primary pull-right btn-list-caiji"  title="重新列表">
+									开始采集<i class="icon-trash"></i>
+								</button>
+							</span>
+						</form>
 					</h5>
 					<table class="table table-bordered table-striped td-a">
 						<thead>
 							<tr>
-								<th>采集源</th>
+								<th>名称</th>
+								<th>作者</th>
 								<th>地址</th>
-								<th>列表页</th>
-								<th>详情页</th>
 								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody>
-							<volist name="orgs" id="vo">
+						<tbody id="caiji_res">
+							<volist name="novels" id="vo" key="listkey">
 							<tr>
-								<td>{$vo.name}</td>
-								<td><a href="{$vo.source}" target="_blank">{$vo.source}</a></td>
-								<td> <span class="badge">{$vo.list}</span> </td>
-								<td> <span class="badge">{$vo.novel}</span> </td>
 								<td>
-									<a class="btn btn-warning btn-small" href="{:U('/Admin/Caiji/caiji',array('key'=>$vo['key']))}">重新采集</a>
-									<a class="btn btn-info btn-small" href="{:U('/Admin/Caiji/listparse',array('key'=>$vo['key']))}">解析列表</a>
-									<a class="btn btn-info btn-small" href="{:U('/Admin/Caiji/novelparse',array('key'=>$vo['key']))}">解析详情</a>
+									<span class="badge">{$listkey}</span>
+									<b>{$vo.title}</b>
+								</td>
+								<td>{$vo.author}</td>
+								<td>{$vo.url}</td>
+								<td>
+									<a class="btn btn-default btn-small" href="{:U('/Admin/Caiji/novelparse',array('key'=>$vo['key']))}">解析详情</a>
 								</td>
 							</tr>
 							</volist>
 						</tbody>
 					</table>
+					<div class="pagination">
+					 {$pagestr}共有 {$call} 页数据，当前第 {$pnow} 页
+				</div>
 				</div>
 		</div>
 <script type="text/javascript">
+var caiji_key = '{$caiji_key}';
+var pageAll = 0;
+var errorCount = 5;
+
+function caijiurl(key, page)
+{
+	var dup = {op:'list',key:key,p:page};
+	dup.key = key;
+	$.ajax({
+			url: "{:U('Admin/Caiji/Caiji')}",
+			data:dup,
+			type: "POST",
+			dataType:'json',
+			success:function( d) {
+				if( parseInt( d.rcode ) > 0)
+				{
+					errorCount = 5;
+					listAll = parseFloat( d.pall );
+					if( page == 0)
+					{
+						page = 1;
+						pageAll = listAll;
+						$('#caiji_page').val( pageAll );
+					}
+					//设置进度条
+					var pnow = parseFloat(d.data);
+
+					var pg = pnow /pageAll;
+					pg = pg.toFixed(3);
+					pg = pg*100;
+					$('#spaninfo  .bar').attr('style','width:'+pg+'%;');
+					page++;
+					if( page > listAll || page > pageAll )
+					{
+						$(this).attr('caiji',0);
+						$('#ajerror').hide();
+						$('#ajerror i').text("");
+						alert("已经采集完成");
+						return;
+					}
+					else
+					{
+						$('#ajerror i').text("采集第"+page+"页");
+						setTimeout(caijiurl(key,page) ,200);
+					}
+				}
+				else
+				{
+					$('#ajerror i').text("第:"+page+"页" +d.msg );
+					errorCount--;
+					if( errorCount > 0 )
+						caijiurl(key, page);
+				}
+			},
+			error:function(e)
+			{
+				alert("ajax请求发生错误");
+		} });
+}
+
 $( function(){
 	$('.empty-cache').click( function( e )
 		{
@@ -52,6 +136,32 @@ $( function(){
 				return false;
 			}
 		});
+
+	$('.btn-list-caiji').click( function(e){
+		var isCaiji = $(this).attr('caiji');
+		if( isCaiji )
+		{
+			alert("正在采集中");
+			e.preventDefault();
+			return;
+		}
+		else
+		{
+			$('#spaninfo  .bar').attr('style','width:0%;');
+			$('#ajerror').show();
+			$('#ajerror i').text("开始采集");
+			pageAll = 0;
+			var page = $('#caiji_page').val();
+			if( page )
+			{
+				pageAll = parseInt( page );
+
+			}
+			//如果page=0等于零，则重新采集
+			caijiurl(caiji_key, 0);
+			$(this).attr("caiji",1);
+		}
+	});
 });
 </script>
 <include file="Public:footer" />
