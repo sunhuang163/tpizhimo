@@ -71,9 +71,21 @@ var caiji_key = '{$caiji_key}';
 var pageAll = 0;
 var errorCount = 5;
 
+function caijiStart( maxPage )
+{
+	if( maxPage )
+		pageAll = maxPage;
+	else
+		pageAll = 0;
+	caijiurl( caiji_key, 0 );
+}
+
 function caijiurl(key, page)
 {
-	var dup = {op:'list',key:key,p:page};
+	var _page = page;
+	if( _page == 0)
+		_page = 1;
+	var dup = {op:'list',key:key,p:_page};
 	dup.key = key;
 	$.ajax({
 			url: "{:U('Admin/Caiji/Caiji')}",
@@ -85,7 +97,7 @@ function caijiurl(key, page)
 				{
 					errorCount = 5;
 					listAll = parseFloat( d.pall );
-					if( page == 0)
+					if( page == 0 && pageAll == 0)
 					{
 						page = 1;
 						pageAll = listAll;
@@ -104,6 +116,7 @@ function caijiurl(key, page)
 						$(this).attr('caiji',0);
 						$('#ajerror').hide();
 						$('#ajerror i').text("");
+						pageAll = 0;
 						alert("已经采集完成");
 						return;
 					}
@@ -154,11 +167,13 @@ $( function(){
 			var page = $('#caiji_page').val();
 			if( page )
 			{
-				pageAll = parseInt( page );
+				page = parseInt( page );
 
 			}
+			else
+				page = 0;
 			//如果page=0等于零，则重新采集
-			caijiurl(caiji_key, 0);
+			caijiStart(caiji_key, page );
 			$(this).attr("caiji",1);
 		}
 	});
