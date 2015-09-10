@@ -45,6 +45,12 @@ class  Day66 extends _Caiji
 	    $cnt = self::ss_cnt( $url );
 	    if( $cnt )
 	    {
+            /**
+             * 列表作者匹配失败,第一个作者是列表头BUG,2015/09/10
+             *
+             * @author ZhangYe
+             */
+            $cnt = preg_replace('^class="liinfo">(.*)<\/li>^isU', '', $cnt);
 	    	$reg='^class="bname"><a href="/(.*)" title="(.*)" target="_blank">^isU';
 		    $reg_author = '^class="author">(.*)<^isU';
 		    preg_match_all($reg, $cnt, $matches);

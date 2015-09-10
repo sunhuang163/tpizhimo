@@ -36,14 +36,6 @@ class CaijiAction extends BaseAction {
 		$this->display();
 	}
 
-	public function t()
-	{
-		import("@.ORG.Caiji.Day66");
-        echo "ORG test ";
-		//$CDay66 = new Day66( 'http://www.day66.com/');
-		//$CDay66->t();
-	}
-
 	public function trash()
 	{
 		import("ORG.Io.Dir");
@@ -51,14 +43,13 @@ class CaijiAction extends BaseAction {
 		$dpath = str_replace( '\\', '/',  $dpath );
 		$dpath .='/_caiji';
 		$ff = glob($dpath.'/*.php');
-		var_dump( $ff );
 		$dir = new Dir( $dpath );
         $dir->delDir( $dpath  );
-        var_dump( $dpath  );
+        /*var_dump( $dpath  );
         $ss = $dir->getList( $dpath );
         var_dump( $ss );
 		if(file_exists(DATA_PATH."_caiji/novel/") && !$dir->isEmpty(DATA_PATH."_caiji/novel/")){$dir->delDir(DATA_PATH."_caiji/novel/");}
-		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->delDir(DATA_PATH."_caiji/list/");}
+		if(file_exists(DATA_PATH."_caiji/list/") && !$dir->isEmpty(DATA_PATH."_caiji/list/")){$dir->delDir(DATA_PATH."_caiji/list/");} */
 		$this->assign("jumpUrl",U('/Admin/Caiji/index',array('t'=>time())));
 		$this->success("采集缓存清空成功!");
 	}

@@ -97,10 +97,11 @@ function caijiurl(key, page)
 				{
 					errorCount = 5;
 					listAll = parseFloat( d.pall );
-					if( page == 0 && pageAll == 0)
+					if( page == 0 )
 					{
 						page = 1;
-						pageAll = listAll;
+						if( pageAll == 0 )
+							pageAll = listAll;
 						$('#caiji_page').val( pageAll );
 					}
 					//设置进度条
@@ -173,7 +174,7 @@ $( function(){
 			else
 				page = 0;
 			//如果page=0等于零，则重新采集
-			caijiStart(caiji_key, page );
+			caijiStart( page );
 			$(this).attr("caiji",1);
 		}
 	});
