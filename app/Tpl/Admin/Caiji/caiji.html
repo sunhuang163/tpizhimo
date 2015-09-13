@@ -55,7 +55,7 @@
 								<td>{$vo.author}</td>
 								<td>{$vo.url}</td>
 								<td>
-									<a class="btn btn-default btn-small" href="{:U('/Admin/Caiji/novelparse',array('key'=>$vo['key']))}">解析详情</a>
+									<a class="btn btn-default btn-small btn-aj-parse" href="javascript:void(0);"  data-url="{$vo.url}">解析详情</a>
 								</td>
 							</tr>
 							</volist>
@@ -77,10 +77,35 @@ function caijiStart( maxPage )
 		pageAll = maxPage;
 	else
 		pageAll = 0;
-	caijiurl( caiji_key, 0 );
+	caiji_list( caiji_key, 0 );
 }
 
-function caijiurl(key, page)
+function caiji_chapter( _url )
+{
+	var cchapter_data = {key:caiji_key,url:_url,op:'chapter'};
+	$.ajax({
+			url: "{:U('Admin/Caiji/Caiji')}",
+			data:cchapter_data,
+			type: "POST",
+			dataType:'json',
+			success:function( d) {
+				console.log( d );
+				if( parseInt( d.rcode ) > 0)
+				{
+					alert("OK");
+				}
+				else
+				{
+					alert("FAILEDDDDD");
+				}
+			},
+			error:function(e)
+			{
+				alert("ajax请求发生错误");
+		} });
+}
+
+function caiji_list(key, page)
 {
 	var _page = page;
 	if( _page == 0)
@@ -142,6 +167,10 @@ function caijiurl(key, page)
 }
 
 $( function(){
+	$('.btn-aj-parse').click( function(){
+		var url = $(this).attr("data-url");
+		caiji_chapter( url );
+	});
 	$('.empty-cache').click( function( e )
 		{
 			if( !confirm('确定删除采集缓存文件?') )

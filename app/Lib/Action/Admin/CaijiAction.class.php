@@ -92,28 +92,23 @@ class CaijiAction extends BaseAction {
             $key = isset( $_POST['key']) ? trim( $_POST['key']) : '';
             if( $op )
             {
+            	$Mcaiji = FALSE;
+                $arrcaijiModel = F('caijiModel');
+                if( isset($arrcaijiModel[$key]) )
+                {
+                    import( $arrcaijiModel[$key]['package'] );
+                    $class = $arrcaijiModel[$key]['class'];
+                    $Mcaiji = new $class();
+                }
+
                 if( 'list' == $op)
                 {
-                    $Mcaiji = FALSE;
-                    $arrcaijiModel = F('caijiModel');
                     //解析列表页
                     $page = isset( $_POST['p']) ? intval( $_POST['p']) : 1;
                     if( $page == 0 )
-                    {
-                        //采集全部内容
-                        $p = 1;
-                    }
+                     	$p = 1;  //采集全部内容
                     else
-                    {
-                         $p = $page;
-                    }
-
-                    if( isset($arrcaijiModel[$key]) )
-                    {
-                        import( $arrcaijiModel[$key]['package'] );
-                        $class = $arrcaijiModel[$key]['class'];
-                        $Mcaiji = new $class();
-                    }
+                        $p = $page;
                     if( !$Mcaiji )
                     {
                         $res['msg'] = "采集模块不存在";
@@ -132,6 +127,31 @@ class CaijiAction extends BaseAction {
                         {
                             $res['msg'] = $caijiRes['msg'];
                         }
+                    }
+                }
+                else if( 'chapter' == $op )
+                {
+                	$url = isset( $_POST['url']) ? trim( $_POST['url']) : '';
+                    if( !$Mcaiji )
+                    {
+                        $res['msg'] = "采集模块不存在";
+                    }
+                    else if(!$url )
+                    {
+                    	$res['msg'] = "参数提交错误";
+                    }
+                    else
+                    {
+                        $caijiRes = $Mcaiji->getChapter( $url );
+                        if( $caijiRes['rcode'])
+                       	{
+                       		$res['rcode'] = 1;
+                       		$res['msg'] = 'OK';
+                       	}
+                       	else
+                       	{
+                       		$res['msg'] = $caijiRes['msg'];
+                       	}
                     }
                 }
                 else if('novel' == $op )

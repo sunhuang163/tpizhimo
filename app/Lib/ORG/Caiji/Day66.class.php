@@ -61,6 +61,7 @@ class  Day66 extends _Caiji
 		     	{
 		        	$item = array();
 		    		$item['url'] = $this->m_baseURL.$_v;
+                    $item['cnt'] = 0;
 		    		$item['title'] = trim($matches[2][$_k]);
 		    		$item['author'] = trim($match_authors[1][$_k]); //获取作者，避免内容重复
 		    		$dList[] = $item;
@@ -160,7 +161,7 @@ class  Day66 extends _Caiji
     }
 
     //获取小说的章节信息
-    //示例 URL http://www.day66.com/xiaoshuo/48/48953/Index.shtml
+    //示例 URL http://www.day66.com/48744.aspx  //  http://www.day66.com/xiaoshuo/48/48453/
     public function getChapter( $url )
     {
     	$res = $this->m_res;
@@ -170,6 +171,11 @@ class  Day66 extends _Caiji
     	}
         else
         {
+            $reg_show = '#\/([\d]+)\.aspx$#isU'; //小说访问地址和目录页面地址
+            if( preg_match($reg_show, $url, $urlMatch ) )
+            {
+                $url  = $this->m_baseURL.'xiaoshuo'.'/'.substr($urlMatch[1],0,2).'/'.$urlMatch[1].'/';
+            }
         	$IndexCnt = self::ss_cnt( $url );
         	if( !$IndexCnt )
         	{
@@ -177,15 +183,20 @@ class  Day66 extends _Caiji
         	}
         	else
         	{
-        		$RegChanpter = "#<dt>(.*)<\/a>(.*)<\/dt>#isU";
+        		$RegChanpter = "^<dt>(.*)<\/dt>^isU";
         		$RegContent = "#<\/dt>(.*)(<dt>|<\/dl>)#isU";
         		$RegDetail = "#<dd><a href=\"(.*)\" title=\"(.*)\">(.*)<\/a><\/dd>#isU";
         		$chaps = array();
-                $novelURL = substr( $url, 0, strrpos($url , "/")+1 );
-
+                $novelURL = $url;
         		if( preg_match_all($RegChanpter, $IndexCnt, $mathCp) && preg_match_all($RegContent, $IndexCnt, $matchCDiv ) )
         		{
-        			$chaps = $mathCp[2];
+
+        			$chaps = $mathCp[1];
+                    foreach( $chaps as &$vp)
+                    {
+                        $vp = preg_replace('#《.*》#isU', "", $vp);
+                    }
+                    unset( $vp );
                     $novelData = array();
                     $ic = 1;
         			foreach( $matchCDiv[1] as $kc=>$vc )
@@ -206,7 +217,7 @@ class  Day66 extends _Caiji
                         $novelData[] = $items;
                         $ic++;
         			}
-                    $res['data'] = $novelData;
+                    $res['data'] = 1;
                     $res['rcode'] = 1;
                     $res['msg'] = 'OK';
                     //更新内容到缓存目录
@@ -222,6 +233,10 @@ class  Day66 extends _Caiji
                     F('_caiji/novel'.$this->m_cacheKey , $cacheList );
                     F('_caiji/novel/'.$this->m_cacheKey.'/'.$cateData['p'], $cateData );
         		}
+                else
+                {
+                    $res['msg'] = "章节和内容信息匹配失败";
+                }
         	}
         }
 
