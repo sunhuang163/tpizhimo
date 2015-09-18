@@ -3,8 +3,8 @@
      <include file="Public:header_css" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
@@ -20,7 +20,7 @@
 					<input type="text" name="seach-title" class="input-large"/>
 					时间:
 					<input type="text" name="search-time" class="input-medium"/>
-					<button type="submit" class="btn">查询</button> 
+					<button type="submit" class="btn">查询</button>
 				  </form>
 				</p>
 		      <if condition="$dlist neq null ">

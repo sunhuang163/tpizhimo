@@ -4,13 +4,13 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
 					<h5>
-					  <i class="icon-tag"></i>{$dlist[0]['name']} 下的所有文章&nbsp;&nbsp;|&nbsp;&nbsp; 
+					  <i class="icon-tag"></i>{$dlist[0]['name']} 下的所有文章&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <span><a class="btn btn-primary btn-small" href="{:U('Tag/index')}">返回列表</a></span>
 					</h5>
 					<table class="table table-bordered table-condensed table-striped">
@@ -28,7 +28,7 @@
 								<td>{$vo.uptxt}</td>
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">

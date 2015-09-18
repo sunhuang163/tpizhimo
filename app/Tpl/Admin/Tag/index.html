@@ -4,8 +4,8 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
@@ -26,13 +26,13 @@
 							    <td>{$vo.name}</td>
 								<td>{$vo.tc}</td>
 								<td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
-								<td > 
+								<td >
 								   <a href="{:U('/Admin/Tag/tags','tid='.$vo['tid'])}"  title="查看该标签关联的文章">
 								    </i>关联文章
-								  </a> 
+								  </a>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">
@@ -46,7 +46,7 @@ $(function(){
    $('#chkall').click(function(){
       $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
    });
-   
+
 });
 
 

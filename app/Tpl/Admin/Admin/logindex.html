@@ -4,14 +4,14 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
 					<h3>
 						登录日志
-						<small> 
+						<small>
 						  <a href="javascript:void(0);" class="btn btn-primary btn-small btn_delete">批量删除</a>
 						</small>
 					</h3>
@@ -36,11 +36,11 @@
 								<td>{$vo.msg}</td>
 								<td>{$vo.ip|long2ip}</td>
 								<td>{$vo.logtype}</td>
-								<td > 
-								   <a href="javascript:void(0);"class="a_delete" rel="{$vo.id}" title="删除该条记录"><i class="icon-remove"></i></a> 
+								<td >
+								   <a href="javascript:void(0);"class="a_delete" rel="{$vo.id}" title="删除该条记录"><i class="icon-remove"></i></a>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">
@@ -56,9 +56,9 @@ function del( arr ){
                  url: "{:U('/Admin/Admin/log_del')}" ,
 				 data:{ids:arr},
                  dataType: "json",
-                 success: function(data){ 
+                 success: function(data){
 					 if( data.rcode )
-					 {  
+					 {
 					   location.reload();
 					 }
 					 else{
@@ -74,7 +74,7 @@ $(function(){
    $('#chkall').click(function(){
       $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
    });
-   
+
    $('.btn_delete').click(function(){
       var _arr = new Array();
 	  $("input[name='ids']").each(function(){
@@ -88,7 +88,7 @@ $(function(){
 	   }
 	 }
    });
-  
+
   $('.a_delete').click(function(){
     var _ids = new Array();
 	_ids.push( $(this).attr('rel'));

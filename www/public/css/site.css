@@ -1,10 +1,9 @@
 /* Akira CSS by Shawn Drew */
 
 /* general */
-body {padding-top:2px; padding-bottom:20px;font-family: 'Helvetica Neue',Helvetica,Arial,Sans-serif; font-size:13px;}
-
+body {padding-top:2px; padding-bottom:20px;font-family: 'Helvetica Neue',Helvetica,Arial,Sans-serif; font-size:13px; background: #eee;}
+#body-content {margin:0 auto;margin-top: 50px; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; box-shadow: 0px 0px 5px #999999; padding: 15px; background: #ffffff;}
 h1 {padding-bottom:0.2em;}
-
 .meta {color:#999; font-size:.9em; display:block;}
 .meta em {font-style:normal; font-weight:bold;}
 
@@ -24,7 +23,7 @@ h1 {padding-bottom:0.2em;}
 	.ie7 .summary {display:block;}
 	.ie7 .summary ul {margin:0; padding:0; overflow:hidden; display:block;}
 	.ie7 .summary li {float:left;}
-	
+
 	.ielt9 .summary .last {border:none;}
 
 /* tasks */
@@ -64,7 +63,7 @@ h1 {padding-bottom:0.2em;}
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
  */
- 
+
 /* common start */
 body { _margin:0; _height:100%; /*IE6 BUG*/ }
 .aui_outer { text-align:left; }
@@ -110,3 +109,6 @@ button.aui_state_highlight:active { border-color:#1c6a9e; filter: progid:DXImage
 	.aui_dialog:active { box-shadow:0 0 5px rgba(0, 0, 0, .1)!important; }
 	.aui_state_drag .aui_outer { box-shadow:none!important; }
 }
+.table {font-size:12px;    border-spacing: 2px; border-color: grey;}
+.table thead th {  vertical-align: bottom;}
+.table th {background: #ddd;}

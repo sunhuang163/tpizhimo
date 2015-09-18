@@ -4,8 +4,8 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
@@ -43,10 +43,10 @@
 								</td>
 								<td>{$vo.author}</td>
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
-								<td > 
+								<td >
 								   <button title="删除" data-id="{$vo.recommend_id}">
 								     <i class="icon-remove"></i>
-								   </button> 
+								   </button>
 								   &nbsp;
 								   <button title="向上移动" data-id="{$vo.recommend_id}" data-ord="{$vo.ord}" data-ncid="{$vo.ncid}" data-r="{$vo.rtype}">
 								     <i class="icon-arrow-up"></i>
@@ -57,7 +57,7 @@
 								   </button>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">
@@ -77,9 +77,9 @@ $(function(){
                  url: "{:U('/Admin/Hot/delete')}" ,
 				 data:{rid:nid},
                  dataType: "json",
-                 success: function(data){ 
+                 success: function(data){
 					 if( data.rcode )
-					 {  
+					 {
 					  location.reload();
 					 }
 					 else{
@@ -99,7 +99,7 @@ $(function(){
    $('#chkall').click(function(){
       $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
    });
-   
+
    $('.btn_delete').click(function(){
       var _arr = new Array();
 	  $("input[name='ids']").each(function(){
@@ -113,7 +113,7 @@ $(function(){
 	   }
 	 }
    });
-  
+
   $('.a_delete').click(function(){
     var _ids = new Array();
 	_ids.push( $(this).attr('rel'));

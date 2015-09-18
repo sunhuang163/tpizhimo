@@ -4,8 +4,8 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
@@ -63,18 +63,18 @@
 								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
 								<td>{$vo.ip|long2ip}</td>
 								<td>{$vo.mtime|date='Y-m-d H:i:s',###}</td>
-								<td > 
+								<td >
 								   <a href="javascript:void(0);"  class="u_edit" rel="{$vo.said}"   title="编辑用户信息">
 								     <i class="icon-edit"></i>
-								   </a> 
-								   <a href="javascript:void(0);" class="u_psw" rel="{$vo.said}" title="更改用户密码"><i class="icon-lock"></i></a> 
-								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.said}" data="{$vo.state}" 
+								   </a>
+								   <a href="javascript:void(0);" class="u_psw" rel="{$vo.said}" title="更改用户密码"><i class="icon-lock"></i></a>
+								   <a href="javascript:void(0);" class="u_ban" rel="{$vo.said}" data="{$vo.state}"
 								   title="<if condition="$vo['state'] eq 0">授权用户登录<else/>禁止用户登录</if>">
 								   <i class="<if condition="$vo['state'] eq 0">icon-ok-sign<else/>icon-minus-sign</if>"></i>
-								   </a> 
+								   </a>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					</table>
 					 <div class="pagination">
@@ -85,7 +85,7 @@
                        <div class="modal-dialog">
                            <div class="modal-content">
                             <div class="modal-header">
-                               <button type="button" class="close" 
+                               <button type="button" class="close"
                                  data-dismiss="modal" aria-hidden="true">
                                      &times;
                                </button>
@@ -102,7 +102,7 @@
                        <div class="modal-dialog">
                            <div class="modal-content">
                             <div class="modal-header">
-                               <button type="button" class="close" 
+                               <button type="button" class="close"
                                  data-dismiss="modal" aria-hidden="true">
                                      &times;
                                </button>
@@ -129,7 +129,7 @@
 				 type: "GET",
                  url: _url ,
                  dataType: "json",
-                 success: function(data){ 
+                 success: function(data){
 					 if( data.rcode )
 					 {
 					    $('#dialog_uedit .modal-body').html( data.html );
@@ -143,7 +143,7 @@
 					 alert('加载用户信息失败');
 				 }
 			  });
-	 }); 
+	 });
    $('.u_psw').click(function(){
       var _id = $(this).attr('rel');
 		 var _url = "{:U('/Admin/Admin/users_psw')}";
@@ -152,7 +152,7 @@
 				 type: "GET",
                  url: _url ,
                  dataType: "json",
-                 success: function(data){ 
+                 success: function(data){
 					 if( data.rcode )
 					 {
 					    $('#dialog_psw .modal-body').html( data.html );
@@ -177,7 +177,7 @@
                  url: "{:U('/Admin/Admin/users_ban')}" ,
 				 data:{id:_id,state:_state},
                  dataType: "json",
-                 success: function(data){ 
+                 success: function(data){
 					 if( data.rcode )
 					 {
 					   location.reload();
@@ -191,8 +191,8 @@
 				 }
 			  });
   });
-	 $("#dialog_uedit").on("hidden", function() { $(this).removeData("modal"); }); 
-	  $("#dialog_psw").on("hidden", function() { $(this).removeData("modal"); }); 
+	 $("#dialog_uedit").on("hidden", function() { $(this).removeData("modal"); });
+	  $("#dialog_psw").on("hidden", function() { $(this).removeData("modal"); });
  });
 </script>
 <include file="Public:footer" />

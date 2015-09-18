@@ -46,13 +46,13 @@ class NovelAction extends BaseAction {
 		$p = $pall;
 		$limits = ($p-1)*$this->a_psize;
 		$limits.=','.$this->a_psize;
-		$Ldata = $Mnovel->field("ih_novel.title,ih_novel.author,ih_novel.nid,ih_novel.utime,ih_novel.zimu,ih_novel.ncomm,ih_nclass.name as ncname")
+		$Ldata = $Mnovel->field("ih_novel.title,ih_novel.author,ih_novel.nid,ih_novel.pic,ih_novel.ctime,ih_novel.utime,ih_novel.zimu,ih_novel.ncomm,ih_nclass.name as ncname")
 		                ->join("ih_nclass on ih_novel.ncid=ih_nclass.ncid")
 		                ->where( $wheres )
 		                ->order('utime DESC')
 		                ->limit( $limits )
 		                ->select();
-		
+
 		$url = U('/Admin/Novel/index',array('p'=>'{!page!}'));
 		cookie("_P_NOVEL" , $p);
 		$pagestr = pagestr( $p , $pall , urldecode($url) , $this->a_psize);
@@ -261,7 +261,7 @@ class NovelAction extends BaseAction {
 	{
 		//
 	}
-	
+
 	public function contents()
 	{
 		$nid = isset( $_REQUEST['nid']) ? intval( $_REQUEST['nid']) : 0;

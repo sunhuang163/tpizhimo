@@ -5,8 +5,8 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-		  <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 			 <div class="span10">
@@ -48,7 +48,7 @@
 									    	<a role="menuitem" href="javascript:void(0);" class="mult_create">生成静态</a>
 								     	</li>
                                      </ul>
-                                   </div> 
+                                   </div>
 								  </label>
 								</th>
 								<th>标题</th>
@@ -64,14 +64,14 @@
 							    <td>{$vo.title}</td>
 								<td>{$vo.ctime|date="Y-m-d H:i:s",###}</td>
 								<td>{$vo.ord}</td>
-								<td > 
+								<td >
 								   <a href="javascript:void(0);" rel="{$vo.ncntid}" title="删除该条记录" class="btn  btn-mini">
 								     <i class="icon-remove"></i>
 								   </a> &nbsp;&nbsp;
 								   <a href="{:U('/Admin/Novel/content_edit',array('id'=>$vo['ncntid'],'nid'=>$d['nid']))}" title="编辑内容" class="btn btn-mini"><i class="icon-edit"></i></a>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					    </table>
 						<div class="pagination">

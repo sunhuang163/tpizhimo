@@ -5,8 +5,8 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-		  <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 			 <div class="span10">
@@ -42,7 +42,7 @@
 							<div class="control-group">
 								<label class="control-label" for="tags">标签</label>
 								<div class="controls">
-									<input type="text" class="input-xlarge" name="tags" id="tags" 
+									<input type="text" class="input-xlarge" name="tags" id="tags"
 									value="{$tags}" />
 									<p class="help-block">标签用"|" 隔开</p>
 								</div>
@@ -73,7 +73,7 @@
 							<div class="control-group">
 								<label class="control-label" for="ncid">分类</label>
 								<div class="controls">
-		                            <select name="ncid"  id="ncid"> 
+		                            <select name="ncid"  id="ncid">
 									  <volist name="nclass" id="vo">
 									   <option value="{$vo.ncid}" <if condition="$d['ncid'] eq $vo['ncid']"> selected </if>>{$vo.name}</option>
 									  </volist>
@@ -106,10 +106,11 @@
 							</div>
 							<div class="form-actions">
 								<button type="submit" class="btn btn-primary">保存</button>
-								<a  class="btn btn-normal" href="javascript:history.go(-1);">返回</a>
+								&nbsp;&nbsp;
+								<a href="{:cookie('LURL')}" class="btn btn-default">返回</a>
 							</div>
 						</fieldset>
-					</form> 
+					</form>
 						</div>
 						<include file="Novel:right_float"/>
 					</div>

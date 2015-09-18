@@ -4,20 +4,20 @@
 	 <include file="Public:footer_js" />
 	</head>
 	<body>
-		<div class="container">
-	    <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
 				    <div class="well summary">
-						<ul> 
+						<ul>
 							<li>
 							   <a class="btn btn-mini" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
 								 解析配置选项<i class="icon-trash"></i>
-								</a> 
+								</a>
 							 </li>
 							<li>
-							  <a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-medium">列表页<i class="badge">{$npage}</i></a> 
+							  <a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-medium">列表页<i class="badge">{$npage}</i></a>
 							</li>
 							<li>
 							   <a href="{:U('/Admin/Caiji/novel')}" class="btn btn-info btn-medium">解析列表页<i class="badge">{$nnovel}</i></a>

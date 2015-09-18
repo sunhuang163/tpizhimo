@@ -1,11 +1,11 @@
 <include file="Public:header" />
 	 <title>小说章节信息</title>
      <include file="Public:header_css" />
-	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" /> 
+	 <link rel="stylesheet" href="{$ADMIN_PATH}/plugin/kingedit/themes/default/default.css" />
 	</head>
 	<body>
-		<div class="container">
-		  <include file="Public:top_nav" />
+		<include file="Public:top_nav" />
+		<div class="container" id="body-content">
 			<div class="row">
 			   <include file="Public:left_menu" />
 			 <div class="span10">
@@ -68,7 +68,7 @@
 							    <td>[{$vo.cpid}]{$vo.title}</td>
 								<td>{$vo.cdesc}</td>
 								<td>{$vo.ord}</td>
-								<td > 
+								<td >
 								   <button title="删除该章节" data-id="{$vo.cpid}" data-ord="{$vo.ord}">
 								     <i class="icon-remove"></i>
 								   </button> &nbsp;
@@ -80,10 +80,10 @@
 								   </button> &nbsp;
 								    <button title="编辑章节" class="edit" data-id="{$vo.cpid}">
 								     <i class="icon-edit"></i>
-								   </button> 
+								   </button>
 								 </td>
 							</tr>
-					       </volist>  
+					       </volist>
 						</tbody>
 					    </table>
 						</div>
@@ -102,12 +102,12 @@ $(function(){
              dataType:'json',
              success:function( d) {
 			   if( parseInt( d.rcode ) > 0)
-			   { 
+			   {
 				    art.dialog({
                        id: 'div-edit',
 	                   lock:true,
                        content:d.data,
-                  }); 
+                  });
 			   }
 			  else
 			   {
