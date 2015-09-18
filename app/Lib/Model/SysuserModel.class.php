@@ -33,7 +33,7 @@ class SysuserModel extends AdvModel {
 	$data['utime'] = time();
 	$data['state'] = 1;
 	$data['mtime'] = time();
-	$data['ip'] = ip2long( getip() );
+	$data['ip'] = getip();
   }
 
 }

@@ -9,7 +9,7 @@
 			   <include file="Public:left_menu" />
 				<div class="span10">
 					<h5>
-						欢迎登录，上次登录{$au.utime|date='Y-m-d H:i:s',###}&nbsp;&nbsp;IP:{$au.ip|long2ip}
+						欢迎登录，上次登录{$au.utime|date='Y-m-d H:i:s',###}&nbsp;&nbsp;IP:{$au.ip}
 					</h5>
 					<div class="well summary">
 						<ul>
@@ -37,8 +37,8 @@
 							<tr>
 								<td> {$vo.name} </td>
 								<td> {$vo.ctime|date='Y-m-d H:i:s',###} </td>
-								<td> 	{$vo.msg} </td>
-								<td> 	{$vo.ip|long2ip} </td>
+								<td> {$vo.msg} </td>
+								<td> {$vo.ip} </td>
 								<td> {$vo.logtype}  </td>
 							</tr>
 					    </volist>

@@ -20,7 +20,8 @@ class UserModel extends AdvModel {
 	);
 
 	protected  function _before_insert(&$data,$options){
-
+        if( !$data['ip'] )
+            $data['ip'] = getip();
 	}
 
   /**

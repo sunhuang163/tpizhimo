@@ -915,6 +915,7 @@ function h($text, $tags = null){
 	return $text;
 }
 
+
 /*---------------后台用户相关 -------------*/
  function salog( $uid , $name , $type = 'NF' ,$msg = 'Nothing'){
      $MLog = M('syslog');
@@ -922,20 +923,19 @@ function h($text, $tags = null){
 
     $uinfo = isset($_SESSION[C('U_AUTH_KEY')]) ? $_SESSION[C('U_AUTH_KEY')] : '';
     if( count($uinfo) )
-     {
-		  $uinfos = authcode( $uinfo , "DECODE");
-	      $arruinfo = unserialize( $uinfos );
-		  $uid = isset( $arruinfo['uid'] ) ? $arruinfo['uid'] : $uid;
-		  $name = isset( $arruinfo['name'] ) ? $arruinfo['name'] : $name;
-     }
-	 $Ldata['said'] = $uid;
-	 $Ldata['name'] = $name;
-	 $Ldata['ctime'] = time();
-	 $Ldata['ctype'] = $type;
-	 $Ldata['msg'] = $msg;
-	 $Ldata['ip'] = ip2long( get_client_ip() );
-
-	 return $MLog->data( $Ldata )->add();
+	{
+	  $uinfos = authcode( $uinfo , "DECODE");
+	  $arruinfo = unserialize( $uinfos );
+	  $uid = isset( $arruinfo['uid'] ) ? $arruinfo['uid'] : $uid;
+	  $name = isset( $arruinfo['name'] ) ? $arruinfo['name'] : $name;
+	}
+	$Ldata['said'] = $uid;
+	$Ldata['name'] = $name;
+	$Ldata['ctime'] = time();
+	$Ldata['ctype'] = $type;
+	$Ldata['msg'] = $msg;
+	$Ldata['ip'] = getip();
+	return $MLog->data( $Ldata )->add();
    }
 
 ?>

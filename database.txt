@@ -4,7 +4,7 @@ mu4ju3MB5u
 
 -- 管理员部分：
 --系统管理员 ih_sysuser
-create table ih_sysuser(  
+create table ih_sysuser(
                         said int(10) not null primary key auto_increment,  -- 后台管理员编号
                         psw varchar(100),       -- 密码，加密后字符串
                 		salt varchar(10),       -- 密码加密随机数
@@ -14,9 +14,9 @@ create table ih_sysuser(
                         utime int,              -- 上次登录时间
                 		mtime int,              -- 上次资料修改时间
                 		state tinyint(1),       -- 用户状态 1:有效；0:精致登录
-                		ip int                  -- 上次登录IP
+                		ip varchar(128)         -- 上次登录IP
                     ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
- 
+
 -- 2、操作历史 ih_syslog
 create table ih_syslog(
                         id int not null primary key auto_increment,  -- 操作历史编号
@@ -26,9 +26,9 @@ create table ih_syslog(
             			msg varchar(200),           -- 日志消息
                         ctime  int,                 -- 日志产生时间
             			INDEX index_logc (ctype),   -- 索引
-            			ip int                      -- 日志产生请求的IP地址
+            			ip varchar(128)             -- 日志产生请求的IP地址
             			) ENGINE = MyISAM DEFAULT CHARSET = utf8;
- 
+
 -- 3、网站信息 ih_webinfo
 create table ih_webinfo(
                         id int not null primary key auto_increment,     -- 编号
@@ -49,14 +49,14 @@ create table ih_webgb(
             			title varchar(50),          -- 标题
             			msg varchar(500),           -- 留言内容
             			ctime int,                  -- 留言时间
-            			ip int,                     -- 留言IP地址
+            			ip varchar(128),                     -- 留言IP地址
                         isok tinyint(1) default 0,  -- 是否审核 1：已经审核；0：未审核
                         rpmsg varchar(500)          -- 回复消息
 			            ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
--- 用户部分： 
+-- 用户部分：
 -- 5、用户表 ih_user
-create table ih_user( 
+create table ih_user(
                         uid int(10) not null primary key auto_increment,    -- 用户编号
                         psw varchar(100),            -- 密码加密串
             			salt varchar(10),            -- 加密随机数
@@ -66,7 +66,7 @@ create table ih_user(
             			state tinyint(2) default 1,  -- 状态 0：锁定状态;1：正常状态
             			ctime int,                   -- 创建时间
             			utime int,                   -- 上次登录时间
-            			ip int ,                     --  上次登录IP
+            			ip varchar(128) ,                     --  上次登录IP
             			logo varchar(100),           -- 头像地址
             			udesc varchar(100),          -- 用户简介信息
             			cnotify int                  -- 用户通知数量
@@ -84,7 +84,7 @@ create  table ih_validate(
             			 ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 -- 7、用户订阅 ih_ubook
-create table ih_ubook( 
+create table ih_ubook(
                         id int(10) not null primary key auto_increment,    -- 订阅编号
                         uid int(10),            -- 用户编号
             			email varchar(100),     -- 订阅邮箱
@@ -93,7 +93,7 @@ create table ih_ubook(
             			) ENGINE = MyISAM DEFAULT CHARSET = utf8;
 
 -- 8、用户评论 ih_ucomment
-create table ih_ucomment( 
+create table ih_ucomment(
                         id int not null primary key auto_increment,   -- 评论编号
                         uid int(10),                    -- 用户ID
     				    nid int,                        -- 小说编号
@@ -121,8 +121,8 @@ create  table ih_novel(
                         title varchar(100),                 -- 小说标题
             			author varchar(30),                 -- 作者
             			ctime int,                          -- 入库时间
-            			utime int,                          -- 上次更新时间 
-            			ncid int,                           -- 分类ID 
+            			utime int,                          -- 上次更新时间
+            			ncid int,                           -- 分类ID
             			nstate tinyint(1) default 0,        -- 是否已经完结；0：未完结；1：已完结
             			uptxt varchar(50),                  -- 更新信息
             			ndesc varchar(300),                 -- 小说简介
@@ -164,7 +164,7 @@ create table ih_nchapter(
                         ord int(5),                 -- 权重值
                         ncid int                    -- 分类信息
                         ) ENGINE  = MyISAM DEFAULT CHARSET = utf8;
-  
+
 -- 11、小说内容 ih_content
 create table ih_content(
                         ncntid int(10) not null primary key auto_increment,  -- 小说内容编号
@@ -172,7 +172,7 @@ create table ih_content(
                         title varchar(50),                          -- 内容标题
                         ctime int,                                  -- 创建时间
                         utime timestamp default current_timestamp,  -- 上次更新时间
-                        content text,                               -- 内容信息 
+                        content text,                               -- 内容信息
                         ord int default 0,                          -- 权重值
                         ncid int,                                   -- 分类ID
                         caijiurl varchar(200),                      -- 采集URL地址
@@ -198,11 +198,11 @@ create table ih_tagindex(
 -- 14、小说分类 ih_nclass
 create table ih_nclass(
                         ncid int not null primary key auto_increment,   -- 分类编号
-                        name varchar(30) not null,      -- 分类名称 
+                        name varchar(30) not null,      -- 分类名称
                         ncdesc varchar(50),             -- 分类描述
                         logo varchar(100),              -- 分类封面
                         cn int default 0,               -- 下属小说数量
-                        state tinyint(1) default 1,     -- 是否隐藏，1：未隐藏；0：已经隐藏 
+                        state tinyint(1) default 1,     -- 是否隐藏，1：未隐藏；0：已经隐藏
                         url varchar(50),                -- 分类目录URL
                         ord tinyint                     -- 排序,顺序
                         ) ENGINE = MyISAM DEFAULT CHARSET = utf8;
@@ -220,7 +220,7 @@ create  table ih_sysnotice(
 create table ih_att(
                     id int not null primary key auto_increment,   -- 附件编号
                     name varchar(100),          -- 附件地址
-        		    ext varchar(10),            -- 文件后缀 
+        		    ext varchar(10),            -- 文件后缀
         		    size int,                   -- 文件大小
         		    atype varchar(10),          -- 类型
         		    ctime int                   -- 上传时间

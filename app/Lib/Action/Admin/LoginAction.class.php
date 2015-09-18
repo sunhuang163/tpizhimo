@@ -109,7 +109,7 @@ class LoginAction extends AllAction {
 		$wheres = array();
 		$Unow = array();
 		$Unow['utime'] = time();
-		$Unow['ip'] = ip2long(getip());
+		$Unow['ip'] = getip();
 		$wheres['said'] = array('eq',$dU['said']);
 		$M_sa->data( $Unow )->where( $wheres )->save();
 		$this->assign('jumpUrl',U('/Admin/Index/Index'));
