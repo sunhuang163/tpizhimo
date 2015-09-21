@@ -1,18 +1,19 @@
 <IfModule mod_rewrite.c>
+Options +FollowSymLinks
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_URI} \.html$
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule	^(.*)$    html/$1 [L]
+RewriteRule	^(.*)$    html/$1 [R]
 
-RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg|.swf)$
-RewriteCond %{REQUEST_URI} !^(public|static|skdata).*$
+#RewriteCond %{REQUEST_URI} !^.*(.css|.js|.gif|.png|.jpg|.jpeg|.swf)$
+#RewriteCond %{REQUEST_URI} !^(index|public|static|skdata).*$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^zimu/(\w)(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/1 [L]
-RewriteRule ^zimu/(\w)_([\d+])(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/$2 [L]
-#RewriteRule ^([^/]\w+)(/?)(?<!\.html)$	index.php/Home/cate/index/url/$1 [L]
-#RewriteRule ^([^/]*)/([^/]*)(/?)(?<!\.html)$	index.php/Home/novel/index/url/$2 [L]
+RewriteRule ^zimu/(\w)(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/1  [L]
+RewriteRule ^zimu/(\w)_(\d+)(?<!\.html)$	index.php/Home/cate/zimu/zimu/$1/p/$2 [L]
+RewriteRule ^([^/]\w+)(/?)(?<!\.html)$	index.php/Home/cate/index/url/$1          [L]
+RewriteRule ^([^/]*)/([^/]*)(/?)(?<!\.html)$	index.php/Home/novel/index/url/$2   [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
