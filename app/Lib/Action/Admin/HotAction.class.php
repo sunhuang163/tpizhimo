@@ -60,13 +60,14 @@ class HotAction extends BaseAction {
 	else
 	{
 	  $res = array('rcode'=>0,'msg'=>'Server Busy','data'=>null);
-      $dhot = array();
+     	  $dhot = array();
 	  $dhot = isset( $_POST['hot']) ? (array)$_POST['hot'] : array();
 	  $Mdo = D("Hot"); //must use D to load defined Model
-	  if( count($dhot) ){
-		  $inc = 0;
-          foreach( $dhot as $v){
-		    $item = array();
+	  if( count($dhot) )
+	 {
+		$inc = 0;
+          	foreach( $dhot as $v){
+		   	 $item = array();
 			$item['nid'] =  $v['nid'];
 			$item['ncid'] = $v['ncid'];
 			$item['rtype'] = isset( $v['rtype'])  ? trim( $v['rtype']) : "";
