@@ -75,12 +75,24 @@ class CaijiAction extends BaseAction {
                     $url = U('/Admin/Caiji/caiji',array('p'=>'{!page!}','key'=>$key));
                     $pagestr = pagestr( $p ,count( $list) , urldecode($url) , 1);
                     $listContent = F('_caiji/list/'.$key.'/'.$p);
+                    //加载已经采集的小说
+                    $novellist = F('_caiji/novel'.$key);
+                    if( $novellist && $listContent['d'] )
+                    {
+                        foreach( $listContent['d'] as &$v )
+                        {
+                            $key_index = md5($v['url']);
+                            $v['detail_index'] = $key_index;
+                            $v['is_detail'] = ( $novellist && isset( $novellist[$key_index])) ? 1 : 0;
+                        }
+                    }
                     $this->assign("novels", $listContent['d']);
                     $this->assign("keyp", $listContent['p']);
                     $this->assign("pagestr", $pagestr);
                 }
                 else
                     $this->assign("pagestr",'');
+                $this->assign("list_key", $key);
                 $this->assign("pnow", $p);
         		$this->display();
         	}
@@ -174,7 +186,29 @@ class CaijiAction extends BaseAction {
     {
         if( $this->isGet() )
         {
-            $this->display();
+            $key = isset( $_GET['key']) ? trim( $_GET['key'] ) : '';
+            if( !$key )
+            {
+                $this->error("采集网站更新错误");
+            }
+            else
+            {
+                $list = F('_caiji/novel'.$key);
+                $p = isset( $_GET['p']) ? intval( $_GET['p']) : 1;
+                $this->assign("call",count( $list ));
+                if( isset( $list[$p]) )
+                {
+                    $url = U('/Admin/Caiji/listparse',array('p'=>'{!page!}','key'=>$key));
+                    $pagestr = pagestr( $p ,count( $list) , urldecode($url) , 1);
+                    $listContent = F('_caiji/novel/'.$key.'/'.$p);
+                    $this->assign("novels", $listContent['d']);
+                    $this->assign("keyp", $listContent['p']);
+                    $this->assign("pagestr", $pagestr);
+                }
+                else
+                    $this->assign("pagestr",'');
+                $this->display();
+            }
         }
         else
         {

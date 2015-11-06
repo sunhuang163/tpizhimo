@@ -5,17 +5,18 @@
 
 /*----- File Operation ----*/
  function mkdirss($dirs,$mode=0777) {
-	if(!is_dir($dirs)){
-		mkdirss(dirname($dirs), $mode);
-		return @mkdir($dirs, $mode);
-	}
-	return true;
+  if(!is_dir($dirs))
+   {
+	mkdirss(dirname($dirs), $mode);
+	return @mkdir($dirs, $mode);
+    }
+    return true;
 }
 
 
 /*----- String/Charset Operation -----*/
-function u2g($str){
-	return iconv("UTF-8","GBK",$str);
+ function u2g($str){
+   return iconv("UTF-8","GBK",$str);
 }
 
 function g2u($str){
@@ -92,6 +93,7 @@ function ff_msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true){
 	}
 	if($length_chi<$length){
 		$length_new = $length+($length_chi/2);
+
 	}
 	$slice = join("",array_slice($match[0], $start, $length_new));
     if($suffix && $slice != $str){

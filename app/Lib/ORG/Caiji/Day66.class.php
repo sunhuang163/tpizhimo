@@ -165,6 +165,7 @@ class  Day66 extends _Caiji
     public function getChapter( $url )
     {
     	$res = $this->m_res;
+		$url2 = $url;
     	if( !$url )
     	{
     		$res['msg'] = "URL地址无效";
@@ -222,7 +223,7 @@ class  Day66 extends _Caiji
                     $res['msg'] = 'OK';
                     //更新内容到缓存目录
                     $cateData  = array('d' => $novelData , 't'=>time(), 'p'=> '' );
-                    $cateData['p'] = md5( $url );
+                    $cateData['p'] = md5( $url2 );
                     $cacheList = F('_caiji/novel'.$this->m_cacheKey);
                     if( !$caheList )
                     {
