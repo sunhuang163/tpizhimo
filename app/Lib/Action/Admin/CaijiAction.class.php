@@ -187,26 +187,24 @@ class CaijiAction extends BaseAction {
         if( $this->isGet() )
         {
             $key = isset( $_GET['key']) ? trim( $_GET['key'] ) : '';
-            if( !$key )
+            $sindex = isset( $_GET['sindex']) ? trim( $_GET['sindex']) :'';
+            if( !$key && $sindex )
             {
-                $this->error("采集网站更新错误");
+                $this->error("访问参数错误");
             }
             else
             {
                 $list = F('_caiji/novel'.$key);
-                $p = isset( $_GET['p']) ? intval( $_GET['p']) : 1;
                 $this->assign("call",count( $list ));
-                if( isset( $list[$p]) )
+                if( isset( $list[$sindex]) )
                 {
-                    $url = U('/Admin/Caiji/listparse',array('p'=>'{!page!}','key'=>$key));
-                    $pagestr = pagestr( $p ,count( $list) , urldecode($url) , 1);
-                    $listContent = F('_caiji/novel/'.$key.'/'.$p);
+                    $listContent = F('_caiji/novel/'.$key.'/'.$sindex);
                     $this->assign("novels", $listContent['d']);
                     $this->assign("keyp", $listContent['p']);
-                    $this->assign("pagestr", $pagestr);
                 }
                 else
                     $this->assign("pagestr",'');
+                $this->assign("key", $key);
                 $this->display();
             }
         }

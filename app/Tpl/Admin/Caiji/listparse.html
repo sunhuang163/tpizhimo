@@ -9,39 +9,77 @@
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
-				    <div class="well summary">
-						<ul>
-							<li>
-							   <a class="btn btn-mini" href="{:U('/Admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
-								 解析配置选项<i class="icon-trash"></i>
+					<h5>
+						<form class="form-inline">
+							<span class="pull-left">
+								<a  href="{:U('/Admin/Caiji/caiji',array('key'=>$key))}"  alt="返回列表页" title="返回列表页">
+									<i class="icon-arrow-left"></i>返回
 								</a>
-							 </li>
-							<li>
-							  <a href="{:U('/Admin/Caiji/all')}" class="btn btn-primary btn-medium">列表页<i class="badge">{$npage}</i></a>
-							</li>
-							<li>
-							   <a href="{:U('/Admin/Caiji/novel')}" class="btn btn-info btn-medium">解析列表页<i class="badge">{$nnovel}</i></a>
-							</li>
-							<li class="last">
-							  <a href="{:U('/Admin/Caiji/content')}"  class="btn btn-info btn-medium">解析详情页面</a>
-							</li>
-						</ul>
-					</div>
-					<h4>解析信息(页面可以单独解析)</h4>
-					<ul class="tasks done">
-						<li>
-							<i class="icon-ok"></i> <span class="title">Wash the Car</span> <span class="meta">Completed <em>2 days ago</em> by <em>John</em></span>
-						</li>
-						<li>
-							<i class="icon-ok"></i> <span class="title">Call the plumber</span> <span class="meta">Completed <em>5 days ago</em> by <em>John</em></span>
-						</li>
-						<li>
-							<i class="icon-ok"></i> <span class="title">Try that new cookie recipe</span> <span class="meta">Completed <em>2 weeks ago</em> by <em>Jill</em></span>
-						</li>
+							</span>
+							<span class="pull-right">
+								<button type="button" class="btn btn-mini btn-primary pull-right btn-list-caiji"  title="重新列表">
+									<i class="icon-resize-small"></i>解析文章列表
+								</button>
+							</span>
+						</form>
+					</h5>
+					<br/>
+					<br/>
+					<ul class="nav nav-tabs table-novel">
+						<volist name="novels" id="vo" key="iikey">
+							<li <if condition="$iikey eq 1"> class="active" </if> ><a href="javascript:void(0);" data-tab="#tb-{$vo.k}">{$vo.cp}</a></li>
+						</volist>
 					</ul>
+					<div class="tab-content2">
+					<volist name="novels" id="vo" key="iikey">
+						<div class="tab-pane2" id="tb-{$vo.k}" <if condition="$iikey gt 1"> style="display:none;" </if> >
+							<table class="table table-bordered table-striped td-a table-hover">
+							<thead>
+								<tr>
+									<th>标题</th>
+									<th>章节</th>
+									<th>地址</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody >
+								<php>
+									foreach( $vo['ext'] as $listkey=>$vn){
+								</php>
+								<tr>
+									<td>
+										<span class='badge badge-inverse'>{$listkey}</span>
+										<b>{$vn.title}</b>
+									</td>
+									<td>{$vo.cp}</td>
+									<td>{$vn.url}</td>
+									<td>
+										<a class="btn-aj-parse" href="javascript:void(0);"  data-url="{$vo.url}">
+											<i class=" icon-arrow-down"></i>
+											采集内容
+										</a>
+									</td>
+								</tr>
+								<php>
+									}
+								</php>
+							</tbody>
+							</table>
+						</div>
+					</volist>
+					</div>
 				</div>
 		 </div>
-<script type="text/javascript">
-
-</script>
+		<script type="text/javascript">
+	 		$( function(){
+	 			$('.table-novel li').click( function(e){
+	 				$(this).siblings().removeClass("active");
+	 				$(this).addClass("active");
+	 				var _a = $(this).find("a");
+	 				var _tab = $(_a).attr("data-tab");
+	 				$(_tab).siblings().removeClass("active").hide();
+	 				$(_tab).show();
+	 			});
+	 		})
+		</script>
 <include file="Public:footer" />

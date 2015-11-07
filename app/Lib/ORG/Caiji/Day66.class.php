@@ -225,7 +225,7 @@ class  Day66 extends _Caiji
                     $cateData  = array('d' => $novelData , 't'=>time(), 'p'=> '' );
                     $cateData['p'] = md5( $url2 );
                     $cacheList = F('_caiji/novel'.$this->m_cacheKey);
-                    if( !$caheList )
+                    if( !$cacheList )
                     {
                         $cacheList = array();
                     }
