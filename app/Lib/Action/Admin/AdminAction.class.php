@@ -34,7 +34,13 @@ class AdminAction extends BaseAction {
 	  }
 	}
 
-     //清理缓存
+	/* 短信测试
+	import("@.ORG.SMS");
+	$Sms = new SMS();
+	$ic = $Sms->sent("天下文学进入其中，八月赏雪，一月看花，梦里不知身是客","13332904710");
+	*/
+
+	//清理缓存
 	public function clearcache(){
 	 //do crear the cache
 	 $this->assign("jumpUrl",U('/Admin/'));

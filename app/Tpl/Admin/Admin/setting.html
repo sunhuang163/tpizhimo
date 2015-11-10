@@ -52,22 +52,28 @@
                                     其它配置<span class="caret"></span>
                                     </button>
                                       <ul class="dropdown-menu dropdown-menu-left" role="menu">
-                                        <li><a href="#" rel="pftp" >FTP配置</a></li>
-                                        <li><a href="#" rel="caiji">采集配置</a></li>
+                                        <li><a href="javascript:void(0);" rel="pftp" >FTP配置</a></li>
+                                        <li><a href="javascript:void(0);" rel="caiji">采集配置</a></li>
+                                        <li><a href="javascript:void(0);" rel="sms">短信发送</a></li>
                                        </ul>
                                      </div>
 								</label>
 								<div class="controls" id="extdata">
-                                         <div id="pftp">
-										  <label>地址:<input type="text" name="extdata[ftp][host]" value="{$Dweb["extdata"]['ftp']['host']}"></label>
-										  <label>FTP 端口:<input type="text" name="extdata[ftp][port]" value="{$Dweb["extdata"]['ftp']['port']}"></label>
-										  <label>FTP 用户名:<input type="text" name="extdata[ftp][name]" value="{$Dweb["extdata"]['ftp']['name']}"></label>
-										  <label>FTP 密码:<input type="text" name="extdata[ftp][pass]" value="{$Dweb["extdata"]['ftp']['pass']}"></label>
-							             </div>
-										 <div id="caiji" style="display:none;">
-										  <label>采集设置:<input type="text" name="extdata[caiji][host]"></label>
-										</div>
-							  </div>
+									<div id="pftp">
+										<label>地址:<input type="text" name="extdata[ftp][host]" value="{$Dweb["extdata"]['ftp']['host']}"></label>
+										<label>FTP 端口:<input type="text" name="extdata[ftp][port]" value="{$Dweb["extdata"]['ftp']['port']}"></label>
+										<label>FTP 用户名:<input type="text" name="extdata[ftp][name]" value="{$Dweb["extdata"]['ftp']['name']}"></label>
+										<label>FTP 密码:<input type="text" name="extdata[ftp][pass]" value="{$Dweb["extdata"]['ftp']['pass']}"></label>
+									</div>
+									<div id="caiji" style="display:none;">
+										<label>采集设置:<input type="text" name="extdata[caiji][host]"></label>
+									</div>
+									<div id="sms" style="display:none;">
+										<label>UID:<input type="text" name="extdata[sms][uid]" value="{$Dweb["extdata"]['sms']['uid']}"></label>
+										<label>密匙:<input type="text" name="extdata[sms][key]" value="{$Dweb["extdata"]['sms']['key']}"></label>
+										<label>签名:<input type="text" name="extdata[sms][sign]" value="{$Dweb["extdata"]['sms']['sign']}"></label>
+									</div>
+							   </div>
 							</div>
 						   <!-- //extdata end -->
 							<div class="form-actions">
