@@ -1,8 +1,9 @@
 <?php
-/***
+/**
+ * 采集扩展库基类 
+ *
  * @Date   2015/07/28
  * @Author ZhangYe
- * @@ 采集接口类的abstract基类
  *
 ***/
 define('ORG_CAIJI' , TRUE );

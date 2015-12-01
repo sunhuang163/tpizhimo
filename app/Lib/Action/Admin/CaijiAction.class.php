@@ -1,7 +1,16 @@
 <?php
-/*--采集操作--*/
-class CaijiAction extends BaseAction {
-   private $caiji_size = 5; //每次解析5条记录防止，请求超时
+/**
+* 后台采集内容
+*
+* @FILE 	CaijiAction.class.php
+* @package 	Lib/Action
+* @author 	ZhangYe
+* @date     2015/12/01
+*/
+class CaijiAction extends BaseAction
+{
+   //每次解析5条记录防止，请求超时
+   private $caiji_size = 5;
 
 
 	public function index()
@@ -154,6 +163,17 @@ class CaijiAction extends BaseAction {
                     }
                     else
                     {
+						$novelRes = FALSE;
+						$novelRes = $Mcaiji->getNovel( $url );
+                        if( $novelRes && $novelRes['rcode'] )
+                        {
+                            $_POST['tags'] = $novelRes['data']['tags'];
+                            $Mnovel = D("Novel");
+                            if( $Mnovel->create( $novelRes['data'] ,3 ) )
+                            {
+                                $res['nid'] = $Mnovel->add();
+                            }
+                        }
                         $caijiRes = $Mcaiji->getChapter( $url );
                         if( $caijiRes['rcode'])
                        	{

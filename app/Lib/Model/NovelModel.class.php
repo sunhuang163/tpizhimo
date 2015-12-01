@@ -1,8 +1,9 @@
 <?php
-/*
-  banfg56
-  2014-11-28
-  @@小说类
+/**
+ *  小说采集Model,自动解析封面图片地址
+ *
+ * @author banfg56
+ * @date   2014-11-28
 */
 
 class NovelModel extends RelationModel {
@@ -20,17 +21,17 @@ class NovelModel extends RelationModel {
 		array('ctime','time',1,'function'),
 	);
 
-  protected function onenovel( $data )
- {
-	$wherenovel = array();
-	$wherenovel['title'] = array('eq',$data['title']);
-	$wherenovel['author'] = array('eq',$data['author']);
-    if($this->where($wherenovel )->find())
-        return FALSE;
-    else
-        return TRUE;
+    protected function onenovel( $data )
+    {
+        $wherenovel = array();
+        $wherenovel['title'] = array('eq',$data['title']);
+        $wherenovel['author'] = array('eq',$data['author']);
+        if($this->where($wherenovel )->find())
+            return FALSE;
+        else
+            return TRUE;
+    }
 
-  }
     protected function  _before_insert(&$data,$options)
     {
         $data['ctime'] = time();
@@ -82,14 +83,15 @@ class NovelModel extends RelationModel {
         $Mndata->data( $nd )->add();
     }
 
- protected function _before_update(&$data,$options)
- {
- }
+    protected function _before_update(&$data,$options)
+    {
+        //
+    }
 
- protected function _after_update($data,$options)
-{
+    protected function _after_update($data,$options)
+    {
 
-}
+    }
 
 }
 ?>

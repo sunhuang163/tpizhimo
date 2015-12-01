@@ -1,8 +1,9 @@
 <?php
-/***
+/**
+ * 	day66.com 小说内容采集接口
+ * 
  * @Date   2015/07/28
  * @Author ZhangYe
- * @@  day66.com 小说内容采集接口
  *
 ***/
 if( !defined('ORG_CAIJI') )
@@ -150,6 +151,7 @@ class  Day66 extends _Caiji
 					$novelData[$kp] = trim( $match[1] );
 				}
     		}
+			$novelData['ncid'] = self::cate( $novelData['cate'] );
     		$novelData['nstate'] = ('连载中' == $novelData['uptxt']) ? 0 : 1;//小说是否已经完结
    			$novelData['caijiurl'] = $url;
    			$res['rcode'] = 1;
