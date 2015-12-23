@@ -167,22 +167,95 @@ class CaijiAction extends BaseAction
 						$novelRes = $Mcaiji->getNovel( $url );
                         if( $novelRes && $novelRes['rcode'] )
                         {
-                            $_POST['tags'] = $novelRes['data']['tags'];
+                            //判断内容是否添加
                             $Mnovel = D("Novel");
-                            if( $Mnovel->create( $novelRes['data'] ,3 ) )
+                            $wheres = array();
+                            $wheres['title'] = array('eq', $novelRes['data']['title']);
+                            $wheres['author'] = array('eq', $novelRes['data']['author']);
+                            $novelFind = $Mnovel->field("nid,ncid")->where( $wheres )->find();
+                            if( $novelFind )
                             {
-                                $res['nid'] = $Mnovel->add();
+                                $res['nid'] = $novelFind['nid'];
+                                $res['ncid'] = $novelFind['ncid'];
+                            }
+                            else
+                            {
+                                $_POST['tags'] = $novelRes['data']['tags'];
+                                if( $Mnovel->create( $novelRes['data'] ,3 ) )
+                                {
+                                    $res['nid'] = $Mnovel->add();
+                                    $res['ncid'] = $novelRes['data']['ncid'];
+                                }
                             }
                         }
                         $caijiRes = $Mcaiji->getChapter( $url );
-                        if( $caijiRes['rcode'])
+                        if( $caijiRes['rcode'] )
                        	{
                        		$res['rcode'] = 1;
                        		$res['msg'] = 'OK';
+                            //如果小说内容添加成功,则增加章节信息和具体的详情
+                            if( $res['nid'] )
+                            {
+                                $Mchapter = D("Nchapter");
+                                $Mcontent = D("Content");
+                                $wheren = array();
+                                $wheren['nid'] = array('eq', $res['nid']);
+                                $wheren['ncid'] = array('eq', $res['ncid']);
+                                //获取章节ID
+                                $chapter_index = 1;
+                                foreach( $caijiRes['data'] as $vo)
+                                {
+                                    $wheren['title'] = array('eq', $vo['cp']);
+                                    $wheren['ord'] = array('eq', $chapter_index );
+                                    $cp = $Mchapter->where( $wheren )->find();
+                                    if( $cp )
+                                    {
+                                        $vo['cpid'] = $cp['cpid'];
+                                    }
+                                    else
+                                    {
+                                        $dcp = array();
+                                        $dcp['nid'] = $res['nid'];
+                                        $dcp['ncid'] = $res['ncid'];
+                                        $dcp['title'] = $vo['cp'];
+                                        $Mchapter->create( $dcp , 3 );
+                                        $vo['cpid'] = $Mchapter->add();
+                                    }
+                                    $wherec = array();
+                                    $wehrec['cpid'] = $vo['cpid'];
+                                    $wehrec['nid'] = $res['nid'];
+
+                                    $dcontent = array();
+                                    $dcontent['nid'] = $res['nid'];
+                                    $dcontent['ncid'] = $res['ncid'];
+                                    $dcontent['cpid'] = $vo['cpid'];
+                                    foreach( $vo['ext'] as $_vvc)
+                                    {
+                                        $wherec['title'] = array('eq', $_vvc['title']);
+                                        $wherec['caijiurl'] = array('eq', $_vvc['url']);
+                                        if( !$Mcontent->where( $wherec )->find() )
+                                        {
+                                            $dcontent['title'] = $_vvc['title'];
+                                            $dcontent['caijiurl'] = $_vvc['url'];
+                                            $dcontent['ctime'] = date();
+                                            $dcontent['content'] = ' ';
+                                            if( $Mcontent->create( $dcontent,3) )
+                                                $Mcontent->add();
+                                        }
+                                    }
+                                    $chapter_index++;
+                                }
+                                //
+                            }
+                            else
+                            {
+                                $res['msg'] = "获取小说编号失败";
+                            }
                        	}
                        	else
                        	{
                        		$res['msg'] = $caijiRes['msg'];
+                            echo "获取章节信息失败";
                        	}
                     }
                 }

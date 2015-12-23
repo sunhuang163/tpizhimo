@@ -1,7 +1,7 @@
 <?php
 /**
  * 	day66.com 小说内容采集接口
- * 
+ *
  * @Date   2015/07/28
  * @Author ZhangYe
  *
@@ -220,7 +220,7 @@ class  Day66 extends _Caiji
                         $novelData[] = $items;
                         $ic++;
         			}
-                    $res['data'] = 1;
+                    $res['data'] = $novelData;
                     $res['rcode'] = 1;
                     $res['msg'] = 'OK';
                     //更新内容到缓存目录

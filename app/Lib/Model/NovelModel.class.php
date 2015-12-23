@@ -43,7 +43,11 @@ class NovelModel extends RelationModel {
         	   $data['utime'] = strtotime( $data['utime']);
         }
         if( $data['pic'] && preg_match('#^http:#isU',$data['pic']))
-            $data['pic'] = down_img( $data['pic']);
+        {
+            //下载封面图片失败问题
+            $picURL = down_img( $data['pic']);
+            $data['pic'] = ($picURL == $data['pic'] ) ? '':$picURL;
+        }
         if( !$data['url'] )
         {
             $url = ff_pinyin( $data['title']);
