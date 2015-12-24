@@ -281,12 +281,34 @@ class CaijiAction extends BaseAction
         {
             $key = isset( $_GET['key']) ? trim( $_GET['key'] ) : '';
             $sindex = isset( $_GET['sindex']) ? trim( $_GET['sindex']) :'';
-            if( !$key && $sindex )
+            //通过参数，判断小说是否添加
+            $author = isset( $_GET['author']) ? trim( $_GET['author'] ) : FALSE;
+            $title = isset( $_GET['title'] ) ? trim( $_GET['title']) : FALSE;
+            $caijiurl = isset( $_GET['url']) ? trim( $_GET['url']) : FALSE;
+            if( $author )
+                $author = urldecode( $author );
+            if( $title )
+                $title = urldecode( $title );
+            if( $caijiurl )
+                $caijiurl = base64_decode( $caijiurl );
+            $Mnovel = M("Novel");
+            $wheren = array();
+
+            if( (!$key || !$author || !$title || !$caijiurl ) && $sindex  )
             {
                 $this->error("访问参数错误");
             }
             else
             {
+                $novelData = FALSE;
+                $wheren['title'] = array('eq', $title);
+                $wheren['author'] = array('eq', $author );
+                $wheren['caijiurl'] = array('eq', $caijiurl );
+                $novelData =  $Mnovel->where( $wheren )->find();
+                echo $Mnovel->getLastSql();
+
+                $this->assign("novelData", $novelData );
+                $this->assign("novelURL", $caijiurl);
                 $list = F('_caiji/novel'.$key);
                 $this->assign("call",count( $list ));
                 if( isset( $list[$sindex]) )

@@ -70,16 +70,20 @@
 					</div>
 				</div>
 		 </div>
-		<script type="text/javascript">
-	 		$( function(){
-	 			$('.table-novel li').click( function(e){
-	 				$(this).siblings().removeClass("active");
-	 				$(this).addClass("active");
-	 				var _a = $(this).find("a");
-	 				var _tab = $(_a).attr("data-tab");
-	 				$(_tab).siblings().removeClass("active").hide();
-	 				$(_tab).show();
-	 			});
-	 		})
-		</script>
+<script type="text/javascript">
+	var novelURL = '{$novelURL}';
+	var novelData = '{$novelData|json_encode}';
+	$( function(){
+		console.log( novelData );
+		console.log( novelURL );
+		$('.table-novel li').click( function(e){
+			$(this).siblings().removeClass("active");
+			$(this).addClass("active");
+			var _a = $(this).find("a");
+			var _tab = $(_a).attr("data-tab");
+			$(_tab).siblings().removeClass("active").hide();
+			$(_tab).show();
+		});
+	})
+</script>
 <include file="Public:footer" />

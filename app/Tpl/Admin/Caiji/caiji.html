@@ -59,7 +59,7 @@
 										<i class=" icon-arrow-down"></i>
 										解析小说
 									</a>
-									<a  href="{:U('/Admin/Caiji/listparse',array('key'=>$list_key,'sindex'=>$vo['detail_index']))}">
+									<a  href="{:U('/Admin/Caiji/listparse',array('key'=>$list_key,'sindex'=>$vo['detail_index'],'title'=>$vo['title'],'author'=>$vo['author'],'url'=>base64_encode($vo['url'])))}">
 										<i class="icon-th-list"></i>
 										查看章节列表
 									</a>
