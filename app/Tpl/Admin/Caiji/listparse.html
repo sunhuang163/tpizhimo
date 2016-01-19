@@ -72,10 +72,10 @@
 		 </div>
 <script type="text/javascript">
 	var novelURL = '{$novelURL}';
-	var novelData = '{$novelData|json_encode}';
+	var novelData = {$novelData|json_encode};
+	var isRun = false;
+
 	$( function(){
-		console.log( novelData );
-		console.log( novelURL );
 		$('.table-novel li').click( function(e){
 			$(this).siblings().removeClass("active");
 			$(this).addClass("active");
@@ -84,6 +84,51 @@
 			$(_tab).siblings().removeClass("active").hide();
 			$(_tab).show();
 		});
+
+		console.log(typeof( novelData));
+		console.log( novelData );
+		if( typeof( novelData) !='object' || novelData == null )
+   		{
+			var cchapter_data = {key:'<php> echo $key;</php>',url:novelURL,op:'chapter'};
+			$('.tab-content2').html("<p><span class='alert alert-info'><h2>小说章节内容正在加载中...</h2></span></p>");
+			$.ajax({
+					url: "{:U('Admin/Caiji/Caiji')}",
+					data:cchapter_data,
+					type: "POST",
+					dataType:'json',
+					success:function( d) {
+						if( parseInt( d.rcode ) > 0)
+							window.location.reload();
+						else
+							alert("小说内容采集失败！错误信息:" + d.msg );
+					},
+					error:function(e)
+					{
+						alert("ajax请求发生错误");
+				} });
+   			}
+
+       $('.btn-list-caiji').click( function(e){
+       		if( isRun )
+       		{
+       			alert("该页面内容正在解析中...");
+       			return;
+       		}
+       		else
+       		{
+       			/*如果该小说还未采集*/
+       			if( typeof( novelData) != 'object' || !novelData.nid)
+       			{
+       				alert("该片小说内容没有采集!");
+					return false;
+       			}
+       			/*该片小说已经入库，只需要采集章节内容*/
+       			else
+       			{
+       				//
+       			}
+       		}
+       });
 	})
 </script>
 <include file="Public:footer" />
