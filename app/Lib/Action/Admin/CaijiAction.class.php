@@ -255,7 +255,6 @@ class CaijiAction extends BaseAction
                        	else
                        	{
                        		$res['msg'] = $caijiRes['msg'];
-                            echo "获取章节信息失败";
                        	}
                     }
                 }
@@ -266,6 +265,46 @@ class CaijiAction extends BaseAction
                 else if('content' == $op )
                 {
                     //解析小说的具体章节信息
+                    $url = isset( $_POST['url']) ? trim( $_POST['url']) : '';
+                      if( !$Mcaiji || !$url )
+                    {
+                        $res['msg'] = "提交参数错误或者采集模块不存在";
+                    }
+                    else
+                    {
+                        $Mcontent = D("Content");
+                        $wherec = array();
+                        $wherec['caijiurl'] = array('eq', $url );
+                        $dcontent = $Mcontent->where( $wherec )->find();
+                        if( $dcontent )
+                        {
+                            if( $dcontent['content'] )
+                            {
+                                $res['rcode'] = 1;
+                                $res['msg'] = "该篇章节内容已经解析";
+                            }
+                            else
+                            {
+                                $caijiRes = $Mcaiji->getContent( $url );
+                                if( $caijiRes['rcode'] )
+                                {
+                                    $dup = array();
+                                    $dup['content'] = $caijiRes['data']['cnt'];
+                                    $Mcontent->where( $wherec )->save( $dup );
+                                    $res['rcode'] = 1;
+                                    $res['msg'] = "OK";
+                                }
+                                else
+                                {
+                                    $res['msg'] = "采集内容失败";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            $res['msg'] = "该章节暂未入库，请先入库后再解析内容页面";
+                        }
+                    }
                 }
             }
             echo json_encode( $res );
@@ -305,7 +344,6 @@ class CaijiAction extends BaseAction
                 $wheren['author'] = array('eq', $author );
                 $wheren['caijiurl'] = array('eq', $caijiurl );
                 $novelData =  $Mnovel->where( $wheren )->find();
-                echo $Mnovel->getLastSql();
 
                 $this->assign("novelData", $novelData );
                 $this->assign("novelURL", $caijiurl);
@@ -319,7 +357,7 @@ class CaijiAction extends BaseAction
                 }
                 else
                     $this->assign("pagestr",'');
-                $this->assign("key", $key);
+                $this->assign("modelkey", $key);
                 $this->display();
             }
         }

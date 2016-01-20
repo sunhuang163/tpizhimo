@@ -12,7 +12,7 @@
 					<h5>
 						<form class="form-inline">
 							<span class="pull-left">
-								<a  href="{:U('/Admin/Caiji/caiji',array('key'=>$key))}"  alt="返回列表页" title="返回列表页">
+								<a  href="{:U('/Admin/Caiji/caiji',array('key'=>$modelkey))}"  alt="返回列表页" title="返回列表页">
 									<i class="icon-arrow-left"></i>返回
 								</a>
 							</span>
@@ -44,17 +44,19 @@
 							</thead>
 							<tbody >
 								<php>
+								 $ic =0;
 									foreach( $vo['ext'] as $listkey=>$vn){
+									$ic++;
 								</php>
 								<tr>
 									<td>
-										<span class='badge badge-inverse'>{$listkey}</span>
+										<span class='badge badge-inverse'>{$ic}</span>
 										<b>{$vn.title}</b>
 									</td>
 									<td>{$vo.cp}</td>
 									<td>{$vn.url}</td>
 									<td>
-										<a class="btn-aj-parse" href="javascript:void(0);"  data-url="{$vo.url}">
+										<a class="btn-aj-parse" href="javascript:void(0);"  data-url="{$vn.url}">
 											<i class=" icon-arrow-down"></i>
 											采集内容
 										</a>
@@ -73,7 +75,37 @@
 <script type="text/javascript">
 	var novelURL = '{$novelURL}';
 	var novelData = {$novelData|json_encode};
+	var Modelkey = '<php> echo $modelkey;</php>';
 	var isRun = false;
+
+	function caiji_content( _url, _nid )
+	{
+		var _obj = $("a[data-url='"+_url+"']");
+		$(_obj).html("...加载中...");
+		$(_obj).removeClass("btn-aj-parse");
+		var cchapter_data = {key:Modelkey,url:_url,nid:_nid,op:'content'};
+		$.ajax({
+				url: "{:U('Admin/Caiji/Caiji')}",
+				data:cchapter_data,
+				type: "POST",
+				dataType:'json',
+				success:function( d) {
+					if( parseInt( d.rcode ) > 0)
+					{
+						$(_obj).html("<i class='icon-ok'></i>解析成功");
+						$(_obj).css("color","green");
+					}
+					else
+					{
+						$(_obj).css("color","red");
+						$(_obj).html("<i class='icon-remove'></i>解析失败");
+					}
+				},
+				error:function(e)
+				{
+					alert("ajax请求发生错误");
+			} });
+	}
 
 	$( function(){
 		$('.table-novel li').click( function(e){
@@ -85,11 +117,9 @@
 			$(_tab).show();
 		});
 
-		console.log(typeof( novelData));
-		console.log( novelData );
-		if( typeof( novelData) !='object' || novelData == null )
+		if( novelData == null  )
    		{
-			var cchapter_data = {key:'<php> echo $key;</php>',url:novelURL,op:'chapter'};
+			var cchapter_data = {key:Modelkey,url:novelURL,op:'chapter'};
 			$('.tab-content2').html("<p><span class='alert alert-info'><h2>小说章节内容正在加载中...</h2></span></p>");
 			$.ajax({
 					url: "{:U('Admin/Caiji/Caiji')}",
@@ -106,7 +136,12 @@
 					{
 						alert("ajax请求发生错误");
 				} });
-   			}
+   		}
+
+   		$('.btn-aj-parse').click( function(){
+			var url = $(this).attr("data-url");
+			caiji_content( url ,novelData.nid );
+		});
 
        $('.btn-list-caiji').click( function(e){
        		if( isRun )
@@ -117,7 +152,7 @@
        		else
        		{
        			/*如果该小说还未采集*/
-       			if( typeof( novelData) != 'object' || !novelData.nid)
+       			if(  novelData == null )
        			{
        				alert("该片小说内容没有采集!");
 					return false;

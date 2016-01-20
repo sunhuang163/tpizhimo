@@ -99,7 +99,6 @@ function caiji_chapter( _url )
 			type: "POST",
 			dataType:'json',
 			success:function( d) {
-				console.log( d );
 				if( parseInt( d.rcode ) > 0)
 				{
 					$(_obj).html("<i class='icon-ok'></i>采集成功");

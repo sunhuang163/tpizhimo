@@ -268,7 +268,7 @@ class  Day66 extends _Caiji
                 $Cntinfo['url'] = $url;
                 $RegCnt = array(
                                 'title'=>"#<h2>(.*)<\/h2>#isU",
-                                'cnt' => "#id=\"htmlContent\" class=\"yd_text2\">(.*)</div>\s+<div class=\"yd_ad3\">#isU"
+                                'cnt' => "#class=\"yd_text2\">(.*)</div>\s+<div class=\"yd_ad3\">#isU"
                                 );
                 foreach( $RegCnt as $kr=>$vr )
                 {
@@ -278,6 +278,11 @@ class  Day66 extends _Caiji
                 $Cntinfo['cnt'] = $this->htmlclean( $Cntinfo['cnt'] );
                 $res['rcode'] = 1;
                 $res['msg'] = "OK";
+                if( !$Cntinfo['cnt'])
+                {
+                    $res['rcode'] = 0;
+                    $res['msg'] = "匹配内容失败";
+                }
                 $res['data'] = $Cntinfo;
             }
         }
