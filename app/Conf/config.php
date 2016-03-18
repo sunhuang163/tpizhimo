@@ -43,10 +43,16 @@ $cnf =  array(
 	'IMG_SIZES'   => array(
 	          array('w'=>'120','h'=>'150')
 			 ),
-	'URL_MODEL'             => 1, //项目ULR配置
+	'URL_MODEL'             => 2, //项目ULR配置
 	'URL_CASE_INSENSITIVE' => TRUE,
     'URL_HTML_SUFFIX'       => '',
 	'URL_ROUTER_ON'      => true,
+	'URL_ROUTE_RULES'  => array(
+		'zimu/:zimu' =>'Cate/zimu?p=1',
+		'zimu/:zimu_:p' =>  'Cate/zimu',
+		'/^(\w+)$/'  => 'Cate/index?=url:1',
+		':catename/:url' => 'Novel/index',
+	),
 );
 
 return array_merge( $cnf , $dbcnf ,$catecnf );
