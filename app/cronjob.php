@@ -13,7 +13,7 @@
 /**
 * 判断当前PHP执行的环境
 */
-define('ISCLI', PHP_SAPI === 'cli'); 
+define('ISCLI', PHP_SAPI === 'cli');
 @set_time_limit(0);
 /**
 * 后台守护进程类
@@ -41,24 +41,24 @@ class Deamon
 			echo "程序执行在非CLI环境中，请从命令行运行";
 			exit();
 		}
-		
+
 	}
-	
+
 	/**
 	* 函数init,初始化后台守护类
 	*
 	* @access public
-	* 
+	*
 	* @return void
 	*/
 	protected function init()
 	{
 		$this->jobs = array();
 		$this->m_pid = getmypid();
-		$this->m_user = get_current_user(); 
+		$this->m_user = get_current_user();
 		$this->m_process_active = TRUE;
 	}
-	
+
 	public function stop()
 	{
 		$this->m_process_active = false;
@@ -66,23 +66,23 @@ class Deamon
 	public function run()
 	{
 		_worker::L("后台守护进程");
-		while ($this->m_process_active ) 
+		while ($this->m_process_active )
 		{
 			_worker::L( date('Y-m-d H:i:s'));
 			sleep(10);
 		}
 	}
-	
+
 	public function addJob( $worker = NULL )
 	{
 		//
 	}
-	
+
 	public function clearJob()
 	{
 		//
 	}
-	
+
 	public function status()
 	{
 		//当前线程执行情况
@@ -95,17 +95,17 @@ class Deamon
 abstract class _worker
 {
 	abstract protected function run();
-	
+
 	/**
 	* CURL加载远程页面的内容
-	* 
-	* @access public 
+	*
+	* @access public
 	*
 	* @url		string	 加载的页面URL地址
 	* @timeout 	int 	 超时设置
 	* @referer	string 	 http请求referer 页面
-	* 
-	* @return  string	
+	*
+	* @return  string
 	*/
 	static public function curl_content( $url, $timeout = 10, $referer = "http://www.baidu.com" )
 	{
@@ -138,7 +138,7 @@ abstract class _worker
 		}
 		return false;
 	}
-	
+
 	static public function L( $str)
 	{
 		printf("%s\n", $str);
@@ -155,5 +155,6 @@ class novelWorker extends _worker
 }
 
 $novelDeamon = new Deamon();
+echo "Test";
 exit(0);
 ?>
