@@ -46,24 +46,24 @@ class NovelAction extends HomeAction
 
 	public function  show()
     {
-       $Mcontent = M("content");
-       $wheres = $wherec = array();
-       $nid = 0;
-       $url = isset( $_GET['url']) ? trim( $_GET['url']) : "";
+        $Mcontent = M("content");
+        $wheres = $wherec = array();
+        $nid = 0;
+        $url = isset( $_GET['url']) ? trim( $_GET['url']) : "";
 
-       $wheres['ih_novel.url'] = array('eq' , $url );
-       $dnovel = M('novel')->field("ih_novel.*,ih_nclass.name as cate_name,ih_nclass.url as cate_url")
-		             		->join("LEFT JOIN ih_nclass on ih_nclass.ncid =ih_novel.ncid")
-		             		->where( $wheres )->find();
-       if( $dnovel )
-       {
-       		$wherec['nid'] = array('eq' , $dnovel['nid']);
+        $wheres['ih_novel.url'] = array('eq' , $url );
+        $dnovel = M('novel')->field("ih_novel.*,ih_nclass.name as cate_name,ih_nclass.url as cate_url")
+                     		->join("LEFT JOIN ih_nclass on ih_nclass.ncid =ih_novel.ncid")
+                     		->where( $wheres )->find();
+        if( $dnovel )
+        {
+        		$wherec['nid'] = array('eq' , $dnovel['nid']);
          	$dcontents = $Mcontent->where( $wherec )->order("cpid ASC,ord ASC")->select();
-       }
-       $this->assign("novel" , $dnovel );
-       $this->assign("contents" , $dcontents );
-       $this->assign("ncid" , $dcontents['ncid'] );
-	   $this->display();
+        }
+        $this->assign("novel" , $dnovel );
+        $this->assign("contents" , $dcontents );
+        $this->assign("ncid" , $dcontents['ncid'] );
+        $this->display();
     }
 
     public function  read()

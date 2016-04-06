@@ -4,7 +4,7 @@
     <title>{$novel.title}最新章节_{$novel.title}TXT下载_{$novel.author}_{:C('SITE_NAME')}_小说最新章节TXT下载</title>
     <meta name="keywords" content="{$novel.title}最新章节,{$novel.title}TXT下载,{$novel.cate_name},{:C('SITE_NAME')}_小说最新章节TXT下载" />
     <meta name="description" content="{$novel.title}TXT下载，{$novel.title}最新章节阅读，尽在{:C('SITE_NAME')}_小说最新章节TXT下载。提供最新更新，最优质的阅读体验。" />
-    <meta name="author" content="{$nove.author}" />
+    <meta name="author" content="{$novel.author}" />
     <include file="Public:header"/>
     <script tyle="text/javascript" src="{$ST_PATH}js/jquery.js"> </script>
     <script tyle="text/javascript" src="{$ST_PATH}js/page.js"> </script>
@@ -23,7 +23,7 @@
                 <span class="divider"> / </span>
             </li>
             <li>
-                <a href="/{$novel.cate_url}/{$nove.url}/">{$novel.title}</a>
+                <a href="/{$novel.cate_url}/{$novel.url}/">{$novel.title}</a>
                 <span class="divider"> / </span>
             </li>
             <li>
@@ -34,7 +34,7 @@
             <p class="ui-melu-chapter">{$novel.title}</p>
             <ul class="ui-melu-list">
                 <volist name="contents" id="vo">
-                    <li class="ui-melu-item"><a href="{:U('Novel/read',array('nid'=>$vo['ncntid']))}" title="{$vo.title}">{$vo.title|ff_msubstr=0,15}</a></li>
+                    <li class="ui-melu-item"><a href="/{$novel.cate_url}/{$novel.url}/{$vo['ncntid']}/" title="{$vo.title}">{$vo.title|ff_msubstr=0,15}</a></li>
                 </volist>
             </ul>
             <div class="clear"></div>

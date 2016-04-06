@@ -3,6 +3,8 @@ if (!defined('THINK_PATH')) exit();
 
 $dbcnf = require_once('db.php' );
 $catecnf = require_once('cate.php');
+$routescnf = require_once('routes.php');
+
 $cnf =  array(
     'APP_SUB_DOMAIN_DEPLOY' => false,
 	'COOKIE_PREFIX' => 'izhimo_',
@@ -43,16 +45,11 @@ $cnf =  array(
 	'IMG_SIZES'   => array(
 	          array('w'=>'120','h'=>'150')
 			 ),
-	'URL_MODEL'             => 2, //项目ULR配置
+	'URL_MODEL'             => 3, //项目ULR配置
 	'URL_CASE_INSENSITIVE' => TRUE,
     'URL_HTML_SUFFIX'       => '',
 	'URL_ROUTER_ON'      => true,
-	'URL_ROUTE_RULES'  => array(
-		'zimu/:zimu' =>'Cate/zimu?p=1',
-		'zimu/:zimu_:p' =>  'Cate/zimu',
-		'/^(\w+)$/'  => 'Cate/index?=url:1',
-		':catename/:url' => 'Novel/index',
-	),
+	'URL_ROUTE_RULES'  => $routescnf,
 );
 
 return array_merge( $cnf , $dbcnf ,$catecnf );
