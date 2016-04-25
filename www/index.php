@@ -8,7 +8,7 @@
 */
 define('APP_NAME', '');
 define('APP_PATH', './../app/');
-define('APP_DEBUG',TRUE);
+define('APP_DEBUG', FALSE);
 if( !APP_DEBUG )
 {
 	//屏蔽PHP错误信息
