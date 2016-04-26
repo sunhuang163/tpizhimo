@@ -9,6 +9,18 @@
 			<div class="row">
 			   <include file="Public:left_menu" />
 				<div class="span10">
+					<p>
+						<ul class="breadcrumb">
+							<li><a href="{:U('/Admin/Caiji')}">采集管理</a> <span class="divider">/</span></li>
+							<li>
+								<a href="{:U('/Admin/Caiji/caiji',array('key'=>$modelkey))}">采集列表</a>
+								<span class="divider">/</span>
+							</li>
+							<li class="active">
+								<b>{$novelData.title}</b>
+							</li>
+						</ul>
+					</p>
 					<h5>
 						<form class="form-inline">
 							<span class="pull-left">
@@ -76,7 +88,53 @@
 	var novelURL = '{$novelURL}';
 	var novelData = {$novelData|json_encode};
 	var Modelkey = '<php> echo $modelkey;</php>';
+	var lastCnt = 0 ;
 	var isRun = false;
+
+	function caiji_list_content( _urls , _nid )
+	{
+		if( _urls && _urls.length > 0 )
+		{
+			var nurl = _urls.shift();
+			var _obj = $("a[data-url='"+nurl+"']");
+			$(_obj).html("...加载中...");
+			$(_obj).removeClass("btn-aj-parse");
+			var cchapter_data = {key:Modelkey,url:nurl,nid:_nid,op:'content'};
+			$.ajax({
+					url: "{:U('Admin/Caiji/Caiji')}",
+					data:cchapter_data,
+					type: "POST",
+					dataType:'json',
+					success:function( d) {
+						if( parseInt( d.rcode ) > 0)
+						{
+							lastCnt = 0;
+							$(_obj).html("<i class='icon-ok'></i>解析成功");
+							$(_obj).css("color","green");
+						}
+						else
+						{
+							lastCnt++;
+							$(_obj).css("color","red");
+							if( lastCnt < 3 )
+							{
+								$(_obj).html("<i class='icon-remove'></i>即将再次解析");
+								_urls.unshift( nurl );
+							}
+							else
+								$(_obj).html("<i class='icon-remove'></i>解析失败");
+						}
+						caiji_list_content( _urls, _nid );
+					},
+					error:function(e)
+					{
+						isRun = false;
+						alert("ajax请求发生错误");
+				} });
+		}
+		else
+			isRun = false;
+	}
 
 	function caiji_content( _url, _nid )
 	{
@@ -160,7 +218,20 @@
        			/*该片小说已经入库，只需要采集章节内容*/
        			else
        			{
-       				//
+       				var urls = [];
+       				$('.btn-aj-parse').each(function(){
+       					urls.push( $(this).attr('data-url') );
+       				});
+       				if( urls && urls.length>1)
+       				{
+       					isRun = true;
+       					caiji_list_content( urls, novelData.nid );
+       				}
+       				else
+       				{
+       					alert("需要采集的内容为空");
+       					return false;
+       				}
        			}
        		}
        });

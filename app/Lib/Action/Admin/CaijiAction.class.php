@@ -145,22 +145,16 @@ class CaijiAction extends BaseAction
                             $res['data'] = $p;
                         }
                         else
-                        {
                             $res['msg'] = $caijiRes['msg'];
-                        }
                     }
                 }
                 else if( 'chapter' == $op )
                 {
                 	$url = isset( $_POST['url']) ? trim( $_POST['url']) : '';
                     if( !$Mcaiji )
-                    {
                         $res['msg'] = "采集模块不存在";
-                    }
                     else if(!$url )
-                    {
                     	$res['msg'] = "参数提交错误";
-                    }
                     else
                     {
 						$novelRes = FALSE;
@@ -267,9 +261,7 @@ class CaijiAction extends BaseAction
                     //解析小说的具体章节信息
                     $url = isset( $_POST['url']) ? trim( $_POST['url']) : '';
                       if( !$Mcaiji || !$url )
-                    {
                         $res['msg'] = "提交参数错误或者采集模块不存在";
-                    }
                     else
                     {
                         $Mcontent = D("Content");
