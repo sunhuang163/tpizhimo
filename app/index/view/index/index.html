@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{$webinfo.seotitle}</title>
+    <meta name="keywords" content="{$webinfo.seokey}" />
+    <meta name="description" content="{$webinfo.seodesc}" />
+    {include file="Public:header"/}
+</head>
+<body>
+<div class="wrapper">
+    {include file="Public:header_top_warn" /}
+    {include file="Public:nav" /}
+    {php}
+        $dhot = array();
+        $dpic = array();
+        $wheres = array();
+        $wheres['rtype'] = ['eq', app\common\model\Hot::HOT_HOME_TXT];
+        $wheres['ncid'] = ['eq' , 0];
+        $dhotids = \think\Db::name("recommend")->field("nid")->where( $wheres )->order('ord','asc')->limit('5')->select();
+        $arrs = array();
+        foreach( $dhotids  as $v)
+        {
+            $arrs[] = $v['nid'];
+        }
+        $arrs = implode(",", $arrs);
+        $dhot = ff_mysql_novel('ids:'.$arrs.';limit:5');
+
+
+        $wheres['rtype'] = ['eq' , app\common\model\Hot::HOT_HOME_PIC];
+        $dpicids = \think\Db::name("recommend")->field("nid")->where( $wheres )->order("ih_recommend.ord","ASC")->limit("4")->select();
+        $arrs = array();
+        foreach( $dpicids  as $v)
+        {
+            $arrs[] = $v['nid'];
+        }
+        $arrs = implode(",", $arrs);
+        $dpic = ff_mysql_novel('ids:'.$arrs.';limit:4');
+    {/php}
+    <div class="ui-container">
+        <div class="ui-content">
+            <div class="ui-block ui-one-block">
+                <h4 class="title">热门推荐</h4>
+                <div class="index-hot">
+                    {volist name="dhot" id="vo"}
+                    <div class="hot-item">
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img   src="{$vo.novel_picurl_small}" width="65" height="85" alt="{$vo.title}" >
+                            <div class="info">
+                                <h4>{$vo.title|msubstr=0,10,true}</h4>
+                                <span>{$vo.ndesc|msubstr=0,27,true}</span>
+                            </div>
+                            </a>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+            <div class="ui-block ui-three-block">
+                <h4 class="title title-border">  推荐图书 </h4>
+                <div class="index-tuijian">
+                    {php}
+                        $homeTuijian = $dpic ?? [];
+                        unset( $dpic[0]);
+                        if( $homeTuijian ){
+                    {/php}
+                    <div class="itemfirst">
+                        <a href="{$vo.novel_url}" target="_blank" >
+                           <img width="150" height="200" alt="{$homeTuijian.title}"   class="cover" src="{$homeTuijian.novel_picurl}" alt="{$homeTuijian.cate_name}:{$homeTuijian.title}">
+                        </a>
+                        <h3>
+                            <a href="{$homeTuijian.novel_url}"  alt="{$homeTuijian.title}"   target="_blank">{$homeTuijian.title|msubstr=0,10,true}</a>
+                        </h3>
+                        <p> {$homeTuijian.ndesc|msubstr=0,85,true} </p>
+                        <span>作者:{$homeTuijian.author}</span> <br/>
+                        <span>类别:{$homeTuijian.cate_name}</span> <br/>
+                        <span>最后更新:{$homeTuijian.utime|date='Y-m-d H:i',###}</span> <br/>
+                    </div>
+                    {php} } {/php}
+
+                    <div class="clear"></div>
+                    <ol class="ui-list">
+                    {volist name="dpic" id="vo"}
+                        <li>
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}:{$vo.title}">
+                            </a>
+                            <h2>
+                                <a href="{$vo.novel_url}" target="_blank">{$vo.title|msubstr=0,10,true}</a>
+                            </h2>
+                            <span> {$vo.ndesc|msubstr=0,70,true} </span>
+                        </li>
+                    {/volist}
+                    </ol>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="ui-four-block ui-block">
+                <h4 class="title title-white bg-blue title-border">实时更新</h4>
+                {php}
+                     $dlast = ff_mysql_novel('order:utime desc;limit:10');
+                {/php}
+                <ol class="ui-list">
+                    {volist name="dlast" id="vo"}
+                        <li>
+                            <a href="{$vo.novel_url}" target="_blank">
+                                <img    src="{$vo.novel_picurl_small}" width="65" height="80" alt="{$vo.title}" title="{$vo.cate_name}">
+                            </a>
+                            <h2>
+                                <a target="_blank" href="{$vo.novel_url}"  >{$vo.title}</a>
+                                <span>更新至</span>
+                                {$vo.novel_last_url}
+                            </h2>
+                            <span>
+                                 {$vo.ndesc|msubstr=0,78,true}
+                            </span>
+                            <p>
+                                <span>类别：{$vo.cate_name}</span>
+                                <span>作者：{$vo.author}</span>
+                                <span>更新时间：{$vo.utime|date='Y-m-d',###}</span>
+                             </p>
+                        </li>
+                    {/volist}
+                </ol>
+                <div class="more"  >
+                    <a href="{:url('Home/index/update')}">查看更多...</a>
+                </div>
+            </div>
+        </div>
+        <div class="ui-sidebar">
+            <div class="ui-box" style="margin-top:0px;">
+                <include file="Public:nav_search"/>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">本周人气小说</h4>
+                <ul class="rank">
+                    {php}
+                        $sideHot = ff_mysql_novel('order:hit_week desc;limit:10');
+                    {/php}
+                    {volist name="sideHot" id="vo"}
+                        <a href="{$vo.novel_url}" target="_blank"><i>{$vo.hit_month|default=0}人读过</i>{$vo.title}</a>
+                    {/volist}
+                </ul>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">本月人气小说</h4>
+                <ul class="rank">
+                    {php}
+                        $sideHotm = ff_mysql_novel('field:title;order:hit_month desc;limit:10');
+                    {/php}
+                    {volist name="sideHotm" id="vo"}
+                        <a href="{$vo.novel_url}" target="_blank"><i>{$vo.hit_month|default=0}人读过</i>{$vo.title}</a>
+                    {/volist}
+                </ul>
+            </div>
+            <div class="ui-box">
+                <h4 class="title">受欢迎作家</h4>
+                    {php}
+                        $sideAuthor = ff_mysql_novel('field:distinct(author);order:hit_all desc;limit:15');
+                    {/php}
+                <div class="ui-box-author">
+                    {volist name="sideAuthor" id="vo"}
+                        <a href="/search/{$vo.author}" target="_blank" >{$vo.author}</a>
+                    {/volist}
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"> </div>
+        {include file="Public:footer"/}
+    </div>
+</body>
+</html>

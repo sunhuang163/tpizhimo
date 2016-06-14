@@ -1,0 +1,46 @@
+{include file="Public:header" /}
+	 <title>评论管理</title>
+     {include file="Public:header_css" /}
+	</head>
+	<body>
+		{include file="Public:top_nav" /}
+		<div class="container" id="body-content">
+			<div class="row">
+			   {include file="Public:left_menu" /}
+				<div class="span10">
+					<h4>
+						评论管理
+					</h4>
+				<p class="row">
+				   <form class="form-inline " action="">
+				   所属小说:
+				   <input type="hidden" name="novles" id="novels"/>
+				   <input type="text" name="novels-name" id="novels-name"  class="input-large">
+				   包含内容:
+					<input type="text" name="seach-title" class="input-large"/>
+					时间:
+					<input type="text" name="search-time" class="input-medium"/>
+					<button type="submit" class="btn">查询</button>
+				  </form>
+				</p>
+		      <if condition="$dlist neq null ">
+					<ul class="messages">
+					  {volist name="dlist" id="vo"}
+						<li class="well">
+							<p class="message">
+							   {$vo.msg}
+							</p>
+							<span class="meta">小说标题<em>于&nbsp;&nbsp;{$vo.ctime}&nbsp;&nbsp;</em> by &nbsp;&nbsp;<em>评论人</em></span>
+						</li>
+					  {/volist}
+					</ul>
+					 <div class="pagination">
+						 {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				   <else/>
+				   <p class="alert alert-warning">内容为空</p>
+				   </if>
+				</div>
+		 </div>
+{include file="Public:footer_js" /}
+{include file="Public:footer" /}

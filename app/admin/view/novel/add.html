@@ -1,0 +1,113 @@
+{include file="Public:header" /}
+	 <title>添加小说</title>
+     {include file="Public:header_css" /}
+	 {include file="Public:footer_js" /}
+	</head>
+	<body>
+		{include file="Public:top_nav" /}
+		<div class="container" id="body-content">
+			<div class="row">
+				{include file="Public:left_menu" /}
+			 <div class="span10">
+					<ul class="breadcrumb">
+						<li>
+					     <a href="{:url('/Admin/')}">首页</a> <span class="divider">/</span>
+						</li>
+						<li>
+							<a href="{:url('/Admin/Novel/')}">小说管理</a> <span class="divider">/</span>
+						</li>
+						<li class="active">
+							添加新的小说
+						</li>
+					</ul>
+					<div class="row">
+						<div class="span9">
+						 <form id="edit-profile" class="form-horizontal" method="POST" action="{:url('/Admin/Novel/add')}">
+						   <input type="hidden" name="ncomm" value="0">
+						   <fieldset>
+							<div class="control-group">
+								<label class="control-label"  for="title">名称</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" id="title" name="title"  />
+									&nbsp;&nbsp;显示:<input type="checkbox" id="nstate" value="0" checked="checked">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="author">作者</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="author" id="author"  />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="tags">标签</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="tags" id="tags"  />
+									<p class="help-block">标签用"|" 隔开</p>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="pic">图片</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="pic" id="pic"  />&nbsp;&nbsp;
+									<span id="swfupload" class="btn"></span>
+									{:widget('wall/upload',['BTN_W'=>60,'target'=>'pic','preview'=>'imgclass'])}
+									<br/>
+									<img src="{$ADMIN_PATH}nopic.gif" width="120px" height="60px" id="imgclass">
+									<br/>
+								</div>
+							</div>
+							 <div class="control-group">
+								<label class="control-label" for="url">小说地址</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="url" id="url"  />
+									<p class="help-block">如果为空，则为小说名称的拼音.</p>
+								</div>
+							</div>
+							 <div class="control-group">
+								<label class="control-label" for="newurl">新访问地址</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge" name="newurl" id="newurl"  />
+									<p class="help-block">可以为空，为文章迁移做准备.</p>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="ncid">分类</label>
+								<div class="controls">
+		                            <select name="ncid"  id="ncid">
+									  {volist name="nclass" id="vo"}
+									   <option value="{$vo.ncid}">{$vo.name}</option>
+									  {/volist}
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="ndesc">简介</label>
+								<div class="controls">
+									<textarea  name="ndesc" id="ndesc" rows="4" style="width:480px;"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="zimu">字母</label>
+								<div class="controls">
+									<input type="text" class="input-large" name="zimu" id="zimu"  />
+								</div>
+							</div>
+                            <div class="control-group">
+								<label class="control-label" for="uptxt">更新信息</label>
+								<div class="controls">
+									<input type="text" class="input-xxlarge"  name="uptxt" id="uptxt"  />
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-primary">添加</button>
+								&nbsp;&nbsp;
+								<a href="{:cookie('LURL')}" class="btn btn-default">返回</a>
+							</div>
+						</fieldset>
+					   </form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{include file="Public:footer" /}

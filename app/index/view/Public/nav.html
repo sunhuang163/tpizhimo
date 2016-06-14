@@ -1,0 +1,17 @@
+<div class="ui-menu">
+    <p>
+        <a href="/rank.html">排行榜</a>┊
+        <a href="/finish.html">最近完结</a>┊
+        <a href="/update.html">最近更新</a>
+    </p>
+    <ul>
+    <li  {php} if( intval($ncid) == 0 || !$ncid )  { echo ' class="active" '; } {/php}  >
+        <a  href="/"  >首页</a>
+    </li>
+    {volist name="menus"  id="vo"}
+        <li   {php} if( intval($ncid) == intval($vo['id']) )  { echo ' class="active" '; } {/php}  >
+            <a  href="{$vo.url}"  >{$vo.name}</a>
+        </li>
+    {/volist}
+    </ul>
+</div>

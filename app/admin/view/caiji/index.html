@@ -1,0 +1,55 @@
+{include file="Public:header" /}
+	 <title>采集管理</title>
+     {include file="Public:header_css" /}
+	 {include file="Public:footer_js" /}
+	</head>
+	<body>
+		{include file="Public:top_nav" /}
+		<div class="container" id="body-content">
+			<div class="row">
+			   {include file="Public:left_menu" /}
+				<div class="span10">
+					<h5>
+						<a class="btn btn-mini btn-danger empty-cache" href="{:url('/admin/Caiji/trash')}"  alt="全部" title="清空当前的缓存情况">
+							清空缓存内容<i class="icon-trash"></i>
+						</a>
+					</h5>
+					<table class="table table-bordered table-striped td-a">
+						<thead>
+							<tr>
+								<th>采集源</th>
+								<th>地址</th>
+								<th>列表页</th>
+								<th>详情页</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{volist name="orgs" id="vo"}
+							<tr>
+								<td>{$vo.name}</td>
+								<td><a href="{$vo.source}" target="_blank">{$vo.source}</a></td>
+								<td> <span class="badge <if condition="$vo['list']"> badge-success </if>">{$vo.list}</span> </td>
+								<td> <span class="badge <if condition="$vo['novel']"> badge-success </if>">{$vo.novel}</span> </td>
+								<td>
+									<a  href="{:url('/Admin/Caiji/caiji',array('key'=>$vo['key']))}">查看内容</a>
+								</td>
+							</tr>
+							{/volist}
+						</tbody>
+					</table>
+				</div>
+		</div>
+<script type="text/javascript">
+$( function(){
+	$('.empty-cache').click( function( e )
+		{
+			if( !confirm('确定删除采集缓存文件?') )
+			{
+				e.preventDefault();
+				return false;
+			}
+		});
+});
+</script>
+{include file="Public:footer" /}

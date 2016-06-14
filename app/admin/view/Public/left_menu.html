@@ -1,0 +1,55 @@
+<div class="span2">
+		 <div class="well" style="padding: 8px 0;">
+			  <ul class="nav nav-list">
+				 <li class="nav-header">
+					 izhimo
+				  </li>
+				  <li  {if condition="$aumodle eq 'index'"} class="active" {/if}>
+					 <a href="{:url('/admin/Index')}"><i class="{if condition="$aumodle eq 'index'"} icon-white {/if} icon-home"></i> 首页</a>
+				  </li>
+				  	  <li {if condition="$aumodle eq 'nclass'"} class="active"  {/if} >
+					 <a href="{:url('/admin/Nclass')}"><i class=" {if condition="$aumodle eq 'nclass'"} icon-white {/if} icon-folder-open"></i>分类管理</a>
+				  </li>
+				  	<li {if condition="$aumodle eq 'hot'"} class="active"  {/if} >
+					 <a href="{:url('/admin/Hot')}"><i class=" {if condition="$aumodle eq 'hot'"} icon-white {/if} icon-heart"></i>推荐管理</a>
+				  </li>
+				  <li {if condition="$aumodle eq 'novel'"} class="active"  {/if} >
+					 <a href="{:url('/admin/Novel')}"><i class=" {if condition="$aumodle eq 'novel'"} icon-white {/if} icon-barcode"></i>小说管理</a>
+				  </li>
+				  <li  {if condition="$aumodle eq 'caiji'"} class="active"  {/if}>
+					 <a href="{:url('/admin/Caiji')}"><i class=" {if condition="$aumodle eq 'caiji'"}  icon-white {/if}icon-check"></i>采集管理</a>
+				  </li>
+				  <li  {if condition="$aumodle eq 'cm'"} class="active"  {/if}>
+				    <a href="{:url('/admin/Cm')}"><i class=" {if condition="$aumodle eq 'cm'"} icon-white {/if} icon-envelope"></i>评论管理</a>
+				   </li>
+				   <li  {if condition="$aumodle eq 'att'"} class="active"  {/if}>
+					 <a href="{:url('/admin/Att')}"><i class=" {if condition="$aumodle eq 'att'"} icon-white {/if} icon-file"></i>附件管理</a>
+				   </li>
+				   <li  {if condition="$aumodle eq 'user'"} class="active"  {/if}>
+					 <a href="{:url('/admin/User')}"><i class=" {if condition="$aumodle eq 'user'"}  icon-white {/if}icon-user" ></i>用户管理</a>
+				   </li>
+				   <li  {if condition="$aumodle eq 'db'"} class="active"  {/if}>
+					 <a href="{:url('/admin/Db')}"><i class=" {if condition="$aumodle eq 'db'"} icon-white {/if} icon-road"></i> 数据库维护</a>
+				   </li>
+				    <li  {if condition="$aumodle eq 'tag'"} class="active"  {/if}>
+					 <a href="{:url('/admin/Tag')}"><i class=" {if condition="$aumodle eq 'tag'"} icon-white {/if} icon-tags"></i> 标签管理</a>
+				   </li>
+				   <li class="nav-header">
+					 后台系统
+				   </li>
+				   <li  {if condition="($aumodle eq 'admin') AND ($auaction eq 'users')"} class="active"  {/if}>
+					 <a href="{:url('/admin/Admin/users')}"><i class="{if condition="($aumodle eq 'admin') AND ($auaction eq 'users')"}  icon-white  {/if} icon-th-list"></i>后台帐号</a>
+				   </li>
+				   <li {if condition="($aumodle eq 'admin') AND ($auaction eq 'setting')"} class="active"  {/if}>
+					 <a href="{:url('/admin/Admin/setting')}"><i class="{if condition="($aumodle eq 'admin') AND ($auaction eq 'setting')"} icon-white  {/if} icon-cog"></i>系统设置</a>
+				   </li>
+				   <li {if condition="($aumodle eq 'admin') AND ($auaction eq 'logindex')"} class="active"  {/if}>
+					 <a href="{:url('/admin/Admin/logindex')}"><i class="{if condition="($aumodle eq 'admin') AND ($auaction eq 'logindex')"} icon-white  {/if} icon-calendar"></i>操作日志</a>
+				   </li>
+					<li class="divider"></li>
+				    <li>
+						<a href="http://www.izhimo.com" target="_blank"><i class="icon-info-sign"></i>访问首页</a>
+				   </li>
+			  </ul>
+	      </div>
+  </div>

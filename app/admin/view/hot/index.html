@@ -1,0 +1,129 @@
+{include file="Public:header" /}
+	 <title>前台文章推荐内容管理</title>
+     {include file="Public:header_css" /}
+	 {include file="Public:footer_js" /}
+	</head>
+	<body>
+		{include file="Public:top_nav" /}
+		<div class="container" id="body-content">
+			<div class="row">
+			    {include file="Public:left_menu" /}
+				<div class="span10">
+				 <ul class="nav nav-tabs">
+		        <li {if condition="isset($txt) AND $txt "} class="active" {/if}>
+			      <a href="{:url('/admin/Hot/index')}">首页热门</a>
+				</li>
+				<li {if condition="isset($pic) AND $pic "} class="active" {/if}>
+			      <a href="{:url('/admin/Hot/index',['rtype'=>'pic'])}">首页图片</a>
+				</li>
+			    <li {if condition="isset($cate) AND $cate "} class="active" {/if}>
+				 <a href="{:url('/admin/hot/cate')}">分类推荐</a>
+			   </li>
+            </ul>
+					<table class="table table-bordered table-condensed table-striped">
+						<thead>
+							<tr>
+								<th class="span1"><label class="checkbox"><input type="checkbox" id="chkall" title="选择"/></label></th>
+								<th>小说名称</th>
+								<th> 类别</th>
+								<th> 作者 </th>
+								<th> 上次更新 </th>
+								<th> 操作 </th>
+							</tr>
+						</thead>
+						<tbody>
+						   {volist name="hotlist" id="vo"}
+							<tr>
+							    <td><label><input name="ids" type="checkbox" value="{$recommend.id}"></label></td>
+							    <td>{$vo.ord}.{$vo.title}</td>
+								<td>
+								   {if condition="$vo['rtype'] eq 'txt'"} 首页热门
+								{elseif condition="$vo['rtype'] eq 'pic'"/} 首页图片
+								{else/}{$vo.name}{/if}
+								</td>
+								<td>{$vo.author}</td>
+								<td>{$vo.utime|date='Y-m-d H:i:s',###}</td>
+								<td >
+								   <button title="删除" data-id="{$vo.recommend_id}">
+								     <i class="icon-remove"></i>
+								   </button>
+								   &nbsp;
+								   <button title="向上移动" data-id="{$vo.recommend_id}" data-ord="{$vo.ord}" data-ncid="{$vo.ncid}" data-r="{$vo.rtype}">
+								     <i class="icon-arrow-up"></i>
+								   </button>
+								   &nbsp;
+								   <button title="向下移动" data-id="{$vo.recommend_id}" data-ord="{$vo.ord}" data-ncid="{$vo.ncid}" data-r="{$vo.rtype}">
+								     <i class="icon-arrow-down"></i>
+								   </button>
+								 </td>
+							</tr>
+					       {/volist}
+						</tbody>
+					</table>
+					 <div class="pagination">
+					  {$pagestr}共有 {$call} 条数据，当前第 {$pnow} 页
+					</div>
+				</div>
+			</div>
+		</div>
+<script type="text/javascript">
+$(function(){
+   $(".icon-remove").click(function(e){
+      var nid = parseInt($(this).parent().attr('data-id') );
+	  if(confirm("是否删除该推荐小说?"))
+	  {
+	    $.ajax({
+				 type: "POST",
+                 url: "{:url('/admin/hot/delete')}" ,
+				 data:{rid:nid},
+                 dataType: "json",
+                 success: function(data){
+					 if( data.rcode )
+					 {
+					  location.reload();
+					 }
+					 else{
+					  alert( data.msg );
+					 }
+			      },
+				 error:function( data ){
+					 alert('Ajax请求错误');
+				 }
+			  });
+	  }
+	  else{
+	  return false;
+	  }
+   });
+
+   $('#chkall').click(function(){
+      $('[name=ids]:checkbox').attr("checked",$(this).attr('checked')==undefined ? false:true);
+   });
+
+   $('.btn_delete').click(function(){
+      var _arr = new Array();
+	  $("input[name='ids']").each(function(){
+	     if( $(this).attr('checked')){
+		  _arr.push($(this).val() );
+		 }
+	  });
+	 if( _arr.length > 0){
+	   if( confirm("删除选中记录")){
+	     del( _arr );
+	   }
+	 }
+   });
+
+  $('.a_delete').click(function(){
+    var _ids = new Array();
+	_ids.push( $(this).attr('rel'));
+     if( confirm("删除选中记录")){
+	     del( _ids );
+	   }
+  });
+
+});
+
+
+</script>
+{include file="Public:footer" /}

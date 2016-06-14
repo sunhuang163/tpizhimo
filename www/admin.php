@@ -7,6 +7,6 @@
 session_start();
 header('Cache-control:private,must-revalidate');
 $_SESSION['_from_admin_login_']   = TRUE ;
-$location = "/index.php?g=Admin&m=login&a=index";
+$location = "/index.php/admin/login/index";
 header("Location:".$location);
 ?>
